@@ -1,0 +1,22 @@
+create table if not exists companies (
+  id uuid primary key default gen_random_uuid(),
+  slug text unique not null,
+  company text not null,
+  platform text,
+  category text,
+  summary text,
+  philosophy text,
+  pre_death_planning text,
+  account_deletion text,
+  memorial_account text,
+  data_download text,
+  family_access text,
+  court_order text,
+  required_docs jsonb default '[]'::jsonb,
+  available jsonb default '[]'::jsonb,
+  unavailable jsonb default '[]'::jsonb,
+  limitations jsonb default '[]'::jsonb,
+  official_links jsonb default '[]'::jsonb,
+  last_updated date,
+  created_at timestamptz default now()
+);
