@@ -7,6 +7,7 @@ import Link from "next/link";
 const availableServices = [
   { name: "카카오", slug: "kakao", logo: "/logos/kakao.webp", keywords: ["카카오", "kakao", "카카오톡"] },
   { name: "네이버", slug: "naver", logo: "/logos/naver.svg", keywords: ["네이버", "naver", "네이버 포스트"] },
+  { name: "삼성", slug: "samsung", logo: "/logos/samsung.svg", keywords: ["삼성", "samsung", "갤럭시", "galaxy"] },
   { name: "인스타그램", slug: "instagram", logo: "/logos/instagram.webp", keywords: ["인스타그램", "instagram", "인스타", "threads", "스레드"] },
 ].sort((a, b) => a.name.localeCompare(b.name, "ko"));
 
