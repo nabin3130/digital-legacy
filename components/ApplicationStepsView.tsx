@@ -359,7 +359,7 @@ function EditorialStep({ step, index, journey }: { step: ApplicationStep; index:
           </div>
         )}
         <a className={`editorial-step-action action-${step.link_type}`} href={step.url} target="_blank" rel="noopener noreferrer">
-          {getActionLabel(step)} <span aria-hidden="true">↗</span>
+          <span className="action-label">{getActionLabel(step)}</span> <span aria-hidden="true">↗</span>
         </a>
       </div>
     </article>
@@ -379,7 +379,7 @@ function StepCard({ step, index }: { step: ApplicationStep; index: number }) {
           {step.description && <p>{step.description}</p>}
           {step.required_documents && <div className="required-documents"><strong>필요한 서류</strong><p>{step.required_documents}</p></div>}
         </div>
-        <span className="step-card-action">{getActionLabel(step)} <span aria-hidden="true">↗</span></span>
+        <span className="step-card-action"><span className="action-label">{getActionLabel(step)}</span> <span aria-hidden="true">↗</span></span>
       </article>
     </a>
   );
