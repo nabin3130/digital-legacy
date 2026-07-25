@@ -10,6 +10,7 @@ export const metadata = {
 const serviceMenu = [
   { name: "카카오", slug: "kakao", logo: "/logos/kakao.webp" },
   { name: "네이버", slug: "naver", logo: "/logos/naver.svg" },
+  { name: "삼성", slug: "samsung", logo: "/logos/samsung.svg" },
   { name: "인스타그램", slug: "instagram", logo: "/logos/instagram.webp" },
 ].sort((a, b) => a.name.localeCompare(b.name, "ko"));
 
