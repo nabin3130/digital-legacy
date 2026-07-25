@@ -1,1 +1,30 @@
-<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Google</title><path fill="#4285F4" d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/></svg>
+<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <title>Google</title>
+  <defs>
+    <clipPath id="google-g-shape">
+      <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/>
+    </clipPath>
+    <radialGradient id="google-red" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(7 4) rotate(42) scale(15)">
+      <stop offset="0" stop-color="#ff3d3d"/>
+      <stop offset=".72" stop-color="#ff3d3d" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="google-yellow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(3 15) rotate(-12) scale(12)">
+      <stop offset="0" stop-color="#ffd427"/>
+      <stop offset=".75" stop-color="#ffd427" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="google-green" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(11 22) rotate(-78) scale(13)">
+      <stop offset="0" stop-color="#00ad63"/>
+      <stop offset=".78" stop-color="#00ad63" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="google-blue" x1="9" y1="4" x2="24" y2="18" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3f8cff"/>
+      <stop offset="1" stop-color="#176bef"/>
+    </linearGradient>
+  </defs>
+  <g clip-path="url(#google-g-shape)">
+    <rect width="24" height="24" fill="url(#google-blue)"/>
+    <rect width="24" height="24" fill="url(#google-red)"/>
+    <rect width="24" height="24" fill="url(#google-yellow)"/>
+    <rect width="24" height="24" fill="url(#google-green)"/>
+  </g>
+</svg>
