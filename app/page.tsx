@@ -9,6 +9,9 @@ const availableServices = [
   { name: "네이버", slug: "naver", logo: "/logos/naver.svg", keywords: ["네이버", "naver", "네이버 포스트"] },
   { name: "삼성", slug: "samsung", logo: "/logos/samsung.svg", keywords: ["삼성", "samsung", "갤럭시", "galaxy"] },
   { name: "인스타그램", slug: "instagram", logo: "/logos/instagram.webp", keywords: ["인스타그램", "instagram", "인스타", "threads", "스레드"] },
+  { name: "구글", slug: "google", logo: "/logos/google.svg", keywords: ["구글", "google", "gmail", "유튜브", "youtube"] },
+  { name: "메타", slug: "meta", logo: "/logos/meta.svg", keywords: ["메타", "meta", "페이스북", "facebook"] },
+  { name: "애플", slug: "apple", logo: "/logos/apple.svg", keywords: ["애플", "apple", "아이클라우드", "icloud"] },
 ].sort((a, b) => a.name.localeCompare(b.name, "ko"));
 
 export default function Home() {
