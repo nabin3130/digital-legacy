@@ -12,6 +12,9 @@ const serviceMenu = [
   { name: "네이버", slug: "naver", logo: "/logos/naver.svg" },
   { name: "삼성", slug: "samsung", logo: "/logos/samsung.svg" },
   { name: "인스타그램", slug: "instagram", logo: "/logos/instagram.webp" },
+  { name: "구글", slug: "google", logo: "/logos/google.svg" },
+  { name: "메타", slug: "meta", logo: "/logos/meta.svg" },
+  { name: "애플", slug: "apple", logo: "/logos/apple.svg" },
 ].sort((a, b) => a.name.localeCompare(b.name, "ko"));
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
