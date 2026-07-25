@@ -572,13 +572,16 @@
     font-size: 15px;
     font-weight: 700;
     line-height: 1.2;
-    text-decoration: underline;
-    text-underline-offset: 5px;
     transition:
       color 0.18s ease,
       gap 0.18s ease;
   }
   
+  .editorial-step-action .action-label {
+    text-decoration: underline;
+    text-underline-offset: 5px;
+  }
+
   .editorial-step-action:hover {
     gap: 10px;
     color: var(--accent);
@@ -718,6 +721,9 @@
     gap: 7px;
     font-size: 16px;
     font-weight: 700;
+  }
+
+  .step-card-action .action-label {
     text-decoration: underline;
     text-underline-offset: 5px;
   }
