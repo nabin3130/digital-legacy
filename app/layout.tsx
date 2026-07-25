@@ -2,26 +2,79 @@ import "./globals.css";
 import Link from "next/link";
 
 export const metadata = {
-  title: "망각인프라",
-  description: "디지털 유산 정책과 신청 절차를 한곳에서 비교합니다."
+  title: "계정정리",
+  description:
+    "생전 설정부터 사후 처리 방법, 필요한 서류와 공식 신청 경로까지 한곳에서 안내합니다.",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+const serviceMenu = [
+  {
+    name: "카카오",
+    slug: "kakao",
+    logo: "/logos/kakao.webp",
+  },
+  {
+    name: "네이버",
+    slug: "naver",
+    logo: "/logos/naver.svg",
+  },
+  {
+    name: "인스타그램",
+    slug: "instagram",
+    logo: "/logos/instagram.webp",
+  },
+].sort((a, b) => a.name.localeCompare(b.name, "ko"));
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="ko">
       <body>
         <header className="header">
           <div className="container nav">
-            <Link href="/"><strong>망각인프라</strong></Link>
-            <nav className="navlinks">
-              <Link href="/">회사</Link>
+            <Link className="brand" href="/">
+              계정정리
+            </Link>
+
+            <nav className="navlinks" aria-label="주요 메뉴">
+              <div className="company-menu">
+                <Link className="company-menu-trigger" href="/">
+                  서비스
+                </Link>
+
+                <div className="company-dropdown">
+                  {serviceMenu.map((service) => (
+                    <Link
+                      className="company-dropdown-item"
+                      href={`/company/${service.slug}`}
+                      key={service.slug}
+                    >
+                      <span className="company-dropdown-logo">
+                        <img src={service.logo} alt="" />
+                      </span>
+
+                      <strong>{service.name}</strong>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
               <Link href="/compare">비교</Link>
-              <Link href="/guide">가이드</Link>
             </nav>
           </div>
         </header>
+
         {children}
-        <footer className="footer"><div className="container">정책은 변경될 수 있습니다. 신청 전 공식 플랫폼 페이지를 반드시 확인하세요.</div></footer>
+
+        <footer className="footer">
+          <div className="container">
+            정책은 변경될 수 있습니다. 신청 전 공식 플랫폼 페이지를 반드시
+            확인하세요.
+          </div>
+        </footer>
       </body>
     </html>
   );
