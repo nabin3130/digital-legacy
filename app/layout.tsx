@@ -5,6 +5,9 @@ export const metadata = {
   title: "계정정리",
   description:
     "생전 설정부터 사후 처리 방법, 필요한 서류와 공식 신청 경로까지 한곳에서 안내합니다.",
+  other: {
+    "google-adsense-account": "ca-pub-XXXXXXXXXXXXX", // 👈 여기에 본인 ca-pub-숫자16자리 입력!
+  },
 };
 
 const serviceMenu = [
