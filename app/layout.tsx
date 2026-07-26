@@ -8,7 +8,7 @@ export const metadata = {
   description:
     "생전 설정부터 사후 처리 방법, 필요한 서류와 공식 신청 경로까지 한곳에서 안내합니다.",
   other: {
-    "google-adsense-account": "ca-pub-XXXXXXXXXXXXX", // 👈 여기에 본인 ca-pub-숫자16자리 입력!
+    "google-adsense-account": "ca-pub-2192845166334509", // 👈 여기에 본인 ca-pub-숫자16자리 입력!
   },
 =======
   title: "망각인프라 — 디지털 유산 안내",
