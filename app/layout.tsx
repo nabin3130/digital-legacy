@@ -1,38 +1,47 @@
 import "./globals.css";
 import "./brand.css";
 import Link from "next/link";
+import Script from "next/script"; // 👈 추가된 부분
 
 export const metadata = {
-<<<<<<< HEAD
-  title: "계정정리",
-  description:
-    "생전 설정부터 사후 처리 방법, 필요한 서류와 공식 신청 경로까지 한곳에서 안내합니다.",
-  other: {
-    "google-adsense-account": "ca-pub-2192845166334509", // 👈 여기에 본인 ca-pub-숫자16자리 입력!
-  },
-=======
-  title: "망각인프라 — 디지털 유산 안내",
+  title: "망각인프라 – 디지털 유산 안내",
   description: "흩어진 디지털 기록 사이에서, 다음 단계를 찾도록.",
->>>>>>> 7e28a9144faf65de82149b5fe70feeeb805f458d
 };
 
 const serviceMenu = [
-  { name: "카카오", slug: "kakao", logo: "/logos/kakao.webp" },
-  { name: "네이버", slug: "naver", logo: "/logos/naver.svg" },
-  { name: "삼성", slug: "samsung", logo: "/logos/samsung.svg" },
-  { name: "인스타그램", slug: "instagram", logo: "/logos/instagram.webp" },
-  { name: "구글", slug: "google", logo: "/logos/google.svg" },
-  { name: "메타", slug: "meta", logo: "/logos/meta.svg" },
-  { name: "애플", slug: "apple", logo: "/logos/apple.svg" },
+  {
+    name: "카카오",
+    slug: "kakao",
+    logo: "/logos/kakao.webp",
+  },
+  {
+    name: "네이버",
+    slug: "naver",
+    logo: "/logos/naver.svg",
+  },
+  {
+    name: "인스타그램",
+    slug: "instagram",
+    logo: "/logos/instagram.webp",
+  },
 ].sort((a, b) => a.name.localeCompare(b.name, "ko"));
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="ko">
-      <head>
-        <meta name="google-adsense-account" content="ca-pub-2192845166334509" />
-      </head>
       <body>
+        {/* 구글 애드센스 자동 광고/인증 스크립트 */}
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2192845166334509"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+
         <header className="header">
           <div className="container nav">
             <Link className="brand" href="/" aria-label="망각인프라 홈">
