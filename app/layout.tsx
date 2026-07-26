@@ -29,6 +29,9 @@ const serviceMenu = [
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ko">
+      <head>
+        <meta name="google-adsense-account" content="ca-pub-2192845166334509" />
+      </head>
       <body>
         <header className="header">
           <div className="container nav">
