@@ -14,13 +14,52 @@ const availableServices = [
   { name: "애플", slug: "apple", logo: "/logos/apple.svg", keywords: ["애플", "apple", "아이클라우드", "icloud"] },
 ].sort((a, b) => a.name.localeCompare(b.name, "ko"));
 
+const INITIAL_KEYS = [
+  "r", "R", "s", "e", "E", "f", "a", "q", "Q", "t",
+  "T", "d", "w", "W", "c", "z", "x", "v", "g",
+];
+const VOWEL_KEYS = [
+  "k", "o", "i", "O", "j", "p", "u", "P", "h", "hk",
+  "ho", "hl", "y", "n", "nj", "np", "nl", "b", "m", "ml", "l",
+];
+const FINAL_KEYS = [
+  "", "r", "R", "rt", "s", "sw", "sg", "e", "f", "fr",
+  "fa", "fq", "ft", "fx", "fv", "fg", "a", "q", "qt", "t",
+  "T", "d", "w", "c", "z", "x", "v", "g",
+];
+
+function hangulToEnglish(value: string) {
+  return Array.from(value).map((character) => {
+    const code = character.charCodeAt(0);
+
+    if (code < 0xac00 || code > 0xd7a3) return character.toLowerCase();
+
+    const syllableIndex = code - 0xac00;
+    const initialIndex = Math.floor(syllableIndex / 588);
+    const vowelIndex = Math.floor((syllableIndex % 588) / 28);
+    const finalIndex = syllableIndex % 28;
+
+    return (
+      INITIAL_KEYS[initialIndex] +
+      VOWEL_KEYS[vowelIndex] +
+      FINAL_KEYS[finalIndex]
+    );
+  }).join("");
+}
+
 export default function Home() {
   const router = useRouter();
   const [query, setQuery] = useState("");
   const normalizedQuery = query.trim().toLowerCase();
   const searchResults = normalizedQuery
     ? availableServices.filter((service) =>
-        service.keywords.some((keyword) => keyword.toLowerCase().includes(normalizedQuery)),
+        service.keywords.some((keyword) => {
+          const normalizedKeyword = keyword.toLowerCase();
+          return (
+            normalizedKeyword.includes(normalizedQuery) ||
+            hangulToEnglish(normalizedKeyword).includes(normalizedQuery)
+          );
+        }),
       )
     : [];
 
