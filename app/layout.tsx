@@ -76,7 +76,6 @@ export default function RootLayout({
                     <Link className="company-dropdown-item" href={`/company/${service.slug}`} key={service.slug}>
                       <span className="company-dropdown-logo"><img src={service.logo} alt="" /></span>
                       <strong>{service.name}</strong>
-                      <span aria-hidden="true">→</span>
                     </Link>
                   ))}
                 </div>
