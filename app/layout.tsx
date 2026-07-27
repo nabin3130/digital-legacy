@@ -24,6 +24,26 @@ const serviceMenu = [
     slug: "instagram",
     logo: "/logos/instagram.webp",
   },
+  {
+    name: "구글",
+    slug: "google",
+    logo: "/logos/google.svg",
+  },
+  {
+    name: "애플",
+    slug: "apple",
+    logo: "/logos/apple.svg",
+  },
+  {
+    name: "메타",
+    slug: "meta",
+    logo: "/logos/meta.svg",
+  },
+  {
+    name: "삼성",
+    slug: "samsung",
+    logo: "/logos/samsung.svg",
+  },
 ].sort((a, b) => a.name.localeCompare(b.name, "ko"));
 
 export default function RootLayout({
