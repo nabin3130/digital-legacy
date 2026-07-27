@@ -40,8 +40,8 @@ export default function Home() {
           <div className="hero-copy">
             <p className="eyebrow">DIGITAL LEGACY NAVIGATOR / 01</p>
             <h1>
-              <span>흩어진 디지털 기록 사이에서,</span>
-              <span>다음 단계를 찾도록.</span>
+              <span>남겨진 디지털 기록과 추억,</span>
+              <span>어떻게 정리할지 안내합니다.</span>
             </h1>
             <p className="hero-description">
               생전 설정부터 사후 처리 방법, 필요한 서류와 공식 신청 경로까지
