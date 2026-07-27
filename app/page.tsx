@@ -49,7 +49,6 @@ export default function Home() {
             </p>
 
             <form className="company-search" onSubmit={handleSubmit}>
-              <span className="search-icon" aria-hidden="true">⌕</span>
               <input
                 className="search"
                 type="search"
