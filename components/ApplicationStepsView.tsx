@@ -1,12 +1,54 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import ViewListIcon from "@mui/icons-material/ViewList";
-import GridViewIcon from "@mui/icons-material/GridView";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
-import FolderSharedOutlinedIcon from "@mui/icons-material/FolderSharedOutlined";
-import ChecklistOutlinedIcon from "@mui/icons-material/ChecklistOutlined";
+
+type IconProps = { fontSize?: "small" };
+
+function AppIcon({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      width="20"
+      height="20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      {children}
+    </svg>
+  );
+}
+
+function ViewListIcon(_: IconProps) {
+  return <AppIcon><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01" /></AppIcon>;
+}
+
+function GridViewIcon(_: IconProps) {
+  return <AppIcon><rect x="4" y="4" width="6" height="6" /><rect x="14" y="4" width="6" height="6" /><rect x="4" y="14" width="6" height="6" /><rect x="14" y="14" width="6" height="6" /></AppIcon>;
+}
+
+function InfoOutlinedIcon(_: IconProps) {
+  return <AppIcon><circle cx="12" cy="12" r="9" /><path d="M12 11v5M12 8h.01" /></AppIcon>;
+}
+
+function PersonOutlineIcon(_: IconProps) {
+  return <AppIcon><circle cx="12" cy="8" r="3.5" /><path d="M5.5 20c.5-4 2.7-6 6.5-6s6 2 6.5 6" /></AppIcon>;
+}
+
+function FolderSharedOutlinedIcon(_: IconProps) {
+  return <AppIcon><path d="M3.5 6.5h6l2 2H20.5v10H3.5z" /><circle cx="13" cy="12" r="1.7" /><path d="M9.8 17c.4-1.8 1.5-2.8 3.2-2.8s2.8 1 3.2 2.8" /></AppIcon>;
+}
+
+function ChecklistOutlinedIcon(_: IconProps) {
+  return <AppIcon><path d="m4 6 1.5 1.5L8 5M11 6h9M4 12l1.5 1.5L8 11M11 12h9M4 18l1.5 1.5L8 17M11 18h9" /></AppIcon>;
+}
 
 export type ApplicationStep = {
   id: number;
