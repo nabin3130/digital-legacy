@@ -3,6 +3,10 @@
 import { useEffect, useMemo, useState } from "react";
 import ViewListIcon from "@mui/icons-material/ViewList";
 import GridViewIcon from "@mui/icons-material/GridView";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import FolderSharedOutlinedIcon from "@mui/icons-material/FolderSharedOutlined";
+import ChecklistOutlinedIcon from "@mui/icons-material/ChecklistOutlined";
 
 export type ApplicationStep = {
   id: number;
@@ -38,6 +42,7 @@ export default function ApplicationStepsView({
   postDeathSteps,
 }: Props) {
   const [view, setView] = useState<ViewMode>("list");
+  const [activeSection, setActiveSection] = useState("company-overview");
   const [isChecklistOpen, setIsChecklistOpen] = useState(false);
   const [activeJourney, setActiveJourney] = useState<Journey>("pre_death");
   const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
@@ -79,6 +84,25 @@ export default function ApplicationStepsView({
     localStorage.setItem(storageKey, JSON.stringify(checkedItems));
   }, [checkedItems, hasLoadedChecklist, storageKey]);
 
+  useEffect(() => {
+    const sections = ["company-overview", "pre-death", "post-death"]
+      .map((id) => document.getElementById(id))
+      .filter((section): section is HTMLElement => Boolean(section));
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible) setActiveSection(visible.target.id);
+      },
+      { rootMargin: "-18% 0px -62% 0px", threshold: [0.05, 0.25, 0.5] },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
+
   function changeView(nextView: ViewMode) {
     setView(nextView);
     localStorage.setItem("application-steps-view-v2", nextView);
@@ -96,6 +120,44 @@ export default function ApplicationStepsView({
   return (
     <div className={`application-steps-layout ${isChecklistOpen ? "checklist-is-open" : ""}`}>
       <div className="application-steps">
+        <div className="company-workspace">
+          <aside className="company-side-navigation" aria-label={`${displayName} 페이지 메뉴`}>
+            <div className="company-side-brand">
+              <CompanyLogo companyName={companyName} />
+              <strong>{displayName}</strong>
+            </div>
+            <nav>
+              <a
+                href="#company-overview"
+                className={activeSection === "company-overview" ? "active" : ""}
+              >
+                <InfoOutlinedIcon fontSize="small" />
+                <span>서비스 개요</span>
+              </a>
+              <a
+                href="#pre-death"
+                className={activeSection === "pre-death" ? "active" : ""}
+              >
+                <PersonOutlineIcon fontSize="small" />
+                <span>생전에 준비하기</span>
+              </a>
+              <a
+                href="#post-death"
+                className={activeSection === "post-death" ? "active" : ""}
+              >
+                <FolderSharedOutlinedIcon fontSize="small" />
+                <span>사후에 신청하기</span>
+              </a>
+              <button type="button" onClick={() => setIsChecklistOpen(true)}>
+                <ChecklistOutlinedIcon fontSize="small" />
+                <span>체크리스트</span>
+                {allItems.length > 0 && <small>{allCompleted}/{allItems.length}</small>}
+              </button>
+            </nav>
+          </aside>
+
+          <div className="company-content">
+            <section id="company-overview" className="company-overview">
         <div className="company-header">
           <div className="company-title-area">
             <CompanyLogo companyName={companyName} />
@@ -146,8 +208,10 @@ export default function ApplicationStepsView({
           생전에 준비하거나 사후에 처리할 수 있는 공식 안내와 신청 페이지를
           확인하세요.
         </p>
+            </section>
 
         <StepsSection
+          sectionId="pre-death"
           title="생전에 준비하기"
           description="위에서부터 순서대로 설정하고 확인해 보세요."
           steps={preDeathSteps}
@@ -156,12 +220,15 @@ export default function ApplicationStepsView({
         />
         <hr className="journey-divider" />
         <StepsSection
+          sectionId="post-death"
           title="사후에 신청하기"
           description="고인의 계정을 어떻게 처리할지 원하는 방법을 선택하세요."
           steps={postDeathSteps}
           view={view}
           journey="post_death"
         />
+          </div>
+        </div>
       </div>
 
       {isChecklistOpen && (
@@ -297,12 +364,14 @@ function createChecklistItems(steps: ApplicationStep[]): ChecklistItem[] {
 }
 
 function StepsSection({
+  sectionId,
   title,
   description,
   steps,
   view,
   journey,
 }: {
+  sectionId: string;
   title: string;
   description: string;
   steps: ApplicationStep[];
@@ -311,7 +380,7 @@ function StepsSection({
 }) {
   if (steps.length === 0) {
     return (
-      <section className="steps-section">
+      <section id={sectionId} className="steps-section">
         <div className="steps-section-header">
           <h2>{title}</h2>
           <p>{description}</p>
@@ -322,7 +391,7 @@ function StepsSection({
   }
 
   return (
-    <section className="steps-section">
+    <section id={sectionId} className="steps-section">
       <div className="steps-section-header">
         <h2>{title}</h2>
         <p>{description}</p>
