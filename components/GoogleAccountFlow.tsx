@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./GoogleAccountFlow.module.css";
 
 type Audience = "mine" | "deceased";
@@ -31,16 +31,58 @@ export default function GoogleAccountFlow() {
   const [route, setRoute] = useState<RouteId | null>(null);
   const [receiverStatus, setReceiverStatus] = useState<ReceiverStatus | null>(null);
 
+  useEffect(() => {
+    function restoreFromHistory(event?: PopStateEvent) {
+      const saved = event?.state?.googleAccountFlow;
+
+      if (saved) {
+        setAudience(saved.audience ?? null);
+        setRoute(saved.route ?? null);
+        setReceiverStatus(saved.receiverStatus ?? null);
+        return;
+      }
+
+      const params = new URLSearchParams(window.location.hash.slice(1));
+      setAudience((params.get("account") as Audience | null) ?? null);
+      setRoute((params.get("route") as RouteId | null) ?? null);
+      setReceiverStatus((params.get("receiver") as ReceiverStatus | null) ?? null);
+    }
+
+    restoreFromHistory();
+    window.addEventListener("popstate", restoreFromHistory);
+    return () => window.removeEventListener("popstate", restoreFromHistory);
+  }, []);
+
+  function navigate(next: {
+    audience: Audience | null;
+    route?: RouteId | null;
+    receiverStatus?: ReceiverStatus | null;
+  }) {
+    const nextRoute = next.route ?? null;
+    const nextReceiverStatus = next.receiverStatus ?? null;
+    const params = new URLSearchParams();
+
+    if (next.audience) params.set("account", next.audience);
+    if (nextRoute) params.set("route", nextRoute);
+    if (nextReceiverStatus) params.set("receiver", nextReceiverStatus);
+
+    const hash = params.toString() ? `#${params.toString()}` : window.location.pathname;
+    window.history.pushState(
+      { googleAccountFlow: { audience: next.audience, route: nextRoute, receiverStatus: nextReceiverStatus } },
+      "",
+      hash,
+    );
+    setAudience(next.audience);
+    setRoute(nextRoute);
+    setReceiverStatus(nextReceiverStatus);
+  }
+
   function reset() {
-    setAudience(null);
-    setRoute(null);
-    setReceiverStatus(null);
+    navigate({ audience: null });
   }
 
   function goBack() {
-    if (receiverStatus) return setReceiverStatus(null);
-    if (route) return setRoute(null);
-    setAudience(null);
+    window.history.back();
   }
 
   return (
@@ -55,22 +97,22 @@ export default function GoogleAccountFlow() {
 
       {!audience && (
         <StepShell compact eyebrow="Google account" title="어떤 계정에 관한 도움이 필요한가요?" description="상황을 선택하면 필요한 공식 절차만 순서대로 안내해 드려요.">
-          <Choice title="내 구글 계정" description="사후 계획을 설정하거나 내 데이터를 정리하고 싶어요." onClick={() => setAudience("mine")} />
-          <Choice title="고인의 구글 계정" description="고인의 데이터, 계정 또는 남은 금액을 처리하고 싶어요." onClick={() => setAudience("deceased")} />
+          <Choice title="내 구글 계정" description="사후 계획을 설정하거나 내 데이터를 정리하고 싶어요." onClick={() => navigate({ audience: "mine" })} />
+          <Choice title="고인의 구글 계정" description="고인의 데이터, 계정 또는 남은 금액을 처리하고 싶어요." onClick={() => navigate({ audience: "deceased" })} />
         </StepShell>
       )}
 
       {audience && !route && (
-        <StepShell eyebrow={audience === "mine" ? "내 구글 계정" : "고인의 구글 계정"} title="무엇을 하고 싶은가요?" description="가장 가까운 항목을 선택해 주세요.">
-          {routes[audience].map((item) => <Choice key={item.id} title={item.title} description={item.description} onClick={() => setRoute(item.id)} />)}
+        <StepShell compact eyebrow={audience === "mine" ? "내 구글 계정" : "고인의 구글 계정"} title="무엇을 하고 싶은가요?" description="가장 가까운 항목을 선택해 주세요.">
+          {routes[audience].map((item) => <Choice key={item.id} title={item.title} description={item.description} onClick={() => navigate({ audience, route: item.id })} />)}
         </StepShell>
       )}
 
       {route === "receive-data" && !receiverStatus && (
-        <StepShell eyebrow="고인의 데이터 받기" title="고인이 생전에 나를 데이터 수신자로 지정했나요?" description="지정 여부는 신청 자격이 아니라 데이터를 받는 경로를 나누는 기준이에요.">
-          <Choice title="지정했어요" description="구글에서 받은 안내 이메일을 통해 공유된 데이터를 내려받아요." onClick={() => setReceiverStatus("designated")} />
-          <Choice title="지정하지 않았어요" description="직계가족이나 법적 대리인 자격으로 데이터 제공을 요청해요." onClick={() => setReceiverStatus("not-designated")} />
-          <Choice title="잘 모르겠어요" description="안내 이메일을 먼저 확인하고, 없다면 데이터 제공을 요청해요." onClick={() => setReceiverStatus("unknown")} />
+        <StepShell compact eyebrow="고인의 데이터 받기" title="고인이 생전에 나를 데이터 수신자로 지정했나요?" description="지정 여부는 신청 자격이 아니라 데이터를 받는 경로를 나누는 기준이에요.">
+          <Choice title="지정했어요" description="구글에서 받은 안내 이메일을 통해 공유된 데이터를 내려받아요." onClick={() => navigate({ audience: "deceased", route, receiverStatus: "designated" })} />
+          <Choice title="지정하지 않았어요" description="직계가족이나 법적 대리인 자격으로 데이터 제공을 요청해요." onClick={() => navigate({ audience: "deceased", route, receiverStatus: "not-designated" })} />
+          <Choice title="잘 모르겠어요" description="안내 이메일을 먼저 확인하고, 없다면 데이터 제공을 요청해요." onClick={() => navigate({ audience: "deceased", route, receiverStatus: "unknown" })} />
         </StepShell>
       )}
 
@@ -130,5 +172,5 @@ function DataRequestDetail({ status }: { status: ReceiverStatus }) {
 
 type Link = { label: string; href: string };
 function DetailPage({ eyebrow, title, intro, sections, warning, note, aside, primary, secondary }: { eyebrow: string; title: string; intro: string; sections: Array<[string, string[]]>; warning?: string; note?: string; aside?: { title: string; text: string; label: string; href: string }; primary?: Link; secondary?: Link }) {
-  return <main className={`${styles.shell} ${styles.detail}`}><p className={styles.eyebrow}>{eyebrow}</p><h1>{title}</h1><p className={styles.lead}>{intro}</p>{warning && <div className={styles.warning}><strong>먼저 확인해 주세요</strong><p>{warning}</p></div>}<div className={styles.sections}>{sections.map(([heading, items]) => <section key={heading}><h2>{heading}</h2><ul>{items.map(item => <li key={item}>{item}</li>)}</ul></section>)}</div>{note && <p className={styles.note}>{note}</p>}{aside && <aside className={styles.aside}><h2>{aside.title}</h2><p>{aside.text}</p><a href={aside.href} target="_blank" rel="noopener noreferrer">{aside.label} ↗</a></aside>}<div className={styles.actions}>{secondary && <a className={styles.secondary} href={secondary.href} target="_blank" rel="noopener noreferrer">{secondary.label} ↗</a>}{primary && <a className={styles.primary} href={primary.href} target="_blank" rel="noopener noreferrer">{primary.label} ↗</a>}</div></main>;
+  return <main className={`${styles.shell} ${styles.detail}`}><p className={styles.eyebrow}>{eyebrow}</p><h1>{title}</h1><p className={styles.lead}>{intro}</p>{warning && <div className={styles.warning}><strong>먼저 확인해 주세요</strong><p>{warning}</p></div>}<div className={styles.sections}>{sections.map(([heading, items]) => <section key={heading}><h2>{heading}</h2><ul>{items.map(item => <li key={item}>{item}</li>)}</ul></section>)}</div>{note && <p className={styles.note}>{note}</p>}{aside && <aside className={styles.aside}><h2>{aside.title}</h2><p>{aside.text}</p><a href={aside.href} target="_blank" rel="noopener noreferrer">{aside.label}</a></aside>}<div className={styles.actions}>{secondary && <a className={styles.secondary} href={secondary.href} target="_blank" rel="noopener noreferrer">{secondary.label}</a>}{primary && <a className={styles.primary} href={primary.href} target="_blank" rel="noopener noreferrer">{primary.label}</a>}</div></main>;
 }
