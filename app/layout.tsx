@@ -69,17 +69,28 @@ export default function RootLayout({
             </Link>
 
             <nav className="navlinks" aria-label="주요 메뉴">
-              <div className="company-menu">
-                <Link className="company-menu-trigger" href="/">서비스</Link>
+              <details className="company-menu">
+                <summary className="company-menu-trigger">서비스</summary>
                 <div className="company-dropdown">
-                  {serviceMenu.map((service) => (
-                    <Link className="company-dropdown-item" href={`/company/${service.slug}`} key={service.slug}>
-                      <span className="company-dropdown-logo"><img src={service.logo} alt="" /></span>
-                      <strong>{service.name}</strong>
-                    </Link>
-                  ))}
+                  <div className="company-dropdown-groups">
+                    {[
+                      { title: "국내 서비스", slugs: ["naver", "kakao", "samsung"] },
+                      { title: "국외 서비스", slugs: ["google", "apple", "meta", "instagram"] },
+                    ].map((group) => (
+                      <section className="company-dropdown-group" key={group.title}>
+                        <h2>{group.title}</h2>
+                        {serviceMenu.filter((service) => group.slugs.includes(service.slug)).map((service) => (
+                          <Link className="company-dropdown-item" href={`/company/${service.slug}`} key={service.slug}>
+                            <span className="company-dropdown-logo"><img src={service.logo} alt="" /></span>
+                            <strong>{service.name}</strong>
+                          </Link>
+                        ))}
+                      </section>
+                    ))}
+                  </div>
+                  <Link className="company-dropdown-all" href="/#services">모든 서비스 보기</Link>
                 </div>
-              </div>
+              </details>
               <Link href="/compare">정책 비교</Link>
             </nav>
           </div>
