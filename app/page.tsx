@@ -14,6 +14,9 @@ const availableServices = [
   { name: "애플", slug: "apple", logo: "/logos/apple.svg", keywords: ["애플", "apple", "아이클라우드", "icloud"] },
 ].sort((a, b) => a.name.localeCompare(b.name, "ko"));
 
+const domesticServices = availableServices.filter((service) => ["naver", "kakao", "samsung"].includes(service.slug));
+const internationalServices = availableServices.filter((service) => ["google", "apple", "meta", "instagram"].includes(service.slug));
+
 const INITIAL_KEYS = [
   "r", "R", "s", "e", "E", "f", "a", "q", "Q", "t",
   "T", "d", "w", "W", "c", "z", "x", "v", "g",
@@ -130,22 +133,30 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="available-services-section">
-        <div className="container services-layout">
+      <section className="available-services-section" id="services">
+        <div className="container">
           <div className="available-services-heading">
             <p className="eyebrow">AVAILABLE PATHS / 02</p>
             <h2>현재 확인 가능한 서비스</h2>
             <p>관리하려는 계정의 서비스를 선택하세요.</p>
           </div>
 
-          <div className="available-services">
-            {availableServices.map((service, index) => (
-              <Link className="available-service" href={`/company/${service.slug}`} key={service.slug}>
-                <span className="service-index">{String(index + 1).padStart(2, "0")}</span>
-                <span className="available-service-logo"><img src={service.logo} alt="" /></span>
-                <strong>{service.name}</strong>
-                <span className="service-arrow" aria-hidden="true">→</span>
-              </Link>
+          <div className="service-groups">
+            {[
+              { title: "국내 서비스", services: domesticServices },
+              { title: "국외 서비스", services: internationalServices },
+            ].map((group) => (
+              <section className="service-group" key={group.title}>
+                <h3>{group.title}</h3>
+                <div className="available-services">
+                  {group.services.map((service) => (
+                    <Link className="available-service" href={`/company/${service.slug}`} key={service.slug}>
+                      <span className="available-service-logo"><img src={service.logo} alt="" /></span>
+                      <strong>{service.name}</strong>
+                    </Link>
+                  ))}
+                </div>
+              </section>
             ))}
           </div>
         </div>
