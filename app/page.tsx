@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -53,7 +53,7 @@ function hangulToEnglish(value: string) {
 export default function Home() {
   const router = useRouter();
   const [query, setQuery] = useState("");
-  const [isSoundOn, setIsSoundOn] = useState(false);
+  const [isSoundOn, setIsSoundOn] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
   const normalizedQuery = query.trim().toLowerCase();
   const searchResults = normalizedQuery
@@ -72,6 +72,26 @@ export default function Home() {
     event.preventDefault();
     if (searchResults.length > 0) router.push(`/company/${searchResults[0].slug}`);
   }
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    async function startWithSound() {
+      try {
+        video!.muted = false;
+        await video!.play();
+        setIsSoundOn(true);
+      } catch {
+        // Browsers may block autoplay with sound. Keep the video moving silently.
+        video!.muted = true;
+        setIsSoundOn(false);
+        await video!.play().catch(() => undefined);
+      }
+    }
+
+    void startWithSound();
+  }, []);
 
   async function toggleOceanSound() {
     const video = videoRef.current;
@@ -156,7 +176,7 @@ export default function Home() {
               onClick={toggleOceanSound}
             >
               <span className="sound-icon" aria-hidden="true">{isSoundOn ? "◉" : "○"}</span>
-              {isSoundOn ? "바다 소리 끄기" : "바다 소리 듣기"}
+              {isSoundOn ? "무음으로 보기" : "바다 소리 켜기"}
             </button>
           </div>
         </div>
