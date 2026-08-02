@@ -100,7 +100,6 @@ export default function Home() {
                 placeholder="회사 또는 서비스를 검색하세요"
                 autoComplete="off"
               />
-              <span className="search-command" aria-hidden="true">↵</span>
 
               {normalizedQuery && (
                 <div className="search-results">
