@@ -80,6 +80,7 @@ export default function Home() {
     async function startWithSound() {
       try {
         video!.muted = false;
+        video!.volume = 1;
         await video!.play();
         setIsSoundOn(true);
       } catch {
@@ -91,6 +92,32 @@ export default function Home() {
     }
 
     void startWithSound();
+
+    // Sound autoplay is commonly blocked. Turn the ocean sound on at the
+    // user's first interaction anywhere on the page.
+    async function enableSoundOnFirstInteraction() {
+      const currentVideo = videoRef.current;
+      if (!currentVideo || !currentVideo.muted) return;
+
+      currentVideo.muted = false;
+      currentVideo.volume = 1;
+
+      try {
+        await currentVideo.play();
+        setIsSoundOn(true);
+      } catch {
+        currentVideo.muted = true;
+        setIsSoundOn(false);
+      }
+    }
+
+    document.addEventListener("pointerdown", enableSoundOnFirstInteraction, { once: true });
+    document.addEventListener("keydown", enableSoundOnFirstInteraction, { once: true });
+
+    return () => {
+      document.removeEventListener("pointerdown", enableSoundOnFirstInteraction);
+      document.removeEventListener("keydown", enableSoundOnFirstInteraction);
+    };
   }, []);
 
   async function toggleOceanSound() {
@@ -99,6 +126,7 @@ export default function Home() {
 
     const nextSoundState = !isSoundOn;
     video.muted = !nextSoundState;
+    video.volume = 1;
     setIsSoundOn(nextSoundState);
 
     if (nextSoundState) {
