@@ -129,8 +129,7 @@
     height: 14px;
   }
   
-  .company-menu:hover .company-dropdown,
-  .company-menu:focus-within .company-dropdown {
+  .company-menu:hover .company-dropdown {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
