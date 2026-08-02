@@ -3,6 +3,7 @@ import ApplicationStepsView, {
   type ApplicationStep,
 } from "@/components/ApplicationStepsView";
 import GoogleAccountFlow from "@/components/GoogleAccountFlow";
+import AppleAccountFlow from "@/components/AppleAccountFlow";
 import { createServerSupabaseClient } from "@/lib/supabase-server";
 
 type CompanyPageProps = {
@@ -21,6 +22,16 @@ export default async function CompanyPage({
       <main className="section">
         <div className="container">
           <GoogleAccountFlow />
+        </div>
+      </main>
+    );
+  }
+
+  if (slug === "apple") {
+    return (
+      <main className="section">
+        <div className="container">
+          <AppleAccountFlow />
         </div>
       </main>
     );
