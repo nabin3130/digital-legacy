@@ -69,8 +69,8 @@ export default function RootLayout({
             </Link>
 
             <nav className="navlinks" aria-label="주요 메뉴">
-              <details className="company-menu">
-                <summary className="company-menu-trigger">서비스</summary>
+              <div className="company-menu">
+                <Link className="company-menu-trigger" href="/#services">서비스</Link>
                 <div className="company-dropdown">
                   <div className="company-dropdown-groups">
                     {[
@@ -90,7 +90,7 @@ export default function RootLayout({
                   </div>
                   <Link className="company-dropdown-all" href="/#services">모든 서비스 보기</Link>
                 </div>
-              </details>
+              </div>
               <Link href="/compare">정책 비교</Link>
             </nav>
           </div>
