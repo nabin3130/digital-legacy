@@ -53,7 +53,7 @@ function hangulToEnglish(value: string) {
 export default function Home() {
   const router = useRouter();
   const [query, setQuery] = useState("");
-  const [isSoundOn, setIsSoundOn] = useState(true);
+  const [isSoundOn, setIsSoundOn] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const normalizedQuery = query.trim().toLowerCase();
   const searchResults = normalizedQuery
@@ -77,66 +77,33 @@ export default function Home() {
     const video = videoRef.current;
     if (!video) return;
 
-    async function startWithSound() {
-      try {
-        video!.muted = false;
-        video!.volume = 1;
-        await video!.play();
-        setIsSoundOn(true);
-      } catch {
-        // Browsers may block autoplay with sound. Keep the video moving silently.
-        video!.muted = true;
-        setIsSoundOn(false);
-        await video!.play().catch(() => undefined);
-      }
-    }
-
-    void startWithSound();
-
-    // Sound autoplay is commonly blocked. Turn the ocean sound on at the
-    // user's first interaction anywhere on the page.
-    async function enableSoundOnFirstInteraction() {
-      const currentVideo = videoRef.current;
-      if (!currentVideo || !currentVideo.muted) return;
-
-      currentVideo.muted = false;
-      currentVideo.volume = 1;
-
-      try {
-        await currentVideo.play();
-        setIsSoundOn(true);
-      } catch {
-        currentVideo.muted = true;
-        setIsSoundOn(false);
-      }
-    }
-
-    document.addEventListener("pointerdown", enableSoundOnFirstInteraction, { once: true });
-    document.addEventListener("keydown", enableSoundOnFirstInteraction, { once: true });
-
-    return () => {
-      document.removeEventListener("pointerdown", enableSoundOnFirstInteraction);
-      document.removeEventListener("keydown", enableSoundOnFirstInteraction);
-    };
+    // Browsers block sound with autoplay. Start the moving image silently,
+    // then let the visible button enable the original ocean audio.
+    video.muted = true;
+    video.volume = 1;
+    void video.play().catch(() => undefined);
   }, []);
 
   async function toggleOceanSound() {
     const video = videoRef.current;
     if (!video) return;
 
-    const nextSoundState = !isSoundOn;
-    video.muted = !nextSoundState;
-    video.volume = 1;
-    setIsSoundOn(nextSoundState);
+    if (video.muted) {
+      video.muted = false;
+      video.volume = 1;
 
-    if (nextSoundState) {
       try {
         await video.play();
+        setIsSoundOn(true);
       } catch {
         video.muted = true;
         setIsSoundOn(false);
       }
+      return;
     }
+
+    video.muted = true;
+    setIsSoundOn(false);
   }
 
   return (
@@ -147,9 +114,8 @@ export default function Home() {
             ref={videoRef}
             autoPlay
             loop
-            muted={!isSoundOn}
             playsInline
-            preload="metadata"
+            preload="auto"
             poster="/media/ocean-hero-poster.jpg"
           >
             <source src="/media/ocean-hero.mp4" type="video/mp4" />
@@ -204,7 +170,7 @@ export default function Home() {
               onClick={toggleOceanSound}
             >
               <span className="sound-icon" aria-hidden="true">{isSoundOn ? "◉" : "○"}</span>
-              {isSoundOn ? "무음으로 보기" : "바다 소리 켜기"}
+              {isSoundOn ? "소리 끄기" : "소리 켜기"}
             </button>
           </div>
         </div>
