@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import ApplicationStepsView, {
   type ApplicationStep,
 } from "@/components/ApplicationStepsView";
+import GoogleAccountFlow from "@/components/GoogleAccountFlow";
 import { createServerSupabaseClient } from "@/lib/supabase-server";
 
 type CompanyPageProps = {
@@ -14,6 +15,17 @@ export default async function CompanyPage({
   params,
 }: CompanyPageProps) {
   const { slug } = await params;
+
+  if (slug === "google") {
+    return (
+      <main className="section">
+        <div className="container">
+          <GoogleAccountFlow />
+        </div>
+      </main>
+    );
+  }
+
   const supabase = await createServerSupabaseClient();
 
   const companyKey =
