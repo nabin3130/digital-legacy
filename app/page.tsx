@@ -99,7 +99,7 @@ export default function Home() {
             ref={videoRef}
             autoPlay
             loop
-            muted
+            muted={!isSoundOn}
             playsInline
             preload="metadata"
             poster="/media/ocean-hero-poster.jpg"
