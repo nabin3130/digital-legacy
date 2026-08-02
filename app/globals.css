@@ -1545,3 +1545,52 @@
   .available-services { grid-template-columns: 1fr; }
   .available-service { min-height: 88px; flex-direction: row; align-items: center; justify-content: flex-start; }
 }
+
+/* Service menu groups */
+.company-dropdown {
+  width: min(520px, calc(100vw - 40px));
+  padding: 18px;
+}
+
+.company-dropdown-groups {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.company-dropdown-group h2 {
+  margin: 0 8px 8px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.company-dropdown-all {
+  margin-top: 14px;
+  padding: 12px 8px 2px;
+  border-top: 1px solid var(--border);
+  display: block;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.company-dropdown-all:hover,
+.company-dropdown-all:focus-visible {
+  color: var(--accent);
+}
+
+@media (max-width: 640px) {
+  .company-dropdown {
+    right: -8px;
+    width: min(320px, calc(100vw - 24px));
+  }
+
+  .company-dropdown-groups {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    max-height: min(65vh, 520px);
+    overflow-y: auto;
+  }
+}
