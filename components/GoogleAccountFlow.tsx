@@ -54,7 +54,7 @@ export default function GoogleAccountFlow() {
       </header>
 
       {!audience && (
-        <StepShell eyebrow="Google account" title="어떤 계정에 관한 도움이 필요한가요?" description="상황을 선택하면 필요한 공식 절차만 순서대로 안내해 드려요.">
+        <StepShell compact eyebrow="Google account" title="어떤 계정에 관한 도움이 필요한가요?" description="상황을 선택하면 필요한 공식 절차만 순서대로 안내해 드려요.">
           <Choice title="내 구글 계정" description="사후 계획을 설정하거나 내 데이터를 정리하고 싶어요." onClick={() => setAudience("mine")} />
           <Choice title="고인의 구글 계정" description="고인의 데이터, 계정 또는 남은 금액을 처리하고 싶어요." onClick={() => setAudience("deceased")} />
         </StepShell>
@@ -80,8 +80,8 @@ export default function GoogleAccountFlow() {
   );
 }
 
-function StepShell({ eyebrow, title, description, children }: { eyebrow: string; title: string; description: string; children: React.ReactNode }) {
-  return <main className={styles.shell}><p className={styles.eyebrow}>{eyebrow}</p><h1>{title}</h1><p className={styles.lead}>{description}</p><div className={styles.choices}>{children}</div></main>;
+function StepShell({ eyebrow, title, description, children, compact = false }: { eyebrow: string; title: string; description: string; children: React.ReactNode; compact?: boolean }) {
+  return <main className={`${styles.shell} ${compact ? styles.compact : ""}`}><p className={styles.eyebrow}>{eyebrow}</p><h1>{title}</h1><p className={styles.lead}>{description}</p><div className={styles.choices}>{children}</div></main>;
 }
 
 function Choice({ title, description, onClick }: { title: string; description: string; onClick: () => void }) {
