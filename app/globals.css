@@ -1519,3 +1519,29 @@
     height: 18px;
   }
 }
+
+
+/* Service navigation and tile directory */
+.company-menu > summary { list-style: none; cursor: pointer; }
+.company-menu > summary::-webkit-details-marker { display: none; }
+.company-menu:not([open]) .company-dropdown { opacity: 0 !important; visibility: hidden !important; transform: translateY(-6px) !important; }
+.company-menu[open] .company-dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+.company-dropdown { width: min(520px, calc(100vw - 40px)); padding: 18px; }
+.company-dropdown-groups { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.company-dropdown-group h2 { margin: 0 8px 8px; color: var(--muted); font-size: 12px; letter-spacing: .04em; }
+.company-dropdown-all { margin-top: 12px; padding: 13px 8px 2px; border-top: 1px solid var(--border); display: block; color: var(--accent); font-size: 14px; font-weight: 700; }
+.available-services-section { scroll-margin-top: 24px; }
+.service-groups { display: grid; gap: 42px; }
+.service-group h3 { margin: 0 0 16px; font-size: 18px; }
+.available-services { width: 100%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.available-service { min-height: 112px; padding: 20px; flex-direction: column; align-items: flex-start; justify-content: space-between; gap: 14px; }
+.available-service-logo { width: 46px; height: 46px; flex-basis: 46px; }
+@media (max-width: 720px) {
+  .company-dropdown { right: 0; width: min(360px, calc(100vw - 28px)); }
+  .company-dropdown-groups { grid-template-columns: 1fr; gap: 14px; max-height: 60vh; overflow-y: auto; }
+  .available-services { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 420px) {
+  .available-services { grid-template-columns: 1fr; }
+  .available-service { min-height: 88px; flex-direction: row; align-items: center; justify-content: flex-start; }
+}
