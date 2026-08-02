@@ -1522,10 +1522,6 @@
 
 
 /* Service navigation and tile directory */
-.company-menu > summary { list-style: none; cursor: pointer; }
-.company-menu > summary::-webkit-details-marker { display: none; }
-.company-menu:not([open]) .company-dropdown { opacity: 0 !important; visibility: hidden !important; transform: translateY(-6px) !important; }
-.company-menu[open] .company-dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
 .company-dropdown { width: min(520px, calc(100vw - 40px)); padding: 18px; }
 .company-dropdown-groups { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .company-dropdown-group h2 { margin: 0 8px 8px; color: var(--muted); font-size: 12px; letter-spacing: .04em; }
