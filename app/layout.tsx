@@ -74,8 +74,8 @@ export default function RootLayout({
                 <div className="company-dropdown">
                   <div className="company-dropdown-groups">
                     {[
-                      { title: "국내 서비스", slugs: ["naver", "kakao", "samsung"] },
-                      { title: "국외 서비스", slugs: ["google", "apple", "meta", "instagram"] },
+                      { title: "국내", slugs: ["naver", "kakao", "samsung"] },
+                      { title: "국외", slugs: ["google", "apple", "meta", "instagram"] },
                     ].map((group) => (
                       <section className="company-dropdown-group" key={group.title}>
                         <h2>{group.title}</h2>
