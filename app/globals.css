@@ -2017,3 +2017,70 @@ body:has(.hero-video) .header {
     font-size: 16px;
   }
 }
+
+
+/* Static ocean hero: fixed poster image with navigation layered above */
+body:has(.hero-image) .header {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 20;
+  border: 0;
+  background: linear-gradient(180deg, rgba(18, 42, 54, 0.38), transparent);
+  box-shadow: none;
+}
+
+body:has(.hero-image) .header .brand,
+body:has(.hero-image) .header .navlinks > a,
+body:has(.hero-image) .header .company-menu-trigger {
+  color: #ffffff;
+  text-shadow: 0 2px 14px rgba(8, 24, 33, 0.72);
+}
+
+.hero-static.hero-image {
+  min-height: clamp(600px, 78vh, 760px);
+  padding: 140px 0 92px;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(14, 35, 47, 0.58) 0%, rgba(14, 35, 47, 0.30) 48%, rgba(14, 35, 47, 0.06) 78%),
+    linear-gradient(180deg, rgba(18, 42, 54, 0.06) 55%, rgba(18, 42, 54, 0.42) 100%),
+    url("/media/ocean-hero-poster.jpg") center 54% / cover no-repeat;
+}
+
+.hero-static.hero-image::after {
+  height: clamp(72px, 9vw, 120px);
+  background: linear-gradient(to bottom, transparent, var(--background));
+}
+
+.hero-image .hero-copy {
+  width: min(100%, 790px);
+}
+
+.hero-static.hero-image .eyebrow,
+.hero-static.hero-image h1,
+.hero-static.hero-image .hero-description {
+  color: #ffffff;
+  text-shadow: 0 2px 6px rgba(8, 24, 33, 0.76), 0 12px 32px rgba(8, 24, 33, 0.42);
+}
+
+.hero-static.hero-image .hero-description {
+  font-weight: 600;
+}
+
+.hero-static.hero-image .search {
+  border-color: rgba(255, 255, 255, 0.74);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 16px 38px rgba(8, 24, 33, 0.18);
+}
+
+@media (max-width: 640px) {
+  .hero-static.hero-image {
+    min-height: 650px;
+    padding: 126px 0 82px;
+    align-items: flex-end;
+    background-position: 58% center;
+  }
+
+  body:has(.hero-image) .header {
+    background: linear-gradient(180deg, rgba(18, 42, 54, 0.5), transparent);
+  }
+}
