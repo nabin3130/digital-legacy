@@ -1718,15 +1718,11 @@
 
 @media (prefers-reduced-motion: reduce) {
   .hero-media video {
-    display: none;
-  }
-
-  .hero-media {
-    background: url("/media/ocean-hero-poster.jpg") center / cover no-repeat;
+    display: block;
   }
 
   .ocean-sound-toggle {
-    display: none;
+    display: inline-flex;
   }
 }
 
