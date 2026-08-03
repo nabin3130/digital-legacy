@@ -2019,36 +2019,26 @@ body:has(.hero-video) .header {
 }
 
 
-/* Static ocean hero: fixed poster image with navigation layered above */
+/* Static ocean hero: original poster image without decorative overlays */
 body:has(.hero-image) .header {
   position: absolute;
   inset: 0 0 auto;
   z-index: 20;
   border: 0;
-  background: linear-gradient(180deg, rgba(18, 42, 54, 0.38), transparent);
+  background: transparent;
   box-shadow: none;
-}
-
-body:has(.hero-image) .header .brand,
-body:has(.hero-image) .header .navlinks > a,
-body:has(.hero-image) .header .company-menu-trigger {
-  color: #ffffff;
-  text-shadow: 0 2px 14px rgba(8, 24, 33, 0.72);
 }
 
 .hero-static.hero-image {
   min-height: clamp(600px, 78vh, 760px);
   padding: 140px 0 92px;
   overflow: hidden;
-  background:
-    linear-gradient(90deg, rgba(14, 35, 47, 0.58) 0%, rgba(14, 35, 47, 0.30) 48%, rgba(14, 35, 47, 0.06) 78%),
-    linear-gradient(180deg, rgba(18, 42, 54, 0.06) 55%, rgba(18, 42, 54, 0.42) 100%),
-    url("/media/ocean-hero-poster.jpg") center 54% / cover no-repeat;
+  background: url("/media/ocean-hero-poster.jpg") center 54% / cover no-repeat;
 }
 
 .hero-static.hero-image::after {
-  height: clamp(72px, 9vw, 120px);
-  background: linear-gradient(to bottom, transparent, var(--background));
+  content: none;
+  display: none;
 }
 
 .hero-image .hero-copy {
@@ -2078,9 +2068,5 @@ body:has(.hero-image) .header .company-menu-trigger {
     padding: 126px 0 82px;
     align-items: flex-end;
     background-position: 58% center;
-  }
-
-  body:has(.hero-image) .header {
-    background: linear-gradient(180deg, rgba(18, 42, 54, 0.5), transparent);
   }
 }
