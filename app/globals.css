@@ -1868,3 +1868,30 @@ body:has(.hero-video) .header .company-menu-trigger {
     background: transparent;
   }
 }
+
+
+/* Home ocean video: untouched source footage with UI layered above */
+body:has(.hero-video) .header::before {
+  display: none;
+}
+
+.hero-video {
+  background: none;
+}
+
+.hero-video::before,
+.hero-video::after {
+  content: none;
+  display: none;
+}
+
+.hero-video .hero-media,
+.hero-video .hero-media video {
+  opacity: 1;
+  filter: none;
+  mix-blend-mode: normal;
+}
+
+.hero-video .hero-media video {
+  transform: none;
+}
