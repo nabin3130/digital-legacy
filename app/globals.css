@@ -1845,7 +1845,7 @@ body:has(.hero-video) .header .company-menu-trigger {
 }
 
 body:has(.hero-video) .header {
-  background: linear-gradient(180deg, rgba(8, 24, 33, 0.42), transparent);
+  background: transparent;
   border-top-color: rgba(255, 255, 255, 0.75);
   border-bottom-color: rgba(255, 255, 255, 0.28);
 }
