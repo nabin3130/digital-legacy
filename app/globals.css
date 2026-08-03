@@ -1942,3 +1942,78 @@ body:has(.hero-video) .header {
   box-shadow: none;
   background: var(--background);
 }
+
+
+/* Stable static home hero */
+.hero-static {
+  position: relative;
+  min-height: 560px;
+  padding: clamp(88px, 10vw, 132px) 0 clamp(76px, 9vw, 112px);
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  background:
+    radial-gradient(circle at 76% 28%, rgba(255, 255, 255, 0.92) 0, rgba(255, 255, 255, 0) 34%),
+    linear-gradient(145deg, #f4f8fa 0%, #eaf2f6 50%, #d9e8ee 100%);
+}
+
+.hero-static::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background: rgba(118, 150, 168, 0.28);
+}
+
+.hero-static .hero-grid {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-static .hero-copy {
+  width: min(100%, 900px);
+}
+
+.hero-static .eyebrow {
+  color: #7696a8;
+}
+
+.hero-static h1 {
+  color: #294c60;
+  text-shadow: none;
+}
+
+.hero-static .hero-description {
+  color: #5f7987;
+  text-shadow: none;
+}
+
+.hero-static .search {
+  border-color: rgba(118, 150, 168, 0.42);
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 16px 38px rgba(41, 76, 96, 0.09);
+}
+
+.hero-static .search:focus {
+  border-color: #7696a8;
+  box-shadow: 0 0 0 3px rgba(127, 118, 153, 0.14), 0 16px 38px rgba(41, 76, 96, 0.09);
+}
+
+@media (max-width: 640px) {
+  .hero-static {
+    min-height: 520px;
+    padding: 72px 0 76px;
+    align-items: center;
+  }
+
+  .hero-static h1 {
+    font-size: clamp(38px, 11vw, 52px);
+  }
+
+  .hero-static .hero-description {
+    margin-top: 24px;
+    font-size: 16px;
+  }
+}
