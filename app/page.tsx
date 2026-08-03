@@ -62,30 +62,18 @@ export default function Home() {
 
     video.muted = true;
     video.defaultMuted = true;
-    video.playsInline = true;
 
     const startVideo = () => {
-      if (video.paused) {
-        void video.play().catch(() => {
-          // Muted autoplay can still be delayed until the video is ready.
-        });
-      }
+      void video.play().catch(() => {
+        // If the media is not ready yet, loadeddata will retry once.
+      });
     };
 
-    if (video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
-      startVideo();
-    } else {
-      video.addEventListener("canplay", startVideo, { once: true });
-    }
-
-    const resumeAfterTabReturn = () => {
-      if (document.visibilityState === "visible") startVideo();
-    };
-    document.addEventListener("visibilitychange", resumeAfterTabReturn);
+    video.addEventListener("loadeddata", startVideo, { once: true });
+    startVideo();
 
     return () => {
-      video.removeEventListener("canplay", startVideo);
-      document.removeEventListener("visibilitychange", resumeAfterTabReturn);
+      video.removeEventListener("loadeddata", startVideo);
     };
   }, []);
 
@@ -141,7 +129,6 @@ export default function Home() {
             playsInline
             preload="auto"
             disablePictureInPicture
-            poster="/media/ocean-hero-poster.jpg"
           >
             <source src="/media/ocean-hero.mp4" type="video/mp4" />
           </video>
