@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -53,6 +53,42 @@ function hangulToEnglish(value: string) {
 export default function Home() {
   const router = useRouter();
   const [query, setQuery] = useState("");
+  const [isSoundOn, setIsSoundOn] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+
+    const startVideo = () => {
+      if (video.paused) {
+        void video.play().catch(() => {
+          // Muted autoplay can still be delayed until the video is ready.
+        });
+      }
+    };
+
+    if (video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
+      startVideo();
+    } else {
+      video.addEventListener("canplay", startVideo, { once: true });
+    }
+
+    const resumeAfterTabReturn = () => {
+      if (document.visibilityState === "visible") startVideo();
+    };
+    document.addEventListener("visibilitychange", resumeAfterTabReturn);
+
+    return () => {
+      video.removeEventListener("canplay", startVideo);
+      document.removeEventListener("visibilitychange", resumeAfterTabReturn);
+    };
+  }, []);
+
   const normalizedQuery = query.trim().toLowerCase();
   const searchResults = normalizedQuery
     ? availableServices.filter((service) =>
@@ -71,10 +107,45 @@ export default function Home() {
     if (searchResults.length > 0) router.push(`/company/${searchResults[0].slug}`);
   }
 
+  async function toggleOceanSound() {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (isSoundOn) {
+      video.muted = true;
+      setIsSoundOn(false);
+      return;
+    }
+
+    video.muted = false;
+    video.volume = 1;
+
+    try {
+      await video.play();
+      setIsSoundOn(true);
+    } catch {
+      video.muted = true;
+      setIsSoundOn(false);
+    }
+  }
 
   return (
     <main>
-      <section className="hero hero-static hero-image">
+      <section className="hero hero-video">
+        <div className="hero-media" aria-hidden="true">
+          <video
+            ref={videoRef}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            disablePictureInPicture
+            poster="/media/ocean-hero-poster.jpg"
+          >
+            <source src="/media/ocean-hero.mp4" type="video/mp4" />
+          </video>
+        </div>
         <div className="container hero-grid">
           <div className="hero-copy">
             <p className="eyebrow">DIGITAL LEGACY NAVIGATOR / 01</p>
@@ -114,6 +185,16 @@ export default function Home() {
                 </div>
               )}
             </form>
+
+            <button
+              className="ocean-sound-toggle"
+              type="button"
+              aria-pressed={isSoundOn}
+              onClick={toggleOceanSound}
+            >
+              <span className="sound-icon" aria-hidden="true">{isSoundOn ? "◉" : "○"}</span>
+              {isSoundOn ? "소리 끄기" : "소리 켜기"}
+            </button>
           </div>
         </div>
       </section>
