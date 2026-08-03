@@ -1891,3 +1891,46 @@ body:has(.hero-video) .header::before {
 .hero-video .hero-media video {
   transform: none;
 }
+
+
+/* Final ocean hero integration: flush top edge and fade only at the section boundary */
+html,
+body {
+  margin: 0;
+  padding: 0 !important;
+}
+
+body:has(.hero-video) .header {
+  top: 0;
+  margin-top: 0;
+}
+
+.hero-video {
+  margin-top: 0;
+}
+
+.hero-video::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+  display: block;
+  height: clamp(120px, 14vw, 160px);
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(248, 247, 243, 0) 0%,
+    rgba(248, 247, 243, 0.18) 32%,
+    rgba(248, 247, 243, 0.72) 72%,
+    var(--background) 100%
+  );
+}
+
+.available-services-section {
+  position: relative;
+  z-index: 1;
+  margin-top: 0;
+  background: var(--background);
+}
