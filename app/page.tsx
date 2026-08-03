@@ -64,18 +64,51 @@ export default function Home() {
     video.defaultMuted = true;
 
     const startVideo = () => {
+      if (document.visibilityState !== "visible") return;
+
       void video.play().catch(() => {
-        // If the media is not ready yet, loadeddata will retry once.
+        // A later media or page lifecycle event will retry playback.
       });
     };
 
-    video.addEventListener("loadeddata", startVideo, { once: true });
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") startVideo();
+    };
+
+    video.addEventListener("loadeddata", startVideo);
+    video.addEventListener("canplay", startVideo);
+    window.addEventListener("pageshow", startVideo);
+    window.addEventListener("focus", startVideo);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    const frameId = window.requestAnimationFrame(startVideo);
     startVideo();
 
     return () => {
+      window.cancelAnimationFrame(frameId);
       video.removeEventListener("loadeddata", startVideo);
+      video.removeEventListener("canplay", startVideo);
+      window.removeEventListener("pageshow", startVideo);
+      window.removeEventListener("focus", startVideo);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, []);
+
+  function handleUnexpectedVideoPause() {
+    const video = videoRef.current;
+    if (
+      !video ||
+      document.visibilityState !== "visible" ||
+      video.ended ||
+      video.error
+    ) {
+      return;
+    }
+
+    void video.play().catch(() => {
+      // Keep the page usable even if the browser explicitly blocks playback.
+    });
+  }
 
   const normalizedQuery = query.trim().toLowerCase();
   const searchResults = normalizedQuery
@@ -129,6 +162,7 @@ export default function Home() {
             playsInline
             preload="auto"
             disablePictureInPicture
+            onPause={handleUnexpectedVideoPause}
           >
             <source src="/media/ocean-hero.mp4" type="video/mp4" />
           </video>
