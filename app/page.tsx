@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -53,6 +53,9 @@ function hangulToEnglish(value: string) {
 export default function Home() {
   const router = useRouter();
   const [query, setQuery] = useState("");
+  const [isSoundOn, setIsSoundOn] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
   const normalizedQuery = query.trim().toLowerCase();
   const searchResults = normalizedQuery
     ? availableServices.filter((service) =>
@@ -71,18 +74,56 @@ export default function Home() {
     if (searchResults.length > 0) router.push(`/company/${searchResults[0].slug}`);
   }
 
+  async function toggleOceanSound() {
+    const audio = audioRef.current;
+    const video = videoRef.current;
+    if (!audio) return;
+
+    if (isSoundOn) {
+      audio.pause();
+      setIsSoundOn(false);
+      return;
+    }
+
+    if (video) {
+      audio.currentTime = video.currentTime;
+    }
+    audio.volume = 1;
+
+    try {
+      await audio.play();
+      setIsSoundOn(true);
+    } catch {
+      setIsSoundOn(false);
+    }
+  }
+
   return (
     <main>
-      <section className="hero">
-        <div className="fog fog-one" aria-hidden="true" />
-        <div className="fog fog-two" aria-hidden="true" />
-        <div className="horizon" aria-hidden="true" />
+      <section className="hero hero-video">
+        <div className="hero-media" aria-hidden="true">
+          <video
+            ref={videoRef}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            poster="/media/ocean-hero-poster.jpg"
+          >
+            <source src="/media/ocean-hero.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <audio ref={audioRef} loop preload="auto">
+          <source src="/media/ocean-hero.mp4" type="audio/mp4" />
+        </audio>
+        <div className="hero-video-overlay" aria-hidden="true" />
 
         <div className="container hero-grid">
           <div className="hero-copy">
             <p className="eyebrow">DIGITAL LEGACY NAVIGATOR / 01</p>
             <h1>
-              <span>남겨진 디지털 기록과 추억,</span>
+              <span>남겨진 디지털 추억,</span>
               <span>어떻게 정리할지 안내합니다.</span>
             </h1>
             <p className="hero-description">
@@ -117,17 +158,16 @@ export default function Home() {
                 </div>
               )}
             </form>
-          </div>
 
-          <div className="hero-signal" aria-hidden="true">
-            <div className="signal-card signal-card-one">
-              <span>RECORD_01</span><i /><i /><i />
-            </div>
-            <div className="signal-card signal-card-two">
-              <span>NEXT_PATH</span><i /><i />
-            </div>
-            <div className="signal-light" />
-            <p>기록은 남아 있습니다.<br />경로를 찾습니다.</p>
+            <button
+              className="ocean-sound-toggle"
+              type="button"
+              aria-pressed={isSoundOn}
+              onClick={toggleOceanSound}
+            >
+              <span className="sound-icon" aria-hidden="true">{isSoundOn ? "◉" : "○"}</span>
+              {isSoundOn ? "소리 끄기" : "소리 켜기"}
+            </button>
           </div>
         </div>
       </section>

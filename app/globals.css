@@ -1589,3 +1589,282 @@
     overflow-y: auto;
   }
 }
+
+
+/* Home hero video experiment */
+.hero-video {
+  position: relative;
+  min-height: clamp(620px, 82vh, 820px);
+  padding: 96px 0 72px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  isolation: isolate;
+}
+
+.hero-media,
+.hero-video-overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-media {
+  z-index: -3;
+  background: #dce7ea;
+}
+
+.hero-media video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center 56%;
+}
+
+.hero-video-overlay {
+  z-index: -2;
+  background:
+    linear-gradient(90deg, rgba(248, 247, 242, 0.94) 0%, rgba(248, 247, 242, 0.78) 48%, rgba(226, 238, 242, 0.38) 100%),
+    linear-gradient(180deg, rgba(238, 245, 247, 0.34) 0%, rgba(248, 247, 242, 0.48) 100%);
+}
+
+.hero-video .hero-grid {
+  position: relative;
+  z-index: 1;
+  display: block;
+}
+
+.hero-video .hero-copy {
+  width: min(100%, 790px);
+}
+
+.hero-video .eyebrow {
+  color: #526b78;
+  text-shadow: 0 1px 12px rgba(255, 255, 255, 0.7);
+}
+
+.hero-video h1 {
+  color: #172f3d;
+  text-wrap: balance;
+  text-shadow: 0 2px 28px rgba(255, 255, 255, 0.5);
+}
+
+.hero-video .hero-description {
+  color: #314a57;
+}
+
+.hero-video .search {
+  border-color: rgba(113, 135, 148, 0.52);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 14px 42px rgba(37, 60, 74, 0.1);
+  backdrop-filter: blur(8px);
+}
+
+.hero-video .search:focus {
+  border-color: #526f7f;
+  box-shadow: 0 0 0 3px rgba(82, 111, 127, 0.16), 0 14px 42px rgba(37, 60, 74, 0.1);
+}
+
+.ocean-sound-toggle {
+  margin-top: 20px;
+  padding: 9px 12px;
+  border: 1px solid rgba(37, 60, 74, 0.24);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  color: #253c4a;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+}
+
+.ocean-sound-toggle:hover,
+.ocean-sound-toggle:focus-visible {
+  border-color: rgba(37, 60, 74, 0.5);
+  background: rgba(255, 255, 255, 0.82);
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.sound-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+@media (max-width: 640px) {
+  .hero-video {
+    min-height: 650px;
+    padding: 72px 0 54px;
+    align-items: flex-end;
+  }
+
+  .hero-media video {
+    object-position: 58% center;
+  }
+
+  .hero-video-overlay {
+    background:
+      linear-gradient(180deg, rgba(238, 245, 247, 0.44) 0%, rgba(248, 247, 242, 0.9) 70%, rgba(248, 247, 242, 0.96) 100%);
+  }
+
+  .hero-video .hero-description {
+    max-width: 34rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-media video {
+    display: none;
+  }
+
+  .hero-media {
+    background: url("/media/ocean-hero-poster.jpg") center / cover no-repeat;
+  }
+
+  .ocean-sound-toggle {
+    display: none;
+  }
+}
+
+
+/* Ocean hero: place the home navigation directly over the video */
+body:has(.hero-video) .header {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 20;
+  background: transparent;
+  border-bottom-color: rgba(255, 255, 255, 0.32);
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+body:has(.hero-video) .header .brand,
+body:has(.hero-video) .header .navlinks > a,
+body:has(.hero-video) .header .company-menu-trigger {
+  color: #173342;
+  text-shadow: 0 1px 14px rgba(255, 255, 255, 0.9);
+}
+
+.hero-video {
+  min-height: max(720px, 100svh);
+  padding-top: 136px;
+}
+
+.hero-video-overlay {
+  background:
+    linear-gradient(90deg, rgba(248, 247, 242, 0.54) 0%, rgba(248, 247, 242, 0.28) 46%, rgba(226, 238, 242, 0.04) 78%),
+    linear-gradient(180deg, rgba(238, 245, 247, 0.12) 0%, rgba(248, 247, 242, 0.18) 100%);
+}
+
+.hero-video .hero-copy {
+  padding: 36px;
+  margin-left: -36px;
+  border-radius: 24px;
+  background: linear-gradient(90deg, rgba(248, 247, 242, 0.28), rgba(248, 247, 242, 0));
+}
+
+.hero-video h1 {
+  text-shadow: 0 2px 24px rgba(255, 255, 255, 0.86);
+}
+
+.hero-video .hero-description {
+  text-shadow: 0 1px 16px rgba(255, 255, 255, 0.9);
+}
+
+@media (max-width: 640px) {
+  body:has(.hero-video) .header {
+    background: linear-gradient(180deg, rgba(248, 247, 242, 0.5), rgba(248, 247, 242, 0));
+  }
+
+  .hero-video {
+    min-height: 100svh;
+    padding-top: 120px;
+  }
+
+  .hero-video-overlay {
+    background:
+      linear-gradient(180deg, rgba(238, 245, 247, 0.12) 0%, rgba(248, 247, 242, 0.2) 52%, rgba(248, 247, 242, 0.62) 100%);
+  }
+
+  .hero-video .hero-copy {
+    padding: 24px;
+    margin-left: -24px;
+    margin-right: -24px;
+    background: linear-gradient(180deg, rgba(248, 247, 242, 0), rgba(248, 247, 242, 0.38));
+  }
+}
+
+
+/* Ocean hero: direct video treatment */
+.hero-video-overlay {
+  background: transparent;
+}
+
+.hero-video .hero-copy {
+  width: min(100%, 790px);
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.hero-video .eyebrow,
+.hero-video h1,
+.hero-video .hero-description {
+  color: #ffffff;
+  text-shadow:
+    0 2px 5px rgba(10, 24, 32, 0.72),
+    0 10px 30px rgba(10, 24, 32, 0.46);
+}
+
+.hero-video .hero-description {
+  font-weight: 600;
+}
+
+.hero-video .search {
+  border-color: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: none;
+}
+
+.ocean-sound-toggle {
+  border-color: rgba(255, 255, 255, 0.72);
+  background: rgba(15, 37, 49, 0.72);
+  color: #ffffff;
+  backdrop-filter: none;
+}
+
+.ocean-sound-toggle:hover,
+.ocean-sound-toggle:focus-visible {
+  border-color: #ffffff;
+  background: rgba(15, 37, 49, 0.92);
+}
+
+body:has(.hero-video) .header {
+  background: transparent;
+  border-top-color: rgba(255, 255, 255, 0.75);
+  border-bottom-color: rgba(255, 255, 255, 0.28);
+}
+
+body:has(.hero-video) .header .brand,
+body:has(.hero-video) .header .navlinks > a,
+body:has(.hero-video) .header .company-menu-trigger {
+  color: #ffffff;
+  text-shadow: 0 2px 12px rgba(8, 24, 33, 0.72);
+}
+
+@media (max-width: 640px) {
+  .hero-video-overlay {
+    background: transparent;
+  }
+
+  .hero-video .hero-copy {
+    padding: 0;
+    margin: 0;
+    background: transparent;
+  }
+}
