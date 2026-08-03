@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -53,63 +53,6 @@ function hangulToEnglish(value: string) {
 export default function Home() {
   const router = useRouter();
   const [query, setQuery] = useState("");
-  const [isSoundOn, setIsSoundOn] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    video.muted = true;
-    video.defaultMuted = true;
-
-    const startVideo = () => {
-      if (document.visibilityState !== "visible") return;
-
-      void video.play().catch(() => {
-        // A later media or page lifecycle event will retry playback.
-      });
-    };
-
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === "visible") startVideo();
-    };
-
-    video.addEventListener("loadeddata", startVideo);
-    video.addEventListener("canplay", startVideo);
-    window.addEventListener("pageshow", startVideo);
-    window.addEventListener("focus", startVideo);
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-
-    const frameId = window.requestAnimationFrame(startVideo);
-    startVideo();
-
-    return () => {
-      window.cancelAnimationFrame(frameId);
-      video.removeEventListener("loadeddata", startVideo);
-      video.removeEventListener("canplay", startVideo);
-      window.removeEventListener("pageshow", startVideo);
-      window.removeEventListener("focus", startVideo);
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-    };
-  }, []);
-
-  function handleUnexpectedVideoPause() {
-    const video = videoRef.current;
-    if (
-      !video ||
-      document.visibilityState !== "visible" ||
-      video.ended ||
-      video.error
-    ) {
-      return;
-    }
-
-    void video.play().catch(() => {
-      // Keep the page usable even if the browser explicitly blocks playback.
-    });
-  }
-
   const normalizedQuery = query.trim().toLowerCase();
   const searchResults = normalizedQuery
     ? availableServices.filter((service) =>
@@ -128,45 +71,10 @@ export default function Home() {
     if (searchResults.length > 0) router.push(`/company/${searchResults[0].slug}`);
   }
 
-  async function toggleOceanSound() {
-    const video = videoRef.current;
-    if (!video) return;
-
-    if (isSoundOn) {
-      video.muted = true;
-      setIsSoundOn(false);
-      return;
-    }
-
-    video.muted = false;
-    video.volume = 1;
-
-    try {
-      await video.play();
-      setIsSoundOn(true);
-    } catch {
-      video.muted = true;
-      setIsSoundOn(false);
-    }
-  }
 
   return (
     <main>
-      <section className="hero hero-video">
-        <div className="hero-media" aria-hidden="true">
-          <video
-            ref={videoRef}
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="auto"
-            disablePictureInPicture
-            onPause={handleUnexpectedVideoPause}
-          >
-            <source src="/media/ocean-hero.mp4" type="video/mp4" />
-          </video>
-        </div>
+      <section className="hero hero-static">
         <div className="container hero-grid">
           <div className="hero-copy">
             <p className="eyebrow">DIGITAL LEGACY NAVIGATOR / 01</p>
@@ -206,16 +114,6 @@ export default function Home() {
                 </div>
               )}
             </form>
-
-            <button
-              className="ocean-sound-toggle"
-              type="button"
-              aria-pressed={isSoundOn}
-              onClick={toggleOceanSound}
-            >
-              <span className="sound-icon" aria-hidden="true">{isSoundOn ? "◉" : "○"}</span>
-              {isSoundOn ? "소리 끄기" : "소리 켜기"}
-            </button>
           </div>
         </div>
       </section>
