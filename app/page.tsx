@@ -74,7 +74,7 @@ export default function Home() {
 
   return (
     <main>
-      <section className="hero hero-static">
+      <section className="hero hero-static hero-image">
         <div className="container hero-grid">
           <div className="hero-copy">
             <p className="eyebrow">DIGITAL LEGACY NAVIGATOR / 01</p>
