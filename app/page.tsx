@@ -117,7 +117,6 @@ export default function Home() {
         <audio ref={audioRef} loop preload="auto">
           <source src="/media/ocean-hero.mp4" type="audio/mp4" />
         </audio>
-        <div className="hero-video-overlay" aria-hidden="true" />
 
         <div className="container hero-grid">
           <div className="hero-copy">
