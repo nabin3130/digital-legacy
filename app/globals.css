@@ -1903,10 +1903,15 @@ body {
 body:has(.hero-video) .header {
   top: 0;
   margin-top: 0;
+  border-top: 0;
+  border-bottom: 0;
+  box-shadow: none;
 }
 
 .hero-video {
   margin-top: 0;
+  border: 0;
+  outline: 0;
 }
 
 .hero-video::after {
@@ -1931,6 +1936,9 @@ body:has(.hero-video) .header {
 .available-services-section {
   position: relative;
   z-index: 1;
-  margin-top: 0;
+  margin-top: -1px;
+  border: 0;
+  outline: 0;
+  box-shadow: none;
   background: var(--background);
 }

@@ -55,7 +55,6 @@ export default function Home() {
   const [query, setQuery] = useState("");
   const [isSoundOn, setIsSoundOn] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -66,18 +65,27 @@ export default function Home() {
     video.playsInline = true;
 
     const startVideo = () => {
-      void video.play().catch(() => {
-        // Autoplay may be retried after the first user interaction.
-      });
+      if (video.paused) {
+        void video.play().catch(() => {
+          // Muted autoplay can still be delayed until the video is ready.
+        });
+      }
     };
 
-    startVideo();
-    document.addEventListener("visibilitychange", startVideo);
-    window.addEventListener("pointerdown", startVideo, { once: true });
+    if (video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
+      startVideo();
+    } else {
+      video.addEventListener("canplay", startVideo, { once: true });
+    }
+
+    const resumeAfterTabReturn = () => {
+      if (document.visibilityState === "visible") startVideo();
+    };
+    document.addEventListener("visibilitychange", resumeAfterTabReturn);
 
     return () => {
-      document.removeEventListener("visibilitychange", startVideo);
-      window.removeEventListener("pointerdown", startVideo);
+      video.removeEventListener("canplay", startVideo);
+      document.removeEventListener("visibilitychange", resumeAfterTabReturn);
     };
   }, []);
 
@@ -100,25 +108,23 @@ export default function Home() {
   }
 
   async function toggleOceanSound() {
-    const audio = audioRef.current;
     const video = videoRef.current;
-    if (!audio) return;
+    if (!video) return;
 
     if (isSoundOn) {
-      audio.pause();
+      video.muted = true;
       setIsSoundOn(false);
       return;
     }
 
-    if (video) {
-      audio.currentTime = video.currentTime;
-    }
-    audio.volume = 1;
+    video.muted = false;
+    video.volume = 1;
 
     try {
-      await audio.play();
+      await video.play();
       setIsSoundOn(true);
     } catch {
+      video.muted = true;
       setIsSoundOn(false);
     }
   }
@@ -136,15 +142,10 @@ export default function Home() {
             preload="auto"
             disablePictureInPicture
             poster="/media/ocean-hero-poster.jpg"
-            onCanPlay={(event) => void event.currentTarget.play()}
           >
             <source src="/media/ocean-hero.mp4" type="video/mp4" />
           </video>
         </div>
-        <audio ref={audioRef} loop preload="auto">
-          <source src="/media/ocean-hero.mp4" type="audio/mp4" />
-        </audio>
-
         <div className="container hero-grid">
           <div className="hero-copy">
             <p className="eyebrow">DIGITAL LEGACY NAVIGATOR / 01</p>
