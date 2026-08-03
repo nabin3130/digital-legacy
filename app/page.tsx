@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -55,6 +55,7 @@ export default function Home() {
   const [query, setQuery] = useState("");
   const [isSoundOn, setIsSoundOn] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
   const normalizedQuery = query.trim().toLowerCase();
   const searchResults = normalizedQuery
     ? availableServices.filter((service) =>
@@ -73,37 +74,28 @@ export default function Home() {
     if (searchResults.length > 0) router.push(`/company/${searchResults[0].slug}`);
   }
 
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    // Browsers block sound with autoplay. Start the moving image silently,
-    // then let the visible button enable the original ocean audio.
-    video.muted = true;
-    video.volume = 1;
-    void video.play().catch(() => undefined);
-  }, []);
-
   async function toggleOceanSound() {
+    const audio = audioRef.current;
     const video = videoRef.current;
-    if (!video) return;
+    if (!audio) return;
 
-    if (video.muted) {
-      video.muted = false;
-      video.volume = 1;
-
-      try {
-        await video.play();
-        setIsSoundOn(true);
-      } catch {
-        video.muted = true;
-        setIsSoundOn(false);
-      }
+    if (isSoundOn) {
+      audio.pause();
+      setIsSoundOn(false);
       return;
     }
 
-    video.muted = true;
-    setIsSoundOn(false);
+    if (video) {
+      audio.currentTime = video.currentTime;
+    }
+    audio.volume = 1;
+
+    try {
+      await audio.play();
+      setIsSoundOn(true);
+    } catch {
+      setIsSoundOn(false);
+    }
   }
 
   return (
@@ -114,6 +106,7 @@ export default function Home() {
             ref={videoRef}
             autoPlay
             loop
+            muted
             playsInline
             preload="auto"
             poster="/media/ocean-hero-poster.jpg"
@@ -121,6 +114,9 @@ export default function Home() {
             <source src="/media/ocean-hero.mp4" type="video/mp4" />
           </video>
         </div>
+        <audio ref={audioRef} loop preload="auto">
+          <source src="/media/ocean-hero.mp4" type="audio/mp4" />
+        </audio>
         <div className="hero-video-overlay" aria-hidden="true" />
 
         <div className="container hero-grid">
