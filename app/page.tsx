@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -56,6 +56,31 @@ export default function Home() {
   const [isSoundOn, setIsSoundOn] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+
+    const startVideo = () => {
+      void video.play().catch(() => {
+        // Autoplay may be retried after the first user interaction.
+      });
+    };
+
+    startVideo();
+    document.addEventListener("visibilitychange", startVideo);
+    window.addEventListener("pointerdown", startVideo, { once: true });
+
+    return () => {
+      document.removeEventListener("visibilitychange", startVideo);
+      window.removeEventListener("pointerdown", startVideo);
+    };
+  }, []);
+
   const normalizedQuery = query.trim().toLowerCase();
   const searchResults = normalizedQuery
     ? availableServices.filter((service) =>
@@ -109,7 +134,9 @@ export default function Home() {
             muted
             playsInline
             preload="auto"
+            disablePictureInPicture
             poster="/media/ocean-hero-poster.jpg"
+            onCanPlay={(event) => void event.currentTarget.play()}
           >
             <source src="/media/ocean-hero.mp4" type="video/mp4" />
           </video>
