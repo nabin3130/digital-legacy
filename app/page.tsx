@@ -60,15 +60,13 @@ export default function Home() {
     const video = videoRef.current;
     if (!video) return;
 
+    // 초기 자동재생을 위한 무음 설정
     video.muted = true;
-    video.defaultMuted = true;
     video.playsInline = true;
 
     const startVideo = () => {
       if (video.paused) {
-        void video.play().catch(() => {
-          // Muted autoplay can still be delayed until the video is ready.
-        });
+        void video.play().catch(() => {});
       }
     };
 
@@ -107,6 +105,7 @@ export default function Home() {
     if (searchResults.length > 0) router.push(`/company/${searchResults[0].slug}`);
   }
 
+  // 🔊 개선된 소리 토글 함수
   async function toggleOceanSound() {
     const video = videoRef.current;
     if (!video) return;
@@ -114,18 +113,18 @@ export default function Home() {
     if (isSoundOn) {
       video.muted = true;
       setIsSoundOn(false);
-      return;
-    }
-
-    video.muted = false;
-    video.volume = 1;
-
-    try {
-      await video.play();
-      setIsSoundOn(true);
-    } catch {
-      video.muted = true;
-      setIsSoundOn(false);
+    } else {
+      try {
+        video.removeAttribute("muted");
+        video.muted = false;
+        video.volume = 1.0;
+        await video.play();
+        setIsSoundOn(true);
+      } catch (error) {
+        console.error("오디오 재생 실패:", error);
+        video.muted = true;
+        setIsSoundOn(false);
+      }
     }
   }
 
@@ -133,11 +132,11 @@ export default function Home() {
     <main>
       <section className="hero hero-video">
         <div className="hero-media" aria-hidden="true">
+          {/* <video> 태그 내부에서 muted 속성을 떼어내어 JS 오디오 제어가 먹히도록 수정했습니다 */}
           <video
             ref={videoRef}
             autoPlay
             loop
-            muted
             playsInline
             preload="auto"
             disablePictureInPicture
