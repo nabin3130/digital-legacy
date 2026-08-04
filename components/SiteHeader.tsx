@@ -15,36 +15,36 @@ const services = [
 ];
 
 function localizedPath(pathname: string, locale: "ko" | "en") {
-  const withoutEnglishPrefix = pathname.replace(/^\/en(?=\/|$)/, "") || "/";
-  return locale === "en" ? (withoutEnglishPrefix === "/" ? "/en" : `/en${withoutEnglishPrefix}`) : withoutEnglishPrefix;
+  const base = pathname.replace(/^\/en(?=\/|$)/, "") || "/";
+  return locale === "en" ? (base === "/" ? "/en" : `/en${base}`) : base;
 }
 
 export default function SiteHeader() {
   const pathname = usePathname();
   const isEnglish = pathname === "/en" || pathname.startsWith("/en/");
+  const prefix = isEnglish ? "/en" : "";
   const [languageOpen, setLanguageOpen] = useState(false);
   const languageRef = useRef<HTMLDivElement>(null);
-  const prefix = isEnglish ? "/en" : "";
 
   useEffect(() => {
-    function closeOnOutsideClick(event: MouseEvent) {
+    const outside = (event: MouseEvent) => {
       if (!languageRef.current?.contains(event.target as Node)) setLanguageOpen(false);
-    }
-    function closeOnEscape(event: KeyboardEvent) {
+    };
+    const escape = (event: KeyboardEvent) => {
       if (event.key === "Escape") setLanguageOpen(false);
-    }
-    document.addEventListener("mousedown", closeOnOutsideClick);
-    document.addEventListener("keydown", closeOnEscape);
+    };
+    document.addEventListener("mousedown", outside);
+    document.addEventListener("keydown", escape);
     return () => {
-      document.removeEventListener("mousedown", closeOnOutsideClick);
-      document.removeEventListener("keydown", closeOnEscape);
+      document.removeEventListener("mousedown", outside);
+      document.removeEventListener("keydown", escape);
     };
   }, []);
 
   const groups = isEnglish
     ? [
-        { title: "Korean services", items: services.filter((service) => service.domestic) },
-        { title: "Global services", items: services.filter((service) => !service.domestic) },
+        { title: "Korea", items: services.filter((service) => service.domestic) },
+        { title: "Global", items: services.filter((service) => !service.domestic) },
       ]
     : [
         { title: "국내", items: services.filter((service) => service.domestic) },
@@ -54,13 +54,12 @@ export default function SiteHeader() {
   return (
     <header className="header">
       <div className="container nav">
-        <Link className="brand" href={isEnglish ? "/en" : "/"} aria-label={isEnglish ? "Forgetting Infrastructure home" : "망각인프라 홈"}>
-          {isEnglish ? "Forgetting Infrastructure" : "망각인프라"}<span className="cursor" aria-hidden="true">_</span>
+        <Link className="brand" href={isEnglish ? "/en" : "/"} aria-label={isEnglish ? "Digital Legacy Navigator home" : "망각인프라 홈"}>
+          {isEnglish ? "Digital Legacy Navigator" : "망각인프라"}<span className="cursor" aria-hidden="true">_</span>
         </Link>
-
         <nav className="navlinks" aria-label={isEnglish ? "Main navigation" : "주요 메뉴"}>
           <div className="company-menu">
-            <Link className="company-menu-trigger" href={`${prefix}/#services`}>{isEnglish ? "Services" : "서비스"}</Link>
+            <Link className="company-menu-trigger" href={`${prefix}/#services`}>{isEnglish ? "Companies" : "서비스"}</Link>
             <div className="company-dropdown">
               <div className="company-dropdown-groups">
                 {groups.map((group) => (
@@ -75,29 +74,18 @@ export default function SiteHeader() {
                   </section>
                 ))}
               </div>
-              <Link className="company-dropdown-all" href={`${prefix}/#services`}>{isEnglish ? "View all services" : "모든 서비스 보기"}</Link>
+              <Link className="company-dropdown-all" href={`${prefix}/#services`}>{isEnglish ? "All companies" : "모든 서비스 보기"}</Link>
             </div>
           </div>
-          <Link href={`${prefix}/compare`}>{isEnglish ? "Compare policies" : "정책 비교"}</Link>
-
+          <Link href={`${prefix}/compare`}>{isEnglish ? "Policies" : "비교"}</Link>
           <div className="language-menu" ref={languageRef}>
-            <button
-              className="language-trigger"
-              type="button"
-              aria-label={isEnglish ? "Choose language" : "언어 선택"}
-              aria-expanded={languageOpen}
-              onClick={() => setLanguageOpen((open) => !open)}
-            >
+            <button className="language-trigger" type="button" aria-label={isEnglish ? "Choose language" : "언어 선택"} aria-expanded={languageOpen} onClick={() => setLanguageOpen((open) => !open)}>
               <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 3.8 5.5 3.8 9S14.5 18.5 12 21c-2.5-2.5-3.8-5.5-3.8-9S9.5 5.5 12 3Z"/></svg>
             </button>
             {languageOpen && (
               <div className="language-dropdown" role="menu">
-                <Link href={localizedPath(pathname, "ko")} role="menuitem" onClick={() => setLanguageOpen(false)} className={!isEnglish ? "active" : ""}>
-                  <span>{!isEnglish ? "✓" : ""}</span>한국어
-                </Link>
-                <Link href={localizedPath(pathname, "en")} role="menuitem" onClick={() => setLanguageOpen(false)} className={isEnglish ? "active" : ""}>
-                  <span>{isEnglish ? "✓" : ""}</span>English
-                </Link>
+                <Link href={localizedPath(pathname, "ko")} role="menuitem" onClick={() => setLanguageOpen(false)} className={!isEnglish ? "active" : ""}><span>{!isEnglish ? "✓" : ""}</span>한국어</Link>
+                <Link href={localizedPath(pathname, "en")} role="menuitem" onClick={() => setLanguageOpen(false)} className={isEnglish ? "active" : ""}><span>{isEnglish ? "✓" : ""}</span>English</Link>
               </div>
             )}
           </div>
