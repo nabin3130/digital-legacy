@@ -1,8 +1,6 @@
 # Digital Legacy
 
-A web platform that helps individuals and families understand and prepare for digital account inheritance across major online services.
-
-The project provides clear guidance on digital legacy policies, required documents, and account management procedures for platforms such as Google, Apple, Kakao, and Naver. It aims to make complex policies easier to understand through a simple, user-friendly interface.
+A web platform that simplifies digital account inheritance by providing clear guidance on account policies and procedures, starting with major online services in Korea.
 
 ## Features
 
