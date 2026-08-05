@@ -1,5 +1,7 @@
 # Digital Legacy
 
+<img width="1425" height="759" alt="digital-navigator" src="https://github.com/user-attachments/assets/5b525045-29d0-4d6a-adde-98cb9d199cf8" />
+
 A web platform that simplifies digital account inheritance by providing clear guidance on account policies and procedures, starting with major online services in Korea.
 
 ## Features
