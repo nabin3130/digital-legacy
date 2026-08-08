@@ -639,7 +639,8 @@
       transform 0.2s ease;
   }
   
-  .step-card-link:hover .step-card {
+  .step-card-link:hover .step-card,
+  .step-card:hover {
     border-color: var(--border-strong);
     box-shadow: 0 16px 34px rgba(31, 27, 21, 0.07);
     transform: translateY(-3px);
@@ -709,6 +710,25 @@
     color: #514c45;
     font-size: 15px;
     line-height: 1.6;
+  }
+
+  .common-documents-link {
+    width: fit-content;
+    max-width: 100%;
+    margin-top: 12px;
+    display: inline-flex;
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.5;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .common-documents-link:focus-visible {
+    outline: 3px solid rgba(41, 76, 96, 0.24);
+    outline-offset: 3px;
   }
   
   .step-card-action {

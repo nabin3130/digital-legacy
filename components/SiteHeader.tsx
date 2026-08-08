@@ -59,7 +59,7 @@ export default function SiteHeader() {
         </Link>
         <nav className="navlinks" aria-label={isEnglish ? "Main navigation" : "주요 메뉴"}>
           <div className="company-menu">
-            <Link className="company-menu-trigger" href={`${prefix}/#services`}>{isEnglish ? "Companies" : "서비스"}</Link>
+            <Link className="company-menu-trigger" href={`${prefix}/#services`}>{isEnglish ? "Companies" : "회사"}</Link>
             <div className="company-dropdown">
               <div className="company-dropdown-groups">
                 {groups.map((group) => (
@@ -77,6 +77,8 @@ export default function SiteHeader() {
               <Link className="company-dropdown-all" href={`${prefix}/#services`}>{isEnglish ? "All companies" : "모든 서비스 보기"}</Link>
             </div>
           </div>
+          <Link href={`${prefix}/procedures`}>{isEnglish ? "Procedures" : "공통 절차"}</Link>
+          <Link href={`${prefix}/documents`}>{isEnglish ? "Documents" : "공통 서류"}</Link>
           <Link href={`${prefix}/compare`}>{isEnglish ? "Policies" : "비교"}</Link>
           <div className="language-menu" ref={languageRef}>
             <button className="language-trigger" type="button" aria-label={isEnglish ? "Choose language" : "언어 선택"} aria-expanded={languageOpen} onClick={() => setLanguageOpen((open) => !open)}>

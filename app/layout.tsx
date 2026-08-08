@@ -1,5 +1,6 @@
 import "./globals.css";
 import "./brand.css";
+import "./navigation.css";
 import Link from "next/link";
 import Script from "next/script"; // 👈 추가된 부분
 
@@ -70,7 +71,7 @@ export default function RootLayout({
 
             <nav className="navlinks" aria-label="주요 메뉴">
               <div className="company-menu">
-                <Link className="company-menu-trigger" href="/#services">서비스</Link>
+                <Link className="company-menu-trigger" href="/#services">회사</Link>
                 <div className="company-dropdown">
                   <div className="company-dropdown-groups">
                     {[
@@ -91,6 +92,8 @@ export default function RootLayout({
                   <Link className="company-dropdown-all" href="/#services">모든 서비스 보기</Link>
                 </div>
               </div>
+              <Link href="/procedures">공통 절차</Link>
+              <Link href="/documents">공통 서류</Link>
               <Link href="/compare">정책 비교</Link>
             </nav>
           </div>

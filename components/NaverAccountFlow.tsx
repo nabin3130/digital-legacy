@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import styles from "./GoogleAccountFlow.module.css";
 
 type KnowsId = "yes" | "no";
@@ -139,5 +140,5 @@ function DetailPage({ eyebrow, title, intro, warning, note, sections = [], docum
 }
 
 function DocumentGuide({ documents }: { documents: DocumentItem[] }) {
-  return <section className={styles.documentGuide}><h2>서류는 여기에서 준비할 수 있어요</h2><p>네이버가 요청하는 서류를 확인한 뒤 필요한 것만 준비해 주세요.</p><div className={styles.documentList}>{documents.map((document) => <article className={styles.documentItem} key={document.title}><span className={styles.documentIcon} aria-hidden="true">{document.href ? "📄" : "🏥"}</span><div><h3>{document.title}</h3><p>{document.description}</p></div>{document.href ? <a className={styles.documentBadge} href={document.href} target="_blank" rel="noopener noreferrer">{document.badge} ↗</a> : <span className={styles.documentBadge}>{document.badge}</span>}</article>)}</div></section>;
+  return <section className={styles.documentGuide}><h2>서류는 여기에서 준비할 수 있어요</h2><p>네이버가 요청하는 서류를 확인한 뒤 필요한 것만 준비해 주세요.</p><div className={styles.documentList}>{documents.map((document) => <article className={styles.documentItem} key={document.title}><span className={styles.documentIcon} aria-hidden="true">{document.href ? "📄" : "🏥"}</span><div><h3>{document.title}</h3><p>{document.description}</p></div>{document.href ? <a className={styles.documentBadge} href={document.href} target="_blank" rel="noopener noreferrer">{document.badge} ↗</a> : <span className={styles.documentBadge}>{document.badge}</span>}</article>)}</div><Link className={styles.commonDocumentsLink} href="/documents">공통 서류에서 발급 방법 보기 →</Link></section>;
 }

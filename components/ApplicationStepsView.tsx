@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState, type ReactNode } from "react";
+import Link from "next/link";
 
 type IconProps = { fontSize?: "small" };
 
@@ -467,6 +468,7 @@ function EditorialStep({ step, index, journey }: { step: ApplicationStep; index:
           <div className="editorial-documents">
             <strong>필요한 서류</strong>
             <ul>{documents.map((document, i) => <li key={`${step.id}-${i}`}>{document}</li>)}</ul>
+            <Link className="common-documents-link" href="/documents">공통 서류에서 발급 방법 보기 →</Link>
           </div>
         )}
         <a className={`editorial-step-action action-${step.link_type}`} href={step.url} target="_blank" rel="noopener noreferrer">
@@ -479,7 +481,6 @@ function EditorialStep({ step, index, journey }: { step: ApplicationStep; index:
 
 function StepCard({ step, index }: { step: ApplicationStep; index: number }) {
   return (
-    <a className="step-card-link" href={step.url} target="_blank" rel="noopener noreferrer">
       <article className="step-card">
         <div className="step-card-top">
           <span className="step-number">{String(index + 1).padStart(2, "0")}</span>
@@ -488,11 +489,10 @@ function StepCard({ step, index }: { step: ApplicationStep; index: number }) {
         <h3>{step.title}</h3>
         <div className="step-card-content">
           {step.description && <p>{step.description}</p>}
-          {step.required_documents && <div className="required-documents"><strong>필요한 서류</strong><p>{step.required_documents}</p></div>}
+          {step.required_documents && <div className="required-documents"><strong>필요한 서류</strong><p>{step.required_documents}</p><Link className="common-documents-link" href="/documents">공통 서류에서 발급 방법 보기 →</Link></div>}
         </div>
-        <span className="step-card-action"><span className="action-label">{getActionLabel(step)}</span> <span aria-hidden="true">↗</span></span>
+        <a className="step-card-action" href={step.url} target="_blank" rel="noopener noreferrer" aria-label={`${step.title} ${getActionLabel(step)} (새 창)`}><span className="action-label">{getActionLabel(step)}</span> <span aria-hidden="true">↗</span></a>
       </article>
-    </a>
   );
 }
 

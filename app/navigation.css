@@ -1,0 +1,27 @@
+@media (max-width: 760px) {
+  .nav { gap: 14px; }
+  .navlinks { gap: 13px; }
+  .navlinks > a,
+  .company-menu-trigger { font-size: 11px; }
+  .company-dropdown { right: auto; left: 0; }
+}
+
+@media (max-width: 480px) {
+  .nav {
+    min-height: 68px;
+    padding-top: 13px;
+    padding-bottom: 12px;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .navlinks {
+    width: 100%;
+    margin: 0;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .brand { font-size: 16px; }
+}
