@@ -32,6 +32,7 @@ export default function CompanyPolicyOverview({ company, locale = "ko" }: { comp
   const policySubtitle = isEnglish ? english?.policySubtitle : company.policySubtitle;
   const description = isEnglish ? (english?.description ?? company.summary) : (company.policyDescription || company.summary);
   const button = isEnglish ? (english?.button ?? "View official policy") : company.policyButton;
+  const policyLink = isEnglish ? (english?.policyLink ?? company.policyLink) : company.policyLink;
   const services = isEnglish ? (english?.services ?? company.services) : company.services;
 
   return (
@@ -47,7 +48,7 @@ export default function CompanyPolicyOverview({ company, locale = "ko" }: { comp
             </div>
           </div>
           <p className={styles.description}>{description}</p>
-          {company.policyLink && <a className={styles.policyLink} href={company.policyLink} target="_blank" rel="noopener noreferrer" aria-label={`${button} ${isEnglish ? "(opens in a new tab)" : "(새 창)"}`}>{button} ↗</a>}
+          {policyLink && <a className={styles.policyLink} href={policyLink} target="_blank" rel="noopener noreferrer" aria-label={`${button} ${isEnglish ? "(opens in a new tab)" : "(새 창)"}`}>{button} ↗</a>}
         </div>
         <div className={styles.services} aria-label={`${displayName} ${isEnglish ? "services" : "적용 서비스"}`}>
           <strong>{isEnglish ? "Services covered" : "적용 서비스"}</strong>
