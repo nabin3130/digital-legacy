@@ -15,18 +15,22 @@ body {
 }
 
 .header {
-  border-bottom-color: rgba(82, 103, 121, 0.2);
+  border-bottom: 0;
   background: rgba(247, 249, 252, 0.9);
 }
 
 .header::before {
-  background: var(--highlight);
+  display: none;
 }
 
 .cursor,
 .result-arrow,
 .service-arrow {
   color: var(--highlight);
+}
+
+.result-arrow {
+  display: none;
 }
 
 .company-dropdown,
