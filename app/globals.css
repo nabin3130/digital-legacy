@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap");
+
 :root {
     --background: #f8f7f3;
     --surface: #fffdf8;
@@ -2168,6 +2170,30 @@ body:has(.hero-video) .header {
   outline: 0;
   box-shadow: none;
   background: var(--background);
+}
+
+/* English typography: Geist for reading, IBM Plex Mono for compact labels. */
+.english-site {
+  font-family: "Geist", Inter, Arial, sans-serif;
+}
+
+.english-site h1,
+.english-site h2,
+.english-site h3,
+.english-site button,
+.english-site input,
+.english-site textarea {
+  font-family: "Geist", Inter, Arial, sans-serif;
+}
+
+.english-site .eyebrow,
+.english-site [class*="step"] {
+  font-family: var(--mono);
+}
+
+.english-site h1,
+.english-site h2 {
+  letter-spacing: -0.04em;
 }
 
 /* English home: keep the longer headline compact and action-focused. */

@@ -7,4 +7,4 @@ export const metadata: Metadata = {
   openGraph: { locale: "en_US", siteName: "Logout" },
 };
 
-export default function EnglishLayout({ children }: { children: React.ReactNode }) { return children; }
+export default function EnglishLayout({ children }: { children: React.ReactNode }) { return <div className="english-site">{children}</div>; }
