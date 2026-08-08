@@ -33,17 +33,23 @@ export default function CompanyAccountFlow({
   postDeathSteps: ApplicationStep[];
 }) {
   const [audience, setAudience] = useState<Audience | null>(null);
+  const [routeId, setRouteId] = useState<number | null>(null);
   const displayName = displayNames[company.slug] ?? company.company;
+  const activeSteps = audience === "mine" ? preDeathSteps : postDeathSteps;
+  const selectedStep = activeSteps.find((step) => step.id === routeId) ?? null;
 
   useEffect(() => {
     function restore(event?: PopStateEvent) {
       const saved = event?.state?.companyAccountFlow?.audience as Audience | undefined;
       if (saved) {
         setAudience(saved);
+        setRouteId(event?.state?.companyAccountFlow?.routeId ?? null);
         return;
       }
       const params = new URLSearchParams(window.location.hash.slice(1));
       setAudience(params.get("account") as Audience | null);
+      const route = Number(params.get("route"));
+      setRouteId(Number.isFinite(route) && route > 0 ? route : null);
     }
 
     restore();
@@ -51,10 +57,14 @@ export default function CompanyAccountFlow({
     return () => window.removeEventListener("popstate", restore);
   }, []);
 
-  function navigate(next: Audience | null) {
-    const hash = next ? `#account=${next}` : window.location.pathname;
-    window.history.pushState({ companyAccountFlow: { audience: next } }, "", hash);
-    setAudience(next);
+  function navigate(nextAudience: Audience | null, nextRouteId: number | null = null) {
+    const params = new URLSearchParams();
+    if (nextAudience) params.set("account", nextAudience);
+    if (nextRouteId) params.set("route", String(nextRouteId));
+    const hash = params.toString() ? `#${params.toString()}` : window.location.pathname;
+    window.history.pushState({ companyAccountFlow: { audience: nextAudience, routeId: nextRouteId } }, "", hash);
+    setAudience(nextAudience);
+    setRouteId(nextRouteId);
   }
 
   return (
@@ -64,10 +74,35 @@ export default function CompanyAccountFlow({
           <img src={logos[company.slug]} alt="" width="48" height="48" />
           <span><small>공식 절차 안내</small>{displayName}</span>
         </button>
-        {audience && <button type="button" className={styles.back} onClick={() => window.history.back()}>← 이전으로</button>}
+        {(audience || routeId) && <button type="button" className={styles.back} onClick={() => window.history.back()}>← 이전으로</button>}
       </header>
 
-      {!audience ? (
+      {audience && (
+        <nav className={styles.contextNavigation} aria-label={`${displayName} 도움말 내 이동`}>
+          <ol className={styles.breadcrumb}>
+            <li><a href="/#services">서비스</a></li>
+            <li><button type="button" onClick={() => navigate(null)}>{displayName}</button></li>
+            <li><button type="button" onClick={() => navigate(audience)}>{audience === "mine" ? `내 ${displayName} 계정` : `고인의 ${displayName} 계정`}</button></li>
+          </ol>
+
+          {selectedStep && (
+            <div className={styles.quickNavigation}>
+              <div className={styles.accountTabs} aria-label="계정 유형 선택">
+                <button type="button" className={audience === "mine" ? styles.activeTab : ""} onClick={() => navigate("mine")}>내 {displayName} 계정</button>
+                <button type="button" className={audience === "deceased" ? styles.activeTab : ""} onClick={() => navigate("deceased")}>고인의 {displayName} 계정</button>
+              </div>
+              <label className={styles.routeSelect}>
+                <span>다른 도움 보기</span>
+                <select value={selectedStep.id} onChange={(event) => navigate(audience, Number(event.target.value))}>
+                  {activeSteps.map((step) => <option value={step.id} key={step.id}>{step.title}</option>)}
+                </select>
+              </label>
+            </div>
+          )}
+        </nav>
+      )}
+
+      {!audience && (
         <main className={`${styles.shell} ${styles.compact}`}>
           <p className={styles.eyebrow}>{displayName} 계정</p>
           <h1>어떤 계정에 관한 도움이 필요한가요?</h1>
@@ -85,12 +120,27 @@ export default function CompanyAccountFlow({
             />
           </div>
         </main>
-      ) : (
+      )}
+
+      {audience && !selectedStep && (
+        <main className={`${styles.shell} ${styles.compact}`}>
+          <p className={styles.eyebrow}>{audience === "mine" ? `내 ${displayName} 계정` : `고인의 ${displayName} 계정`}</p>
+          <h1>무엇을 하고 싶은가요?</h1>
+          <p className={styles.lead}>가장 가까운 항목을 선택해 주세요.</p>
+          <div className={styles.choices}>
+            {activeSteps.map((step) => (
+              <Choice key={step.id} title={step.title} description={step.description ?? "공식 절차를 확인해요."} onClick={() => navigate(audience, step.id)} />
+            ))}
+          </div>
+        </main>
+      )}
+
+      {audience && selectedStep && (
         <ApplicationStepsView
           companyName={displayName}
           companyPolicy={company}
-          preDeathSteps={preDeathSteps}
-          postDeathSteps={postDeathSteps}
+          preDeathSteps={audience === "mine" ? [selectedStep] : []}
+          postDeathSteps={audience === "deceased" ? [selectedStep] : []}
           showOverview={false}
           visibleJourney={audience === "mine" ? "pre_death" : "post_death"}
         />
