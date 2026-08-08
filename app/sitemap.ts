@@ -3,7 +3,7 @@ import { companies } from "@/lib/data";
 import { SITE_URL } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes = ["", "/procedures", "/documents", "/compare", "/contact"];
+  const staticRoutes = ["", "/prepare", "/about", "/contact"];
   const routes = [...staticRoutes, ...companies.map((company) => `/company/${company.slug}`)];
 
   return routes.map((route, index) => ({

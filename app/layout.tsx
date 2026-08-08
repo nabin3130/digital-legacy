@@ -151,10 +151,9 @@ export default function RootLayout({
                   <Link className="company-dropdown-all" href="/#services">모든 서비스 보기</Link>
                 </div>
               </div>
-              <Link href="/procedures">공통절차</Link>
-              <Link href="/documents">공통서류</Link>
-              <Link href="/compare">정책비교</Link>
-              <Link href="/contact">문의하기</Link>
+              <Link href="/prepare">준비</Link>
+              <Link href="/about">이야기</Link>
+              <Link href="/contact">문의</Link>
             </nav>
           </div>
         </header>

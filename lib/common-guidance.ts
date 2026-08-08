@@ -16,6 +16,7 @@ export type CommonDocument = {
   name: LocalizedText;
   purpose: LocalizedText;
   issuer: LocalizedText;
+  issueMethod: LocalizedText;
   online: boolean;
   url: string | null;
   linkTodo?: string;
@@ -97,9 +98,12 @@ export const commonDocuments: CommonDocument[] = [
       ko: "전자가족관계등록시스템 등",
       en: "Electronic Family Relations Registration System and other authorized channels",
     },
+    issueMethod: {
+      ko: "전자가족관계등록시스템에서 본인 인증 후 가족관계등록부 증명서 발급을 선택합니다.",
+      en: "Verify your identity in the Electronic Family Relations Registration System and select a family relations certificate.",
+    },
     online: true,
-    url: null,
-    linkTodo: "전자가족관계등록시스템의 가족관계증명서 직접 발급 URL 확인 필요",
+    url: "https://efamily.scourt.go.kr/cs/CsBltnWrtGuide.do?bltnbordId=0000007&guideCd=0000007001&guideYn=Y",
   },
   {
     id: "basic-certificate",
@@ -112,15 +116,22 @@ export const commonDocuments: CommonDocument[] = [
       ko: "전자가족관계등록시스템 등",
       en: "Electronic Family Relations Registration System and other authorized channels",
     },
+    issueMethod: {
+      ko: "전자가족관계등록시스템에서 본인 인증 후 기본증명서 발급을 선택합니다.",
+      en: "Verify your identity in the Electronic Family Relations Registration System and select a basic certificate.",
+    },
     online: true,
-    url: null,
-    linkTodo: "전자가족관계등록시스템의 기본증명서 직접 발급 URL 확인 필요",
+    url: "https://efamily.scourt.go.kr/cs/CsBltnWrtGuide.do?bltnbordId=0000007&guideCd=0000007002&guideYn=Y",
   },
   {
     id: "death-certificate",
     name: { ko: "사망진단서", en: "Death Certificate" },
     purpose: { ko: "사망 사실 확인", en: "Confirms the fact of death" },
     issuer: { ko: "병원 또는 의료기관", en: "Hospital or medical institution" },
+    issueMethod: {
+      ko: "사망을 확인한 병원 또는 의료기관의 원무과에 발급을 요청합니다.",
+      en: "Request a copy from the administration desk of the hospital or medical institution that confirmed the death.",
+    },
     online: false,
     url: null,
     linkTodo: "의료기관별 발급 방식이 달라 공통 온라인 발급 링크 없음",

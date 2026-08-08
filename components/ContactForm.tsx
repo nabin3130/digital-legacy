@@ -32,8 +32,10 @@ export default function ContactForm() {
       setEmail("");
       setMessage("");
       setStatus("sent");
+      window.alert("문의가 전송되었습니다. 확인 후 입력한 이메일로 답변드릴게요.");
     } catch {
       setStatus("error");
+      window.alert("문의 전송에 실패했습니다. 잠시 후 다시 시도해 주세요.");
     }
   }
 

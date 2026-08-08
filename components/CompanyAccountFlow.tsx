@@ -174,7 +174,7 @@ function StandardStepDetail({ companyName, audience, step }: { companyName: stri
           <section>
             <h2>준비할 서류</h2>
             <ul>{documents.map((document) => <li key={document}>{document}</li>)}</ul>
-            <Link className={styles.commonDocumentsLink} href="/documents">공통 서류에서 발급 방법 보기 →</Link>
+            <Link className={styles.commonDocumentsLink} href="/prepare#documents">준비 페이지에서 발급 방법 보기 →</Link>
           </section>
         )}
         {step.notes && (

@@ -95,7 +95,7 @@ export default function Home() {
           const normalizedKeyword = keyword.toLowerCase();
           return (
             normalizedKeyword.includes(normalizedQuery) ||
-            hangulToEnglish(normalizedKeyword).includes(normalizedQuery)
+            (normalizedQuery.length > 1 && hangulToEnglish(normalizedKeyword).includes(normalizedQuery))
           );
         }),
       )
