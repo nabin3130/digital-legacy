@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import ApplicationStepsView, { type ApplicationStep } from "@/components/ApplicationStepsView";
+import Link from "next/link";
+import type { ApplicationStep } from "@/components/ApplicationStepsView";
 import type { CompanyPolicy } from "@/lib/types";
 import styles from "./GoogleAccountFlow.module.css";
 
@@ -136,14 +137,7 @@ export default function CompanyAccountFlow({
       )}
 
       {audience && selectedStep && (
-        <ApplicationStepsView
-          companyName={displayName}
-          companyPolicy={company}
-          preDeathSteps={audience === "mine" ? [selectedStep] : []}
-          postDeathSteps={audience === "deceased" ? [selectedStep] : []}
-          showOverview={false}
-          visibleJourney={audience === "mine" ? "pre_death" : "post_death"}
-        />
+        <StandardStepDetail companyName={displayName} audience={audience} step={selectedStep} />
       )}
     </div>
   );
@@ -151,4 +145,54 @@ export default function CompanyAccountFlow({
 
 function Choice({ title, description, onClick }: { title: string; description: string; onClick: () => void }) {
   return <button type="button" className={styles.choice} onClick={onClick}><span><strong>{title}</strong><small>{description}</small></span></button>;
+}
+
+function StandardStepDetail({ companyName, audience, step }: { companyName: string; audience: Audience; step: ApplicationStep }) {
+  const storageKey = `digital-legacy-checklist-v1-${companyName.toLowerCase()}-${step.id}`;
+  const [checked, setChecked] = useState(false);
+
+  useEffect(() => {
+    setChecked(localStorage.getItem(storageKey) === "true");
+  }, [storageKey]);
+
+  function updateChecklist(next: boolean) {
+    setChecked(next);
+    localStorage.setItem(storageKey, String(next));
+  }
+
+  const documents = step.required_documents?.split(/[,\n]/).map((item) => item.trim()).filter(Boolean) ?? [];
+  const actionLabel = step.link_type === "request" ? "공식 신청 페이지로 이동" : step.link_type === "setup" ? "공식 설정 페이지로 이동" : "공식 안내 확인하기";
+
+  return (
+    <main className={`${styles.shell} ${styles.compact} ${styles.detail}`}>
+      <p className={styles.eyebrow}>{audience === "mine" ? `내 ${companyName} 계정` : `고인의 ${companyName} 계정`}</p>
+      <h1>{step.title}</h1>
+      {step.description && <p className={styles.lead}>{step.description}</p>}
+
+      <div className={styles.sections}>
+        {documents.length > 0 && (
+          <section>
+            <h2>준비할 서류</h2>
+            <ul>{documents.map((document) => <li key={document}>{document}</li>)}</ul>
+            <Link className={styles.commonDocumentsLink} href="/documents">공통 서류에서 발급 방법 보기 →</Link>
+          </section>
+        )}
+        {step.notes && (
+          <section>
+            <h2>꼭 알아둘 점</h2>
+            <p className={styles.lead}>{step.notes}</p>
+          </section>
+        )}
+      </div>
+
+      <label className={styles.checklistOption}>
+        <input type="checkbox" checked={checked} onChange={(event) => updateChecklist(event.target.checked)} />
+        <span>이 절차를 확인했어요</span>
+      </label>
+
+      <div className={styles.actions}>
+        <a className={styles.primary} href={step.url} target="_blank" rel="noopener noreferrer" aria-label={`${companyName} ${actionLabel} (새 창)`}>{actionLabel}</a>
+      </div>
+    </main>
+  );
 }

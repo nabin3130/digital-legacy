@@ -153,8 +153,8 @@ export default function RootLayout({
               </div>
               <Link href="/procedures">공통절차</Link>
               <Link href="/documents">공통서류</Link>
-              <Link href="/compare">정책 비교</Link>
-              <Link href="/contact">Contact</Link>
+              <Link href="/compare">정책비교</Link>
+              <Link href="/contact">문의하기</Link>
             </nav>
           </div>
         </header>
