@@ -1,0 +1,79 @@
+:root {
+  --background: #f7f3ea;
+  --surface: #fffdf8;
+  --text: #243642;
+  --muted: #65747c;
+  --border: #ddd6c9;
+  --border-strong: #b9afa0;
+  --accent: #243642;
+  --highlight: #a75d4d;
+}
+
+body {
+  background:
+    radial-gradient(circle at 82% 4%, rgba(255, 253, 248, 0.96) 0 10%, transparent 34%),
+    linear-gradient(180deg, #f7f3ea 0%, #f2ede3 48%, #faf7f0 100%);
+  color: var(--text);
+}
+
+.header {
+  border-bottom-color: rgba(185, 175, 160, 0.55);
+  background: rgba(247, 243, 234, 0.86);
+}
+
+.header::before {
+  background: var(--highlight);
+}
+
+.cursor,
+.result-arrow,
+.service-arrow {
+  color: var(--highlight);
+}
+
+.company-dropdown,
+.search-results {
+  border-color: var(--border);
+  background: rgba(255, 253, 248, 0.98);
+  box-shadow: 0 22px 50px rgba(76, 58, 45, 0.12);
+}
+
+.company-dropdown-item:hover,
+.search-result:hover {
+  color: var(--accent);
+  background: #f3eee6;
+}
+
+.available-services-section,
+.footer {
+  background: rgba(247, 243, 234, 0.82);
+}
+
+.available-service,
+.policy-card,
+.step-card {
+  background: rgba(255, 253, 248, 0.9);
+}
+
+.post-death-choices .editorial-step-number,
+.checklist-item-copy small {
+  color: var(--highlight);
+}
+
+.checklist-progress-track span {
+  background: linear-gradient(90deg, var(--accent), var(--highlight));
+}
+
+.legend-checking,
+.status-checking {
+  color: #7b493f;
+  background-color: #f2e5df;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0s !important;
+  }
+}

@@ -55,8 +55,8 @@ export default function SiteHeader() {
   return (
     <header className="header">
       <div className="container nav">
-        <Link className="brand" href={isEnglish ? "/en" : "/"} aria-label={isEnglish ? "Digital Legacy Navigator home" : "망각인프라 홈"}>
-          {isEnglish ? "Digital Legacy Navigator" : "망각인프라"}<span className="cursor" aria-hidden="true">_</span>
+        <Link className="brand" href={isEnglish ? "/en" : "/"} aria-label={isEnglish ? "Logout home" : "로그아웃 홈"}>
+          {isEnglish ? "Logout" : "로그아웃"}<span className="cursor" aria-hidden="true">_</span>
         </Link>
         <nav className="navlinks" aria-label={isEnglish ? "Main navigation" : "주요 메뉴"}>
           <div className="company-menu">

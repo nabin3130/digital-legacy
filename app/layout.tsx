@@ -1,5 +1,6 @@
 import "./globals.css";
 import "./brand.css";
+import "./theme.css";
 import "./navigation.css";
 import Link from "next/link";
 import Script from "next/script"; // 👈 추가된 부분
@@ -9,8 +10,8 @@ import { SITE_DESCRIPTION, SITE_KEYWORDS, SITE_URL } from "@/lib/site";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "망각인프라 – 디지털 유산 안내",
-    template: "%s | 망각인프라",
+    default: "로그아웃 – 디지털 유산 안내",
+    template: "%s | 로그아웃",
   },
   description: SITE_DESCRIPTION,
   keywords: [...SITE_KEYWORDS],
@@ -18,13 +19,13 @@ export const metadata: Metadata = {
     type: "website",
     locale: "ko_KR",
     url: "/",
-    siteName: "망각인프라",
-    title: "망각인프라 – 디지털 유산 안내",
+    siteName: "로그아웃",
+    title: "로그아웃 – 디지털 유산 안내",
     description: SITE_DESCRIPTION,
   },
   twitter: {
     card: "summary",
-    title: "망각인프라 – 디지털 유산 안내",
+    title: "로그아웃 – 디지털 유산 안내",
     description: SITE_DESCRIPTION,
   },
   robots: {
@@ -46,7 +47,7 @@ const structuredData = {
     {
       "@type": "Organization",
       "@id": `${SITE_URL}/#organization`,
-      name: "망각인프라",
+      name: "로그아웃",
       url: SITE_URL,
       email: "kimnabin01@gmail.com",
     },
@@ -54,7 +55,7 @@ const structuredData = {
       "@type": "WebSite",
       "@id": `${SITE_URL}/#website`,
       url: SITE_URL,
-      name: "망각인프라",
+      name: "로그아웃",
       description: SITE_DESCRIPTION,
       inLanguage: "ko-KR",
       publisher: { "@id": `${SITE_URL}/#organization` },
@@ -124,8 +125,8 @@ export default function RootLayout({
 
         <header className="header">
           <div className="container nav">
-            <Link className="brand" href="/" aria-label="망각인프라 홈">
-              망각인프라<span className="cursor" aria-hidden="true">_</span>
+            <Link className="brand" href="/" aria-label="로그아웃 홈">
+              로그아웃<span className="cursor" aria-hidden="true">_</span>
             </Link>
 
             <nav className="navlinks" aria-label="주요 메뉴">
@@ -162,7 +163,7 @@ export default function RootLayout({
 
         <footer className="footer">
           <div className="container footer-inner">
-            <Link className="footer-brand" href="/">망각인프라_</Link>
+            <Link className="footer-brand" href="/">로그아웃_</Link>
             <p>정책은 변경될 수 있습니다. 신청 전 공식 플랫폼 페이지를 반드시 확인하세요.</p>
             <span>© 2026</span>
           </div>

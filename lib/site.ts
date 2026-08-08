@@ -32,5 +32,5 @@ export const SITE_KEYWORDS = [
   "기본증명서",
   "안심상속 원스톱 서비스",
   "디지털 유산 준비",
-  "망각인프라",
+  "로그아웃",
 ] as const;

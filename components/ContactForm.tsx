@@ -20,7 +20,7 @@ export default function ContactForm() {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
-          _subject: "망각인프라 웹사이트 문의",
+          _subject: "로그아웃 웹사이트 문의",
           _template: "table",
           _captcha: "false",
           email,
@@ -53,7 +53,7 @@ export default function ContactForm() {
       <p className={styles.notice} aria-live="polite">
         {status === "sent" && "문의가 전송되었습니다. 확인 후 입력한 이메일로 답변드릴게요."}
         {status === "error" && "문의 전송에 실패했습니다. 잠시 후 다시 시도해 주세요."}
-        {status === "idle" && "입력한 내용은 망각인프라 운영자 이메일로 바로 전달됩니다."}
+        {status === "idle" && "입력한 내용은 로그아웃 운영자 이메일로 바로 전달됩니다."}
       </p>
     </form>
   );
