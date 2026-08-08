@@ -25,3 +25,91 @@
 
   .brand { font-size: 16px; }
 }
+
+/* Keep the service directory as distinct cards after all theme overrides. */
+.service-groups {
+  gap: 48px;
+}
+
+.available-services {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.available-service {
+  min-height: 188px;
+  padding: 32px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.86);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 22px;
+  box-shadow: none;
+}
+
+.available-service:hover,
+.available-service:focus-visible {
+  padding: 32px;
+  border-color: var(--border-strong);
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 14px 32px rgba(37, 76, 96, 0.08);
+  transform: translateY(-2px);
+  outline: none;
+}
+
+.available-service-logo {
+  width: 56px;
+  height: 56px;
+  flex: 0 0 56px;
+}
+
+.available-service strong {
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+/* The English experience uses one typeface across header, content and footer. */
+body:has(.english-site),
+body:has(.english-site) * {
+  font-family: "Geist", Inter, Arial, sans-serif !important;
+}
+
+body:has(.english-site) h1,
+body:has(.english-site) h2 {
+  letter-spacing: -0.04em;
+}
+
+@media (max-width: 720px) {
+  .available-services {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .available-service,
+  .available-service:hover,
+  .available-service:focus-visible {
+    min-height: 148px;
+    padding: 22px;
+  }
+}
+
+@media (max-width: 420px) {
+  .available-services {
+    grid-template-columns: 1fr;
+  }
+
+  .available-service,
+  .available-service:hover,
+  .available-service:focus-visible {
+    min-height: 112px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+  }
+}
