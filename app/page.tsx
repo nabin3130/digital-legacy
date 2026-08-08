@@ -52,6 +52,8 @@ function hangulToEnglish(value: string) {
 }
 
 export default function Home() {
+  const isEnglish = false;
+  const prefix = "";
   const router = useRouter();
   const [query, setQuery] = useState("");
   const [isSoundOn, setIsSoundOn] = useState(false);
@@ -103,7 +105,7 @@ export default function Home() {
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (searchResults.length > 0) router.push(`/company/${searchResults[0].slug}`);
+    if (searchResults.length > 0) router.push(`${prefix}/company/${searchResults[0].slug}`);
   }
 
   // 🔊 개선된 소리 토글 함수
@@ -150,12 +152,11 @@ export default function Home() {
           <div className="hero-copy">
             <p className="eyebrow">DIGITAL LEGACY NAVIGATOR / 01</p>
             <h1>
-              <span>남겨진 디지털 추억,</span>
-              <span>어떻게 정리할지 안내합니다.</span>
+              <span>{isEnglish ? "Your digital memories remain." : "남겨진 디지털 추억,"}</span>
+              <span>{isEnglish ? "We help you decide what comes next." : "어떻게 정리할지 안내합니다."}</span>
             </h1>
             <p className="hero-description">
-              생전 설정부터 사후 처리 방법, 필요한 서류와 공식 신청 경로까지
-              한곳에서 안내합니다.
+              {isEnglish ? "Find pre-planning options, steps after a death, required documents, and official request paths in one place." : "생전 설정부터 사후 처리 방법, 필요한 서류와 공식 신청 경로까지 한곳에서 안내합니다."}
             </p>
 
             <form className="company-search" onSubmit={handleSubmit}>
@@ -164,8 +165,8 @@ export default function Home() {
                 type="search"
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
-                aria-label="회사 또는 서비스 검색"
-                placeholder="회사 또는 서비스를 검색하세요"
+                aria-label={isEnglish ? "Search companies or services" : "회사 또는 서비스 검색"}
+                placeholder={isEnglish ? "Search a company or service" : "회사 또는 서비스를 검색하세요"}
                 autoComplete="off"
               />
 
@@ -173,14 +174,14 @@ export default function Home() {
                 <div className="search-results">
                   {searchResults.length > 0 ? (
                     searchResults.map((service) => (
-                      <Link className="search-result" href={`/company/${service.slug}`} key={service.slug}>
+                      <Link className="search-result" href={`${prefix}/company/${service.slug}`} key={service.slug}>
                         <span className="search-result-logo"><img src={service.logo} alt="" /></span>
-                        <strong>{service.name}</strong>
+                        <strong>{isEnglish ? ({ 카카오: "Kakao", 네이버: "Naver", 삼성: "Samsung", 인스타그램: "Instagram", 구글: "Google", 메타: "Meta", 애플: "Apple", X: "X" } as Record<string,string>)[service.name] : service.name}</strong>
                         <span className="result-arrow" aria-hidden="true">→</span>
                       </Link>
                     ))
                   ) : (
-                    <p className="search-empty">검색 결과가 없습니다.</p>
+                    <p className="search-empty">{isEnglish ? "No results found." : "검색 결과가 없습니다."}</p>
                   )}
                 </div>
               )}
@@ -193,7 +194,7 @@ export default function Home() {
               onClick={toggleOceanSound}
             >
               <span className="sound-icon" aria-hidden="true">{isSoundOn ? "◉" : "○"}</span>
-              {isSoundOn ? "소리 끄기" : "소리 켜기"}
+              {isEnglish ? (isSoundOn ? "Sound off" : "Sound on") : (isSoundOn ? "소리 끄기" : "소리 켜기")}
             </button>
           </div>
         </div>
@@ -203,22 +204,22 @@ export default function Home() {
         <div className="container">
           <div className="available-services-heading">
             <p className="eyebrow">AVAILABLE PATHS / 02</p>
-            <h2>현재 확인 가능한 서비스</h2>
-            <p>관리하려는 계정의 서비스를 선택하세요.</p>
+            <h2>{isEnglish ? "Available services" : "현재 확인 가능한 서비스"}</h2>
+            <p>{isEnglish ? "Choose the service for the account you need to manage." : "관리하려는 계정의 서비스를 선택하세요."}</p>
           </div>
 
           <div className="service-groups">
             {[
-              { title: "국내 서비스", services: domesticServices },
-              { title: "국외 서비스", services: internationalServices },
+              { title: isEnglish ? "Korean services" : "국내 서비스", services: domesticServices },
+              { title: isEnglish ? "Global services" : "국외 서비스", services: internationalServices },
             ].map((group) => (
               <section className="service-group" key={group.title}>
                 <h3>{group.title}</h3>
                 <div className="available-services">
                   {group.services.map((service) => (
-                    <Link className="available-service" href={`/company/${service.slug}`} key={service.slug}>
+                    <Link className="available-service" href={`${prefix}/company/${service.slug}`} key={service.slug}>
                       <span className="available-service-logo"><img src={service.logo} alt="" /></span>
-                      <strong>{service.name}</strong>
+                      <strong>{isEnglish ? ({ 카카오: "Kakao", 네이버: "Naver", 삼성: "Samsung", 인스타그램: "Instagram", 구글: "Google", 메타: "Meta", 애플: "Apple", X: "X" } as Record<string,string>)[service.name] : service.name}</strong>
                     </Link>
                   ))}
                 </div>

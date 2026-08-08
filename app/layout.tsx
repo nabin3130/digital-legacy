@@ -2,10 +2,11 @@ import "./globals.css";
 import "./brand.css";
 import "./theme.css";
 import "./navigation.css";
-import Link from "next/link";
 import Script from "next/script"; // 👈 추가된 부분
 import type { Metadata } from "next";
 import { SITE_DESCRIPTION, SITE_KEYWORDS, SITE_URL } from "@/lib/site";
+import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -63,49 +64,6 @@ const structuredData = {
   ],
 };
 
-const serviceMenu = [
-  {
-    name: "카카오",
-    slug: "kakao",
-    logo: "/logos/kakao.webp",
-  },
-  {
-    name: "네이버",
-    slug: "naver",
-    logo: "/logos/naver.svg",
-  },
-  {
-    name: "인스타그램",
-    slug: "instagram",
-    logo: "/logos/instagram.webp",
-  },
-  {
-    name: "구글",
-    slug: "google",
-    logo: "/logos/google.svg",
-  },
-  {
-    name: "애플",
-    slug: "apple",
-    logo: "/logos/apple.svg",
-  },
-  {
-    name: "메타",
-    slug: "meta",
-    logo: "/logos/meta.svg",
-  },
-  {
-    name: "삼성",
-    slug: "samsung",
-    logo: "/logos/samsung.svg",
-  },
-  {
-    name: "X",
-    slug: "x",
-    logo: "/logos/x.svg",
-  },
-].sort((a, b) => a.name.localeCompare(b.name, "ko"));
-
 export default function RootLayout({
   children,
 }: {
@@ -123,51 +81,11 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
 
-        <header className="header">
-          <div className="container nav">
-            <Link className="brand" href="/" aria-label="로그아웃 홈">
-              로그아웃<span className="cursor" aria-hidden="true">_</span>
-            </Link>
-
-            <nav className="navlinks" aria-label="주요 메뉴">
-              <div className="company-menu">
-                <Link className="company-menu-trigger" href="/#services">회사</Link>
-                <div className="company-dropdown">
-                  <div className="company-dropdown-groups">
-                    {[
-                      { title: "국내", slugs: ["naver", "kakao", "samsung"] },
-                      { title: "국외", slugs: ["google", "apple", "meta", "instagram", "x"] },
-                    ].map((group) => (
-                      <section className="company-dropdown-group" key={group.title}>
-                        <h2>{group.title}</h2>
-                        {serviceMenu.filter((service) => group.slugs.includes(service.slug)).map((service) => (
-                          <Link className="company-dropdown-item" href={`/company/${service.slug}`} key={service.slug}>
-                            <span className="company-dropdown-logo"><img src={service.logo} alt="" /></span>
-                            <strong>{service.name}</strong>
-                          </Link>
-                        ))}
-                      </section>
-                    ))}
-                  </div>
-                  <Link className="company-dropdown-all" href="/#services">모든 서비스 보기</Link>
-                </div>
-              </div>
-              <Link href="/prepare">준비</Link>
-              <Link href="/about">이야기</Link>
-              <Link href="/contact">문의</Link>
-            </nav>
-          </div>
-        </header>
+        <SiteHeader />
 
         {children}
 
-        <footer className="footer">
-          <div className="container footer-inner">
-            <Link className="footer-brand" href="/">로그아웃_</Link>
-            <p>정책은 변경될 수 있습니다. 신청 전 공식 플랫폼 페이지를 반드시 확인하세요.</p>
-            <span>© 2026</span>
-          </div>
-        </footer>
+        <SiteFooter />
       </body>
     </html>
   );
