@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import CompanyAccountSelector from "@/components/CompanyAccountSelector";
 import type { ApplicationStep } from "@/components/ApplicationStepsView";
 import type { CompanyPolicy } from "@/lib/types";
 import styles from "./GoogleAccountFlow.module.css";
@@ -70,13 +71,13 @@ export default function CompanyAccountFlow({
 
   return (
     <div className={styles.page}>
-      <header className={styles.header}>
+      {audience && <header className={styles.header}>
         <button type="button" className={styles.brand} onClick={() => navigate(null)} aria-label={`${displayName} 안내 처음으로`}>
           <img src={logos[company.slug]} alt="" width="48" height="48" />
           <span><small>공식 절차 안내</small>{displayName}</span>
         </button>
         {(audience || routeId) && <button type="button" className={styles.back} onClick={() => window.history.back()}>← 이전으로</button>}
-      </header>
+      </header>}
 
       {audience && (
         <nav className={styles.contextNavigation} aria-label={`${displayName} 도움말 내 이동`}>
@@ -104,23 +105,10 @@ export default function CompanyAccountFlow({
       )}
 
       {!audience && (
-        <main className={`${styles.shell} ${styles.compact}`}>
-          <p className={styles.eyebrow}>{displayName} 계정</p>
-          <h1>어떤 계정에 관한 도움이 필요한가요?</h1>
-          <p className={styles.lead}>상황을 선택하면 필요한 공식 절차만 순서대로 안내해 드려요.</p>
-          <div className={styles.choices}>
-            <Choice
-              title={`내 ${displayName} 계정`}
-              description="내 데이터를 정리하거나 계정의 사후 처리를 미리 준비하고 싶어요."
-              onClick={() => navigate("mine")}
-            />
-            <Choice
-              title={`고인의 ${displayName} 계정`}
-              description="고인의 계정, 데이터 또는 남은 정보를 처리하고 싶어요."
-              onClick={() => navigate("deceased")}
-            />
-          </div>
-        </main>
+        <CompanyAccountSelector
+          mine={{ title: `내 ${displayName} 계정`, description: "내 데이터를 정리하거나 계정의 사후 처리를 미리 준비하고 싶어요.", onSelect: () => navigate("mine") }}
+          deceased={{ title: `고인의 ${displayName} 계정`, description: "고인의 계정, 데이터 또는 남은 정보를 처리하고 싶어요.", onSelect: () => navigate("deceased") }}
+        />
       )}
 
       {audience && !selectedStep && (

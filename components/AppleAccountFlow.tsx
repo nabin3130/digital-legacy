@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import CompanyAccountSelector from "@/components/CompanyAccountSelector";
 import styles from "./GoogleAccountFlow.module.css";
 
 type Audience = "mine" | "deceased";
@@ -51,13 +52,13 @@ export default function AppleAccountFlow() {
   const reset = () => navigate({ audience: null });
 
   return <div className={styles.page}>
-    <header className={styles.header}>
+    {audience && <header className={styles.header}>
       <button type="button" className={styles.brand} onClick={reset} aria-label="애플 안내 처음으로">
         <img src="/logos/apple.svg" alt="" width="48" height="48" />
         <span><small>공식 절차 안내</small>애플</span>
       </button>
       {(audience || route) && <button type="button" className={styles.back} onClick={() => window.history.back()}>← 이전으로</button>}
-    </header>
+    </header>}
 
     {audience && <nav className={styles.contextNavigation} aria-label="애플 도움말 내 이동">
       <ol className={styles.breadcrumb}>
@@ -74,10 +75,10 @@ export default function AppleAccountFlow() {
       </div>}
     </nav>}
 
-    {!audience && <StepShell eyebrow="애플 계정" title="어떤 계정에 관한 도움이 필요한가요?" description="상황을 선택하면 필요한 공식 절차만 순서대로 안내해 드려요.">
-      <Choice title="내 애플 계정" description="유산 관리자를 지정하고 접근 키를 준비하고 싶어요." onClick={() => navigate({ audience: "mine" })} />
-      <Choice title="고인의 애플 계정" description="고인의 데이터에 접근하거나 계정을 처리하고 싶어요." onClick={() => navigate({ audience: "deceased" })} />
-    </StepShell>}
+    {!audience && <CompanyAccountSelector
+      mine={{ title: "내 애플 계정", description: "유산 관리자를 지정하고 접근 키를 준비하고 싶어요.", onSelect: () => navigate({ audience: "mine" }) }}
+      deceased={{ title: "고인의 애플 계정", description: "고인의 데이터에 접근하거나 계정을 처리하고 싶어요.", onSelect: () => navigate({ audience: "deceased" }) }}
+    />}
     {audience && !route && <StepShell eyebrow={audience === "mine" ? "내 애플 계정" : "고인의 애플 계정"} title="무엇을 하고 싶은가요?" description="가장 가까운 항목을 선택해 주세요.">{routes[audience].map(item => <Choice key={item.id} title={item.title} description={item.description} onClick={() => navigate({ audience, route: item.id })} />)}</StepShell>}
     {route && <Detail route={route} />}
   </div>;

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import CompanyAccountSelector from "@/components/CompanyAccountSelector";
 import styles from "./GoogleAccountFlow.module.css";
 
 type KnowsId = "yes" | "no";
@@ -64,18 +65,18 @@ export default function NaverAccountFlow() {
 
   return (
     <div className={styles.page}>
-      <header className={styles.header}>
+      {audience && <header className={styles.header}>
         <button type="button" className={styles.brand} onClick={reset} aria-label="네이버 안내 처음으로">
           <img src="/logos/naver.svg" alt="" width="48" height="48" />
           <span><small>공식 절차 안내</small>네이버</span>
         </button>
         {audience && <button type="button" className={styles.back} onClick={() => window.history.back()}>← 이전으로</button>}
-      </header>
+      </header>}
 
-      {!audience && <StepShell eyebrow="네이버 계정" title="어떤 계정에 관한 도움이 필요한가요?" description="상황을 선택하면 필요한 절차를 순서대로 안내해 드려요.">
-        <Choice title="내 네이버 계정" description="내 데이터와 게시물을 정리하거나 계정을 탈퇴하고 싶어요." onClick={() => navigate({ audience: "mine" })} />
-        <Choice title="고인의 네이버 계정" description="고인의 공개 게시물, 계정 또는 Npay 잔액을 처리하고 싶어요." onClick={() => navigate({ audience: "deceased" })} />
-      </StepShell>}
+      {!audience && <CompanyAccountSelector
+        mine={{ title: "내 네이버 계정", description: "내 데이터와 게시물을 정리하거나 계정을 탈퇴하고 싶어요.", onSelect: () => navigate({ audience: "mine" }) }}
+        deceased={{ title: "고인의 네이버 계정", description: "고인의 공개 게시물, 계정 또는 Npay 잔액을 처리하고 싶어요.", onSelect: () => navigate({ audience: "deceased" }) }}
+      />}
 
       {audience === "mine" && <MineDetail />}
 

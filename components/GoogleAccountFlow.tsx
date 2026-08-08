@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import CompanyAccountSelector from "@/components/CompanyAccountSelector";
 import styles from "./GoogleAccountFlow.module.css";
 
 type Audience = "mine" | "deceased";
@@ -88,13 +89,13 @@ export default function GoogleAccountFlow() {
 
   return (
     <div className={styles.page}>
-      <header className={styles.header}>
+      {audience && <header className={styles.header}>
         <button type="button" className={styles.brand} onClick={reset} aria-label="구글 안내 처음으로">
           <img src="/logos/google.svg" alt="" width="48" height="48" />
           <span><small>공식 절차 안내</small>구글</span>
         </button>
         {(audience || route) && <button type="button" className={styles.back} onClick={goBack}>← 이전으로</button>}
-      </header>
+      </header>}
 
       {audience && (
         <nav className={styles.contextNavigation} aria-label="구글 도움말 내 이동">
@@ -141,10 +142,10 @@ export default function GoogleAccountFlow() {
       )}
 
       {!audience && (
-        <StepShell compact eyebrow="구글 계정" title="어떤 계정에 관한 도움이 필요한가요?" description="상황을 선택하면 필요한 공식 절차만 순서대로 안내해 드려요.">
-          <Choice title="내 구글 계정" description="사후 계획을 설정하거나 내 데이터를 정리하고 싶어요." onClick={() => navigate({ audience: "mine" })} />
-          <Choice title="고인의 구글 계정" description="고인의 데이터, 계정 또는 남은 금액을 처리하고 싶어요." onClick={() => navigate({ audience: "deceased" })} />
-        </StepShell>
+        <CompanyAccountSelector
+          mine={{ title: "내 구글 계정", description: "사후 계획을 설정하거나 내 데이터를 정리하고 싶어요.", onSelect: () => navigate({ audience: "mine" }) }}
+          deceased={{ title: "고인의 구글 계정", description: "고인의 데이터, 계정 또는 남은 금액을 처리하고 싶어요.", onSelect: () => navigate({ audience: "deceased" }) }}
+        />
       )}
 
       {audience && !route && (
