@@ -19,7 +19,7 @@ export default function EnglishHomePage() {
   const router = useRouter(); const [query, setQuery] = useState("");
   const results = useMemo(() => { const q = query.trim().toLowerCase(); return q ? services.filter((service) => service.keywords.some((keyword) => keyword.includes(q))) : []; }, [query]);
   function submit(event: FormEvent) { event.preventDefault(); if (results[0]) router.push(`/en/company/${results[0].slug}`); }
-  return <main>
+  return <main className="english-home">
     <section className="hero hero-video"><div className="hero-media" aria-hidden="true"><video autoPlay muted loop playsInline preload="auto" disablePictureInPicture poster="/media/ocean-hero-poster.jpg"><source src="/media/ocean-hero.mp4" type="video/mp4" /></video></div>
       <div className="container hero-grid"><div className="hero-copy"><p className="eyebrow">DIGITAL LEGACY NAVIGATOR / 01</p><h1><span>Your digital memories remain.</span><span>We help you decide what comes next.</span></h1><p className="hero-description">Find pre-planning options, steps after a death, required documents, and official request paths in one place.</p>
         <form className="company-search" onSubmit={submit}><input className="search" type="search" value={query} onChange={(event) => setQuery(event.target.value)} aria-label="Search companies or services" placeholder="Search a company or service" autoComplete="off" />{query.trim() && <div className="search-results">{results.length ? results.map((service) => <Link className="search-result" href={`/en/company/${service.slug}`} key={service.slug}><span className="search-result-logo"><img src={service.logo} alt="" /></span><strong>{service.name}</strong></Link>) : <p className="search-empty">No results found.</p>}</div>}</form>
