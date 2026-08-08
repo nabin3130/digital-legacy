@@ -4,6 +4,7 @@ const companyNames: Record<string, string> = {
   Apple: "애플",
   Google: "구글",
   Facebook: "페이스북",
+  Meta: "메타",
   Instagram: "인스타그램",
   Samsung: "삼성",
   NAVER: "네이버",

@@ -56,9 +56,9 @@ export const companies: CompanyPolicy[] = [
     lastUpdated: "2026-07-10"
   },
   {
-    id: "facebook",
-    slug: "facebook",
-    company: "Facebook",
+    id: "meta",
+    slug: "meta",
+    company: "Meta",
     platform: "Facebook",
     category: "소셜미디어",
     summary: "기념 계정과 Legacy Contact를 지원합니다.",

@@ -71,6 +71,8 @@ type Props = {
   companyPolicy: CompanyPolicy;
   preDeathSteps: ApplicationStep[];
   postDeathSteps: ApplicationStep[];
+  showOverview?: boolean;
+  visibleJourney?: Journey;
 };
 
 type ViewMode = "list" | "grid";
@@ -87,11 +89,13 @@ export default function ApplicationStepsView({
   companyPolicy,
   preDeathSteps,
   postDeathSteps,
+  showOverview = true,
+  visibleJourney,
 }: Props) {
   const [view, setView] = useState<ViewMode>("list");
   const [activeSection, setActiveSection] = useState("company-overview");
   const [isChecklistOpen, setIsChecklistOpen] = useState(false);
-  const [activeJourney, setActiveJourney] = useState<Journey>("pre_death");
+  const [activeJourney, setActiveJourney] = useState<Journey>(visibleJourney ?? "pre_death");
   const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
   const [hasLoadedChecklist, setHasLoadedChecklist] = useState(false);
   const displayName = getCompanyDisplayName(companyName);
@@ -132,7 +136,12 @@ export default function ApplicationStepsView({
   }, [checkedItems, hasLoadedChecklist, storageKey]);
 
   useEffect(() => {
-    const sections = ["company-overview", "pre-death", "post-death"]
+    const sectionIds = [
+      ...(showOverview ? ["company-overview"] : []),
+      ...(!visibleJourney || visibleJourney === "pre_death" ? ["pre-death"] : []),
+      ...(!visibleJourney || visibleJourney === "post_death" ? ["post-death"] : []),
+    ];
+    const sections = sectionIds
       .map((id) => document.getElementById(id))
       .filter((section): section is HTMLElement => Boolean(section));
 
@@ -148,7 +157,7 @@ export default function ApplicationStepsView({
 
     sections.forEach((section) => observer.observe(section));
     return () => observer.disconnect();
-  }, []);
+  }, [showOverview, visibleJourney]);
 
   function changeView(nextView: ViewMode) {
     setView(nextView);
@@ -174,27 +183,27 @@ export default function ApplicationStepsView({
               <strong>{displayName}</strong>
             </div>
             <nav>
-              <a
+              {showOverview && <a
                 href="#company-overview"
                 className={activeSection === "company-overview" ? "active" : ""}
               >
                 <InfoOutlinedIcon fontSize="small" />
                 <span>서비스 개요</span>
-              </a>
-              <a
+              </a>}
+              {(!visibleJourney || visibleJourney === "pre_death") && <a
                 href="#pre-death"
                 className={activeSection === "pre-death" ? "active" : ""}
               >
                 <PersonOutlineIcon fontSize="small" />
                 <span>생전에 준비하기</span>
-              </a>
-              <a
+              </a>}
+              {(!visibleJourney || visibleJourney === "post_death") && <a
                 href="#post-death"
                 className={activeSection === "post-death" ? "active" : ""}
               >
                 <FolderSharedOutlinedIcon fontSize="small" />
                 <span>사후에 신청하기</span>
-              </a>
+              </a>}
               <button type="button" onClick={() => setIsChecklistOpen(true)}>
                 <ChecklistOutlinedIcon fontSize="small" />
                 <span>체크리스트</span>
@@ -204,7 +213,7 @@ export default function ApplicationStepsView({
           </aside>
 
           <div className="company-content">
-            <div className="company-overview">
+            {showOverview && <div className="company-overview">
               <CompanyPolicyOverview company={companyPolicy} />
               <div className="company-tools company-tools-row">
             <button
@@ -244,25 +253,25 @@ export default function ApplicationStepsView({
               </button>
             </div>
           </div>
-            </div>
+            </div>}
 
-        <StepsSection
+        {(!visibleJourney || visibleJourney === "pre_death") && <StepsSection
           sectionId="pre-death"
           title="생전에 준비하기"
           description="위에서부터 순서대로 설정하고 확인해 보세요."
           steps={preDeathSteps}
           view={view}
           journey="pre_death"
-        />
-        <hr className="journey-divider" />
-        <StepsSection
+        />}
+        {!visibleJourney && <hr className="journey-divider" />}
+        {(!visibleJourney || visibleJourney === "post_death") && <StepsSection
           sectionId="post-death"
           title="사후에 신청하기"
           description="고인의 계정을 어떻게 처리할지 원하는 방법을 선택하세요."
           steps={postDeathSteps}
           view={view}
           journey="post_death"
-        />
+        />}
           </div>
         </div>
       </div>
@@ -298,7 +307,7 @@ export default function ApplicationStepsView({
           </button>
         </div>
 
-        <div className="checklist-tabs" role="tablist" aria-label="준비 시점 선택">
+        {!visibleJourney && <div className="checklist-tabs" role="tablist" aria-label="준비 시점 선택">
           <button
             type="button"
             className={activeJourney === "pre_death" ? "active" : ""}
@@ -317,7 +326,7 @@ export default function ApplicationStepsView({
           >
             사후 처리
           </button>
-        </div>
+        </div>}
 
         <div className="checklist-progress">
           <div className="checklist-progress-label">

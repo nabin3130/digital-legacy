@@ -1,11 +1,10 @@
-import { notFound } from "next/navigation";
-import ApplicationStepsView, {
-  type ApplicationStep,
-} from "@/components/ApplicationStepsView";
+import { notFound, redirect } from "next/navigation";
+import type { ApplicationStep } from "@/components/ApplicationStepsView";
 import GoogleAccountFlow from "@/components/GoogleAccountFlow";
 import AppleAccountFlow from "@/components/AppleAccountFlow";
 import NaverAccountFlow from "@/components/NaverAccountFlow";
 import CompanyPolicyOverview from "@/components/CompanyPolicyOverview";
+import CompanyAccountFlow from "@/components/CompanyAccountFlow";
 import { companies } from "@/lib/data";
 import { createServerSupabaseClient } from "@/lib/supabase-server";
 
@@ -19,6 +18,7 @@ export default async function CompanyPage({
   params,
 }: CompanyPageProps) {
   const { slug } = await params;
+  if (slug === "facebook") redirect("/company/meta");
   const companyPolicy = companies.find((company) => company.slug === slug);
 
   if (!companyPolicy) notFound();
@@ -88,19 +88,12 @@ export default async function CompanyPage({
     (step) => step.journey === "post_death"
   );
 
-  const companyName =
-    slug === "kakao"
-      ? "카카오"
-      : companyKey;
-
   return (
     <main className="section">
       <div className="container">
-        <p className="muted">Digital Legacy Application Hub</p>
-
-        <ApplicationStepsView
-          companyName={companyName}
-          companyPolicy={companyPolicy}
+        <CompanyPolicyOverview company={companyPolicy} />
+        <CompanyAccountFlow
+          company={companyPolicy}
           preDeathSteps={preDeathSteps}
           postDeathSteps={postDeathSteps}
         />

@@ -3,7 +3,7 @@ import type { CompanyPolicy } from "@/lib/types";
 const logos: Record<string, string> = {
   apple: "/logos/apple.svg",
   google: "/logos/google.svg",
-  facebook: "/logos/meta.svg",
+  meta: "/logos/meta.svg",
   instagram: "/logos/instagram.webp",
   samsung: "/logos/samsung.svg",
   naver: "/logos/naver.svg",
@@ -13,7 +13,7 @@ const logos: Record<string, string> = {
 const displayNames: Record<string, string> = {
   apple: "애플",
   google: "구글",
-  facebook: "페이스북",
+  meta: "메타",
   instagram: "인스타그램",
   samsung: "삼성",
   naver: "네이버",
