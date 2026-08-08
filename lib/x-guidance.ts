@@ -1,0 +1,40 @@
+import type { ApplicationStep } from "@/components/ApplicationStepsView";
+
+export const xApplicationSteps: ApplicationStep[] = [
+  {
+    id: 9001,
+    company: "X",
+    journey: "pre_death",
+    link_type: "guide",
+    title: "내 X 데이터 아카이브를 다운로드해요",
+    description: "게시물과 계정 정보가 포함된 X 데이터 아카이브를 요청해 보관해요.",
+    url: "https://help.x.com/en/managing-your-account/how-to-download-your-x-archive",
+    required_documents: null,
+    sort_order: 1,
+    notes: null,
+  },
+  {
+    id: 9002,
+    company: "X",
+    journey: "pre_death",
+    link_type: "guide",
+    title: "내 X 계정을 비활성화해요",
+    description: "계정을 비활성화한 뒤 30일 동안 로그인하지 않으면 계정 삭제가 진행돼요.",
+    url: "https://help.x.com/en/managing-your-account/how-to-deactivate-x-account",
+    required_documents: null,
+    sort_order: 2,
+    notes: null,
+  },
+  {
+    id: 9003,
+    company: "X",
+    journey: "post_death",
+    link_type: "request",
+    title: "고인의 X 계정 비활성화를 요청해요",
+    description: "직계가족 또는 법적 권한이 있는 사람이 요청하면 X가 이메일로 서류 제출 절차를 안내해요.",
+    url: "https://help.x.com/en/rules-and-policies/contact-x-about-a-deceased-family-members-account",
+    required_documents: "신청자의 신분증, 고인의 사망증명서",
+    sort_order: 1,
+    notes: "X는 고인의 로그인 정보를 제공하지 않습니다.",
+  },
+];

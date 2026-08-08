@@ -187,5 +187,32 @@ export const companies: CompanyPolicy[] = [
     limitations: ["서비스 환경에 따라 백업 제공이 제한될 수 있습니다."],
     officialLinks: [{ label: "공식 링크 추가 예정" }],
     lastUpdated: "2026-07-10"
+  },
+  {
+    id: "x",
+    slug: "x",
+    company: "X",
+    platform: "X",
+    category: "소셜미디어",
+    summary: "직계가족 또는 법적 권한이 있는 사람이 고인의 X 계정 비활성화를 요청할 수 있습니다.",
+    services: ["게시물", "미디어", "Direct Messages", "Spaces"],
+    policyTitle: "사망자 계정 비활성화 요청",
+    policySubtitle: "Deceased User Account Deactivation",
+    policyDescription: "X는 확인된 직계가족이나 고인의 유산을 처리할 권한이 있는 사람의 요청을 검토해 사망자의 계정을 비활성화합니다. 로그인 정보는 제공하지 않습니다.",
+    policyLink: "https://help.x.com/en/rules-and-policies/contact-x-about-a-deceased-family-members-account",
+    policyButton: "X 공식 정책 보기",
+    philosophy: "계정 접근 권한을 이전하지 않고, 신청자의 권한과 사망 사실을 확인한 뒤 계정을 비활성화하는 방식입니다.",
+    preDeathPlanning: "no",
+    accountDeletion: "yes",
+    memorialAccount: "no",
+    dataDownload: "yes",
+    familyAccess: "no",
+    courtOrder: "unknown",
+    requiredDocs: ["신청자의 신분증", "고인의 사망증명서"],
+    available: ["본인 데이터 아카이브 다운로드", "고인의 계정 비활성화 요청"],
+    unavailable: ["고인의 로그인 정보", "가족의 계정 접속"],
+    limitations: ["신청 후 X가 이메일로 추가 정보와 서류 제출 방법을 안내합니다."],
+    officialLinks: [{ label: "X 공식 사망자 계정 안내", url: "https://help.x.com/en/rules-and-policies/contact-x-about-a-deceased-family-members-account" }],
+    lastUpdated: "2026-08-08"
   }
 ];

@@ -12,6 +12,7 @@ const services = [
   { ko: "구글", en: "Google", slug: "google", logo: "/logos/google.svg", domestic: false },
   { ko: "메타", en: "Meta", slug: "meta", logo: "/logos/meta.svg", domestic: false },
   { ko: "애플", en: "Apple", slug: "apple", logo: "/logos/apple.svg", domestic: false },
+  { ko: "X", en: "X", slug: "x", logo: "/logos/x.svg", domestic: false },
 ];
 
 function localizedPath(pathname: string, locale: "ko" | "en") {
@@ -77,9 +78,10 @@ export default function SiteHeader() {
               <Link className="company-dropdown-all" href={`${prefix}/#services`}>{isEnglish ? "All companies" : "모든 서비스 보기"}</Link>
             </div>
           </div>
-          <Link href={`${prefix}/procedures`}>{isEnglish ? "Procedures" : "공통 절차"}</Link>
-          <Link href={`${prefix}/documents`}>{isEnglish ? "Documents" : "공통 서류"}</Link>
+          <Link href={`${prefix}/procedures`}>{isEnglish ? "Procedures" : "공통절차"}</Link>
+          <Link href={`${prefix}/documents`}>{isEnglish ? "Documents" : "공통서류"}</Link>
           <Link href={`${prefix}/compare`}>{isEnglish ? "Policies" : "비교"}</Link>
+          <Link href={`${prefix}/contact`}>{isEnglish ? "Contact" : "문의"}</Link>
           <div className="language-menu" ref={languageRef}>
             <button className="language-trigger" type="button" aria-label={isEnglish ? "Choose language" : "언어 선택"} aria-expanded={languageOpen} onClick={() => setLanguageOpen((open) => !open)}>
               <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 3.8 5.5 3.8 9S14.5 18.5 12 21c-2.5-2.5-3.8-5.5-3.8-9S9.5 5.5 12 3Z"/></svg>

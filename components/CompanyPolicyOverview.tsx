@@ -8,6 +8,7 @@ const logos: Record<string, string> = {
   samsung: "/logos/samsung.svg",
   naver: "/logos/naver.svg",
   kakao: "/logos/kakao.webp",
+  x: "/logos/x.svg",
 };
 
 const displayNames: Record<string, string> = {
@@ -18,6 +19,7 @@ const displayNames: Record<string, string> = {
   samsung: "삼성",
   naver: "네이버",
   kakao: "카카오",
+  x: "X",
 };
 
 export default function CompanyPolicyOverview({ company }: { company: CompanyPolicy }) {

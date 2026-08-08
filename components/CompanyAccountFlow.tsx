@@ -12,6 +12,7 @@ const logos: Record<string, string> = {
   instagram: "/logos/instagram.webp",
   samsung: "/logos/samsung.svg",
   kakao: "/logos/kakao.webp",
+  x: "/logos/x.svg",
 };
 
 const displayNames: Record<string, string> = {
@@ -19,6 +20,7 @@ const displayNames: Record<string, string> = {
   instagram: "인스타그램",
   samsung: "삼성",
   kakao: "카카오",
+  x: "X",
 };
 
 export default function CompanyAccountFlow({

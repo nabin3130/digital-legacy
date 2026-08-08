@@ -502,19 +502,19 @@ function CompanyLogo({ companyName }: { companyName: string }) {
   const key = getCompanyKey(companyName);
   const logos: Record<string, string> = {
     Kakao: "/logos/kakao.webp", Naver: "/logos/naver.svg", Instagram: "/logos/instagram.webp",
-    Apple: "/logos/apple.svg", Google: "/logos/google.svg", Meta: "/logos/meta.svg", Samsung: "/logos/samsung.svg",
+    Apple: "/logos/apple.svg", Google: "/logos/google.svg", Meta: "/logos/meta.svg", Samsung: "/logos/samsung.svg", X: "/logos/x.svg",
   };
   if (!logos[key]) return null;
   return <div className="company-logo"><img src={logos[key]} alt={`${getCompanyDisplayName(companyName)} 로고`} width={58} height={58} /></div>;
 }
 
 function getCompanyKey(companyName: string) {
-  const keys: Record<string, string> = { 카카오: "Kakao", 네이버: "Naver", 인스타그램: "Instagram", 애플: "Apple", 구글: "Google", 메타: "Meta", 삼성: "Samsung" };
+  const keys: Record<string, string> = { 카카오: "Kakao", 네이버: "Naver", 인스타그램: "Instagram", 애플: "Apple", 구글: "Google", 메타: "Meta", 삼성: "Samsung", X: "X" };
   return keys[companyName] ?? companyName;
 }
 
 function getCompanyDisplayName(companyName: string) {
-  const names: Record<string, string> = { Kakao: "카카오", Naver: "네이버", Instagram: "인스타그램", Apple: "애플", Google: "구글", Meta: "메타", Samsung: "삼성" };
+  const names: Record<string, string> = { Kakao: "카카오", Naver: "네이버", Instagram: "인스타그램", Apple: "애플", Google: "구글", Meta: "메타", Samsung: "삼성", X: "X" };
   return names[companyName] ?? companyName;
 }
 

@@ -3,10 +3,63 @@ import "./brand.css";
 import "./navigation.css";
 import Link from "next/link";
 import Script from "next/script"; // 👈 추가된 부분
+import type { Metadata } from "next";
+import { SITE_DESCRIPTION, SITE_KEYWORDS, SITE_URL } from "@/lib/site";
 
-export const metadata = {
-  title: "망각인프라 – 디지털 유산 안내",
-  description: "흩어진 디지털 기록 사이에서, 다음 단계를 찾도록.",
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "망각인프라 – 디지털 유산 안내",
+    template: "%s | 망각인프라",
+  },
+  description: SITE_DESCRIPTION,
+  keywords: [...SITE_KEYWORDS],
+  openGraph: {
+    type: "website",
+    locale: "ko_KR",
+    url: "/",
+    siteName: "망각인프라",
+    title: "망각인프라 – 디지털 유산 안내",
+    description: SITE_DESCRIPTION,
+  },
+  twitter: {
+    card: "summary",
+    title: "망각인프라 – 디지털 유산 안내",
+    description: SITE_DESCRIPTION,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+};
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: "망각인프라",
+      url: SITE_URL,
+      email: "kimnabin01@gmail.com",
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      url: SITE_URL,
+      name: "망각인프라",
+      description: SITE_DESCRIPTION,
+      inLanguage: "ko-KR",
+      publisher: { "@id": `${SITE_URL}/#organization` },
+    },
+  ],
 };
 
 const serviceMenu = [
@@ -45,6 +98,11 @@ const serviceMenu = [
     slug: "samsung",
     logo: "/logos/samsung.svg",
   },
+  {
+    name: "X",
+    slug: "x",
+    logo: "/logos/x.svg",
+  },
 ].sort((a, b) => a.name.localeCompare(b.name, "ko"));
 
 export default function RootLayout({
@@ -55,6 +113,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
         {/* 구글 애드센스 자동 광고/인증 스크립트 */}
         <Script
           async
@@ -76,7 +135,7 @@ export default function RootLayout({
                   <div className="company-dropdown-groups">
                     {[
                       { title: "국내", slugs: ["naver", "kakao", "samsung"] },
-                      { title: "국외", slugs: ["google", "apple", "meta", "instagram"] },
+                      { title: "국외", slugs: ["google", "apple", "meta", "instagram", "x"] },
                     ].map((group) => (
                       <section className="company-dropdown-group" key={group.title}>
                         <h2>{group.title}</h2>
@@ -92,9 +151,10 @@ export default function RootLayout({
                   <Link className="company-dropdown-all" href="/#services">모든 서비스 보기</Link>
                 </div>
               </div>
-              <Link href="/procedures">공통 절차</Link>
-              <Link href="/documents">공통 서류</Link>
+              <Link href="/procedures">공통절차</Link>
+              <Link href="/documents">공통서류</Link>
               <Link href="/compare">정책 비교</Link>
+              <Link href="/contact">Contact</Link>
             </nav>
           </div>
         </header>

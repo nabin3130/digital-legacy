@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-labelledby="x-title">
+  <title id="x-title">X</title>
+  <rect width="48" height="48" rx="8" fill="#111111"/>
+  <path d="M13 11h7.1l6.1 8.1L33 11h2.3l-8 9.9L36 37h-7.1l-6.7-8.9L15 37h-2.3l8.4-10.7L13 11Zm5.9 2.1h-2.5l13.5 21.8h2.5L18.9 13.1Z" fill="#ffffff"/>
+</svg>

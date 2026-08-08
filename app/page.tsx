@@ -12,10 +12,11 @@ const availableServices = [
   { name: "구글", slug: "google", logo: "/logos/google.svg", keywords: ["구글", "google", "gmail", "유튜브", "youtube"] },
   { name: "메타", slug: "meta", logo: "/logos/meta.svg", keywords: ["메타", "meta", "페이스북", "facebook"] },
   { name: "애플", slug: "apple", logo: "/logos/apple.svg", keywords: ["애플", "apple", "아이클라우드", "icloud"] },
+  { name: "X", slug: "x", logo: "/logos/x.svg", keywords: ["X", "x", "트위터", "twitter", "엑스", "xmdnlxj", "dprtm"] },
 ].sort((a, b) => a.name.localeCompare(b.name, "ko"));
 
 const domesticServices = availableServices.filter((service) => ["naver", "kakao", "samsung"].includes(service.slug));
-const internationalServices = availableServices.filter((service) => ["google", "apple", "meta", "instagram"].includes(service.slug));
+const internationalServices = availableServices.filter((service) => ["google", "apple", "meta", "instagram", "x"].includes(service.slug));
 
 const INITIAL_KEYS = [
   "r", "R", "s", "e", "E", "f", "a", "q", "Q", "t",
