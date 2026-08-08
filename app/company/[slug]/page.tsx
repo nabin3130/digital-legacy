@@ -5,6 +5,8 @@ import ApplicationStepsView, {
 import GoogleAccountFlow from "@/components/GoogleAccountFlow";
 import AppleAccountFlow from "@/components/AppleAccountFlow";
 import NaverAccountFlow from "@/components/NaverAccountFlow";
+import CompanyPolicyOverview from "@/components/CompanyPolicyOverview";
+import { companies } from "@/lib/data";
 import { createServerSupabaseClient } from "@/lib/supabase-server";
 
 type CompanyPageProps = {
@@ -17,11 +19,15 @@ export default async function CompanyPage({
   params,
 }: CompanyPageProps) {
   const { slug } = await params;
+  const companyPolicy = companies.find((company) => company.slug === slug);
+
+  if (!companyPolicy) notFound();
 
   if (slug === "google") {
     return (
       <main className="section">
         <div className="container">
+          <CompanyPolicyOverview company={companyPolicy} />
           <GoogleAccountFlow />
         </div>
       </main>
@@ -32,6 +38,7 @@ export default async function CompanyPage({
     return (
       <main className="section">
         <div className="container">
+          <CompanyPolicyOverview company={companyPolicy} />
           <AppleAccountFlow />
         </div>
       </main>
@@ -42,6 +49,7 @@ export default async function CompanyPage({
     return (
       <main className="section">
         <div className="container">
+          <CompanyPolicyOverview company={companyPolicy} />
           <NaverAccountFlow />
         </div>
       </main>
@@ -92,6 +100,7 @@ export default async function CompanyPage({
 
         <ApplicationStepsView
           companyName={companyName}
+          companyPolicy={companyPolicy}
           preDeathSteps={preDeathSteps}
           postDeathSteps={postDeathSteps}
         />

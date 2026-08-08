@@ -7,6 +7,12 @@ export interface CompanyPolicy {
   platform: string;
   category: string;
   summary: string;
+  services: string[];
+  policyTitle: string;
+  policySubtitle?: string;
+  policyDescription: string;
+  policyLink?: string;
+  policyButton: string;
   philosophy: string;
   preDeathPlanning: SupportStatus;
   accountDeletion: SupportStatus;

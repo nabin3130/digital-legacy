@@ -2,6 +2,8 @@
 
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import Link from "next/link";
+import CompanyPolicyOverview from "@/components/CompanyPolicyOverview";
+import type { CompanyPolicy } from "@/lib/types";
 
 type IconProps = { fontSize?: "small" };
 
@@ -66,6 +68,7 @@ export type ApplicationStep = {
 
 type Props = {
   companyName: string;
+  companyPolicy: CompanyPolicy;
   preDeathSteps: ApplicationStep[];
   postDeathSteps: ApplicationStep[];
 };
@@ -81,6 +84,7 @@ type ChecklistItem = {
 
 export default function ApplicationStepsView({
   companyName,
+  companyPolicy,
   preDeathSteps,
   postDeathSteps,
 }: Props) {
@@ -200,14 +204,9 @@ export default function ApplicationStepsView({
           </aside>
 
           <div className="company-content">
-            <section id="company-overview" className="company-overview">
-        <div className="company-header">
-          <div className="company-title-area">
-            <CompanyLogo companyName={companyName} />
-            <h1>{displayName}</h1>
-          </div>
-
-          <div className="company-tools">
+            <div className="company-overview">
+              <CompanyPolicyOverview company={companyPolicy} />
+              <div className="company-tools company-tools-row">
             <button
               type="button"
               className="checklist-open-button"
@@ -245,13 +244,7 @@ export default function ApplicationStepsView({
               </button>
             </div>
           </div>
-        </div>
-
-        <p className="company-description">
-          생전에 준비하거나 사후에 처리할 수 있는 공식 안내와 신청 페이지를
-          확인하세요.
-        </p>
-            </section>
+            </div>
 
         <StepsSection
           sectionId="pre-death"
