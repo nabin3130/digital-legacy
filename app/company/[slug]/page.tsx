@@ -4,6 +4,7 @@ import ApplicationStepsView, {
 } from "@/components/ApplicationStepsView";
 import GoogleAccountFlow from "@/components/GoogleAccountFlow";
 import AppleAccountFlow from "@/components/AppleAccountFlow";
+import NaverAccountFlow from "@/components/NaverAccountFlow";
 import { createServerSupabaseClient } from "@/lib/supabase-server";
 
 type CompanyPageProps = {
@@ -32,6 +33,16 @@ export default async function CompanyPage({
       <main className="section">
         <div className="container">
           <AppleAccountFlow />
+        </div>
+      </main>
+    );
+  }
+
+  if (slug === "naver") {
+    return (
+      <main className="section">
+        <div className="container">
+          <NaverAccountFlow />
         </div>
       </main>
     );
