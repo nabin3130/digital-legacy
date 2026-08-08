@@ -23,20 +23,6 @@ body {
   background: var(--highlight);
 }
 
-.header .brand,
-.header .navlinks > a,
-.header .company-menu-trigger {
-  color: #18324a !important;
-  text-shadow: none !important;
-}
-
-body:has(.hero-video) .header .brand,
-body:has(.hero-video) .header .navlinks > a,
-body:has(.hero-video) .header .company-menu-trigger {
-  color: #ffffff !important;
-  text-shadow: 0 2px 12px rgba(8, 24, 33, 0.72) !important;
-}
-
 .cursor,
 .result-arrow,
 .service-arrow {
@@ -90,19 +76,7 @@ body:has(.hero-video) .header .company-menu-trigger {
   --ocean: #18324a !important;
   --mist: #eaf2f8 !important;
   --border: #d8e2ea !important;
-  width: min(100%, 50vw) !important;
-  max-width: none !important;
-  padding: 24px !important;
-  border: 1px solid #d8e2ea;
-  border-radius: 22px;
-  background: #ffffff;
   color: #18324a !important;
-}
-
-.policy-overview {
-  width: min(100%, 50vw);
-  margin-right: auto;
-  margin-left: auto;
 }
 
 [class*="Prepare_serviceCard"],
@@ -138,15 +112,6 @@ body:has(.hero-video) .header .company-menu-trigger {
 }
 
 @media (max-width: 900px) {
-  .policy-overview,
-  [class*="GoogleAccountFlow_page"] {
-    width: 100% !important;
-  }
-
-  [class*="GoogleAccountFlow_page"] {
-    padding: 18px !important;
-  }
-
   [class*="About_question"] {
     white-space: normal;
   }
