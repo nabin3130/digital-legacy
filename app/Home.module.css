@@ -37,3 +37,21 @@
 @keyframes auroraDrift{to{transform:translate(-28px,24px) scale(1.05)}}
 @media(max-width:900px){.hero{min-height:auto;padding:88px 0 54px}.heroGrid{grid-template-columns:1fr;gap:36px}.hero .heroContent{padding:0}.recordScene{width:min(92%,440px)}.aurora{right:-360px}}
 @media(prefers-reduced-motion:reduce){.hero .heroAction{transition:none}.hero .heroContent,.recordCard,.archive,.aurora{animation:none}}
+
+/* Hero alternative 4: diffused light gradient */
+.lightCanvas{position:relative;width:min(100%,520px);aspect-ratio:1.08;margin:auto;overflow:hidden;border:1px solid rgba(50,96,81,.12);border-radius:48% 52% 45% 55%/44% 42% 58% 56%;background:linear-gradient(145deg,rgba(255,253,246,.94),rgba(222,239,231,.74));box-shadow:0 32px 80px rgba(53,91,78,.12);isolation:isolate;animation:canvasEnter 900ms cubic-bezier(.22,1,.36,1) both}
+.lightCanvas span{position:absolute;display:block;border-radius:50%;filter:blur(34px);mix-blend-mode:multiply;will-change:transform}
+.lightMint{width:76%;height:74%;left:-13%;top:-8%;background:rgba(133,199,174,.58);animation:lightMintDrift 13s ease-in-out infinite alternate}
+.lightBlue{width:68%;height:66%;right:-17%;top:12%;background:rgba(156,203,216,.5);animation:lightBlueDrift 16s ease-in-out infinite alternate}
+.lightCream{width:72%;height:58%;left:15%;bottom:-22%;background:rgba(235,205,158,.48);animation:lightCreamDrift 18s ease-in-out infinite alternate}
+.lightCore{width:38%;height:38%;left:34%;top:28%;background:rgba(255,255,248,.92);filter:blur(22px)!important;mix-blend-mode:screen!important;animation:lightPulse 9s ease-in-out infinite alternate}
+.lightRing{position:absolute;inset:13%;border:1px solid rgba(255,255,255,.52);border-radius:50%;transform:rotate(-18deg);box-shadow:inset 0 0 40px rgba(255,255,255,.18)}
+.lightCanvas::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 25%,rgba(255,255,255,.22) 46%,transparent 68%);transform:translateX(-70%);animation:lightSweep 12s ease-in-out infinite}
+@keyframes canvasEnter{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes lightMintDrift{to{transform:translate(15%,12%) scale(1.08)}}
+@keyframes lightBlueDrift{to{transform:translate(-18%,8%) scale(1.12)}}
+@keyframes lightCreamDrift{to{transform:translate(8%,-18%) scale(1.05)}}
+@keyframes lightPulse{to{transform:scale(1.14);opacity:.72}}
+@keyframes lightSweep{0%,20%{transform:translateX(-80%)}70%,100%{transform:translateX(85%)}}
+@media(max-width:900px){.lightCanvas{width:min(88%,420px)}}
+@media(prefers-reduced-motion:reduce){.lightCanvas,.lightCanvas span,.lightCanvas::after{animation:none}}
