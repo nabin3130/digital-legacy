@@ -49,9 +49,14 @@ export default function CompanyAccountFlow({
         return;
       }
       const params = new URLSearchParams(window.location.hash.slice(1));
-      setAudience(params.get("account") as Audience | null);
+      const query = new URLSearchParams(window.location.search);
+      const requestedAudience = query.get("audience");
+      const requestedGoal = query.get("goal");
+      const contextualAudience = requestedAudience === "mine" || requestedAudience === "deceased" ? requestedAudience : null;
+      setAudience((params.get("account") as Audience | null) ?? contextualAudience);
       const route = Number(params.get("route"));
-      setRouteId(Number.isFinite(route) && route > 0 ? route : null);
+      const contextualRoute = contextualAudience === "mine" ? (requestedGoal === "download" ? 1 : requestedGoal === "delete" ? 2 : null) : contextualAudience === "deceased" ? (requestedGoal === "delete" ? 3 : requestedGoal === "download" ? 4 : requestedGoal === "memorial" ? 5 : null) : null;
+      setRouteId(Number.isFinite(route) && route > 0 ? route : contextualRoute);
     }
 
     restore();
@@ -63,7 +68,7 @@ export default function CompanyAccountFlow({
     const params = new URLSearchParams();
     if (nextAudience) params.set("account", nextAudience);
     if (nextRouteId) params.set("route", String(nextRouteId));
-    const hash = params.toString() ? `#${params.toString()}` : window.location.pathname;
+    const hash = params.toString() ? `#${params.toString()}` : `${window.location.pathname}${window.location.search}`;
     window.history.pushState({ companyAccountFlow: { audience: nextAudience, routeId: nextRouteId } }, "", hash);
     setAudience(nextAudience);
     setRouteId(nextRouteId);

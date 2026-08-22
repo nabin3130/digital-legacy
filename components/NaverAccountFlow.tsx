@@ -10,6 +10,7 @@ type Audience = "mine" | "deceased";
 type RouteId = "backup" | "delete" | "npay";
 
 const officialHelpUrl = "https://help.naver.com/service/5640/contents/17441?lang=ko";
+const withdrawalHelpUrl = "https://help.naver.com/service/5640/contents/9545?osType=COMMONOS";
 const governmentCertificateUrl = "https://www.gov.kr/mw/AA020InfoCappView.do?CappBizCD=97400000004";
 const commonDocuments: DocumentItem[] = [
   { title: "기본증명서(상세)", description: "사망신고가 완료된 뒤 온라인으로 발급할 수 있어요.", badge: "정부24에서 발급 가능", href: governmentCertificateUrl },
@@ -26,6 +27,7 @@ export default function NaverAccountFlow() {
   const [audience, setAudience] = useState<Audience | null>(null);
   const [knowsId, setKnowsId] = useState<KnowsId | null>(null);
   const [route, setRoute] = useState<RouteId | null>(null);
+  const [contextGoal, setContextGoal] = useState<"download" | "delete" | null>(null);
 
   useEffect(() => {
     function restoreFromHistory(event?: PopStateEvent) {
@@ -37,8 +39,13 @@ export default function NaverAccountFlow() {
         return;
       }
       const params = new URLSearchParams(window.location.hash.slice(1));
+      const query = new URLSearchParams(window.location.search);
+      const requestedAudience = query.get("audience");
+      const requestedGoal = query.get("goal");
+      setContextGoal(requestedGoal === "download" || requestedGoal === "delete" ? requestedGoal : null);
+      const contextualAudience = requestedAudience === "mine" || requestedAudience === "deceased" ? requestedAudience : null;
       const savedAudience = params.get("account") as Audience | null;
-      setAudience(savedAudience ?? (params.has("knows-id") ? "deceased" : null));
+      setAudience(savedAudience ?? (params.has("knows-id") ? "deceased" : contextualAudience));
       setKnowsId((params.get("knows-id") as KnowsId | null) ?? null);
       setRoute((params.get("route") as RouteId | null) ?? null);
     }
@@ -54,7 +61,7 @@ export default function NaverAccountFlow() {
     if (next.audience) params.set("account", next.audience);
     if (nextKnowsId) params.set("knows-id", nextKnowsId);
     if (nextRoute) params.set("route", nextRoute);
-    const hash = params.toString() ? `#${params.toString()}` : window.location.pathname;
+    const hash = params.toString() ? `#${params.toString()}` : `${window.location.pathname}${window.location.search}`;
     window.history.pushState({ naverAccountFlow: { audience: next.audience, knowsId: nextKnowsId, route: nextRoute } }, "", hash);
     setAudience(next.audience);
     setKnowsId(nextKnowsId);
@@ -78,7 +85,7 @@ export default function NaverAccountFlow() {
         deceased={{ title: "고인의 네이버 계정", description: "고인의 공개 게시물, 계정 또는 네이버페이 잔액을 정리하고 싶어요.", onSelect: () => navigate({ audience: "deceased" }) }}
       />}
 
-      {audience === "mine" && <MineDetail />}
+      {audience === "mine" && <MineDetail goal={contextGoal} />}
 
       {audience === "deceased" && !knowsId && <StepShell eyebrow="고인의 네이버 계정" title="고인의 네이버 아이디를 알고 있나요?" description="네이버에 도움을 요청하려면 고인이 사용하던 네이버 아이디를 알고 있어야 해요.">
         <Choice title="네, 알고 있어요" description="필요한 도움을 선택하고 준비할 서류를 확인할게요." onClick={() => navigate({ audience: "deceased", knowsId: "yes" })} />
@@ -109,7 +116,15 @@ function UnknownId({ onReset }: { onReset: () => void }) {
   return <DetailPage eyebrow="고인의 네이버 계정" title="먼저 고인의 네이버 아이디를 확인해 주세요" intro="네이버는 가족이 고인의 아이디를 알고 있는 경우에만 사망 회원 관련 도움을 제공하고 있어요." note="가족이라도 네이버에 고인의 아이디나 비밀번호를 요청해서 받을 수는 없어요. 고인의 개인정보를 보호하기 위한 네이버의 원칙이에요." action={{ label: "처음으로 돌아가기", onClick: onReset }} />;
 }
 
-function MineDetail() {
+function MineDetail({ goal }: { goal: "download" | "delete" | null }) {
+  if (goal === "download") return <DetailPage eyebrow="내 네이버 계정" title="내 사진과 기록을 먼저 보관해요" intro="네이버 서비스마다 보관할 수 있는 자료와 내려받는 방법이 달라요. 중요한 기록이 있는 서비스부터 확인해 주세요." sections={[
+    ["먼저 확인할 곳", ["블로그와 카페에 남긴 게시물", "메일과 주소록", "마이박스에 저장한 사진과 파일"]],
+    ["계정을 탈퇴할 예정이라면", ["필요한 자료를 먼저 저장해요.", "공개 게시물은 탈퇴 후에도 남을 수 있으므로 삭제 여부를 확인해요.", "파일이 안전하게 열리는지 확인한 뒤 다음 절차로 이동해요."]],
+  ]} note="네이버 전체 데이터를 한 번에 내려받는 방식이 아니라 서비스별 보관 방법을 확인해야 해요." />;
+  if (goal === "delete") return <DetailPage eyebrow="내 네이버 계정" title="내 네이버 계정을 탈퇴해요" intro="필요한 자료와 연결된 서비스를 먼저 확인한 뒤 회원 탈퇴를 진행해요." warning="탈퇴한 아이디와 삭제된 데이터는 복구할 수 없어요." sections={[
+    ["탈퇴 전에 확인할 것", ["남겨둘 메일, 게시물, 사진과 파일", "네이버페이 잔액과 정기 결제 중인 서비스", "네이버 계정으로 로그인한 다른 서비스"]],
+    ["진행 순서", ["필요한 자료를 먼저 저장해요.", "유료 서비스와 결제를 정리해요.", "다른 서비스의 로그인 방법을 바꾼 뒤 탈퇴해요."]],
+  ]} link={{ label: "네이버 회원 탈퇴 안내 확인하기", href: withdrawalHelpUrl }} />;
   return <DetailPage eyebrow="내 네이버 계정" title="내 네이버 계정을 차근차근 정리해요" intro="지금 사용하고 있는 네이버 계정에서 남겨둘 자료와 연결된 서비스를 하나씩 확인해요." sections={[
     ["먼저 확인할 것", ["남겨둘 메일, 게시물, 사진과 파일", "네이버페이 잔액과 정기 결제 중인 서비스", "네이버 계정으로 로그인한 다른 서비스"]],
     ["계정을 탈퇴하려면", ["필요한 자료를 먼저 저장해요.", "이용 중인 유료 서비스와 결제를 정리해요.", "다른 서비스의 로그인 방법을 바꾼 뒤 탈퇴를 진행해요."]],

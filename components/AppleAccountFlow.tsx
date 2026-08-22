@@ -25,14 +25,21 @@ const routes: Record<Audience, Array<{ id: RouteId; title: string; description: 
 export default function AppleAccountFlow() {
   const [audience, setAudience] = useState<Audience | null>(null);
   const [route, setRoute] = useState<RouteId | null>(null);
+  const [contextGoal, setContextGoal] = useState<"download" | "delete" | null>(null);
 
   useEffect(() => {
     function restore(event?: PopStateEvent) {
       const saved = event?.state?.appleAccountFlow;
       if (saved) { setAudience(saved.audience ?? null); setRoute(saved.route ?? null); return; }
       const params = new URLSearchParams(window.location.hash.slice(1));
-      setAudience(params.get("account") as Audience | null);
-      setRoute(params.get("route") as RouteId | null);
+      const query = new URLSearchParams(window.location.search);
+      const requestedAudience = query.get("audience");
+      const requestedGoal = query.get("goal");
+      setContextGoal(requestedGoal === "download" || requestedGoal === "delete" ? requestedGoal : null);
+      const contextualAudience = requestedAudience === "mine" || requestedAudience === "deceased" ? requestedAudience : null;
+      const contextualRoute: RouteId | null = contextualAudience === "mine" ? (requestedGoal === "download" ? "download" : requestedGoal === "delete" ? "delete-mine" : null) : contextualAudience === "deceased" && requestedGoal === "delete" ? "delete-account" : null;
+      setAudience((params.get("account") as Audience | null) ?? contextualAudience);
+      setRoute((params.get("route") as RouteId | null) ?? contextualRoute);
     }
     restore();
     window.addEventListener("popstate", restore);
@@ -44,12 +51,13 @@ export default function AppleAccountFlow() {
     const params = new URLSearchParams();
     if (next.audience) params.set("account", next.audience);
     if (nextRoute) params.set("route", nextRoute);
-    const hash = params.toString() ? `#${params.toString()}` : window.location.pathname;
+    const hash = params.toString() ? `#${params.toString()}` : `${window.location.pathname}${window.location.search}`;
     window.history.pushState({ appleAccountFlow: { audience: next.audience, route: nextRoute } }, "", hash);
     setAudience(next.audience); setRoute(nextRoute);
   }
 
   const reset = () => navigate({ audience: null });
+  const visibleRoutes = audience === "deceased" && contextGoal === "download" ? routes.deceased.filter((item) => item.id === "request-access" || item.id === "no-key") : audience ? routes[audience] : [];
 
   return <div className={styles.page}>
     {audience && <header className={styles.header}>
@@ -71,7 +79,7 @@ export default function AppleAccountFlow() {
           <button type="button" className={audience === "mine" ? styles.activeTab : ""} onClick={() => navigate({ audience: "mine" })}>내 애플 계정</button>
           <button type="button" className={audience === "deceased" ? styles.activeTab : ""} onClick={() => navigate({ audience: "deceased" })}>고인의 애플 계정</button>
         </div>
-        <label className={styles.routeSelect}><span>다른 도움 보기</span><select value={route} onChange={(e) => navigate({ audience, route: e.target.value as RouteId })}>{routes[audience].map(item => <option key={item.id} value={item.id}>{item.title}</option>)}</select></label>
+        <label className={styles.routeSelect}><span>다른 도움 보기</span><select value={route} onChange={(e) => navigate({ audience, route: e.target.value as RouteId })}>{visibleRoutes.map(item => <option key={item.id} value={item.id}>{item.title}</option>)}</select></label>
       </div>}
     </nav>}
 
@@ -79,7 +87,7 @@ export default function AppleAccountFlow() {
       mine={{ title: "내 애플 계정", description: "유산 관리자를 지정하고 접근 키를 준비하고 싶어요.", onSelect: () => navigate({ audience: "mine" }) }}
       deceased={{ title: "고인의 애플 계정", description: "고인의 데이터에 접근하거나 계정을 정리하고 싶어요.", onSelect: () => navigate({ audience: "deceased" }) }}
     />}
-    {audience && !route && <StepShell eyebrow={audience === "mine" ? "내 애플 계정" : "고인의 애플 계정"} title="무엇을 하고 싶은가요?" description="가장 가까운 항목을 선택해 주세요.">{routes[audience].map(item => <Choice key={item.id} title={item.title} description={item.description} onClick={() => navigate({ audience, route: item.id })} />)}</StepShell>}
+    {audience && !route && <StepShell eyebrow={audience === "mine" ? "내 애플 계정" : "고인의 애플 계정"} title={audience === "deceased" && contextGoal === "download" ? "유산 관리자 접근 키가 있나요?" : "무엇을 하고 싶은가요?"} description={audience === "deceased" && contextGoal === "download" ? "접근 키 보유 여부에 따라 필요한 절차가 달라져요." : "가장 가까운 항목을 선택해 주세요."}>{visibleRoutes.map(item => <Choice key={item.id} title={item.title} description={item.description} onClick={() => navigate({ audience, route: item.id })} />)}</StepShell>}
     {route && <Detail route={route} />}
   </div>;
 }

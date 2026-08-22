@@ -45,8 +45,13 @@ export default function GoogleAccountFlow() {
       }
 
       const params = new URLSearchParams(window.location.hash.slice(1));
-      setAudience((params.get("account") as Audience | null) ?? null);
-      setRoute((params.get("route") as RouteId | null) ?? null);
+      const query = new URLSearchParams(window.location.search);
+      const requestedAudience = query.get("audience");
+      const requestedGoal = query.get("goal");
+      const contextualAudience = requestedAudience === "mine" || requestedAudience === "deceased" ? requestedAudience : null;
+      const contextualRoute: RouteId | null = contextualAudience === "mine" ? (requestedGoal === "download" ? "download" : requestedGoal === "delete" ? "delete-mine" : null) : contextualAudience === "deceased" ? (requestedGoal === "delete" ? "close-deceased" : requestedGoal === "download" ? "receive-data" : null) : null;
+      setAudience((params.get("account") as Audience | null) ?? contextualAudience);
+      setRoute((params.get("route") as RouteId | null) ?? contextualRoute);
       setReceiverStatus((params.get("receiver") as ReceiverStatus | null) ?? null);
     }
 
@@ -68,7 +73,7 @@ export default function GoogleAccountFlow() {
     if (nextRoute) params.set("route", nextRoute);
     if (nextReceiverStatus) params.set("receiver", nextReceiverStatus);
 
-    const hash = params.toString() ? `#${params.toString()}` : window.location.pathname;
+    const hash = params.toString() ? `#${params.toString()}` : `${window.location.pathname}${window.location.search}`;
     window.history.pushState(
       { googleAccountFlow: { audience: next.audience, route: nextRoute, receiverStatus: nextReceiverStatus } },
       "",
