@@ -56,7 +56,3 @@
 @keyframes lightSweep{0%,36%{transform:translateX(-80%);opacity:0}46%{opacity:1}68%,100%{transform:translateX(85%);opacity:0}}
 @media(max-width:900px){.lightCanvas{width:min(88%,420px)}}
 @media(prefers-reduced-motion:reduce){.lightCanvas,.lightCanvas span,.lightCanvas::after{animation:none}}
-
-/* Grouped choices share the site's rounded surface language. */
-.choiceList,.goalList{border:1px solid #c5cec8;border-radius:16px;overflow:hidden}
-.choiceList button:last-child,.goalList button:last-child{border-bottom:0}
