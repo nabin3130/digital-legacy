@@ -25,7 +25,9 @@ export default function PreparePage() {
           <div className={styles.sectionHeading}><h2 id="process-title">진행 순서</h2></div>
           <ol className={styles.flow}>
             <li><strong>1</strong><span>필요한 서류를 준비해요.</span></li>
+            <span className={styles.flowArrow} aria-hidden="true">→</span>
             <li><strong>2</strong><span>회사를 선택해요.</span></li>
+            <span className={styles.flowArrow} aria-hidden="true">→</span>
             <li><strong>3</strong><span>회사별 안내를 따라가요.</span></li>
           </ol>
           <Link className={styles.companyLink} href="/services">회사 선택하기</Link>
