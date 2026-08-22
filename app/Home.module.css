@@ -39,19 +39,20 @@
 @media(prefers-reduced-motion:reduce){.hero .heroAction{transition:none}.hero .heroContent,.recordCard,.archive,.aurora{animation:none}}
 
 /* Hero alternative 4: diffused light gradient */
-.lightCanvas{position:relative;width:min(100%,520px);aspect-ratio:1.08;margin:auto;overflow:hidden;border:1px solid rgba(50,96,81,.12);border-radius:48% 52% 45% 55%/44% 42% 58% 56%;background:linear-gradient(145deg,rgba(255,253,246,.94),rgba(222,239,231,.74));box-shadow:0 32px 80px rgba(53,91,78,.12);isolation:isolate;animation:canvasEnter 900ms cubic-bezier(.22,1,.36,1) both}
-.lightCanvas span{position:absolute;display:block;border-radius:50%;filter:blur(34px);mix-blend-mode:multiply;will-change:transform}
-.lightMint{width:76%;height:74%;left:-13%;top:-8%;background:rgba(133,199,174,.58);animation:lightMintDrift 13s ease-in-out infinite alternate}
-.lightBlue{width:68%;height:66%;right:-17%;top:12%;background:rgba(156,203,216,.5);animation:lightBlueDrift 16s ease-in-out infinite alternate}
-.lightCream{width:72%;height:58%;left:15%;bottom:-22%;background:rgba(235,205,158,.48);animation:lightCreamDrift 18s ease-in-out infinite alternate}
-.lightCore{width:38%;height:38%;left:34%;top:28%;background:rgba(255,255,248,.92);filter:blur(22px)!important;mix-blend-mode:screen!important;animation:lightPulse 9s ease-in-out infinite alternate}
-.lightRing{position:absolute;inset:13%;border:1px solid rgba(255,255,255,.52);border-radius:50%;transform:rotate(-18deg);box-shadow:inset 0 0 40px rgba(255,255,255,.18)}
-.lightCanvas::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 25%,rgba(255,255,255,.22) 46%,transparent 68%);transform:translateX(-70%);animation:lightSweep 12s ease-in-out infinite}
+.lightCanvas{position:relative;width:min(100%,520px);aspect-ratio:1.08;margin:auto;overflow:hidden;border:1px solid rgba(50,96,81,.11);border-radius:46% 54% 48% 52%/48% 44% 56% 52%;background:linear-gradient(145deg,rgba(255,253,247,.96),rgba(232,241,235,.82));box-shadow:0 32px 80px rgba(53,91,78,.11);isolation:isolate;animation:canvasEnter 900ms cubic-bezier(.22,1,.36,1) both;transition:transform 700ms cubic-bezier(.22,1,.36,1)}
+.heroGrid:has(.heroAction:hover) .lightCanvas{transform:translateX(-5px) scale(1.012)}
+.lightCanvas span{position:absolute;display:block;border:1px solid rgba(255,255,255,.32);border-radius:48% 52% 44% 56%/53% 43% 57% 47%;filter:blur(18px);mix-blend-mode:multiply;will-change:transform}
+.lightMint{width:72%;height:66%;left:-4%;top:2%;background:linear-gradient(145deg,rgba(87,171,139,.53),rgba(180,222,204,.26));animation:lightMintSettle 16s cubic-bezier(.22,1,.36,1) infinite}
+.lightBlue{width:66%;height:64%;right:-5%;top:14%;background:linear-gradient(210deg,rgba(126,190,209,.48),rgba(203,226,233,.22));animation:lightBlueSettle 16s cubic-bezier(.22,1,.36,1) infinite}
+.lightCream{width:68%;height:57%;left:17%;bottom:-5%;background:linear-gradient(25deg,rgba(229,190,130,.43),rgba(246,228,194,.22));animation:lightCreamSettle 16s cubic-bezier(.22,1,.36,1) infinite}
+.lightCore{width:32%;height:32%;left:35%;top:31%;border:0!important;background:rgba(255,255,248,.9);filter:blur(18px)!important;mix-blend-mode:screen!important;animation:lightRest 16s ease-in-out infinite}
+.lightRing{position:absolute;inset:15%;border:1px solid rgba(255,255,255,.58);border-radius:50%;transform:rotate(-18deg);box-shadow:inset 0 0 36px rgba(255,255,255,.18)}
+.lightCanvas::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 28%,rgba(255,255,255,.2) 48%,transparent 68%);transform:translateX(-78%);animation:lightSweep 16s ease-in-out infinite}
 @keyframes canvasEnter{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:none}}
-@keyframes lightMintDrift{to{transform:translate(15%,12%) scale(1.08)}}
-@keyframes lightBlueDrift{to{transform:translate(-18%,8%) scale(1.12)}}
-@keyframes lightCreamDrift{to{transform:translate(8%,-18%) scale(1.05)}}
-@keyframes lightPulse{to{transform:scale(1.14);opacity:.72}}
-@keyframes lightSweep{0%,20%{transform:translateX(-80%)}70%,100%{transform:translateX(85%)}}
+@keyframes lightMintSettle{0%{transform:translate(-24%,-18%) scale(.9);opacity:0}18%{opacity:1}34%,78%{transform:translate(8%,7%) scale(1)}100%{transform:translate(10%,8%) scale(1.018)}}
+@keyframes lightBlueSettle{0%{transform:translate(28%,-12%) scale(.9);opacity:0}20%{opacity:1}36%,78%{transform:translate(-9%,5%) scale(1)}100%{transform:translate(-10%,6%) scale(1.015)}}
+@keyframes lightCreamSettle{0%{transform:translate(0,32%) scale(.9);opacity:0}22%{opacity:1}38%,78%{transform:translate(0,-8%) scale(1)}100%{transform:translate(1%,-9%) scale(1.014)}}
+@keyframes lightRest{0%,38%{transform:scale(.86);opacity:0}50%,78%{transform:scale(1);opacity:.95}100%{transform:scale(1.04);opacity:.84}}
+@keyframes lightSweep{0%,36%{transform:translateX(-80%);opacity:0}46%{opacity:1}68%,100%{transform:translateX(85%);opacity:0}}
 @media(max-width:900px){.lightCanvas{width:min(88%,420px)}}
 @media(prefers-reduced-motion:reduce){.lightCanvas,.lightCanvas span,.lightCanvas::after{animation:none}}
