@@ -15,7 +15,7 @@ const services=[
 {name:"인스타그램",slug:"instagram",logo:"/logos/instagram.webp",keywords:["인스타그램","instagram","인스타"],records:"사진, 동영상, 댓글, 계정 정보",support:{delete:"지원",download:"조건부 지원",memorial:"지원"}},
 {name:"엑스",slug:"x",logo:"/logos/x.svg",keywords:["x","트위터","twitter","엑스"],records:"게시물, 미디어, 계정 정보",support:{delete:"지원",download:"지원",memorial:"지원하지 않음"}}] as const;
 const audiences=[{id:"mine" as const,title:"내 계정을 미리 준비하고 있어요",description:"내 기록을 누구에게 어떻게 남길지 정하고 싶어요."},{id:"deceased" as const,title:"돌아가신 가족의 계정을 정리하고 있어요",description:"계정, 사진과 게시물을 안전하게 정리해야 해요."},{id:"unsure" as const,title:"무엇부터 해야 할지 모르겠어요",description:"세 가지 방법의 차이부터 차근히 안내해 드려요."}];
-const goals=[{id:"delete" as const,title:"계정 삭제·해지",description:"계정이나 이용 중인 서비스를 안전하게 종료해요.",icon:"×"},{id:"download" as const,title:"사진·게시물·데이터 다운로드",description:"회사 정책에 따라 기록의 사본을 요청하거나 내려받아요.",icon:"↓"},{id:"memorial" as const,title:"추모 계정 전환",description:"고인의 온라인 공간을 추모 상태로 보존해요.",icon:"○"}];
+const goals=[{id:"download" as const,title:"사진·게시물·데이터 다운로드",description:"회사 정책에 따라 기록의 사본을 요청하거나 내려받아요.",icon:"↓"},{id:"delete" as const,title:"계정 삭제·해지",description:"계정이나 이용 중인 서비스를 안전하게 종료해요.",icon:"×"},{id:"memorial" as const,title:"추모 계정 전환",description:"고인의 온라인 공간을 추모 상태로 보존해요.",icon:"○"}];
 const unsureResults=[
 {id:"download" as const,number:"01",title:"사진과 기록을 먼저 보관하고 싶어요",description:"삭제하기 전에 내려받을 수 있는 데이터를 확인해요."},
 {id:"delete" as const,number:"02",title:"계정과 기록을 없애고 싶어요",description:"필요한 기록을 확인한 뒤 계정 삭제 방법을 안내해요."},
