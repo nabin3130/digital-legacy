@@ -31,8 +31,9 @@ export default function GuideCompletion({ company, task, href }: { company: stri
     window.dispatchEvent(new Event(GUIDE_PROGRESS_EVENT));
   }
   return <section className={styles.completionArea}>
-    <label className={styles.checklistOption}><input type="checkbox" checked={checked} onChange={(event) => update(event.target.checked)} /><span>이 안내를 확인했어요</span></label>
-    <p className={styles.checklistHelp} aria-live="polite">{checked ? "확인 상태를 이 기기에 저장했어요." : "확인한 안내를 메인 화면에서 모아볼 수 있어요."}</p>
-    {checked && <div className={styles.nextActions}><h2>다음으로 무엇을 할까요?</h2><div><Link href="/services">다른 회사도 확인하기</Link><Link href="/prepare#documents">준비 서류 확인하기</Link><Link href="/">내 확인 현황 보기</Link></div></div>}
+    <label className={`${styles.checklistOption} ${checked ? styles.checklistOptionChecked : ""}`}><input type="checkbox" checked={checked} onChange={(event) => update(event.target.checked)} /><span>{checked ? "확인 완료" : "이 안내를 확인했어요"}</span></label>
+    {!checked && <p className={styles.checklistHelp}>확인한 안내는 메인 화면의 ‘내 확인 현황’에 모아드려요.</p>}
+    {checked && <div className={styles.completionResult} role="status" aria-live="polite"><span className={styles.completionIcon} aria-hidden="true">✓</span><div><strong>{company} 안내를 확인했어요</strong><p>이 기기에 저장했습니다. 다음에 메인 화면에서 이어서 볼 수 있어요.</p></div></div>}
+    {checked && <div className={styles.nextActions}><h2>이어서 무엇을 할까요?</h2><div><Link href="/">내 확인 현황 보기</Link><Link href="/services">다른 회사 확인하기</Link><Link href="/prepare#documents">준비서류 확인하기</Link></div></div>}
   </section>;
 }
