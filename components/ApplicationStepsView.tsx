@@ -372,7 +372,7 @@ export default function ApplicationStepsView({
                   </label>
                   {item.step && (
                     <a href={item.step.url} target="_blank" rel="noopener noreferrer">
-                      공식 페이지 열기 <span aria-hidden="true">↗</span>
+                      공식 페이지 열기
                     </a>
                   )}
                 </li>
@@ -474,7 +474,7 @@ function EditorialStep({ step, index, journey }: { step: ApplicationStep; index:
           </div>
         )}
         <a className={`editorial-step-action action-${step.link_type}`} href={step.url} target="_blank" rel="noopener noreferrer">
-          <span className="action-label">{getActionLabel(step)}</span> <span aria-hidden="true">↗</span>
+          <span className="action-label">{getActionLabel(step)}</span>
         </a>
       </div>
     </article>
@@ -493,7 +493,7 @@ function StepCard({ step, index }: { step: ApplicationStep; index: number }) {
           {step.description && <p>{step.description}</p>}
           {step.required_documents && <div className="required-documents"><strong>필요한 서류</strong><p>{step.required_documents}</p><Link className="common-documents-link" href="/documents">공통 서류에서 발급 방법 보기 →</Link></div>}
         </div>
-        <a className="step-card-action" href={step.url} target="_blank" rel="noopener noreferrer" aria-label={`${step.title} ${getActionLabel(step)} (새 창)`}><span className="action-label">{getActionLabel(step)}</span> <span aria-hidden="true">↗</span></a>
+        <a className="step-card-action" href={step.url} target="_blank" rel="noopener noreferrer" aria-label={`${step.title} ${getActionLabel(step)} (새 창)`}><span className="action-label">{getActionLabel(step)}</span></a>
       </article>
   );
 }

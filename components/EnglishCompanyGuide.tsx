@@ -36,7 +36,7 @@ export default function EnglishCompanyGuide({ company }: { company: CompanyPolic
   return <section className={styles.section} aria-labelledby="english-detail-title">
     <button type="button" className={guideStyles.backButton} onClick={() => setAction(null)}>← View other options</button>
     <span className={styles.step}>STEP 3</span><h2 id="english-detail-title">{action.title}</h2><p className={styles.description}>{action.description}</p>
-    <div className={guideStyles.guidance}><h3>What to do</h3><p>{action.guidance}</p>{action.link && <a href={action.link} target="_blank" rel="noopener noreferrer" aria-label={`${action.linkLabel ?? "Open official page"} (opens in a new tab)`}>{action.linkLabel ?? "Open official page"} ↗</a>}</div>
+    <div className={guideStyles.guidance}><h3>What to do</h3><p>{action.guidance}</p>{action.link && <a href={action.link} target="_blank" rel="noopener noreferrer" aria-label={`${action.linkLabel ?? "Open official page"} (opens in a new tab)`}>{action.linkLabel ?? "Open official page"}</a>}</div>
     <p className={styles.prepareNote}>Requirements can vary by country and account. Check the official page before submitting. <Link href="/en/prepare#documents">View common documents →</Link></p>
   </section>;
 }

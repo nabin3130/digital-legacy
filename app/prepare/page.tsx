@@ -38,7 +38,7 @@ export default function PreparePage() {
                   <div><dt>어떻게 발급하나요?</dt><dd>{document.issueMethod.ko}</dd></div>
                 </dl>
                 {document.url ? (
-                  <a className={styles.primaryButton} href={document.url} target="_blank" rel="noopener noreferrer" aria-label={`${document.name.ko} 발급하기 (새 창)`}>발급하기 ↗</a>
+                  <a className={styles.primaryButton} href={document.url} target="_blank" rel="noopener noreferrer" aria-label={`${document.name.ko} 발급하기 (새 창)`}>발급하기</a>
                 ) : (
                   <span className={styles.offlineButton}>병원에 발급 문의</span>
                 )}
@@ -67,7 +67,7 @@ export default function PreparePage() {
                 <h2 id="government-title">안심상속 원스톱 서비스</h2>
                 <p>금융자산, 자동차, 토지, 국민연금 등 여러 행정 정보를 한 번에 조회할 수 있습니다.</p>
               </div>
-              <a href={safeInheritance.url} target="_blank" rel="noopener noreferrer" aria-label="안심상속 원스톱 서비스 바로가기 (새 창)">바로가기 ↗</a>
+              <a href={safeInheritance.url} target="_blank" rel="noopener noreferrer" aria-label="안심상속 원스톱 서비스 바로가기 (새 창)">바로가기</a>
             </article>
           </section>
         )}

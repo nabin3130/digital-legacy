@@ -31,7 +31,7 @@ export default function CompanyPolicyOverview({ company, locale = "ko" }: { comp
   const policyTitle = isEnglish ? (english?.policyTitle ?? company.policyTitle) : company.policyTitle;
   const policySubtitle = isEnglish ? english?.policySubtitle : company.policySubtitle;
   const description = isEnglish ? (english?.description ?? company.summary) : (company.policyDescription || company.summary);
-  const button = isEnglish ? (english?.button ?? "View official policy") : company.policyButton;
+  const button = isEnglish ? "View official guidance" : "공식 안내 확인하기";
   const policyLink = isEnglish ? (english?.policyLink ?? company.policyLink) : company.policyLink;
   const services = isEnglish ? (english?.services ?? company.services) : company.services;
 
@@ -48,7 +48,7 @@ export default function CompanyPolicyOverview({ company, locale = "ko" }: { comp
             </div>
           </div>
           <p className={styles.description}>{description}</p>
-          {policyLink && <a className={styles.policyLink} href={policyLink} target="_blank" rel="noopener noreferrer" aria-label={`${button} ${isEnglish ? "(opens in a new tab)" : "(새 창)"}`}>{button} ↗</a>}
+          {policyLink && <a className={styles.policyLink} href={policyLink} target="_blank" rel="noopener noreferrer" aria-label={`${button} ${isEnglish ? "(opens in a new tab)" : "(새 창)"}`}>{button}</a>}
         </div>
         <div className={styles.services} aria-label={`${displayName} ${isEnglish ? "services" : "적용 서비스"}`}>
           <strong>{isEnglish ? "Services covered" : "적용 서비스"}</strong>

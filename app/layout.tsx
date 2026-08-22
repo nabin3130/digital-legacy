@@ -2,6 +2,7 @@ import "./globals.css";
 import "./brand.css";
 import "./theme.css";
 import "./navigation.css";
+import "./redesign.css";
 import Script from "next/script"; // 👈 추가된 부분
 import type { Metadata } from "next";
 import { SITE_DESCRIPTION, SITE_KEYWORDS, SITE_URL } from "@/lib/site";
@@ -71,6 +72,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
+      <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css" />
+      </head>
       <body>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
         {/* 구글 애드센스 자동 광고/인증 스크립트 */}

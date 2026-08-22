@@ -1,233 +1,37 @@
 "use client";
-
-import { FormEvent, useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import {FormEvent,useEffect,useMemo,useRef,useState} from "react";
 import Link from "next/link";
-
-const availableServices = [
-  { name: "카카오", slug: "kakao", logo: "/logos/kakao.webp", keywords: ["카카오", "kakao", "카카오톡"] },
-  { name: "네이버", slug: "naver", logo: "/logos/naver.svg", keywords: ["네이버", "naver", "네이버 포스트"] },
-  { name: "삼성", slug: "samsung", logo: "/logos/samsung.svg", keywords: ["삼성", "samsung", "갤럭시", "galaxy"] },
-  { name: "인스타그램", slug: "instagram", logo: "/logos/instagram.webp", keywords: ["인스타그램", "instagram", "인스타", "threads", "스레드"] },
-  { name: "구글", slug: "google", logo: "/logos/google.svg", keywords: ["구글", "google", "gmail", "유튜브", "youtube"] },
-  { name: "메타", slug: "meta", logo: "/logos/meta.svg", keywords: ["메타", "meta", "페이스북", "facebook"] },
-  { name: "애플", slug: "apple", logo: "/logos/apple.svg", keywords: ["애플", "apple", "아이클라우드", "icloud"] },
-  { name: "X", slug: "x", logo: "/logos/x.svg", keywords: ["X", "x", "트위터", "twitter", "엑스", "xmdnlxj", "dprtm"] },
-].sort((a, b) => a.name.localeCompare(b.name, "ko"));
-
-const domesticServices = availableServices.filter((service) => ["naver", "kakao", "samsung"].includes(service.slug));
-const internationalServices = availableServices.filter((service) => ["google", "apple", "meta", "instagram", "x"].includes(service.slug));
-
-const INITIAL_KEYS = [
-  "r", "R", "s", "e", "E", "f", "a", "q", "Q", "t",
-  "T", "d", "w", "W", "c", "z", "x", "v", "g",
-];
-const VOWEL_KEYS = [
-  "k", "o", "i", "O", "j", "p", "u", "P", "h", "hk",
-  "ho", "hl", "y", "n", "nj", "np", "nl", "b", "m", "ml", "l",
-];
-const FINAL_KEYS = [
-  "", "r", "R", "rt", "s", "sw", "sg", "e", "f", "fr",
-  "fa", "fq", "ft", "fx", "fv", "fg", "a", "q", "qt", "t",
-  "T", "d", "w", "c", "z", "x", "v", "g",
-];
-
-function hangulToEnglish(value: string) {
-  return Array.from(value).map((character) => {
-    const code = character.charCodeAt(0);
-
-    if (code < 0xac00 || code > 0xd7a3) return character.toLowerCase();
-
-    const syllableIndex = code - 0xac00;
-    const initialIndex = Math.floor(syllableIndex / 588);
-    const vowelIndex = Math.floor((syllableIndex % 588) / 28);
-    const finalIndex = syllableIndex % 28;
-
-    return (
-      INITIAL_KEYS[initialIndex] +
-      VOWEL_KEYS[vowelIndex] +
-      FINAL_KEYS[finalIndex]
-    );
-  }).join("");
-}
-
-export default function Home() {
-  const isEnglish = false;
-  const prefix = "";
-  const router = useRouter();
-  const [query, setQuery] = useState("");
-  const [isSoundOn, setIsSoundOn] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    // 초기 자동재생을 위한 무음 설정
-    video.muted = true;
-    video.playsInline = true;
-
-    const startVideo = () => {
-      if (video.paused) {
-        void video.play().catch(() => {});
-      }
-    };
-
-    if (video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
-      startVideo();
-    } else {
-      video.addEventListener("canplay", startVideo, { once: true });
-    }
-
-    const resumeAfterTabReturn = () => {
-      if (document.visibilityState === "visible") startVideo();
-    };
-    document.addEventListener("visibilitychange", resumeAfterTabReturn);
-
-    return () => {
-      video.removeEventListener("canplay", startVideo);
-      document.removeEventListener("visibilitychange", resumeAfterTabReturn);
-    };
-  }, []);
-
-  const normalizedQuery = query.trim().toLowerCase();
-  const searchResults = normalizedQuery
-    ? availableServices.filter((service) =>
-        service.keywords.some((keyword) => {
-          const normalizedKeyword = keyword.toLowerCase();
-          return (
-            normalizedKeyword.includes(normalizedQuery) ||
-            (normalizedQuery.length > 1 && hangulToEnglish(normalizedKeyword).includes(normalizedQuery))
-          );
-        }),
-      )
-    : [];
-
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (searchResults.length > 0) router.push(`${prefix}/company/${searchResults[0].slug}`);
-  }
-
-  // 🔊 개선된 소리 토글 함수
-  async function toggleOceanSound() {
-    const video = videoRef.current;
-    if (!video) return;
-
-    if (isSoundOn) {
-      video.muted = true;
-      setIsSoundOn(false);
-    } else {
-      try {
-        video.removeAttribute("muted");
-        video.muted = false;
-        video.volume = 1.0;
-        await video.play();
-        setIsSoundOn(true);
-      } catch (error) {
-        console.error("오디오 재생 실패:", error);
-        video.muted = true;
-        setIsSoundOn(false);
-      }
-    }
-  }
-
-  return (
-    <main>
-      <section className="hero hero-video">
-        <div className="hero-media" aria-hidden="true">
-          {/* <video> 태그 내부에서 muted 속성을 떼어내어 JS 오디오 제어가 먹히도록 수정했습니다 */}
-          <video
-            ref={videoRef}
-            autoPlay
-            loop
-            playsInline
-            preload="auto"
-            disablePictureInPicture
-            poster="/media/ocean-hero-poster.jpg"
-          >
-            <source src="/media/ocean-hero.mp4" type="video/mp4" />
-          </video>
-        </div>
-        <div className="container hero-grid">
-          <div className="hero-copy">
-            <p className="eyebrow">DIGITAL LEGACY NAVIGATOR / 01</p>
-            <h1>
-              <span>{isEnglish ? "Your digital memories remain." : "남겨진 디지털 추억,"}</span>
-              <span>{isEnglish ? "We help you decide what comes next." : "어떻게 정리할지 안내합니다."}</span>
-            </h1>
-            <p className="hero-description">
-              {isEnglish ? "Find pre-planning options, steps after a death, required documents, and official request paths in one place." : "생전 설정부터 사후 처리 방법, 필요한 서류와 공식 신청 경로까지 한곳에서 안내합니다."}
-            </p>
-
-            <form className="company-search" onSubmit={handleSubmit}>
-              <input
-                className="search"
-                type="search"
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                aria-label={isEnglish ? "Search companies or services" : "회사 또는 서비스 검색"}
-                placeholder={isEnglish ? "Search a company or service" : "회사 또는 서비스를 검색하세요"}
-                autoComplete="off"
-              />
-
-              {normalizedQuery && (
-                <div className="search-results">
-                  {searchResults.length > 0 ? (
-                    searchResults.map((service) => (
-                      <Link className="search-result" href={`${prefix}/company/${service.slug}`} key={service.slug}>
-                        <span className="search-result-logo"><img src={service.logo} alt="" /></span>
-                        <strong>{isEnglish ? ({ 카카오: "Kakao", 네이버: "Naver", 삼성: "Samsung", 인스타그램: "Instagram", 구글: "Google", 메타: "Meta", 애플: "Apple", X: "X" } as Record<string,string>)[service.name] : service.name}</strong>
-                        <span className="result-arrow" aria-hidden="true">→</span>
-                      </Link>
-                    ))
-                  ) : (
-                    <p className="search-empty">{isEnglish ? "No results found." : "검색 결과가 없습니다."}</p>
-                  )}
-                </div>
-              )}
-            </form>
-
-            <button
-              className="ocean-sound-toggle"
-              type="button"
-              aria-pressed={isSoundOn}
-              onClick={toggleOceanSound}
-            >
-              <span className="sound-icon" aria-hidden="true">{isSoundOn ? "◉" : "○"}</span>
-              {isEnglish ? (isSoundOn ? "Sound off" : "Sound on") : (isSoundOn ? "소리 끄기" : "소리 켜기")}
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <section className="available-services-section" id="services">
-        <div className="container">
-          <div className="available-services-heading">
-            <p className="eyebrow">AVAILABLE PATHS / 02</p>
-            <h2>{isEnglish ? "Available services" : "현재 확인 가능한 서비스"}</h2>
-            <p>{isEnglish ? "Choose the service for the account you need to manage." : "관리하려는 계정의 서비스를 선택하세요."}</p>
-          </div>
-
-          <div className="service-groups">
-            {[
-              { title: isEnglish ? "Korean services" : "국내 서비스", services: domesticServices },
-              { title: isEnglish ? "Global services" : "국외 서비스", services: internationalServices },
-            ].map((group) => (
-              <section className="service-group" key={group.title}>
-                <h3>{group.title}</h3>
-                <div className="available-services">
-                  {group.services.map((service) => (
-                    <Link className="available-service" href={`${prefix}/company/${service.slug}`} key={service.slug}>
-                      <span className="available-service-logo"><img src={service.logo} alt="" /></span>
-                      <strong>{isEnglish ? ({ 카카오: "Kakao", 네이버: "Naver", 삼성: "Samsung", 인스타그램: "Instagram", 구글: "Google", 메타: "Meta", 애플: "Apple", X: "X" } as Record<string,string>)[service.name] : service.name}</strong>
-                    </Link>
-                  ))}
-                </div>
-              </section>
-            ))}
-          </div>
-        </div>
-      </section>
-    </main>
-  );
-}
+import {useRouter} from "next/navigation";
+import styles from "./Home.module.css";
+type Audience="mine"|"deceased"|"unsure";type Goal="delete"|"download"|"memorial";type Support="지원"|"조건부 지원"|"지원하지 않음"|"확인 필요";
+const services=[
+{name:"카카오",slug:"kakao",logo:"/logos/kakao.webp",keywords:["카카오","kakao","카카오톡"],support:{delete:"지원",download:"조건부 지원",memorial:"지원"}},
+{name:"네이버",slug:"naver",logo:"/logos/naver.svg",keywords:["네이버","naver","블로그","mybox"],support:{delete:"지원",download:"조건부 지원",memorial:"지원하지 않음"}},
+{name:"삼성",slug:"samsung",logo:"/logos/samsung.svg",keywords:["삼성","samsung","갤럭시"],support:{delete:"확인 필요",download:"조건부 지원",memorial:"지원하지 않음"}},
+{name:"Google",slug:"google",logo:"/logos/google.svg",keywords:["구글","google","gmail","유튜브"],support:{delete:"지원",download:"조건부 지원",memorial:"지원하지 않음"}},
+{name:"Apple",slug:"apple",logo:"/logos/apple.svg",keywords:["애플","apple","icloud"],support:{delete:"지원",download:"조건부 지원",memorial:"지원하지 않음"}},
+{name:"Meta",slug:"meta",logo:"/logos/meta.svg",keywords:["메타","meta","페이스북"],support:{delete:"지원",download:"조건부 지원",memorial:"지원"}},
+{name:"Instagram",slug:"instagram",logo:"/logos/instagram.webp",keywords:["인스타그램","instagram","인스타"],support:{delete:"지원",download:"조건부 지원",memorial:"지원"}},
+{name:"X",slug:"x",logo:"/logos/x.svg",keywords:["x","트위터","twitter","엑스"],support:{delete:"지원",download:"지원하지 않음",memorial:"지원하지 않음"}}] as const;
+const audiences=[{id:"mine" as const,title:"내 계정을 미리 준비하고 있어요",description:"내 기록을 누구에게 어떻게 남길지 정하고 싶어요."},{id:"deceased" as const,title:"돌아가신 가족의 계정을 정리하고 있어요",description:"계정, 사진과 게시물을 안전하게 정리해야 해요."},{id:"unsure" as const,title:"무엇부터 해야 할지 모르겠어요",description:"세 가지 처리 방법의 차이부터 차근히 안내해 드려요."}];
+const goals=[{id:"delete" as const,title:"계정 삭제·해지",description:"계정이나 이용 중인 서비스를 안전하게 종료해요.",icon:"×"},{id:"download" as const,title:"사진·게시물·데이터 다운로드",description:"회사 정책에 따라 기록의 사본을 요청하거나 내려받아요.",icon:"↓"},{id:"memorial" as const,title:"추모 계정 전환",description:"고인의 온라인 공간을 추모 상태로 보존해요.",icon:"○"}];
+export default function Home(){const router=useRouter();const videoRef=useRef<HTMLVideoElement>(null);const goalRef=useRef<HTMLElement>(null);const serviceRef=useRef<HTMLElement>(null);const[audience,setAudience]=useState<Audience|null>(null);const[goal,setGoal]=useState<Goal|null>(null);const[query,setQuery]=useState("");const[isSoundOn,setIsSoundOn]=useState(false);
+useEffect(()=>{const saved=localStorage.getItem("logout-guide-state");if(!saved)return;try{const state=JSON.parse(saved);if(["mine","deceased","unsure"].includes(state.audience))setAudience(state.audience);if(["delete","download","memorial"].includes(state.goal))setGoal(state.goal)}catch{}},[]);
+useEffect(()=>{if(audience||goal)localStorage.setItem("logout-guide-state",JSON.stringify({audience,goal}))},[audience,goal]);
+useEffect(()=>{const video=videoRef.current;if(video){video.muted=true;void video.play().catch(()=>{})}},[]);
+const filtered=useMemo(()=>{const q=query.trim().toLowerCase();return services.filter(s=>!q||s.keywords.some(k=>k.toLowerCase().includes(q)))},[query]);
+const ordered=useMemo(()=>goal?[...filtered].sort((a,b)=>rank(a.support[goal] as Support)-rank(b.support[goal] as Support)):filtered,[filtered,goal]);
+function chooseAudience(next:Audience){setAudience(next);setGoal(null);setTimeout(()=>goalRef.current?.scrollIntoView({behavior:"smooth",block:"start"}),80)}
+function chooseGoal(next:Goal){setGoal(next);setTimeout(()=>serviceRef.current?.scrollIntoView({behavior:"smooth",block:"start"}),80)}
+function submit(e:FormEvent){e.preventDefault();if(ordered.length)router.push(`/company/${ordered[0].slug}`)}
+async function toggleSound(){const video=videoRef.current;if(!video)return;video.muted=isSoundOn;setIsSoundOn(!isSoundOn);if(!isSoundOn)await video.play().catch(()=>setIsSoundOn(false))}
+function reset(){setAudience(null);setGoal(null);localStorage.removeItem("logout-guide-state");document.getElementById("start")?.scrollIntoView({behavior:"smooth"})}
+return <main className={styles.home}>
+<section className={styles.hero}><video ref={videoRef} autoPlay loop playsInline preload="auto" disablePictureInPicture poster="/media/ocean-hero-poster.jpg"><source src="/media/ocean-hero.mp4" type="video/mp4"/></video><div className={styles.heroOverlay}/><div className={`container ${styles.heroContent}`}><p className={styles.kicker}>DIGITAL LEGACY GUIDE</p><h1>남겨진 디지털 기록,<br/>차분하게 정리할 수 있도록.</h1><p>계정 삭제부터 데이터 다운로드, 추모 계정 전환까지<br/>회사별 공식 정책과 필요한 절차를 안내합니다.</p><a href="#start" className={styles.heroAction}>안내 시작하기</a><button className={styles.sound} type="button" aria-pressed={isSoundOn} onClick={toggleSound}>{isSoundOn?"소리 끄기":"소리 켜기"}</button></div></section>
+<section className={styles.start} id="start"><div className={styles.narrow}><div className={styles.sectionHead}><div><p className={styles.kicker}>시작하기</p><h2>누구의 디지털 기록을 정리하고 계신가요?</h2><p>현재 상황을 선택하면 필요한 안내만 보여드려요.</p></div><form className={styles.quickSearch} onSubmit={submit}><label htmlFor="quick-company">회사명으로 바로 찾기</label><div><span>⌕</span><input id="quick-company" value={query} onChange={e=>setQuery(e.target.value)} placeholder="예: 구글, 카카오"/></div></form></div><div className={styles.choiceList}>{audiences.map(o=><button key={o.id} className={audience===o.id?styles.selected:""} onClick={()=>chooseAudience(o.id)}><span className={styles.radio}/><span><strong>{o.title}</strong><small>{o.description}</small></span><span className={styles.rowState}>{audience===o.id?"선택됨":""}</span></button>)}</div><p className={styles.privacyNote}>선택한 진행 상황은 이 기기에만 저장됩니다. 개인정보나 서류는 저장하지 않습니다.</p></div></section>
+<section className={`${styles.flowSection} ${!audience?styles.locked:""}`} ref={goalRef} aria-hidden={!audience}><div className={styles.narrow}><Progress step={2}/><button className={styles.back} onClick={()=>{setAudience(null);setGoal(null)}}>← 상황 다시 선택</button><p className={styles.kicker}>{audience==="mine"?"내 계정 미리 준비":audience==="deceased"?"고인의 계정 정리":"처리 방법 알아보기"}</p><h2>어떤 처리를 원하시나요?</h2>{audience==="unsure"&&<p className={styles.helper}>기록을 없애려면 삭제, 사본을 남기려면 다운로드, 온라인 공간을 유지하려면 추모 계정을 선택하세요.</p>}<div className={styles.goalList}>{goals.map(o=><button key={o.id} onClick={()=>chooseGoal(o.id)} className={goal===o.id?styles.selected:""}><span className={styles.goalIcon}>{o.icon}</span><span><strong>{o.title}</strong><small>{o.description}</small></span><span>{goal===o.id?"선택됨":""}</span></button>)}</div></div></section>
+<section className={`${styles.services} ${!goal?styles.locked:""}`} ref={serviceRef} aria-hidden={!goal}><div className={styles.serviceLayout}><aside><Progress step={3}/><button className={styles.back} onClick={()=>setGoal(null)}>← 처리 방법 다시 선택</button><p className={styles.kicker}>{goals.find(x=>x.id===goal)?.title}</p><h2>어느 서비스를 이용하시나요?</h2><p>선택한 처리를 지원하는 서비스를 먼저 보여드려요.</p><label className={styles.serviceSearch}><span>⌕</span><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="서비스 검색"/></label></aside><div className={styles.serviceList}>{ordered.map(s=>{const status=goal?s.support[goal] as Support:"확인 필요";return <Link href={`/company/${s.slug}`} key={s.slug} className={styles.serviceRow}><img src={s.logo} alt=""/><span><strong>{s.name}</strong><small>{goals.find(x=>x.id===goal)?.title}</small></span><span className={`${styles.status} ${styles[statusClass(status)]}`}>{status}</span></Link>})}{!ordered.length&&<div className={styles.empty}><strong>검색 결과가 없어요</strong><button onClick={()=>setQuery("")}>전체 서비스 보기</button></div>}</div></div></section>
+{(audience||goal)&&<div className={styles.savedBar}><span>진행 상황이 이 기기에 저장됐어요.</span><button onClick={reset}>진행 기록 삭제</button></div>}</main>}
+function Progress({step}:{step:number}){return <div className={styles.progress} aria-label={`4단계 중 ${step}단계`}><span><b>1 상황</b>　—　<b className={step>=2?styles.current:""}>2 목적</b>　—　<b className={step>=3?styles.current:""}>3 서비스</b>　—　4 절차</span><em>{step} / 4</em></div>}
+function rank(status:Support){return {"지원":0,"조건부 지원":1,"확인 필요":2,"지원하지 않음":3}[status]}
+function statusClass(status:Support){return status==="지원"?"supported":status==="조건부 지원"?"conditional":status==="지원하지 않음"?"unsupported":"checking"}
