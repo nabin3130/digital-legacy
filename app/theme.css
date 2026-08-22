@@ -1,12 +1,12 @@
 :root {
   --background: #f7f9fc;
   --surface: #ffffff;
-  --text: #18324a;
-  --muted: #526779;
-  --border: #d8e2ea;
-  --border-strong: #9eb3c2;
-  --accent: #18324a;
-  --highlight: #2563a6;
+  --text: #18211d;
+  --muted: #65716b;
+  --border: #c5cec8;
+  --border-strong: #8f9b94;
+  --accent: #1f5a49;
+  --highlight: #276557;
 }
 
 body {
@@ -68,8 +68,8 @@ body {
 
 .legend-checking,
 .status-checking {
-  color: #194b7a;
-  background-color: #eaf2f8;
+  color: #276557;
+  background-color: #e6f0eb;
 }
 
 .hero-video .hero-media video {
@@ -80,33 +80,33 @@ body {
   --ocean: #18324a !important;
   --mist: #eaf2f8 !important;
   --border: #d8e2ea !important;
-  color: #18324a !important;
+  color: #1f5a49 !important;
 }
 
 [class*="Prepare_serviceCard"],
 [class*="Prepare_documentCard"],
 [class*="Contact_form"],
 [class*="About_contact"] {
-  border-color: #d8e2ea !important;
+  border-color: #c5cec8 !important;
   background: #ffffff !important;
 }
 
 [class*="Prepare_badge"] {
-  background: #eaf2f8 !important;
-  color: #18324a !important;
+  background: #e6f0eb !important;
+  color: #1f5a49 !important;
 }
 
 [class*="Prepare_primaryButton"],
 [class*="Prepare_serviceCard"] a,
 [class*="Contact_form"] button {
-  background: #2563a6 !important;
+  background: #1f5a49 !important;
   color: #ffffff !important;
 }
 
 [class*="Prepare_primaryButton"]:hover,
 [class*="Prepare_serviceCard"] a:hover,
 [class*="Contact_form"] button:hover {
-  background: #194b7a !important;
+  background: #16483a !important;
 }
 
 [class*="About_question"] {

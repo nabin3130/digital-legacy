@@ -1,2 +1,18 @@
 :root{--background:#fbfcfa;--surface:#fff;--text:#18211d;--muted:#65716b;--border:#c5cec8;--border-strong:#8f9b94;--accent:#1f5a49;--mono:"IBM Plex Mono",ui-monospace,monospace;--sans:"Pretendard Variable",Pretendard,"Noto Sans KR",sans-serif}body{background:#fbfcfa;color:var(--text);font-family:var(--sans)}.header{position:sticky;top:0;border:0;border-bottom:1px solid rgba(197,206,200,.75);background:rgba(251,252,250,.92);backdrop-filter:blur(12px)}.header::before{display:none}.nav{min-height:70px}.brand,.footer-brand{color:#12372b}.navlinks>a{color:#46534d;font-family:var(--sans);font-size:13px;font-weight:600}.navlinks>a:hover{color:var(--accent)}.language-trigger{color:var(--accent);background:transparent}.section{padding-top:64px}.company-header,.step-card,.company-summary{box-shadow:none}.company-dropdown,.language-dropdown{border-radius:8px;box-shadow:0 12px 32px rgba(18,55,43,.12)}.footer{background:#f0f3f0;border-top:1px solid #d5dbd7}.footer-inner{grid-template-columns:auto 1fr auto auto}.footer-links a{color:#65716b}.policyLink,.primaryButton,.editorial-step-action.action-application,.editorial-step-action.action-request,.editorial-step-action.action-setup{background:#1f5a49!important;color:#fff!important;box-shadow:none!important;border-radius:8px!important}.step-card{border-radius:10px!important;background:#fff!important}.documentCard{box-shadow:none!important}@media(max-width:760px){.footer-inner{grid-template-columns:1fr auto}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,::before,::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+/* Brand-wide primary action color */
+a[class*="_primaryButton"],
+a[class*="_linkButton"],
+[class*="_serviceCard"] a,
+[class*="_guidance"] a,
+[class*="_form"] button:not(:disabled){background:#1f5a49!important;color:#fff!important}
+a[class*="_primaryButton"]:hover,
+a[class*="_linkButton"]:hover,
+[class*="_serviceCard"] a:hover,
+[class*="_guidance"] a:hover,
+[class*="_form"] button:not(:disabled):hover{background:#16483a!important}
+a[class*="_primaryButton"]:focus-visible,
+a[class*="_linkButton"]:focus-visible,
+[class*="_serviceCard"] a:focus-visible,
+[class*="_guidance"] a:focus-visible,
+[class*="_form"] button:focus-visible{outline:3px solid rgba(31,90,73,.24)!important;outline-offset:3px}
