@@ -25,8 +25,12 @@ export const companies: CompanyPolicy[] = [
     available: ["사진", "메모", "메일", "연락처", "캘린더", "메시지", "iCloud Drive", "음성 메모", "Safari 데이터"],
     unavailable: ["구매한 미디어", "구독", "결제 정보", "Keychain"],
     limitations: ["접근 범위는 계정 및 국가별 법적 요건에 따라 달라질 수 있습니다."],
-    officialLinks: [{ label: "공식 링크 추가 예정" }],
-    lastUpdated: "2026-07-10"
+    officialLinks: [
+      { label: "유산 관리자 설정 안내", url: "https://support.apple.com/ko-kr/102631" },
+      { label: "고인의 애플 계정 요청 안내", url: "https://support.apple.com/ko-kr/102431" },
+      { label: "데이터 다운로드·계정 삭제", url: "https://privacy.apple.com/?language=ko_KR" }
+    ],
+    lastUpdated: "2026-08-22"
   },
   {
     id: "google",
@@ -52,8 +56,13 @@ export const companies: CompanyPolicy[] = [
     available: ["사전 지정 시 일부 데이터 공유", "사후 요청 검토"],
     unavailable: ["비밀번호 제공"],
     limitations: ["요청이 승인된다고 보장되지 않습니다."],
-    officialLinks: [{ label: "공식 링크 추가 예정" }],
-    lastUpdated: "2026-07-10"
+    officialLinks: [
+      { label: "휴면 계정 관리자", url: "https://myaccount.google.com/inactive?hl=ko" },
+      { label: "구글 데이터 다운로드", url: "https://takeout.google.com/?hl=ko" },
+      { label: "구글 계정 삭제 안내", url: "https://support.google.com/accounts/answer/32046?hl=ko" },
+      { label: "사망자 계정 요청", url: "https://support.google.com/accounts/troubleshooter/6357590?hl=ko" }
+    ],
+    lastUpdated: "2026-08-22"
   },
   {
     id: "meta",
@@ -79,8 +88,13 @@ export const companies: CompanyPolicy[] = [
     available: ["기념 계정 전환", "제한된 Legacy Contact 관리"],
     unavailable: ["고인 계정으로 로그인", "비공개 메시지 열람"],
     limitations: ["Legacy Contact의 권한은 제한적입니다."],
-    officialLinks: [{ label: "공식 링크 추가 예정" }],
-    lastUpdated: "2026-07-10"
+    officialLinks: [
+      { label: "페이스북 데이터 다운로드", url: "https://www.facebook.com/help/212802592074644/?locale=ko_KR" },
+      { label: "페이스북 계정 삭제", url: "https://www.facebook.com/help/224562897555674/?locale=ko_KR" },
+      { label: "사망자 계정 삭제 요청", url: "https://www.facebook.com/help/1518259735093203/?locale=ko_KR" },
+      { label: "추모 계정 전환 요청", url: "https://www.facebook.com/help/requestmemorialization?locale=ko_KR" }
+    ],
+    lastUpdated: "2026-08-22"
   },
   {
     id: "instagram",
@@ -106,8 +120,12 @@ export const companies: CompanyPolicy[] = [
     available: ["기념 계정 전환"],
     unavailable: ["추가 확인 중"],
     limitations: ["Facebook 정책과 동일하다고 가정하면 안 됩니다."],
-    officialLinks: [{ label: "공식 링크 추가 예정" }],
-    lastUpdated: "2026-07-10"
+    officialLinks: [
+      { label: "인스타그램 데이터 다운로드", url: "https://help.instagram.com/181231772500920?locale=ko_KR" },
+      { label: "인스타그램 계정 삭제", url: "https://help.instagram.com/139886812848894?locale=ko_KR" },
+      { label: "사망자·추모 계정 안내", url: "https://www.facebook.com/help/264154560391256/?locale=ko_KR" }
+    ],
+    lastUpdated: "2026-08-22"
   },
   {
     id: "samsung",
@@ -133,8 +151,12 @@ export const companies: CompanyPolicy[] = [
     available: ["연락처", "통화 기록", "음성 녹음", "노트", "캘린더", "리마인더"],
     unavailable: ["갤러리", "Samsung Account 자체", "제3자 서비스 데이터"],
     limitations: ["승인 후 접근 기간은 1년입니다."],
-    officialLinks: [{ label: "공식 링크 추가 예정" }],
-    lastUpdated: "2026-07-10"
+    officialLinks: [
+      { label: "삼성 디지털 유산", url: "https://digital-legacy.samsung.com/" },
+      { label: "삼성 계정 관리", url: "https://account.samsung.com/" },
+      { label: "삼성 고객지원", url: "https://www.samsung.com/sec/support/" }
+    ],
+    lastUpdated: "2026-08-22"
   },
   {
     id: "naver",
@@ -159,8 +181,12 @@ export const companies: CompanyPolicy[] = [
     available: ["공개 게시물 백업 요청"],
     unavailable: ["아이디·비밀번호", "메일 등 비공개 이용 정보"],
     limitations: ["신청 UI와 절차 안내가 명확하지 않습니다."],
-    officialLinks: [{ label: "공식 링크 추가 예정" }],
-    lastUpdated: "2026-07-10"
+    officialLinks: [
+      { label: "네이버 회원 탈퇴 안내", url: "https://help.naver.com/service/5640/contents/9545?osType=COMMONOS" },
+      { label: "사망자 아이디 탈퇴 요청", url: "https://help.naver.com/service/5640/contents/17441?lang=ko&osType=COMMONOS" },
+      { label: "네이버페이 고객센터", url: "https://help.pay.naver.com/" }
+    ],
+    lastUpdated: "2026-08-22"
   },
   {
     id: "kakao",
@@ -185,8 +211,13 @@ export const companies: CompanyPolicy[] = [
     available: ["공개 게시물 백업", "미사용 모바일 교환권 및 유상 선불 잔액 환불", "카카오톡 추모 프로필"],
     unavailable: ["계정 정보", "카카오톡 대화", "친구 목록"],
     limitations: ["서비스 환경에 따라 백업 제공이 제한될 수 있습니다."],
-    officialLinks: [{ label: "공식 링크 추가 예정" }],
-    lastUpdated: "2026-07-10"
+    officialLinks: [
+      { label: "카카오계정 관리", url: "https://accounts.kakao.com/weblogin/account/info" },
+      { label: "카카오 개인정보 안내", url: "https://privacy.kakao.com/main?lang=ko" },
+      { label: "카카오톡 추모 프로필 안내", url: "https://cs.kakao.com/helps?service=8&category=565&locale=ko" },
+      { label: "카카오 고객센터", url: "https://cs.kakao.com/" }
+    ],
+    lastUpdated: "2026-08-22"
   },
   {
     id: "x",
@@ -212,7 +243,11 @@ export const companies: CompanyPolicy[] = [
     available: ["본인 데이터 아카이브 다운로드", "고인의 계정 비활성화 요청"],
     unavailable: ["고인의 로그인 정보", "가족의 계정 접속"],
     limitations: ["신청 후 X가 이메일로 추가 정보와 서류 제출 방법을 안내합니다."],
-    officialLinks: [{ label: "X 공식 사망자 계정 안내", url: "https://help.x.com/en/rules-and-policies/contact-x-about-a-deceased-family-members-account" }],
-    lastUpdated: "2026-08-08"
+    officialLinks: [
+      { label: "X 데이터 아카이브 안내", url: "https://help.x.com/en/managing-your-account/how-to-download-your-x-archive" },
+      { label: "X 계정 비활성화 안내", url: "https://help.x.com/en/managing-your-account/how-to-deactivate-x-account" },
+      { label: "사망자 계정 비활성화 요청", url: "https://help.x.com/en/forms/account-access/deactivate-or-close-account/deactivate-account-for-deceased" }
+    ],
+    lastUpdated: "2026-08-22"
   }
 ];

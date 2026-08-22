@@ -32,7 +32,7 @@ export const xApplicationSteps: ApplicationStep[] = [
     link_type: "request",
     title: "고인의 X 계정 비활성화를 요청해요",
     description: "직계가족 또는 법적 권한이 있는 사람이 요청하면 X가 이메일로 서류 제출 절차를 안내해요.",
-    url: "https://help.x.com/en/rules-and-policies/contact-x-about-a-deceased-family-members-account",
+    url: "https://help.x.com/en/forms/account-access/deactivate-or-close-account/deactivate-account-for-deceased",
     required_documents: "신청자의 신분증, 고인의 사망증명서",
     sort_order: 1,
     notes: "X는 고인의 로그인 정보를 제공하지 않습니다.",

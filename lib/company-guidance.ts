@@ -3,7 +3,7 @@ import type {CompanyPolicy} from "@/lib/types";
 
 const names:Record<string,string>={kakao:"카카오",samsung:"삼성",meta:"페이스북",instagram:"인스타그램"};
 const links:Record<string,Partial<Record<"download"|"delete"|"deceased"|"memorial",string>>>={
-  meta:{download:"https://www.facebook.com/help/212802592074644/?locale=ko_KR",delete:"https://www.facebook.com/help/224562897555674/?locale=ko_KR",deceased:"https://www.facebook.com/help/1111566045566400/?locale=ko_KR",memorial:"https://www.facebook.com/help/requestmemorialization?locale=ko_KR"},
+  meta:{download:"https://www.facebook.com/help/212802592074644/?locale=ko_KR",delete:"https://www.facebook.com/help/224562897555674/?locale=ko_KR",deceased:"https://www.facebook.com/help/1518259735093203/?locale=ko_KR",memorial:"https://www.facebook.com/help/requestmemorialization?locale=ko_KR"},
   instagram:{download:"https://help.instagram.com/181231772500920?locale=ko_KR",delete:"https://help.instagram.com/139886812848894?locale=ko_KR",deceased:"https://www.facebook.com/help/264154560391256/?locale=ko_KR",memorial:"https://www.facebook.com/help/264154560391256/?locale=ko_KR"},
   samsung:{download:"https://account.samsung.com/",delete:"https://account.samsung.com/",deceased:"https://digital-legacy.samsung.com/",memorial:"https://digital-legacy.samsung.com/"},
   kakao:{download:"https://privacy.kakao.com/main?lang=ko",delete:"https://accounts.kakao.com/weblogin/account/info",deceased:"https://cs.kakao.com/",memorial:"https://cs.kakao.com/helps?service=8&category=565&locale=ko"}
