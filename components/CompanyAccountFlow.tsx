@@ -178,11 +178,22 @@ function StandardStepDetail({ companyName, audience, step }: { companyName: stri
         )}
       </div>
 
+      <section className={styles.officialHandoff}>
+        <h2>공식 사이트로 이동하면</h2>
+        <ul>
+          <li>{audience === "mine" ? "본인 계정 로그인이 필요할 수 있어요." : "신청자 정보와 증빙서류 제출 화면이 열릴 수 있어요."}</li>
+          <li>회사 정책에 따라 추가 확인 단계가 표시될 수 있어요.</li>
+          <li>이 사이트는 계정 비밀번호나 증빙서류를 받거나 저장하지 않아요.</li>
+        </ul>
+      </section>
+
       <label className={styles.checklistOption}>
         <input type="checkbox" checked={checked} onChange={(event) => updateChecklist(event.target.checked)} />
         <span>이 안내를 확인했어요</span>
       </label>
       <p className={styles.checklistHelp} aria-live="polite">{checked ? "확인 상태를 이 기기에 저장했어요." : "선택하면 다음에 다시 왔을 때 확인 상태를 보여드려요."}</p>
+
+      {checked && <section className={styles.nextActions}><h2>다음으로 무엇을 할까요?</h2><div><Link href="/services">다른 회사도 확인하기</Link><Link href="/prepare#documents">준비 서류 확인하기</Link><Link href="/">처음 안내로 돌아가기</Link></div></section>}
 
       <div className={styles.actions}>
         <a className={styles.primary} href={step.url} target="_blank" rel="noopener noreferrer" aria-label={`${companyName} ${actionLabel} (새 창)`}>{actionLabel}</a>
