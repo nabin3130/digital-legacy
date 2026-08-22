@@ -62,7 +62,7 @@ export default function AppleAccountFlow() {
 
     {audience && <nav className={styles.contextNavigation} aria-label="애플 도움말 내 이동">
       <ol className={styles.breadcrumb}>
-        <li><Link href="/#services">서비스</Link></li>
+        <li><Link href="/services">서비스</Link></li>
         <li><button type="button" onClick={reset}>애플</button></li>
         <li><button type="button" onClick={() => navigate({ audience })}>{audience === "mine" ? "내 애플 계정" : "고인의 애플 계정"}</button></li>
       </ol>

@@ -100,7 +100,7 @@ export default function GoogleAccountFlow() {
       {audience && (
         <nav className={styles.contextNavigation} aria-label="구글 도움말 내 이동">
           <ol className={styles.breadcrumb}>
-            <li><Link href="/#services">서비스</Link></li>
+            <li><Link href="/services">서비스</Link></li>
             <li><button type="button" onClick={reset}>구글</button></li>
             <li><button type="button" onClick={() => navigate({ audience })}>{audience === "mine" ? "내 구글 계정" : "고인의 구글 계정"}</button></li>
           </ol>

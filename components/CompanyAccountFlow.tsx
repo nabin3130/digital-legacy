@@ -82,7 +82,7 @@ export default function CompanyAccountFlow({
       {audience && (
         <nav className={styles.contextNavigation} aria-label={`${displayName} 도움말 내 이동`}>
           <ol className={styles.breadcrumb}>
-            <li><a href="/#services">서비스</a></li>
+            <li><a href="/services">서비스</a></li>
             <li><button type="button" onClick={() => navigate(null)}>{displayName}</button></li>
             <li><button type="button" onClick={() => navigate(audience)}>{audience === "mine" ? `내 ${displayName} 계정` : `고인의 ${displayName} 계정`}</button></li>
           </ol>

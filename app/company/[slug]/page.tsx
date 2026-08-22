@@ -8,7 +8,7 @@ import CompanyPolicyOverview from "@/components/CompanyPolicyOverview";
 import CompanyAccountFlow from "@/components/CompanyAccountFlow";
 import { companies } from "@/lib/data";
 import { xApplicationSteps } from "@/lib/x-guidance";
-import { createServerSupabaseClient } from "@/lib/supabase-server";
+import { getCompanySteps } from "@/lib/company-guidance";
 
 type CompanyPageProps = {
   params: Promise<{
@@ -81,30 +81,7 @@ export default async function CompanyPage({
     );
   }
 
-  const companyKey =
-    slug === "kakao"
-      ? "Kakao"
-      : slug.charAt(0).toUpperCase() + slug.slice(1);
-
-  let steps: ApplicationStep[];
-  if (slug === "x") {
-    steps = xApplicationSteps;
-  } else {
-    const supabase = await createServerSupabaseClient();
-    const { data, error } = await supabase
-      .from("application_steps")
-      .select("*")
-      .eq("company", companyKey)
-      .order("sort_order", { ascending: true });
-
-    if (error) {
-      console.error(error);
-      throw new Error("신청 정보를 불러오지 못했습니다.");
-    }
-
-    if (!data || data.length === 0) notFound();
-    steps = data as ApplicationStep[];
-  }
+  const steps: ApplicationStep[] = slug === "x" ? xApplicationSteps : getCompanySteps(companyPolicy);
 
   const preDeathSteps = steps.filter(
     (step) => step.journey === "pre_death"
