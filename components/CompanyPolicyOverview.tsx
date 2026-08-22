@@ -53,6 +53,8 @@ export default function CompanyPolicyOverview({ company, locale = "ko" }: { comp
           </div>
           <p className={styles.description}>{description}</p>
           {policyLink && <a className={styles.policyLink} href={policyLink} target="_blank" rel="noopener noreferrer" aria-label={`${button} ${isEnglish ? "(opens in a new tab)" : "(새 창)"}`}>{button}</a>}
+          {!isEnglish && <div className={styles.trustMeta}><span>공식 출처 기준</span><span>마지막 확인 {company.lastUpdated.replaceAll("-", ".")}</span><Link href={`/contact?subject=${encodeURIComponent(`${displayName} 정책 링크 제보`)}`}>잘못된 링크 알리기</Link></div>}
+          {!isEnglish && <p className={styles.roleNote}>로그아웃은 절차를 이해하기 쉽게 안내하며, 실제 신청과 결정은 각 회사의 공식 사이트에서 진행합니다.</p>}
         </div>
         <div className={styles.services} aria-label={`${displayName} ${isEnglish ? "services" : "적용 서비스"}`}>
           <strong>{isEnglish ? "Services covered" : "적용 서비스"}</strong>

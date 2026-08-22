@@ -6,6 +6,7 @@ import CompanyAccountSelector from "@/components/CompanyAccountSelector";
 import type { ApplicationStep } from "@/components/ApplicationStepsView";
 import type { CompanyPolicy } from "@/lib/types";
 import styles from "./GoogleAccountFlow.module.css";
+import GuideCompletion from "@/components/GuideCompletion";
 
 type Audience = "mine" | "deceased";
 
@@ -130,7 +131,7 @@ export default function CompanyAccountFlow({
       )}
 
       {audience && selectedStep && (
-        <StandardStepDetail companyName={displayName} audience={audience} step={selectedStep} />
+        <StandardStepDetail companyName={displayName} companySlug={company.slug} audience={audience} step={selectedStep} />
       )}
     </div>
   );
@@ -140,19 +141,7 @@ function Choice({ title, description, onClick }: { title: string; description: s
   return <button type="button" className={styles.choice} onClick={onClick}><span><strong>{title}</strong><small>{description}</small></span></button>;
 }
 
-function StandardStepDetail({ companyName, audience, step }: { companyName: string; audience: Audience; step: ApplicationStep }) {
-  const storageKey = `digital-legacy-checklist-v1-${companyName.toLowerCase()}-${step.id}`;
-  const [checked, setChecked] = useState(false);
-
-  useEffect(() => {
-    setChecked(localStorage.getItem(storageKey) === "true");
-  }, [storageKey]);
-
-  function updateChecklist(next: boolean) {
-    setChecked(next);
-    localStorage.setItem(storageKey, String(next));
-  }
-
+function StandardStepDetail({ companyName, companySlug, audience, step }: { companyName: string; companySlug: string; audience: Audience; step: ApplicationStep }) {
   const documents = step.required_documents?.split(/[,\n]/).map((item) => item.trim()).filter(Boolean) ?? [];
   const actionLabel = step.id===1?"데이터 다운로드 안내 보기":step.id===2?"계정 삭제 안내 보기":step.id===5?"추모 계정 신청 안내 보기":step.id===3?"고인 계정 정리 도움받기":"기록 보존 안내 보기";
 
@@ -163,6 +152,7 @@ function StandardStepDetail({ companyName, audience, step }: { companyName: stri
       {step.description && <p className={styles.lead}>{step.description}</p>}
 
       <div className={styles.sections}>
+        {(step.id === 2 || step.id === 3) && <section><h2>삭제 전에 확인해 주세요</h2><ul><li>남겨둘 사진과 기록을 먼저 보관했는지 확인해요.</li><li>구독, 결제와 남은 잔액이 있는지 확인해요.</li><li>이 계정으로 로그인한 다른 서비스가 있는지 확인해요.</li><li>삭제 후 계정과 데이터의 복구 가능 여부를 공식 안내에서 확인해요.</li></ul></section>}
         {documents.length > 0 && (
           <section>
             <h2>준비할 서류</h2>
@@ -187,13 +177,7 @@ function StandardStepDetail({ companyName, audience, step }: { companyName: stri
         </ul>
       </section>
 
-      <label className={styles.checklistOption}>
-        <input type="checkbox" checked={checked} onChange={(event) => updateChecklist(event.target.checked)} />
-        <span>이 안내를 확인했어요</span>
-      </label>
-      <p className={styles.checklistHelp} aria-live="polite">{checked ? "확인 상태를 이 기기에 저장했어요." : "선택하면 다음에 다시 왔을 때 확인 상태를 보여드려요."}</p>
-
-      {checked && <section className={styles.nextActions}><h2>다음으로 무엇을 할까요?</h2><div><Link href="/services">다른 회사도 확인하기</Link><Link href="/prepare#documents">준비 서류 확인하기</Link><Link href="/">처음 안내로 돌아가기</Link></div></section>}
+      <GuideCompletion company={companyName} task={step.title} href={`/company/${companySlug}`} />
 
       <div className={styles.actions}>
         <a className={styles.primary} href={step.url} target="_blank" rel="noopener noreferrer" aria-label={`${companyName} ${actionLabel} (새 창)`}>{actionLabel}</a>

@@ -14,6 +14,6 @@ export function isGoalAvailable(audience: Audience | null, goal: Goal | null) {
 }
 
 export function shouldShowService(goal: Goal | null, support: Support) {
-  if (goal !== "memorial") return true;
-  return support === "지원" || support === "조건부 지원";
+  if (!goal) return true;
+  return support !== "지원하지 않음";
 }

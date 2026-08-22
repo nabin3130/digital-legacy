@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import CompanyAccountSelector from "@/components/CompanyAccountSelector";
 import styles from "./GoogleAccountFlow.module.css";
+import GuideCompletion from "@/components/GuideCompletion";
 
 type KnowsId = "yes" | "no";
 type Audience = "mine" | "deceased";
@@ -136,7 +137,7 @@ function BackupDetail() {
 }
 
 function DeleteDetail() {
-  return <DetailPage eyebrow="고인의 계정 탈퇴" title="고인의 네이버 계정을 탈퇴시켜요" intro="고인의 사망 사실과 가족관계를 확인할 수 있는 서류를 제출하면 네이버에 계정 탈퇴를 요청할 수 있어요." warning="계정이 탈퇴되면 아이디와 데이터는 다시 복구할 수 없어요. 보관할 공개 게시물이 있다면 백업을 먼저 요청해 주세요." sections={[
+  return <DetailPage eyebrow="고인의 계정 삭제" title="고인의 네이버 계정 삭제를 요청해요" intro="고인의 사망 사실과 가족관계를 확인할 수 있는 서류를 제출하면 네이버에 계정 삭제를 요청할 수 있어요." warning="계정이 삭제되면 아이디와 데이터는 다시 복구할 수 없어요. 보관할 공개 게시물이 있다면 백업을 먼저 요청해 주세요." sections={[
     ["준비할 서류", ["고인의 사망 사실을 확인할 수 있는 서류", "신청자와 고인의 가족관계를 확인할 수 있는 서류", "네이버가 요청하는 동의서", "경우에 따라 상속관계를 확인할 추가 서류"]],
     ["서류를 제출할 때", ["공공기관에서 발급받은 서류를 준비해요.", "주민등록번호 뒤 7자리는 반드시 가려 주세요.", "가리지 않은 서류는 바로 파기되어 다시 접수해야 해요."]],
   ]} documents={commonDocuments} link={{ label: "네이버에 계정 탈퇴 요청하기", href: officialHelpUrl }} />;
@@ -152,7 +153,7 @@ function NpayDetail() {
 type Section = [string, string[]];
 type DocumentItem = { title: string; description: string; badge: string; href?: string };
 function DetailPage({ eyebrow, title, intro, warning, note, sections = [], documents, link, action }: { eyebrow: string; title: string; intro: string; warning?: string; note?: string; sections?: Section[]; documents?: DocumentItem[]; link?: { label: string; href: string }; action?: { label: string; onClick: () => void } }) {
-  return <main className={`${styles.shell} ${styles.compact} ${styles.detail}`}><p className={styles.eyebrow}>{eyebrow}</p><h1>{title}</h1><p className={styles.lead}>{intro}</p>{warning && <div className={styles.warning}><strong>먼저 확인해 주세요</strong><p>{warning}</p></div>}{sections.length > 0 && <div className={styles.sections}>{sections.map(([heading, items]) => <section key={heading}><h2>{heading}</h2><ul>{items.map((item) => <li key={item}>{item}</li>)}</ul></section>)}</div>}{documents && <DocumentGuide documents={documents} />}{note && <p className={styles.note}>{note}</p>}{link && <section className={styles.officialHandoff}><h2>공식 사이트로 이동하면</h2><ul><li>{documents?"신청자 정보와 증빙서류 제출 화면이 열릴 수 있어요.":"네이버 계정 로그인이 필요할 수 있어요."}</li><li>네이버 정책에 따라 추가 확인 단계가 표시될 수 있어요.</li><li>이 사이트는 계정 비밀번호나 증빙서류를 받거나 저장하지 않아요.</li></ul></section>}<div className={styles.actions}>{action && <button type="button" className={styles.secondary} onClick={action.onClick}>{action.label}</button>}{link && <a className={styles.primary} href={link.href} target="_blank" rel="noopener noreferrer">{link.label}</a>}</div></main>;
+  return <main className={`${styles.shell} ${styles.compact} ${styles.detail}`}><p className={styles.eyebrow}>{eyebrow}</p><h1>{title}</h1><p className={styles.lead}>{intro}</p>{warning && <div className={styles.warning}><strong>먼저 확인해 주세요</strong><p>{warning}</p></div>}{sections.length > 0 && <div className={styles.sections}>{sections.map(([heading, items]) => <section key={heading}><h2>{heading}</h2><ul>{items.map((item) => <li key={item}>{item}</li>)}</ul></section>)}</div>}{documents && <DocumentGuide documents={documents} />}{note && <p className={styles.note}>{note}</p>}{link && <section className={styles.officialHandoff}><h2>공식 사이트로 이동하면</h2><ul><li>{documents?"신청자 정보와 증빙서류 제출 화면이 열릴 수 있어요.":"네이버 계정 로그인이 필요할 수 있어요."}</li><li>네이버 정책에 따라 추가 확인 단계가 표시될 수 있어요.</li><li>이 사이트는 계정 비밀번호나 증빙서류를 받거나 저장하지 않아요.</li></ul></section>}<div className={styles.actions}>{action && <button type="button" className={styles.secondary} onClick={action.onClick}>{action.label}</button>}{link && <a className={styles.primary} href={link.href} target="_blank" rel="noopener noreferrer">{link.label}</a>}</div><GuideCompletion company="네이버" task={title} href="/company/naver" /></main>;
 }
 
 function DocumentGuide({ documents }: { documents: DocumentItem[] }) {
