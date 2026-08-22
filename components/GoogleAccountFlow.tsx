@@ -94,7 +94,7 @@ export default function GoogleAccountFlow() {
           <img src="/logos/google.svg" alt="" width="48" height="48" />
           <span><small>공식 절차 안내</small>구글</span>
         </button>
-        {(audience || route) && <button type="button" className={styles.back} onClick={goBack}>← 이전으로</button>}
+        {(audience || route) && <button type="button" className={styles.back} onClick={goBack}>← 이전 단계</button>}
       </header>}
 
       {audience && (
@@ -144,7 +144,7 @@ export default function GoogleAccountFlow() {
       {!audience && (
         <CompanyAccountSelector
           mine={{ title: "내 구글 계정", description: "사후 계획을 설정하거나 내 데이터를 정리하고 싶어요.", onSelect: () => navigate({ audience: "mine" }) }}
-          deceased={{ title: "고인의 구글 계정", description: "고인의 데이터, 계정 또는 남은 금액을 처리하고 싶어요.", onSelect: () => navigate({ audience: "deceased" }) }}
+          deceased={{ title: "고인의 구글 계정", description: "고인의 데이터와 계정, 남은 금액을 정리하고 싶어요.", onSelect: () => navigate({ audience: "deceased" }) }}
         />
       )}
 

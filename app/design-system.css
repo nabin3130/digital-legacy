@@ -1,0 +1,104 @@
+:root {
+  --brand-primary: #1f5a49;
+  --brand-primary-hover: #16483a;
+  --brand-focus: rgba(31, 90, 73, 0.24);
+  --brand-soft: #e6f0eb;
+  --brand-surface: #fbfcfa;
+  --brand-text: #18211d;
+  --brand-muted: #65716b;
+  --brand-border: #c5cec8;
+  --accent: var(--brand-primary);
+  --highlight: #276557;
+  --text: var(--brand-text);
+  --muted: var(--brand-muted);
+  --border: var(--brand-border);
+}
+
+a[class*="_primaryButton"],
+a[class*="_linkButton"],
+[class*="_serviceCard"] a,
+[class*="_guidance"] a,
+[class*="_form"] button:not(:disabled),
+.policyLink,
+.primaryButton,
+.editorial-step-action.action-application,
+.editorial-step-action.action-request,
+.editorial-step-action.action-setup {
+  border-radius: 8px !important;
+  background: var(--brand-primary) !important;
+  color: #fff !important;
+  box-shadow: none !important;
+}
+
+a[class*="_primaryButton"]:hover,
+a[class*="_linkButton"]:hover,
+[class*="_serviceCard"] a:hover,
+[class*="_guidance"] a:hover,
+[class*="_form"] button:not(:disabled):hover,
+.policyLink:hover,
+.primaryButton:hover {
+  background: var(--brand-primary-hover) !important;
+}
+
+a[class*="_primaryButton"]:focus-visible,
+a[class*="_linkButton"]:focus-visible,
+[class*="_serviceCard"] a:focus-visible,
+[class*="_guidance"] a:focus-visible,
+[class*="_form"] button:focus-visible,
+.policyLink:focus-visible,
+.primaryButton:focus-visible {
+  outline: 3px solid var(--brand-focus) !important;
+  outline-offset: 3px;
+}
+
+ol[class*="Prepare_flow"] {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+ol[class*="Prepare_flow"] > li {
+  position: relative;
+}
+
+ol[class*="Prepare_flow"] > li:not(:last-child)::after {
+  content: "→";
+  position: absolute;
+  right: -10px;
+  top: 50%;
+  color: var(--border-strong);
+  font-size: 20px;
+  font-weight: 500;
+  transform: translateY(-50%);
+}
+
+[class*="Prepare_documentGrid"] {
+  grid-template-columns: 1fr;
+}
+
+[class*="Prepare_documentCard"] {
+  min-height: 0;
+  grid-template-columns: minmax(220px, .7fr) minmax(0, 1.3fr) auto;
+  grid-template-rows: auto;
+  align-items: center;
+  gap: 32px;
+  border-radius: 14px;
+}
+
+[class*="Prepare_documentCard"] dl {
+  margin: 0;
+  grid-template-columns: minmax(150px, .8fr) minmax(220px, 1.2fr);
+  grid-template-rows: auto;
+}
+
+@media (max-width: 900px) {
+  ol[class*="Prepare_flow"] { grid-template-columns: 1fr; }
+  ol[class*="Prepare_flow"] > li:not(:last-child)::after {
+    content: "↓";
+    right: auto;
+    top: auto;
+    bottom: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  [class*="Prepare_documentCard"] { grid-template-columns: 1fr; gap: 20px; }
+  [class*="Prepare_documentCard"] dl { grid-template-columns: 1fr; }
+}

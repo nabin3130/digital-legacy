@@ -76,7 +76,7 @@ export default function CompanyAccountFlow({
           <img src={logos[company.slug]} alt="" width="48" height="48" />
           <span><small>공식 절차 안내</small>{displayName}</span>
         </button>
-        {(audience || routeId) && <button type="button" className={styles.back} onClick={() => window.history.back()}>← 이전으로</button>}
+        {(audience || routeId) && <button type="button" className={styles.back} onClick={() => window.history.back()}>← 이전 단계</button>}
       </header>}
 
       {audience && (
@@ -106,8 +106,8 @@ export default function CompanyAccountFlow({
 
       {!audience && (
         <CompanyAccountSelector
-          mine={{ title: `내 ${displayName} 계정`, description: "내 데이터를 정리하거나 계정의 사후 처리를 미리 준비하고 싶어요.", onSelect: () => navigate("mine") }}
-          deceased={{ title: `고인의 ${displayName} 계정`, description: "고인의 계정, 데이터 또는 남은 정보를 처리하고 싶어요.", onSelect: () => navigate("deceased") }}
+          mine={{ title: `내 ${displayName} 계정`, description: "내 데이터를 정리하거나 계정을 미리 준비하고 싶어요.", onSelect: () => navigate("mine") }}
+          deceased={{ title: `고인의 ${displayName} 계정`, description: "고인의 계정과 남은 기록을 정리하고 싶어요.", onSelect: () => navigate("deceased") }}
         />
       )}
 
@@ -149,7 +149,7 @@ function StandardStepDetail({ companyName, audience, step }: { companyName: stri
   }
 
   const documents = step.required_documents?.split(/[,\n]/).map((item) => item.trim()).filter(Boolean) ?? [];
-  const actionLabel = step.id===1?"데이터 다운로드 안내 보기":step.id===2?"계정 삭제 안내 보기":step.id===5?"추모 계정 신청 안내 보기":step.id===3?"고인 계정 처리 요청하기":"기록 보존 안내 보기";
+  const actionLabel = step.id===1?"데이터 다운로드 안내 보기":step.id===2?"계정 삭제 안내 보기":step.id===5?"추모 계정 신청 안내 보기":step.id===3?"고인 계정 정리 도움받기":"기록 보존 안내 보기";
 
   return (
     <main className={`${styles.shell} ${styles.compact} ${styles.detail}`}>

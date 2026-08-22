@@ -1,8 +1,8 @@
 import "./globals.css";
 import "./brand.css";
-import "./theme.css";
 import "./navigation.css";
 import "./redesign.css";
+import "./design-system.css";
 import Script from "next/script"; // 👈 추가된 부분
 import type { Metadata } from "next";
 import { SITE_DESCRIPTION, SITE_KEYWORDS, SITE_URL } from "@/lib/site";

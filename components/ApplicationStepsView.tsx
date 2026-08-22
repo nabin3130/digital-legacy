@@ -267,7 +267,7 @@ export default function ApplicationStepsView({
         {(!visibleJourney || visibleJourney === "post_death") && <StepsSection
           sectionId="post-death"
           title="사후에 신청하기"
-          description="고인의 계정을 어떻게 처리할지 원하는 방법을 선택하세요."
+          description="고인의 계정을 어떻게 정리할지 선택해 주세요."
           steps={postDeathSteps}
           view={view}
           journey="post_death"
@@ -470,7 +470,7 @@ function EditorialStep({ step, index, journey }: { step: ApplicationStep; index:
           <div className="editorial-documents">
             <strong>필요한 서류</strong>
             <ul>{documents.map((document, i) => <li key={`${step.id}-${i}`}>{document}</li>)}</ul>
-            <Link className="common-documents-link" href="/documents">공통 서류에서 발급 방법 보기 →</Link>
+            <Link className="common-documents-link" href="/prepare#documents">준비서류에서 발급 방법 보기 →</Link>
           </div>
         )}
         <a className={`editorial-step-action action-${step.link_type}`} href={step.url} target="_blank" rel="noopener noreferrer">
@@ -491,7 +491,7 @@ function StepCard({ step, index }: { step: ApplicationStep; index: number }) {
         <h3>{step.title}</h3>
         <div className="step-card-content">
           {step.description && <p>{step.description}</p>}
-          {step.required_documents && <div className="required-documents"><strong>필요한 서류</strong><p>{step.required_documents}</p><Link className="common-documents-link" href="/documents">공통 서류에서 발급 방법 보기 →</Link></div>}
+          {step.required_documents && <div className="required-documents"><strong>필요한 서류</strong><p>{step.required_documents}</p><Link className="common-documents-link" href="/prepare#documents">준비서류에서 발급 방법 보기 →</Link></div>}
         </div>
         <a className="step-card-action" href={step.url} target="_blank" rel="noopener noreferrer" aria-label={`${step.title} ${getActionLabel(step)} (새 창)`}><span className="action-label">{getActionLabel(step)}</span></a>
       </article>

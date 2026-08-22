@@ -70,7 +70,7 @@ export default function NaverAccountFlow() {
           <img src="/logos/naver.svg" alt="" width="48" height="48" />
           <span><small>공식 절차 안내</small>네이버</span>
         </button>
-        {audience && <button type="button" className={styles.back} onClick={() => window.history.back()}>← 이전으로</button>}
+        {audience && <button type="button" className={styles.back} onClick={() => window.history.back()}>← 이전 단계</button>}
       </header>}
 
       {!audience && <CompanyAccountSelector
@@ -141,5 +141,5 @@ function DetailPage({ eyebrow, title, intro, warning, note, sections = [], docum
 }
 
 function DocumentGuide({ documents }: { documents: DocumentItem[] }) {
-  return <section className={styles.documentGuide}><h2>서류는 여기에서 준비할 수 있어요</h2><p>네이버가 요청하는 서류를 확인한 뒤 필요한 것만 준비해 주세요.</p><div className={styles.documentList}>{documents.map((document) => <article className={styles.documentItem} key={document.title}><span className={styles.documentIcon} aria-hidden="true">{document.href ? "📄" : "🏥"}</span><div><h3>{document.title}</h3><p>{document.description}</p></div>{document.href ? <a className={styles.documentBadge} href={document.href} target="_blank" rel="noopener noreferrer">{document.badge}</a> : <span className={styles.documentBadge}>{document.badge}</span>}</article>)}</div><Link className={styles.commonDocumentsLink} href="/documents">공통 서류에서 발급 방법 보기 →</Link></section>;
+  return <section className={styles.documentGuide}><h2>서류는 여기에서 준비할 수 있어요</h2><p>네이버가 요청하는 서류를 확인한 뒤 필요한 것만 준비해 주세요.</p><div className={styles.documentList}>{documents.map((document) => <article className={styles.documentItem} key={document.title}><span className={styles.documentIcon} aria-hidden="true">{document.href ? "📄" : "🏥"}</span><div><h3>{document.title}</h3><p>{document.description}</p></div>{document.href ? <a className={styles.documentBadge} href={document.href} target="_blank" rel="noopener noreferrer">{document.badge}</a> : <span className={styles.documentBadge}>{document.badge}</span>}</article>)}</div><Link className={styles.commonDocumentsLink} href="/prepare#documents">준비서류에서 발급 방법 보기 →</Link></section>;
 }

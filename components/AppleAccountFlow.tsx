@@ -57,7 +57,7 @@ export default function AppleAccountFlow() {
         <img src="/logos/apple.svg" alt="" width="48" height="48" />
         <span><small>공식 절차 안내</small>애플</span>
       </button>
-      {(audience || route) && <button type="button" className={styles.back} onClick={() => window.history.back()}>← 이전으로</button>}
+      {(audience || route) && <button type="button" className={styles.back} onClick={() => window.history.back()}>← 이전 단계</button>}
     </header>}
 
     {audience && <nav className={styles.contextNavigation} aria-label="애플 도움말 내 이동">
@@ -77,7 +77,7 @@ export default function AppleAccountFlow() {
 
     {!audience && <CompanyAccountSelector
       mine={{ title: "내 애플 계정", description: "유산 관리자를 지정하고 접근 키를 준비하고 싶어요.", onSelect: () => navigate({ audience: "mine" }) }}
-      deceased={{ title: "고인의 애플 계정", description: "고인의 데이터에 접근하거나 계정을 처리하고 싶어요.", onSelect: () => navigate({ audience: "deceased" }) }}
+      deceased={{ title: "고인의 애플 계정", description: "고인의 데이터에 접근하거나 계정을 정리하고 싶어요.", onSelect: () => navigate({ audience: "deceased" }) }}
     />}
     {audience && !route && <StepShell eyebrow={audience === "mine" ? "내 애플 계정" : "고인의 애플 계정"} title="무엇을 하고 싶은가요?" description="가장 가까운 항목을 선택해 주세요.">{routes[audience].map(item => <Choice key={item.id} title={item.title} description={item.description} onClick={() => navigate({ audience, route: item.id })} />)}</StepShell>}
     {route && <Detail route={route} />}
@@ -109,5 +109,5 @@ type ActionLink = { label: string; href: string };
 function koreanAppleText(text:string){return text.replaceAll("iCloud Drive","아이클라우드 드라이브").replaceAll("iCloud","아이클라우드").replaceAll("Safari","사파리").replaceAll("Digital Legacy","디지털 유산").replaceAll("Apple","애플")}
 function DetailPage({ eyebrow, title, intro, sections, warning, image, primary, secondary }: { eyebrow: string; title: string; intro: string; sections: Array<[string, string[]]>; warning?: string; image?: { src: string; alt: string }; primary: ActionLink; secondary?: ActionLink }) {
   const hasRequiredDocuments = sections.some(([heading, items]) => (heading.includes("필요") || heading.includes("준비")) && items.some((item) => item.includes("서류") || item.includes("증명서")));
-  return <main className={`${styles.shell} ${styles.compact} ${styles.detail}`}><p className={styles.eyebrow}>{koreanAppleText(eyebrow)}</p><h1>{koreanAppleText(title)}</h1><p className={styles.lead}>{koreanAppleText(intro)}</p>{warning && <div className={styles.warning}><strong>먼저 확인해 주세요</strong><p>{koreanAppleText(warning)}</p></div>}<div className={styles.sections}>{sections.map(([heading, items]) => <section key={heading}><h2>{koreanAppleText(heading)}</h2><ul>{items.map(item => <li key={item}>{koreanAppleText(item)}</li>)}</ul></section>)}</div>{hasRequiredDocuments && <Link className={styles.commonDocumentsLink} href="/documents">공통 서류에서 발급 방법 보기 →</Link>}{image && <figure className={styles.guideImage}><figcaption>애플 디지털 유산 페이지에서 접근 키가 없을 때 선택하는 화면이에요.</figcaption><img src={image.src} alt={koreanAppleText(image.alt)} /></figure>}<div className={styles.actions}>{secondary && <a className={styles.secondary} href={secondary.href} target="_blank" rel="noopener noreferrer">{secondary.label}</a>}<a className={styles.primary} href={primary.href} target="_blank" rel="noopener noreferrer">{primary.label}</a></div></main>;
+  return <main className={`${styles.shell} ${styles.compact} ${styles.detail}`}><p className={styles.eyebrow}>{koreanAppleText(eyebrow)}</p><h1>{koreanAppleText(title)}</h1><p className={styles.lead}>{koreanAppleText(intro)}</p>{warning && <div className={styles.warning}><strong>먼저 확인해 주세요</strong><p>{koreanAppleText(warning)}</p></div>}<div className={styles.sections}>{sections.map(([heading, items]) => <section key={heading}><h2>{koreanAppleText(heading)}</h2><ul>{items.map(item => <li key={item}>{koreanAppleText(item)}</li>)}</ul></section>)}</div>{hasRequiredDocuments && <Link className={styles.commonDocumentsLink} href="/prepare#documents">준비서류에서 발급 방법 보기 →</Link>}{image && <figure className={styles.guideImage}><figcaption>애플 디지털 유산 페이지에서 접근 키가 없을 때 선택하는 화면이에요.</figcaption><img src={image.src} alt={koreanAppleText(image.alt)} /></figure>}<div className={styles.actions}>{secondary && <a className={styles.secondary} href={secondary.href} target="_blank" rel="noopener noreferrer">{secondary.label}</a>}<a className={styles.primary} href={primary.href} target="_blank" rel="noopener noreferrer">{primary.label}</a></div></main>;
 }

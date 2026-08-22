@@ -17,7 +17,7 @@ export default function PreparePage() {
       <div className="container">
         <header className={styles.heading}>
           <p className="eyebrow">준비서류</p>
-          <h1>디지털 계정 처리를 준비해요</h1>
+          <h1>디지털 계정 정리를 준비해요</h1>
           <p>회사별 절차를 시작하기 전에 자주 필요한 서류와 진행 순서를 확인하세요.</p>
         </header>
 
@@ -25,9 +25,7 @@ export default function PreparePage() {
           <div className={styles.sectionHeading}><h2 id="process-title">진행 순서</h2></div>
           <ol className={styles.flow}>
             <li><strong>1</strong><span>필요한 서류를 준비해요.</span></li>
-            <span className={styles.flowArrow} aria-hidden="true">→</span>
             <li><strong>2</strong><span>회사를 선택해요.</span></li>
-            <span className={styles.flowArrow} aria-hidden="true">→</span>
             <li><strong>3</strong><span>회사별 안내를 따라가요.</span></li>
           </ol>
           <Link className={styles.companyLink} href="/services">회사 선택하기</Link>

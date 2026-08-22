@@ -1,6 +1,6 @@
 export const SITE_URL = "https://digital-legacy-five.vercel.app";
 
-export const SITE_DESCRIPTION = "구글, 애플, 네이버, 카카오, 삼성, 메타, 인스타그램과 X의 디지털 유산 정책과 사망 후 계정 처리 절차를 쉽게 안내합니다.";
+export const SITE_DESCRIPTION = "구글, 애플, 네이버, 카카오, 삼성, 메타, 인스타그램과 X의 디지털 유산 정책과 사망 후 계정 정리 절차를 쉽게 안내합니다.";
 
 export const SITE_KEYWORDS = [
   "디지털 유산",
@@ -23,8 +23,8 @@ export const SITE_KEYWORDS = [
   "페이스북 추모 계정",
   "인스타그램 추모 계정",
   "X 사망자 계정",
-  "구글 계정 사후 처리",
-  "애플 계정 사후 처리",
+  "구글 계정 사후 정리",
+  "애플 계정 사후 정리",
   "네이버 계정 탈퇴",
   "고인 데이터",
   "사망진단서",

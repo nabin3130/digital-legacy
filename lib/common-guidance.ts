@@ -26,7 +26,7 @@ export const processFlow = [
   { ko: "사망 발생", en: "Death occurs" },
   { ko: "공통 행정 절차 확인", en: "Review common procedures" },
   { ko: "필요한 서류 준비", en: "Prepare documents" },
-  { ko: "회사별 디지털 계정 처리", en: "Handle each digital account" },
+  { ko: "회사별 디지털 계정 정리", en: "Handle each digital account" },
 ] satisfies LocalizedText[];
 
 export const commonProcedures: CommonProcedure[] = [
