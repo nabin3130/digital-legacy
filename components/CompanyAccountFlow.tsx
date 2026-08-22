@@ -149,7 +149,7 @@ function StandardStepDetail({ companyName, audience, step }: { companyName: stri
   }
 
   const documents = step.required_documents?.split(/[,\n]/).map((item) => item.trim()).filter(Boolean) ?? [];
-  const actionLabel = step.link_type === "request" ? "공식 신청 페이지로 이동" : step.link_type === "setup" ? "공식 설정 페이지로 이동" : "공식 안내 확인하기";
+  const actionLabel = step.id===1?"데이터 다운로드 안내 보기":step.id===2?"계정 삭제 안내 보기":step.id===5?"추모 계정 신청 안내 보기":step.id===3?"고인 계정 처리 요청하기":"기록 보존 안내 보기";
 
   return (
     <main className={`${styles.shell} ${styles.compact} ${styles.detail}`}>
@@ -175,8 +175,9 @@ function StandardStepDetail({ companyName, audience, step }: { companyName: stri
 
       <label className={styles.checklistOption}>
         <input type="checkbox" checked={checked} onChange={(event) => updateChecklist(event.target.checked)} />
-        <span>이 절차를 확인했어요</span>
+        <span>이 안내를 확인했어요</span>
       </label>
+      <p className={styles.checklistHelp} aria-live="polite">{checked ? "확인 상태를 이 기기에 저장했어요." : "선택하면 다음에 다시 왔을 때 확인 상태를 보여드려요."}</p>
 
       <div className={styles.actions}>
         <a className={styles.primary} href={step.url} target="_blank" rel="noopener noreferrer" aria-label={`${companyName} ${actionLabel} (새 창)`}>{actionLabel}</a>

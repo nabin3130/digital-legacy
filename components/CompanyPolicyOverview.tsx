@@ -1,4 +1,5 @@
 import type { CompanyPolicy } from "@/lib/types";
+import Link from "next/link";
 import styles from "./CompanySummary.module.css";
 import { companyEnglish } from "@/lib/company-en";
 
@@ -40,7 +41,7 @@ export default function CompanyPolicyOverview({ company, locale = "ko" }: { comp
 
   return (
     <section id="company-overview" className={styles.summary} aria-labelledby="company-policy-title">
-      <p className={styles.breadcrumb}>{isEnglish ? "Digital legacy by company" : "회사별 디지털 유산 안내"}　›　{displayName}</p>
+      <p className={styles.breadcrumb}>{isEnglish ? "Digital legacy by company" : <Link href="/services">회사별 디지털 유산 안내</Link>}　›　{displayName}</p>
       <div className={styles.content}>
         <div>
           <div className={styles.identity}>
