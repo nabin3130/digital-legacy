@@ -16,10 +16,20 @@ export default function PreparePage() {
     <main className={styles.page}>
       <div className="container">
         <header className={styles.heading}>
-          <p className="eyebrow">PREPARE</p>
+          <p className="eyebrow">준비서류</p>
           <h1>디지털 계정 처리를 준비해요</h1>
           <p>회사별 절차를 시작하기 전에 자주 필요한 서류와 진행 순서를 확인하세요.</p>
         </header>
+
+        <section className={`${styles.section} ${styles.processSection}`} aria-labelledby="process-title">
+          <div className={styles.sectionHeading}><h2 id="process-title">진행 순서</h2></div>
+          <ol className={styles.flow}>
+            <li><strong>1</strong><span>필요한 서류를 준비해요.</span></li>
+            <li><strong>2</strong><span>회사를 선택해요.</span></li>
+            <li><strong>3</strong><span>회사별 안내를 따라가요.</span></li>
+          </ol>
+          <Link className={styles.companyLink} href="/services">회사 선택하기</Link>
+        </section>
 
         <section id="documents" className={styles.section} aria-labelledby="documents-title">
           <div className={styles.sectionHeading}>
@@ -47,21 +57,9 @@ export default function PreparePage() {
           </div>
         </section>
 
-        <section className={styles.section} aria-labelledby="process-title">
-          <div className={styles.sectionHeading}>
-            <h2 id="process-title">공통 절차</h2>
-          </div>
-          <ol className={styles.flow}>
-            <li><strong>1</strong><span>필요한 서류를 준비합니다.</span></li>
-            <li><strong>2</strong><span>회사를 선택합니다.</span></li>
-            <li><strong>3</strong><span>회사별 절차를 진행합니다.</span></li>
-          </ol>
-          <Link className={styles.companyLink} href="/#services">회사 선택하기 →</Link>
-        </section>
-
         {safeInheritance?.url && (
           <section className={styles.governmentSection} aria-labelledby="government-title">
-            <p className="eyebrow">GOVERNMENT SERVICE</p>
+            <p className="eyebrow">정부 서비스</p>
             <article className={styles.serviceCard}>
               <div>
                 <h2 id="government-title">안심상속 원스톱 서비스</h2>

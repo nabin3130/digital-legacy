@@ -91,7 +91,7 @@ export const commonDocuments: CommonDocument[] = [
     id: "family-relation-certificate",
     name: { ko: "가족관계증명서", en: "Family Relation Certificate" },
     purpose: {
-      ko: "신청자와 돌아가신 분의 가족관계 확인",
+      ko: "신청자와 고인의 가족관계 확인",
       en: "Confirms the relationship between the applicant and the deceased",
     },
     issuer: {
@@ -99,7 +99,7 @@ export const commonDocuments: CommonDocument[] = [
       en: "Electronic Family Relations Registration System and other authorized channels",
     },
     issueMethod: {
-      ko: "전자가족관계등록시스템에서 본인 인증 후 가족관계등록부 증명서 발급을 선택합니다.",
+      ko: "전자가족관계등록시스템에서 본인 인증 후 가족관계증명서를 선택해요.",
       en: "Verify your identity in the Electronic Family Relations Registration System and select a family relations certificate.",
     },
     online: true,
@@ -109,7 +109,7 @@ export const commonDocuments: CommonDocument[] = [
     id: "basic-certificate",
     name: { ko: "기본증명서", en: "Basic Certificate" },
     purpose: {
-      ko: "돌아가신 분의 기본 신분사항 및 사망 사실 확인에 사용될 수 있음",
+      ko: "고인의 신분 사항과 사망 사실 확인",
       en: "May be used to confirm the deceased person's identity details and death",
     },
     issuer: {
@@ -117,7 +117,7 @@ export const commonDocuments: CommonDocument[] = [
       en: "Electronic Family Relations Registration System and other authorized channels",
     },
     issueMethod: {
-      ko: "전자가족관계등록시스템에서 본인 인증 후 기본증명서 발급을 선택합니다.",
+      ko: "전자가족관계등록시스템에서 본인 인증 후 기본증명서를 선택해요.",
       en: "Verify your identity in the Electronic Family Relations Registration System and select a basic certificate.",
     },
     online: true,
@@ -129,7 +129,7 @@ export const commonDocuments: CommonDocument[] = [
     purpose: { ko: "사망 사실 확인", en: "Confirms the fact of death" },
     issuer: { ko: "병원 또는 의료기관", en: "Hospital or medical institution" },
     issueMethod: {
-      ko: "사망을 확인한 병원 또는 의료기관의 원무과에 발급을 요청합니다.",
+      ko: "사망을 확인한 병원이나 의료기관의 원무과에 요청해요.",
       en: "Request a copy from the administration desk of the hospital or medical institution that confirmed the death.",
     },
     online: false,

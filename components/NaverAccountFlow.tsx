@@ -19,7 +19,7 @@ const commonDocuments: DocumentItem[] = [
 const routes: Array<{ id: RouteId; title: string; description: string }> = [
   { id: "backup", title: "공개된 게시물을 보관하고 싶어요", description: "로그인하지 않아도 볼 수 있는 블로그 등의 게시물을 파일로 받을 수 있는지 요청해요." },
   { id: "delete", title: "고인의 네이버 계정을 없애고 싶어요", description: "필요한 서류를 준비해서 계정 탈퇴를 요청해요." },
-  { id: "npay", title: "Npay에 남은 금액이 있는지 알고 싶어요", description: "상속받을 수 있는 Npay 포인트나 머니가 남아 있는지 확인해요." },
+  { id: "npay", title: "네이버페이에 남은 금액을 확인하고 싶어요", description: "상속받을 수 있는 포인트나 머니가 남아 있는지 확인해요." },
 ];
 
 export default function NaverAccountFlow() {
@@ -75,7 +75,7 @@ export default function NaverAccountFlow() {
 
       {!audience && <CompanyAccountSelector
         mine={{ title: "내 네이버 계정", description: "내 데이터와 게시물을 정리하거나 계정을 탈퇴하고 싶어요.", onSelect: () => navigate({ audience: "mine" }) }}
-        deceased={{ title: "고인의 네이버 계정", description: "고인의 공개 게시물, 계정 또는 Npay 잔액을 처리하고 싶어요.", onSelect: () => navigate({ audience: "deceased" }) }}
+        deceased={{ title: "고인의 네이버 계정", description: "고인의 공개 게시물, 계정 또는 네이버페이 잔액을 정리하고 싶어요.", onSelect: () => navigate({ audience: "deceased" }) }}
       />}
 
       {audience === "mine" && <MineDetail />}
@@ -111,7 +111,7 @@ function UnknownId({ onReset }: { onReset: () => void }) {
 
 function MineDetail() {
   return <DetailPage eyebrow="내 네이버 계정" title="내 네이버 계정을 차근차근 정리해요" intro="지금 사용하고 있는 네이버 계정에서 남겨둘 자료와 연결된 서비스를 하나씩 확인해요." sections={[
-    ["먼저 확인할 것", ["남겨둘 메일, 게시물, 사진과 파일", "Npay 잔액과 정기 결제 중인 서비스", "네이버 계정으로 로그인한 다른 서비스"]],
+    ["먼저 확인할 것", ["남겨둘 메일, 게시물, 사진과 파일", "네이버페이 잔액과 정기 결제 중인 서비스", "네이버 계정으로 로그인한 다른 서비스"]],
     ["계정을 탈퇴하려면", ["필요한 자료를 먼저 저장해요.", "이용 중인 유료 서비스와 결제를 정리해요.", "다른 서비스의 로그인 방법을 바꾼 뒤 탈퇴를 진행해요."]],
   ]} note="계정을 탈퇴하면 아이디와 데이터는 다시 복구하기 어려울 수 있어요. 필요한 자료를 모두 확인한 뒤 진행해 주세요." />;
 }
@@ -128,10 +128,10 @@ function DeleteDetail() {
 }
 
 function NpayDetail() {
-  return <DetailPage eyebrow="Npay 포인트·머니" title="상속할 수 있는 금액이 남아 있는지 확인해요" intro="고인의 계정에 상속할 수 있는 Npay 포인트나 머니가 남아 있는지 네이버에 조회를 요청할 수 있어요." sections={[
+  return <DetailPage eyebrow="네이버페이 포인트·머니" title="상속할 수 있는 금액이 남아 있는지 확인해요" intro="고인의 계정에 상속할 수 있는 네이버페이 포인트나 머니가 남아 있는지 네이버에 조회를 요청할 수 있어요." sections={[
     ["준비할 서류", ["고인의 사망 사실을 확인할 수 있는 서류", "신청자와 고인의 가족관계를 확인할 수 있는 서류", "네이버가 추가로 요청하는 상속 관련 서류"]],
-    ["알아둘 점", ["계정을 탈퇴하지 않고 Npay 잔액만 환급받고 싶다면 Npay 고객센터에 따로 문의해야 해요."]],
-  ]} documents={commonDocuments} link={{ label: "Npay 잔액 확인 방법 보기", href: officialHelpUrl }} />;
+    ["알아둘 점", ["계정을 탈퇴하지 않고 네이버페이 잔액만 환급받고 싶다면 네이버페이 고객센터에 따로 문의해야 해요."]],
+  ]} documents={commonDocuments} link={{ label: "네이버페이 잔액 확인 방법 보기", href: officialHelpUrl }} />;
 }
 
 type Section = [string, string[]];

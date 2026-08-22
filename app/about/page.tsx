@@ -13,7 +13,7 @@ export default function AboutPage() {
     <main className={styles.page}>
       <article className={styles.article}>
         <header className={styles.heading}>
-          <p className="eyebrow">ABOUT LOGOUT</p>
+          <p className="eyebrow">로그아웃 이야기</p>
           <h1>로그아웃 프로젝트 이야기</h1>
           <p className={styles.question}>“살아있을 때는 개인정보지만, 죽으면 내 정보는 어떻게 될까?”</p>
           <p>이 질문에서 <strong>로그아웃</strong> 프로젝트는 시작되었습니다.</p>

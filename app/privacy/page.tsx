@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return <main className={styles.page}><div className="container">
-    <header className={styles.header}><p className="eyebrow">PRIVACY</p><h1>개인정보처리방침</h1><p>로그아웃은 필요한 정보만 최소한으로 처리하고, 이용자가 자신의 정보가 어떻게 사용되는지 쉽게 이해할 수 있도록 안내합니다.</p><div className={styles.meta}><span>시행일 2026.08.22</span><span>최종 변경 2026.08.22</span></div></header>
+    <header className={styles.header}><p className="eyebrow">개인정보 보호</p><h1>개인정보처리방침</h1><p>로그아웃은 필요한 정보만 최소한으로 처리하고, 이용자가 자신의 정보가 어떻게 사용되는지 쉽게 이해할 수 있도록 안내합니다.</p><div className={styles.meta}><span>시행일 2026.08.22</span><span>최종 변경 2026.08.22</span></div></header>
     <article className={styles.body}>
       <section><h2>1. 처리하는 개인정보와 이용 목적</h2><table className={styles.table}><tbody><tr><th>문의 접수</th><td>연락받을 이메일, 문의 내용<br/>문의 확인과 답변을 위해 사용합니다.</td></tr><tr><th>자동 생성 정보</th><td>Google 광고 서비스 이용 과정에서 IP 주소, 브라우저·기기 정보, 방문 페이지, 쿠키 또는 유사 식별정보가 Google에 전달될 수 있습니다.</td></tr><tr><th>기기 내부 저장</th><td>선택한 안내 보기 방식, 체크리스트 상태와 진행 상태를 이용자의 브라우저에 저장합니다. 로그아웃 서버에는 전송하지 않습니다.</td></tr></tbody></table><p className={styles.notice}>로그아웃은 주민등록번호, 계정 비밀번호, 사망진단서, 가족관계증명서 또는 실제 계정 데이터를 입력받거나 저장하지 않습니다.</p></section>
       <section><h2>2. 개인정보의 보유 및 삭제</h2><ul><li>문의 이메일과 문의 내용: 답변 및 후속 처리 완료 후 30일 이내 삭제합니다. 다만 분쟁 대응이나 법령상 보관이 필요한 경우 해당 기간 동안 보관할 수 있습니다.</li><li>브라우저 저장 정보: 이용자가 브라우저 데이터를 삭제하거나 로그아웃의 ‘진행 기록 삭제’ 기능을 사용할 때 삭제됩니다.</li><li>Google 광고 관련 정보: Google의 정책과 이용자 설정에 따라 보관됩니다.</li></ul></section>
