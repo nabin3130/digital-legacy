@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { GUIDE_PROGRESS_EVENT, readProgress, type ProgressEntry } from "@/components/GuideCompletion";
+import { GUIDE_PROGRESS_EVENT, readProgress, clearAllProgress, type ProgressEntry } from "@/components/GuideCompletion";
 import styles from "@/app/Home.module.css";
 
 export default function ProgressSummary({ locale = "ko" }: { locale?: "ko" | "en" }) {
@@ -23,7 +23,24 @@ export default function ProgressSummary({ locale = "ko" }: { locale?: "ko" | "en
           <h2 id="progress-summary-title">
             {isEnglish ? "Continue where you left off" : "확인한 안내를 이어서 볼 수 있어요"}
           </h2>
-          <span>{entries.length}{isEnglish ? " completed" : "개 완료"}</span>
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <span>{entries.length}{isEnglish ? " completed" : "개 완료"}</span>
+            <button
+              type="button"
+              onClick={clearAllProgress}
+              style={{
+                background: "none",
+                border: "1px solid rgba(255,255,255,0.2)",
+                borderRadius: "4px",
+                color: "var(--color-muted, #94a3b8)",
+                fontSize: "12px",
+                padding: "3px 8px",
+                cursor: "pointer",
+              }}
+            >
+              {isEnglish ? "Clear records" : "기록 삭제"}
+            </button>
+          </div>
         </div>
         <div className={styles.progressEntries}>
           {entries.map((entry) => (
@@ -39,4 +56,5 @@ export default function ProgressSummary({ locale = "ko" }: { locale?: "ko" | "en
     </section>
   );
 }
+
 

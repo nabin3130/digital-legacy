@@ -5,6 +5,7 @@ import {useRouter} from "next/navigation";
 import styles from "./Home.module.css";
 import {goalsByAudience,isGoalAvailable,shouldShowService,type Audience,type Goal,type Support} from "@/lib/scenario-rules";
 import ProgressSummary from "@/components/ProgressSummary";
+import { clearAllProgress } from "@/components/GuideCompletion";
 const services=[
 {name:"카카오",slug:"kakao",logo:"/logos/kakao.webp",keywords:["카카오","kakao","카카오톡"],records:"카카오톡과 카카오 서비스",support:{delete:"지원",download:"조건부 지원",memorial:"지원"}},
 {name:"네이버",slug:"naver",logo:"/logos/naver.svg",keywords:["네이버","naver","블로그","mybox"],records:"블로그, 메일, 마이박스",support:{delete:"지원",download:"조건부 지원",memorial:"지원하지 않음"}},
@@ -33,7 +34,8 @@ function chooseAudience(next:Audience){pushHomeState(next,null);setAudience(next
 function chooseGoal(next:Goal){pushHomeState(audience,next);setGoal(next);setShowSafeGuide(false);setServiceQuery("");setTimeout(()=>{serviceRef.current?.scrollIntoView({behavior:"smooth",block:"start"});serviceRef.current?.setAttribute("tabindex","-1");serviceRef.current?.focus({preventScroll:true})},80)}
 function openSafeGuide(){pushHomeState("unsure",null,true);setShowSafeGuide(true)}
 function submit(e:FormEvent){e.preventDefault();const q=quickQuery.trim().toLowerCase();if(!q){router.push("/services");return}const match=services.find(s=>s.keywords.some(k=>k.toLowerCase().includes(q)));if(match)router.push(`/company/${match.slug}`);else router.push(`/services?q=${encodeURIComponent(quickQuery)}`)}
-function reset(){setAudience(null);setGoal(null);setShowSafeGuide(false);localStorage.removeItem("logout-guide-state");document.getElementById("start")?.scrollIntoView({behavior:"smooth"})}
+function reset(){setAudience(null);setGoal(null);setShowSafeGuide(false);clearAllProgress();localStorage.removeItem("logout-guide-state");document.getElementById("start")?.scrollIntoView({behavior:"smooth"})}
+
 return <main className={styles.home}>
 <section className={styles.hero}><div className={styles.aurora} aria-hidden="true"/><div className={`container ${styles.heroGrid}`}><div className={styles.heroContent}><p className={styles.kicker}>디지털 유산 안내</p><h1>남겨진 디지털 기록,<br/>차분하게 정리할 수 있도록.</h1><p>계정 삭제부터 데이터 다운로드, 추모 계정 전환까지<br/>회사별 공식 정책과 필요한 절차를 안내합니다.</p><a href="#start" className={styles.heroAction}>안내 시작하기</a></div><div className={styles.lightCanvas} aria-hidden="true"><span className={styles.lightMint}/><span className={styles.lightBlue}/><span className={styles.lightCream}/><span className={styles.lightCore}/><i className={styles.lightRing}/></div></div></section>
 <section className={styles.start} id="start"><div className={styles.narrow}><div className={styles.sectionHead}><div><p className={styles.kicker}>안내 시작</p><h2>누구의 디지털 기록인가요?</h2><p>지금 상황을 선택하면 필요한 내용부터 안내해 드려요.</p></div><form className={styles.quickSearch} onSubmit={submit}><label htmlFor="quick-company">회사명으로 바로 찾기</label><div><span>⌕</span><input id="quick-company" value={quickQuery} onChange={e=>setQuickQuery(e.target.value)} placeholder="예: 구글, 카카오"/></div></form></div><div className={styles.choiceList}>{audiences.map(o=><button key={o.id} className={audience===o.id?styles.selected:""} onClick={()=>chooseAudience(o.id)} aria-pressed={audience===o.id}><span className={styles.radio}/><span><strong>{o.title}</strong><small>{o.description}</small></span></button>)}</div><p className={styles.privacyNote}>선택한 진행 상황은 이 기기에만 저장됩니다. 개인정보나 서류는 저장하지 않습니다.</p></div></section>

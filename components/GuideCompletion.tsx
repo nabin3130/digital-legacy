@@ -23,6 +23,24 @@ export function readProgress(): ProgressEntry[] {
   return entries.sort((a, b) => b.completedAt.localeCompare(a.completedAt));
 }
 
+export function clearAllProgress() {
+  if (typeof window === "undefined") return;
+  const keysToRemove: string[] = [];
+  for (let index = 0; index < localStorage.length; index += 1) {
+    const key = localStorage.key(index);
+    if (
+      key?.startsWith("digital-legacy-progress-") ||
+      key?.startsWith("digital-legacy-checklist-") ||
+      key?.startsWith("logout-guide-state")
+    ) {
+      keysToRemove.push(key);
+    }
+  }
+  keysToRemove.forEach((key) => localStorage.removeItem(key));
+  window.dispatchEvent(new Event(GUIDE_PROGRESS_EVENT));
+}
+
+
 export default function GuideCompletion({
   company,
   task,

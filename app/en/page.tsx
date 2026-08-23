@@ -13,6 +13,7 @@ import {
   type Support,
 } from "@/lib/scenario-rules";
 import ProgressSummary from "@/components/ProgressSummary";
+import { clearAllProgress } from "@/components/GuideCompletion";
 
 const services = [
   {
@@ -277,9 +278,11 @@ export default function EnglishHomePage() {
     setAudience(null);
     setGoal(null);
     setShowSafeGuide(false);
+    clearAllProgress();
     localStorage.removeItem("logout-guide-state-en");
     document.getElementById("start")?.scrollIntoView({ behavior: "smooth" });
   }
+
 
   return (
     <main className={styles.home}>
