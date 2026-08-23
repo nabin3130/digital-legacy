@@ -145,6 +145,7 @@ export default function EnglishGoogleAccountFlow() {
 
       {!audience && (
         <CompanyAccountSelector
+          locale="en"
           mine={{
             title: "My Google account",
             description: "I want to set up posthumous plans or organize my personal data.",
@@ -157,6 +158,7 @@ export default function EnglishGoogleAccountFlow() {
           }}
         />
       )}
+
 
       {audience && !route && (
         <StepShell
@@ -466,6 +468,8 @@ function DataRequestDetail({ status }: { status: ReceiverStatus }) {
   );
 }
 
+import GuideCompletion from "@/components/GuideCompletion";
+
 type ActionLink = { label: string; href: string };
 function DetailPage({
   eyebrow,
@@ -486,18 +490,6 @@ function DetailPage({
   primary?: ActionLink;
   secondary?: ActionLink;
 }) {
-  const [checked, setChecked] = useState(false);
-  const storageKey = `digital-legacy-checklist-en-google-${title.toLowerCase().replace(/\s+/g, "-")}`;
-
-  useEffect(() => {
-    setChecked(localStorage.getItem(storageKey) === "true");
-  }, [storageKey]);
-
-  function updateChecklist(next: boolean) {
-    setChecked(next);
-    localStorage.setItem(storageKey, String(next));
-  }
-
   const hasRequiredDocuments = sections.some(
     ([heading, items]) =>
       (heading.toLowerCase().includes("required") || heading.toLowerCase().includes("document")) &&
@@ -533,10 +525,18 @@ function DetailPage({
         </Link>
       )}
       {note && <p className={styles.note}>{note}</p>}
-      <label className={styles.checklistOption}>
-        <input type="checkbox" checked={checked} onChange={(event) => updateChecklist(event.target.checked)} />
-        <span>I have reviewed this procedure</span>
-      </label>
+
+      <section className={styles.officialHandoff}>
+        <h2>When you open Google's official page</h2>
+        <ul>
+          <li>Google account sign-in or official applicant identity verification may be required.</li>
+          <li>Google may ask for additional legal or regional estate documentation.</li>
+          <li>This guide never requests, accesses, or stores any passwords or personal certificates.</li>
+        </ul>
+      </section>
+
+      <GuideCompletion company="Google" task={title} href="/en/company/google" locale="en" />
+
       <div className={styles.actions}>
         {secondary && (
           <a className={styles.secondary} href={secondary.href} target="_blank" rel="noopener noreferrer">
@@ -552,3 +552,4 @@ function DetailPage({
     </main>
   );
 }
+

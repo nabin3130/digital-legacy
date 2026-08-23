@@ -119,6 +119,7 @@ export default function EnglishAppleAccountFlow() {
 
       {!audience && (
         <CompanyAccountSelector
+          locale="en"
           mine={{
             title: "My Apple account",
             description: "I want to designate a Legacy Contact and prepare an access key.",
@@ -131,6 +132,7 @@ export default function EnglishAppleAccountFlow() {
           }}
         />
       )}
+
 
       {audience && !route && (
         <StepShell
@@ -412,6 +414,8 @@ function Detail({ route }: { route: RouteId }) {
   );
 }
 
+import GuideCompletion from "@/components/GuideCompletion";
+
 type ActionLink = { label: string; href: string };
 function DetailPage({
   eyebrow,
@@ -430,18 +434,6 @@ function DetailPage({
   primary: ActionLink;
   secondary?: ActionLink;
 }) {
-  const [checked, setChecked] = useState(false);
-  const storageKey = `digital-legacy-checklist-en-apple-${title.toLowerCase().replace(/\s+/g, "-")}`;
-
-  useEffect(() => {
-    setChecked(localStorage.getItem(storageKey) === "true");
-  }, [storageKey]);
-
-  function updateChecklist(next: boolean) {
-    setChecked(next);
-    localStorage.setItem(storageKey, String(next));
-  }
-
   const hasRequiredDocuments = sections.some(
     ([heading, items]) =>
       (heading.toLowerCase().includes("required") || heading.toLowerCase().includes("document")) &&
@@ -476,10 +468,18 @@ function DetailPage({
           View common required documents and issuance guide →
         </Link>
       )}
-      <label className={styles.checklistOption}>
-        <input type="checkbox" checked={checked} onChange={(event) => updateChecklist(event.target.checked)} />
-        <span>I have reviewed this procedure</span>
-      </label>
+
+      <section className={styles.officialHandoff}>
+        <h2>When you open Apple's official page</h2>
+        <ul>
+          <li>Apple Account sign-in or Legacy Contact access key verification may be required.</li>
+          <li>Apple may require official certified death certificates and proof of estate authority.</li>
+          <li>This guide never requests or stores your Apple ID passwords or private access keys.</li>
+        </ul>
+      </section>
+
+      <GuideCompletion company="Apple" task={title} href="/en/company/apple" locale="en" />
+
       <div className={styles.actions}>
         {secondary && (
           <a className={styles.secondary} href={secondary.href} target="_blank" rel="noopener noreferrer">
@@ -493,3 +493,4 @@ function DetailPage({
     </main>
   );
 }
+

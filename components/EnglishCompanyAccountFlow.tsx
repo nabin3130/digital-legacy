@@ -142,6 +142,7 @@ export default function EnglishCompanyAccountFlow({
 
       {!audience && (
         <CompanyAccountSelector
+          locale="en"
           mine={{
             title: `My ${displayName} account`,
             description: `I want to organize my personal data or set up posthumous preferences for my ${displayName} account.`,
@@ -154,6 +155,7 @@ export default function EnglishCompanyAccountFlow({
           }}
         />
       )}
+
 
       {audience && !selectedAction && (
         <main className={`${styles.shell} ${styles.compact}`}>
@@ -201,6 +203,8 @@ function Choice({
   );
 }
 
+import GuideCompletion from "@/components/GuideCompletion";
+
 function StandardStepDetail({
   companyName,
   audience,
@@ -210,18 +214,6 @@ function StandardStepDetail({
   audience: Audience;
   action: EnglishAction;
 }) {
-  const storageKey = `digital-legacy-checklist-en-${companyName.toLowerCase()}-${action.id}`;
-  const [checked, setChecked] = useState(false);
-
-  useEffect(() => {
-    setChecked(localStorage.getItem(storageKey) === "true");
-  }, [storageKey]);
-
-  function updateChecklist(next: boolean) {
-    setChecked(next);
-    localStorage.setItem(storageKey, String(next));
-  }
-
   const sections = action.sections ?? [
     ["Procedure & Guidance", [action.guidance]],
   ];
@@ -264,14 +256,16 @@ function StandardStepDetail({
         View common required documents and issuance guide →
       </Link>
 
-      <label className={styles.checklistOption}>
-        <input
-          type="checkbox"
-          checked={checked}
-          onChange={(event) => updateChecklist(event.target.checked)}
-        />
-        <span>I have reviewed this procedure</span>
-      </label>
+      <section className={styles.officialHandoff}>
+        <h2>When you open {companyName}'s official page</h2>
+        <ul>
+          <li>{audience === "mine" ? "Sign-in with your account may be required." : "Official identity verification and proof of relationship may be requested."}</li>
+          <li>Specific procedures and required documents may vary based on platform policies.</li>
+          <li>This guide never requests, handles, or stores any account credentials or legal certificates.</li>
+        </ul>
+      </section>
+
+      <GuideCompletion company={companyName} task={action.title} href={`/en/company/${companyName.toLowerCase()}`} locale="en" />
 
       {action.link && (
         <div className={styles.actions}>
@@ -289,3 +283,4 @@ function StandardStepDetail({
     </main>
   );
 }
+

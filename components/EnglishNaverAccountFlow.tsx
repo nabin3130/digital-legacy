@@ -123,6 +123,7 @@ export default function EnglishNaverAccountFlow() {
 
       {!audience && (
         <CompanyAccountSelector
+          locale="en"
           mine={{
             title: "My Naver account",
             description: "I want to organize my data or delete my personal Naver account.",
@@ -135,6 +136,7 @@ export default function EnglishNaverAccountFlow() {
           }}
         />
       )}
+
 
       {audience === "mine" && <MineDetail />}
 
@@ -342,6 +344,8 @@ function NpayDetail() {
   );
 }
 
+import GuideCompletion from "@/components/GuideCompletion";
+
 type Section = [string, string[]];
 function DetailPage({
   eyebrow,
@@ -364,18 +368,6 @@ function DetailPage({
   link?: { label: string; href: string };
   action?: { label: string; onClick: () => void };
 }) {
-  const [checked, setChecked] = useState(false);
-  const storageKey = `digital-legacy-checklist-en-naver-${title.toLowerCase().replace(/\s+/g, "-")}`;
-
-  useEffect(() => {
-    setChecked(localStorage.getItem(storageKey) === "true");
-  }, [storageKey]);
-
-  function updateChecklist(next: boolean) {
-    setChecked(next);
-    localStorage.setItem(storageKey, String(next));
-  }
-
   return (
     <main className={`${styles.shell} ${styles.compact} ${styles.detail}`}>
       <p className={styles.eyebrow}>{eyebrow}</p>
@@ -403,10 +395,18 @@ function DetailPage({
       )}
       {documents && <DocumentGuide documents={documents} />}
       {note && <p className={styles.note}>{note}</p>}
-      <label className={styles.checklistOption}>
-        <input type="checkbox" checked={checked} onChange={(event) => updateChecklist(event.target.checked)} />
-        <span>I have reviewed this procedure</span>
-      </label>
+
+      <section className={styles.officialHandoff}>
+        <h2>When you open Naver's official help center</h2>
+        <ul>
+          <li>Official certificate submission and identity verification of the applicant will be required.</li>
+          <li>Ensure the last 7 digits of national ID numbers are masked on all documents.</li>
+          <li>This guide never requests or stores Naver passwords or personal certificates.</li>
+        </ul>
+      </section>
+
+      <GuideCompletion company="Naver" task={title} href="/en/company/naver" locale="en" />
+
       <div className={styles.actions}>
         {action && (
           <button type="button" className={styles.secondary} onClick={action.onClick}>
@@ -422,6 +422,7 @@ function DetailPage({
     </main>
   );
 }
+
 
 function DocumentGuide({ documents }: { documents: DocumentItem[] }) {
   return (
