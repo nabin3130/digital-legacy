@@ -8,22 +8,22 @@
 
 @media (max-width: 480px) {
   .nav {
-    min-height: 68px;
-    padding-top: 13px;
-    padding-bottom: 12px;
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 8px;
+    min-height: 64px;
+    padding-top: 0;
+    padding-bottom: 0;
+    align-items: center;
+    flex-direction: row;
+    gap: 12px;
   }
 
   .navlinks {
-    width: 100%;
-    margin: 0;
-    justify-content: space-between;
-    gap: 8px;
+    width: auto;
+    margin: 0 0 0 auto;
+    gap: 16px;
   }
 
-  .brand { font-size: 16px; }
+  .brand { font-size: 17px; line-height: 1; }
+  .mobile-menu-trigger { margin-left: auto; padding: 10px 0 10px 16px; }
 }
 
 /* Keep the service directory as distinct cards after all theme overrides. */
