@@ -85,38 +85,38 @@ const services = [
 const audiences = [
   {
     id: "mine" as const,
-    title: "I am preparing my own accounts",
-    description: "I want to decide how and with whom to share my records.",
+    title: "I’m planning ahead for my accounts",
+    description: "I want to decide what happens to my digital records.",
   },
   {
     id: "deceased" as const,
-    title: "I am managing a deceased family member’s accounts",
-    description: "I need to safely handle accounts, photos, and personal records.",
+    title: "I’m managing accounts for someone who died",
+    description: "I need help with their accounts, photos, and other records.",
   },
   {
     id: "unsure" as const,
     title: "I don’t know where to start",
-    description: "We’ll guide you step by step through the differences between the options.",
+    description: "We’ll explain the options and guide you one step at a time.",
   },
 ];
 
 const goals = [
   {
     id: "download" as const,
-    title: "Download photos, posts & data",
-    description: "Request an archive or download data copies according to company policies.",
+    title: "Download photos, posts, and data",
+    description: "Find out what you can download or request from each platform.",
     icon: "↓",
   },
   {
     id: "delete" as const,
-    title: "Account deletion & termination",
-    description: "Safely close the account or terminate active online services.",
+    title: "Delete an account",
+    description: "Review what to save, then follow the steps to permanently delete the account.",
     icon: "×",
   },
   {
     id: "memorial" as const,
-    title: "Convert to memorialized account",
-    description: "Preserve the deceased person’s online space in a memorial state.",
+    title: "Memorialize an account",
+    description: "Keep the person’s profile available as a memorial, where supported.",
     icon: "○",
   },
 ];
@@ -132,13 +132,13 @@ const unsureResults = [
     id: "delete" as const,
     number: "02",
     title: "I want to remove accounts and records",
-    description: "Guide you on how to delete accounts after verifying important data.",
+    description: "Save anything important, then review how to delete the account.",
   },
   {
     id: "memorial" as const,
     number: "03",
     title: "I want to preserve their online presence",
-    description: "Check companies that offer memorialized account features.",
+    description: "See which platforms support memorialized accounts.",
   },
 ];
 
@@ -292,15 +292,15 @@ export default function EnglishHomePage() {
           <div className={styles.heroContent}>
             <p className={styles.kicker}>DIGITAL LEGACY GUIDE</p>
             <h1>
-              Organize digital records<br />
-              calmly and securely.
+              Make sense of the digital<br />
+              records left behind.
             </h1>
             <p>
-              From account deletion and data download to memorialization,<br />
-              we guide you through official policies and required procedures.
+              Find official guidance for downloading data, deleting accounts,<br />
+              and preserving profiles as memorials.
             </p>
             <a href="#start" className={styles.heroAction}>
-              Start guide
+              Get started
             </a>
           </div>
           <div className={styles.lightCanvas} aria-hidden="true">
@@ -317,12 +317,12 @@ export default function EnglishHomePage() {
         <div className={styles.narrow}>
           <div className={styles.sectionHead}>
             <div>
-              <p className={styles.kicker}>START GUIDE</p>
-              <h2>Whose digital records are these?</h2>
-              <p>Select your situation to see relevant procedures first.</p>
+              <p className={styles.kicker}>GET STARTED</p>
+              <h2>Whose accounts are you managing?</h2>
+              <p>Choose your situation to see the most relevant guidance.</p>
             </div>
             <form className={styles.quickSearch} onSubmit={submit}>
-              <label htmlFor="quick-company">Search company directly</label>
+              <label htmlFor="quick-company">Find a company</label>
               <div>
                 <span>⌕</span>
                 <input
@@ -377,9 +377,9 @@ export default function EnglishHomePage() {
           </p>
           {audience === "unsure" ? (
             <>
-              <h2>How can we help you first?</h2>
+              <h2>What would you like to do first?</h2>
               <p className={styles.helper}>
-                You don’t have to decide everything right now. Choose the option closest to your desired outcome.
+                You don’t need to decide everything now. Choose the outcome that feels closest.
               </p>
               {!showSafeGuide ? (
                 <div className={styles.goalList}>
@@ -396,7 +396,7 @@ export default function EnglishHomePage() {
                     <span className={styles.resultNumber}>04</span>
                     <span>
                       <strong>I’m still not sure</strong>
-                      <small>Review options in the recommended safe order.</small>
+                      <small>We’ll walk through the safest order.</small>
                     </span>
                   </button>
                 </div>
@@ -406,7 +406,7 @@ export default function EnglishHomePage() {
             </>
           ) : (
             <>
-              <h2>What kind of help do you need?</h2>
+              <h2>What would you like to do?</h2>
               <div className={styles.goalList}>
                 {availableGoals.map((o) => (
                   <button
@@ -438,25 +438,25 @@ export default function EnglishHomePage() {
           <aside>
             <Progress step={3} />
             <button className={styles.back} onClick={() => window.history.back()}>
-              ← Change goal
+              ← Change selection
             </button>
             <p className={styles.kicker}>{goals.find((x) => x.id === goal)?.title}</p>
             <h2>
-              {goal === "download" ? "Select a service with photos & records" : "Select a service"}
+              {goal === "download" ? "Choose where your photos and records are stored" : "Choose a service"}
             </h2>
             <p>
               {goal === "memorial"
-                ? "Showing only services that support memorialized accounts."
+                ? "Only services that support memorialized accounts are shown."
                 : goal === "download"
-                  ? "If using multiple services, start with the one holding the most important records."
-                  : "Showing services that provide your selected option first."}
+                  ? "If you use several services, start with the one that holds your most important records."
+                  : "Services that support your selection appear first."}
             </p>
             <label className={styles.serviceSearch}>
               <span>⌕</span>
               <input
                 value={serviceQuery}
                 onChange={(e) => setServiceQuery(e.target.value)}
-                placeholder="Search company or service"
+                placeholder="Search companies and services"
               />
             </label>
             <small className={styles.searchFeedback} aria-live="polite">
@@ -493,13 +493,13 @@ export default function EnglishHomePage() {
               <div className={styles.empty} aria-live="polite">
                 <strong>
                   {goal === "memorial"
-                    ? "This service does not support memorialized accounts."
-                    : "No matching services found."}
+                    ? "Memorialized accounts aren’t available for this service."
+                    : "No services found."}
                 </strong>
                 <p>
                   {goal === "memorial"
-                    ? "Search for another company or select a different goal in the previous step."
-                    : "Check your search term or view the full list."}
+                    ? "Try another company or go back and choose a different option."
+                    : "Try a different search or view all services."}
                 </p>
                 <button onClick={() => setServiceQuery("")}>View all services</button>
               </div>
@@ -510,7 +510,7 @@ export default function EnglishHomePage() {
 
       {(audience || goal) && (
         <div className={styles.savedBar}>
-          <span>Progress saved on this device.</span>
+          <span>Your progress is saved on this device.</span>
           <button onClick={reset}>Clear progress</button>
         </div>
       )}
@@ -559,7 +559,7 @@ function SafeGuide({ onStart, onBack }: { onStart: () => void; onBack: () => voi
     <div className={styles.safeGuide}>
       <div className={styles.safeOrder}>
         <p className={styles.kicker}>RECOMMENDED REVIEW ORDER</p>
-        <h3>Let’s review in a safe and secure order</h3>
+        <h3>Start with the steps that are hardest to undo</h3>
         <ol>
           <li>
             <b>1</b>
@@ -567,39 +567,39 @@ function SafeGuide({ onStart, onBack }: { onStart: () => void; onBack: () => voi
           </li>
           <li>
             <b>2</b>
-            <span>Download and archive available data copies first.</span>
+            <span>Download and save any available data first.</span>
           </li>
           <li>
             <b>3</b>
-            <span>Decide whether to permanently delete the account or preserve it as a memorial space.</span>
+            <span>Decide whether to delete the account or preserve it as a memorial.</span>
           </li>
           <li>
             <b>4</b>
-            <span>Select the company and review official request procedures.</span>
+            <span>Choose the company and review its official instructions.</span>
           </li>
         </ol>
       </div>
 
       <div className={styles.resultComparison} aria-label="Method comparison by desired outcome">
         <div className={styles.comparisonHead}>
-          <span>Desired Outcome</span>
-          <span>Suitable Method</span>
+          <span>Your goal</span>
+          <span>Best option</span>
           <span>Can it be undone?</span>
         </div>
         <div>
           <span>I want to preserve records</span>
           <strong>Data Download</strong>
-          <span>Original account is preserved</span>
+          <span>The account stays active</span>
         </div>
         <div>
           <span>I want to remove the account</span>
           <strong>Account Deletion</strong>
-          <span>Permanent and irreversible</span>
+          <span>Usually can’t be undone</span>
         </div>
         <div>
           <span>I want to leave an online memorial</span>
           <strong>Memorialization</strong>
-          <span>Depends on company policy</span>
+          <span>Depends on the platform</span>
         </div>
       </div>
 
@@ -614,5 +614,4 @@ function SafeGuide({ onStart, onBack }: { onStart: () => void; onBack: () => voi
     </div>
   );
 }
-
 

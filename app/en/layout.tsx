@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: { default: "Logout – Digital Legacy Guide", template: "%s | Logout" },
-  description: "Understand official digital legacy policies, required documents, and account procedures in one place.",
+  title: { default: "LOGOUT – Digital Legacy Guide", template: "%s | LOGOUT" },
+  description: "Find official guidance for preparing, downloading, memorializing, or deleting digital accounts.",
   alternates: { languages: { "ko-KR": "/", en: "/en" } },
-  openGraph: { locale: "en_US", siteName: "Logout" },
+  openGraph: { locale: "en_US", siteName: "LOGOUT" },
 };
 
 export default function EnglishLayout({ children }: { children: React.ReactNode }) { return <div className="english-site">{children}</div>; }

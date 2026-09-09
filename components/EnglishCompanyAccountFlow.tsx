@@ -79,7 +79,7 @@ export default function EnglishCompanyAccountFlow({
               <img src={logos[company.slug]} alt="" width="48" height="48" />
             )}
             <span>
-              <small>Official Guide</small>
+              <small>Company guide</small>
               {displayName}
             </span>
           </button>
@@ -94,11 +94,11 @@ export default function EnglishCompanyAccountFlow({
       {audience && (
         <nav className={styles.contextNavigation} aria-label={`${displayName} navigation`}>
           <ol className={styles.breadcrumb}>
-            <li><Link href="/en/#services">Services</Link></li>
+            <li><Link href="/en/services">Company guides</Link></li>
             <li><button type="button" onClick={() => navigate(null)}>{displayName}</button></li>
             <li>
               <button type="button" onClick={() => navigate(audience)}>
-                {audience === "mine" ? `My ${displayName} account` : `Deceased person’s ${displayName} account`}
+                {audience === "mine" ? `My ${displayName} account` : `${displayName} account for someone who died`}
               </button>
             </li>
           </ol>
@@ -118,15 +118,15 @@ export default function EnglishCompanyAccountFlow({
                   className={audience === "deceased" ? styles.activeTab : ""}
                   onClick={() => navigate("deceased")}
                 >
-                  Deceased person’s account
+                  Account for someone who died
                 </button>
               </div>
               <label className={styles.routeSelect}>
-                <span>View other options</span>
+                <span>Choose another option</span>
                 <select
                   value={selectedAction.id}
                   onChange={(event) => navigate(audience, event.target.value)}
-                  aria-label="View other options"
+                  aria-label="Choose another option"
                 >
                   {activeActions.map((item) => (
                     <option value={item.id} key={item.id}>
@@ -145,12 +145,12 @@ export default function EnglishCompanyAccountFlow({
           locale="en"
           mine={{
             title: `My ${displayName} account`,
-            description: `I want to organize my personal data or set up posthumous preferences for my ${displayName} account.`,
+            description: `I want to manage my data or decide what happens to my ${displayName} account later.`,
             onSelect: () => navigate("mine"),
           }}
           deceased={{
-            title: `A deceased person’s ${displayName} account`,
-            description: `I need to handle the deceased person’s ${displayName} account, data, or memorialization.`,
+            title: `${displayName} account for someone who died`,
+            description: `I need to manage their account, data, or memorialized profile.`,
             onSelect: () => navigate("deceased"),
           }}
         />
@@ -160,10 +160,10 @@ export default function EnglishCompanyAccountFlow({
       {audience && !selectedAction && (
         <main className={`${styles.shell} ${styles.compact}`}>
           <p className={styles.eyebrow}>
-            {audience === "mine" ? `My ${displayName} account` : `Deceased person’s ${displayName} account`}
+            {audience === "mine" ? `My ${displayName} account` : `${displayName} account for someone who died`}
           </p>
           <h1>What would you like to do?</h1>
-          <p className={styles.lead}>Choose the option that best matches your situation.</p>
+          <p className={styles.lead}>Choose the option that best fits your situation.</p>
           <div className={styles.choices}>
             {activeActions.map((item) => (
               <Choice
@@ -215,20 +215,20 @@ function StandardStepDetail({
   action: EnglishAction;
 }) {
   const sections = action.sections ?? [
-    ["Procedure & Guidance", [action.guidance]],
+    ["What to do", [action.guidance]],
   ];
 
   return (
     <main className={`${styles.shell} ${styles.compact} ${styles.detail}`}>
       <p className={styles.eyebrow}>
-        {audience === "mine" ? `My ${companyName} account` : `Deceased person’s ${companyName} account`}
+        {audience === "mine" ? `My ${companyName} account` : `${companyName} account for someone who died`}
       </p>
       <h1>{action.title}</h1>
       {action.description && <p className={styles.lead}>{action.description}</p>}
 
       {action.warning && (
         <div className={styles.warning}>
-          <strong>Please review first</strong>
+          <strong>Before you continue</strong>
           <p>{action.warning}</p>
         </div>
       )}
@@ -246,22 +246,22 @@ function StandardStepDetail({
         ))}
         {action.notes && (
           <section>
-            <h2>Important notes</h2>
+            <h2>Things to know</h2>
             <p className={styles.lead}>{action.notes}</p>
           </section>
         )}
       </div>
 
       <Link className={styles.commonDocumentsLink} href="/en/prepare#documents">
-        View common required documents and issuance guide →
+        View required documents
       </Link>
 
       <section className={styles.officialHandoff}>
-        <h2>When you open {companyName}'s official page</h2>
+        <h2>On {companyName}’s official site</h2>
         <ul>
-          <li>{audience === "mine" ? "Sign-in with your account may be required." : "Official identity verification and proof of relationship may be requested."}</li>
-          <li>Specific procedures and required documents may vary based on platform policies.</li>
-          <li>This guide never requests, handles, or stores any account credentials or legal certificates.</li>
+          <li>{audience === "mine" ? "You may need to sign in." : "You may need to verify your identity and relationship to the person."}</li>
+          <li>The exact steps and required documents may vary.</li>
+          <li>LOGOUT never asks for or stores passwords, account credentials, or legal documents.</li>
         </ul>
       </section>
 
@@ -276,11 +276,10 @@ function StandardStepDetail({
             rel="noopener noreferrer"
             aria-label={`${action.linkLabel ?? "Open official page"} (opens in a new tab)`}
           >
-            {action.linkLabel ?? "Open official page"} ↗
+            {action.linkLabel ?? "Open official page"}
           </a>
         </div>
       )}
     </main>
   );
 }
-

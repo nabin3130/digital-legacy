@@ -40,8 +40,8 @@ export default function SiteHeader() {
   return (
     <header className="header">
       <div className="container nav">
-        <Link className="brand" href={prefix || "/"} aria-label={isEnglish ? "Logout home" : "로그아웃 홈"}>
-          {isEnglish ? "Logout" : "로그아웃"}
+        <Link className="brand" href={prefix || "/"} aria-label={isEnglish ? "LOGOUT home" : "로그아웃 홈"}>
+          {isEnglish ? "LOGOUT" : "로그아웃"}
           <span className="cursor">_</span>
         </Link>
         <button
@@ -55,10 +55,10 @@ export default function SiteHeader() {
         </button>
         <nav className={`navlinks ${menuOpen ? "open" : ""}`} aria-label={isEnglish ? "Main navigation" : "주요 메뉴"}>
           <Link href={isEnglish ? "/en#start" : "/#start"} onClick={close}>
-            {isEnglish ? "Start guide" : "안내 시작"}
+            {isEnglish ? "Get started" : "안내 시작"}
           </Link>
           <Link href={isEnglish ? "/en/services" : "/services"} onClick={close}>
-            {isEnglish ? "Companies" : "회사별 안내"}
+            {isEnglish ? "Company guides" : "회사별 안내"}
           </Link>
           <Link href={isEnglish ? "/en/prepare" : "/prepare"} onClick={close}>
             {isEnglish ? "Documents" : "준비서류"}
@@ -92,4 +92,3 @@ export default function SiteHeader() {
     </header>
   );
 }
-

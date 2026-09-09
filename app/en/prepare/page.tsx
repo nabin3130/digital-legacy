@@ -5,7 +5,7 @@ import styles from "@/app/prepare/Prepare.module.css";
 
 export const metadata: Metadata = {
   title: "Prepare",
-  description: "Quickly check the purposes and issuance methods of commonly required documents for digital legacy procedures.",
+  description: "Review documents commonly requested when managing a digital account after someone dies.",
   alternates: { canonical: "/en/prepare" },
 };
 
@@ -16,19 +16,19 @@ export default function EnglishPreparePage() {
     <main className={styles.page}>
       <div className="container">
         <header className={styles.heading}>
-          <p className="eyebrow">PREPARE DOCUMENTS</p>
-          <h1>Prepare to manage digital accounts</h1>
-          <p>Review commonly required documents and the general process before starting company-specific requests.</p>
+          <p className="eyebrow">DOCUMENTS</p>
+          <h1>Get your documents ready</h1>
+          <p>Review documents commonly requested before you start with a specific company.</p>
         </header>
 
         <section className={`${styles.section} ${styles.processSection}`} aria-labelledby="process-title">
           <div className={styles.sectionHeading}>
-            <h2 id="process-title">General Process</h2>
+            <h2 id="process-title">How it works</h2>
           </div>
           <ol className={styles.flow}>
             <li>
               <strong>1</strong>
-              <span>Prepare required certificates.</span>
+              <span>Gather the required documents.</span>
             </li>
             <li>
               <strong>2</strong>
@@ -36,7 +36,7 @@ export default function EnglishPreparePage() {
             </li>
             <li>
               <strong>3</strong>
-              <span>Follow the company-specific official guide.</span>
+              <span>Follow the company’s official instructions.</span>
             </li>
           </ol>
           <Link className={styles.companyLink} href="/en/services">
@@ -46,15 +46,15 @@ export default function EnglishPreparePage() {
 
         <section id="documents" className={styles.section} aria-labelledby="documents-title">
           <div className={styles.sectionHeading}>
-            <h2 id="documents-title">Commonly Required Documents</h2>
-            <p>Requirements may vary slightly by platform, but most services request the documents below.</p>
+            <h2 id="documents-title">Documents you may need</h2>
+            <p>Requirements vary, but many platforms ask for the documents below.</p>
           </div>
           <div className={styles.documentGrid}>
             {commonDocuments.map((document) => (
               <article className={styles.documentCard} id={document.id} key={document.id}>
                 <div>
                   <span className={styles.badge}>
-                    {document.online ? "Available Online" : "Issued by Medical Institution"}
+                    {document.online ? "Available online" : "From a medical provider"}
                   </span>
                   <h3>{document.name.en}</h3>
                 </div>
@@ -64,7 +64,7 @@ export default function EnglishPreparePage() {
                     <dd>{document.purpose.en}</dd>
                   </div>
                   <div>
-                    <dt>How to obtain it?</dt>
+                    <dt>How do I get it?</dt>
                     <dd>{document.issueMethod.en}</dd>
                   </div>
                 </dl>
@@ -76,10 +76,10 @@ export default function EnglishPreparePage() {
                     rel="noopener noreferrer"
                     aria-label={`Get ${document.name.en} (opens in a new tab)`}
                   >
-                    Obtain Document
+                    Get document
                   </a>
                 ) : (
-                  <span className={styles.offlineButton}>Inquire at Hospital</span>
+                  <span className={styles.offlineButton}>Contact the hospital</span>
                 )}
               </article>
             ))}

@@ -81,7 +81,7 @@ export default function GuideCompletion({
           {isEnglish
             ? checked
               ? "Completed"
-              : "I have reviewed this guide"
+              : "Mark as reviewed"
             : checked
               ? "확인 완료"
               : "이 안내를 확인했어요"}
@@ -91,7 +91,7 @@ export default function GuideCompletion({
       {!checked && (
         <p className={styles.checklistHelp}>
           {isEnglish
-            ? "Completed guides will be collected in ‘My Review Status’ on the home page."
+            ? "Reviewed guides appear under Your progress on the home page."
             : "확인한 안내는 메인 화면의 ‘내 확인 현황’에 모아드려요."}
         </p>
       )}
@@ -101,11 +101,11 @@ export default function GuideCompletion({
           <span className={styles.completionIcon} aria-hidden="true">✓</span>
           <div>
             <strong>
-              {isEnglish ? `${company} guide marked as reviewed` : `${company} 안내를 확인했어요`}
+              {isEnglish ? `${company} guide reviewed` : `${company} 안내를 확인했어요`}
             </strong>
             <p>
               {isEnglish
-                ? "Saved to this device. You can pick up where you left off from the home page."
+                ? "Saved on this device. You can continue from the home page."
                 : "이 기기에 저장했습니다. 다음에 메인 화면에서 이어서 볼 수 있어요."}
             </p>
           </div>
@@ -114,13 +114,13 @@ export default function GuideCompletion({
 
       {checked && (
         <div className={styles.nextActions}>
-          <h2>{isEnglish ? "What would you like to do next?" : "이어서 무엇을 할까요?"}</h2>
+          <h2>{isEnglish ? "What’s next?" : "이어서 무엇을 할까요?"}</h2>
           <div>
             <Link href={isEnglish ? "/en" : "/"}>
               {isEnglish ? "View my progress" : "내 확인 현황 보기"}
             </Link>
             <Link href={isEnglish ? "/en/services" : "/services"}>
-              {isEnglish ? "Check other companies" : "다른 회사 확인하기"}
+              {isEnglish ? "View another company" : "다른 회사 확인하기"}
             </Link>
             <Link href={isEnglish ? "/en/prepare#documents" : "/prepare#documents"}>
               {isEnglish ? "View required documents" : "준비서류 확인하기"}
@@ -131,4 +131,3 @@ export default function GuideCompletion({
     </section>
   );
 }
-

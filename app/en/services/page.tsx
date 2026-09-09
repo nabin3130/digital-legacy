@@ -18,42 +18,42 @@ const services = [
     slug: "naver",
     logo: "/logos/naver.svg",
     keywords: ["naver", "blog", "mybox"],
-    summary: "Account withdrawal and public data backup procedures",
+    summary: "Delete an account or request a copy of public content",
   },
   {
     name: "Samsung",
     slug: "samsung",
     logo: "/logos/samsung.svg",
     keywords: ["samsung", "galaxy", "cloud"],
-    summary: "Samsung Account and device data management guide",
+    summary: "Manage a Samsung Account and data stored on Galaxy devices",
   },
   {
     name: "Google",
     slug: "google",
     logo: "/logos/google.svg",
     keywords: ["google", "gmail", "youtube"],
-    summary: "Account deletion, Google Takeout download, Inactive Account Manager",
+    summary: "Download data, delete an account, or plan with Inactive Account Manager",
   },
   {
     name: "Apple",
     slug: "apple",
     logo: "/logos/apple.svg",
     keywords: ["apple", "icloud", "iphone"],
-    summary: "Apple Account and iCloud data management guide",
+    summary: "Manage an Apple Account, iCloud data, and Legacy Contact access",
   },
   {
     name: "Meta",
     slug: "meta",
     logo: "/logos/meta.svg",
     keywords: ["meta", "facebook", "messenger"],
-    summary: "Facebook account deletion and memorialized account guide",
+    summary: "Delete or memorialize a Facebook account",
   },
   {
     name: "Instagram",
     slug: "instagram",
     logo: "/logos/instagram.webp",
     keywords: ["instagram", "threads", "insta"],
-    summary: "Account deletion, data download, and memorialization guide",
+    summary: "Download data, delete an account, or memorialize a profile",
   },
   {
     name: "X",
@@ -81,13 +81,13 @@ function EnglishServicesDirectory() {
         <div className={styles.heading}>
           <div>
             <h1>
-              Which service would you<br />
-              like to manage?
+              Which service do you<br />
+              need help with?
             </h1>
-            <p>Select a company to view available posthumous options and official procedures.</p>
+            <p>Choose a company to see available options and official instructions.</p>
           </div>
           <label>
-            <span>Search service</span>
+            <span>Search services</span>
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
@@ -104,13 +104,13 @@ function EnglishServicesDirectory() {
                 <strong>{s.name}</strong>
                 <small>{s.summary}</small>
               </span>
-              <em>View guide</em>
+              <em>View instructions</em>
             </Link>
           ))}
           {!filtered.length && (
             <div className={styles.empty}>
-              <strong>No results found.</strong>
-              <p>Please check your spelling or view the full list.</p>
+              <strong>No services found</strong>
+              <p>Try a different search or view all services.</p>
               <button onClick={() => setQuery("")}>View all services</button>
             </div>
           )}

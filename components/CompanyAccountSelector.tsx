@@ -22,11 +22,11 @@ export default function CompanyAccountSelector({
     <section className={styles.section} aria-labelledby="account-selector-title">
       <span className={styles.step}>STEP 1</span>
       <h2 id="account-selector-title">
-        {isEnglish ? "Which account do you need help with?" : "어떤 계정에 관한 도움이 필요한가요?"}
+        {isEnglish ? "Whose account are you managing?" : "어떤 계정에 관한 도움이 필요한가요?"}
       </h2>
       <p className={styles.description}>
         {isEnglish
-          ? "Select your situation to receive official step-by-step guidance."
+          ? "Choose the option that fits your situation. We’ll show you the relevant steps."
           : "상황을 선택하면 필요한 공식 절차를 순서대로 안내해 드려요."}
       </p>
 
@@ -45,13 +45,12 @@ export default function CompanyAccountSelector({
 
       <p className={styles.prepareNote}>
         {isEnglish
-          ? "Commonly required documents can be checked in the 'Prepare' guide."
+          ? "See Documents for items commonly requested by platforms."
           : "공통적으로 필요한 서류는 ‘준비’ 메뉴에서 확인할 수 있어요."}
         <Link href={isEnglish ? "/en/prepare#documents" : "/prepare#documents"}>
-          {isEnglish ? "View prepare guide →" : "준비 메뉴 보기 →"}
+          {isEnglish ? "View required documents" : "준비 메뉴 보기 →"}
         </Link>
       </p>
     </section>
   );
 }
-

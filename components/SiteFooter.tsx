@@ -10,11 +10,11 @@ export default function SiteFooter() {
     <footer className="footer">
       <div className="container footer-inner">
         <Link className="footer-brand" href={isEnglish ? "/en" : "/"}>
-          {isEnglish ? "Logout_" : "로그아웃_"}
+          {isEnglish ? "LOGOUT_" : "로그아웃_"}
         </Link>
         <p>
           {isEnglish
-            ? "Policies may change. Always check the platform’s official page before submitting a request."
+            ? "Policies can change. Review the platform’s official instructions before you submit a request."
             : "정책은 변경될 수 있습니다. 신청 전 공식 플랫폼 페이지를 반드시 확인하세요."}
         </p>
         <nav className="footer-links" aria-label={isEnglish ? "Policies" : "정책 메뉴"}>
@@ -32,4 +32,3 @@ export default function SiteFooter() {
     </footer>
   );
 }
-

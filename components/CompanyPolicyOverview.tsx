@@ -35,13 +35,13 @@ export default function CompanyPolicyOverview({ company, locale = "ko" }: { comp
   const policyTitle = isEnglish ? (english?.policyTitle ?? company.policyTitle) : company.policyTitle;
   const policySubtitle = isEnglish ? english?.policySubtitle : undefined;
   const description = isEnglish ? (english?.description ?? company.summary) : koreanize(company.policyDescription || company.summary);
-  const button = isEnglish ? "View official guidance" : "공식 안내 확인하기";
+  const button = isEnglish ? "View official instructions" : "공식 안내 확인하기";
   const policyLink = isEnglish ? (english?.policyLink ?? company.policyLink) : company.policyLink;
   const services = isEnglish ? (english?.services ?? company.services) : company.services.map(service=>koreanProducts[service]??koreanize(service));
 
   return (
     <section id="company-overview" className={styles.summary} aria-labelledby="company-policy-title">
-      <p className={styles.breadcrumb}>{isEnglish ? "Digital legacy by company" : <Link href="/services">회사별 디지털 유산 안내</Link>}　›　{displayName}</p>
+      <p className={styles.breadcrumb}>{isEnglish ? <Link href="/en/services">Company guides</Link> : <Link href="/services">회사별 디지털 유산 안내</Link>}　›　{displayName}</p>
       <div className={styles.content}>
         <div>
           <div className={styles.identity}>
@@ -57,7 +57,7 @@ export default function CompanyPolicyOverview({ company, locale = "ko" }: { comp
           {!isEnglish && <p className={styles.roleNote}>로그아웃은 절차를 이해하기 쉽게 안내하며, 실제 신청과 결정은 각 회사의 공식 사이트에서 진행합니다.</p>}
         </div>
         <div className={styles.services} aria-label={`${displayName} ${isEnglish ? "services" : "적용 서비스"}`}>
-          <strong>{isEnglish ? "Services covered" : "적용 서비스"}</strong>
+          <strong>{isEnglish ? "Covered services" : "적용 서비스"}</strong>
           <ul>{services.map((service) => <li key={service}>{service}</li>)}</ul>
         </div>
       </div>

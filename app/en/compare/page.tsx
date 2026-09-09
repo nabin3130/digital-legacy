@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { companies } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Policy Comparison",
-  description: "Compare digital legacy policies and support scopes across major online platforms.",
+  title: "Compare Policies",
+  description: "Compare the digital legacy options available across major online platforms.",
   alternates: { canonical: "/en/compare" },
 };
 
@@ -12,11 +12,11 @@ function getStatusText(value: string) {
     case "yes":
       return "Supported";
     case "partial":
-      return "Partial";
+      return "Limited";
     case "no":
       return "Not supported";
     default:
-      return "Checking";
+      return "Not confirmed";
   }
 }
 
@@ -50,8 +50,8 @@ export default function EnglishComparePage() {
     <main className="compare-page">
       <div className="container">
         <div className="compare-heading">
-          <h1>Policy Comparison</h1>
-          <p>Compare digital legacy policies and supported scopes across major online platforms.</p>
+          <h1>Compare Policies</h1>
+          <p>See which digital legacy options each platform supports.</p>
         </div>
 
         <div className="tablewrap">
@@ -59,13 +59,13 @@ export default function EnglishComparePage() {
             <thead>
               <tr>
                 <th>Company</th>
-                <th>Pre-planning</th>
-                <th>Account Deletion</th>
+                <th>Plan Ahead</th>
+                <th>Delete Account</th>
                 <th>Memorialization</th>
                 <th>Family Access</th>
-                <th>Data Download</th>
+                <th>Download Data</th>
                 <th>Court Order</th>
-                <th>Key Features</th>
+                <th>How It Works</th>
               </tr>
             </thead>
 
@@ -126,15 +126,15 @@ export default function EnglishComparePage() {
           </span>
           <span>
             <i className="legend-dot legend-partial" />
-            Partial Support
+            Limited
           </span>
           <span>
             <i className="legend-dot legend-no" />
-            Not Supported
+            Not supported
           </span>
           <span>
             <i className="legend-dot legend-checking" />
-            Checking
+            Not confirmed
           </span>
         </div>
       </div>
