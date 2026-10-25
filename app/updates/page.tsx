@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import { policyUpdates } from "@/lib/policy-updates";
+import { pageMetadata } from "@/lib/seo";
 import styles from "../PolicyPages.module.css";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  locale: "ko",
+  koPath: "/updates",
   title: "정책 업데이트",
-  description: "로그아웃의 회사별 정책 확인과 운영 정책 변경 내역을 안내합니다.",
-  alternates: { canonical: "/updates" },
-};
+  description: "회사별 디지털 유산 정책 확인과 로그아웃 운영 정책의 변경 내역입니다.",
+});
 
 export default function UpdatesPage() {
   return (

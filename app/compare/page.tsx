@@ -1,4 +1,13 @@
+import type { Metadata } from "next";
 import { companies } from "@/lib/data";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = pageMetadata({
+  locale: "ko",
+  koPath: "/compare",
+  title: "정책 비교",
+  description: "회사별 디지털 유산 정책에서 계정 삭제, 추모 계정, 데이터 다운로드 지원 범위를 비교합니다.",
+});
 
 const companyNames: Record<string, string> = {
   Apple: "애플",

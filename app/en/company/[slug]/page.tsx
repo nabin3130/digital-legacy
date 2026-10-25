@@ -7,6 +7,7 @@ import EnglishNaverAccountFlow from "@/components/EnglishNaverAccountFlow";
 import EnglishCompanyAccountFlow from "@/components/EnglishCompanyAccountFlow";
 import { companies } from "@/lib/data";
 import { companyEnglish } from "@/lib/company-en";
+import { companyMetadata } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -14,24 +15,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const canonicalSlug = slug === "facebook" ? "meta" : slug;
   const company = companies.find((item) => item.slug === canonicalSlug);
-  if (!company) return {};
+  if (!company) return { robots: { index: false, follow: false } };
   const english = companyEnglish[canonicalSlug];
-  const title = `${english?.name ?? company.company} Digital Legacy Policy`;
   const description = english?.description ?? company.policyDescription ?? company.summary;
-  return {
-    title,
-    description,
-    alternates: {
-      canonical: `/en/company/${canonicalSlug}`,
-      languages: { "ko-KR": `/company/${canonicalSlug}`, en: `/en/company/${canonicalSlug}` },
-    },
-    openGraph: {
-      type: "article",
-      url: `/en/company/${canonicalSlug}`,
-      title,
-      description,
-    },
-  };
+  return companyMetadata("en", canonicalSlug, description);
 }
 
 export default async function EnglishCompanyPage({ params }: Props) {

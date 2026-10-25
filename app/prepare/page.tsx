@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { commonDocuments, commonProcedures } from "@/lib/common-guidance";
+import { pageMetadata } from "@/lib/seo";
 import styles from "./Prepare.module.css";
 
-export const metadata: Metadata = {
-  title: "준비",
-  description: "디지털 유산 절차에 자주 필요한 서류의 용도와 발급 방법을 빠르게 확인합니다.",
-  alternates: { canonical: "/prepare" },
-};
+export const metadata: Metadata = pageMetadata({
+  locale: "ko",
+  koPath: "/prepare",
+  title: "준비서류",
+  description: "계정 삭제, 데이터 다운로드, 추모 계정을 진행하기 전에 자주 필요한 서류와 순서를 확인합니다.",
+});
 
 const safeInheritance = commonProcedures.find((item) => item.id === "safe-inheritance");
 

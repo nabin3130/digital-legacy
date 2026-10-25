@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import { policyUpdates } from "@/lib/policy-updates";
+import { pageMetadata } from "@/lib/seo";
 import styles from "@/app/PolicyPages.module.css";
 
-export const metadata: Metadata = {
-  title: "Policy Updates",
-  description: "Track policy verification records and operational changes for the Logout project.",
-  alternates: { canonical: "/en/updates" },
-};
+export const metadata: Metadata = pageMetadata({
+  locale: "en",
+  koPath: "/updates",
+  title: "Policy updates",
+  description: "Records of company digital legacy policy checks and changes to how Logout operates.",
+});
 
 export default function EnglishUpdatesPage() {
   return (

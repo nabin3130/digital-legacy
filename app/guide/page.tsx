@@ -1,3 +1,13 @@
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = pageMetadata({
+  locale: "ko",
+  koPath: "/guide",
+  title: "용어 가이드",
+  description: "디지털 유산, 추모 계정, 휴면 계정처럼 계정 정리에 쓰이는 말을 짧게 풀어 설명합니다.",
+});
+
 const terms = [
   ["디지털 유산", "사망 후에도 남는 계정, 데이터, 게시물, 디지털 자산 전반"],
   ["디지털 유품", "고인이 온라인 서비스에서 남긴 데이터와 기록"],

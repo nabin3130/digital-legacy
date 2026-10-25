@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { companies } from "@/lib/data";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Compare Policies",
-  description: "Compare the digital legacy options available across major online platforms.",
-  alternates: { canonical: "/en/compare" },
-};
+export const metadata: Metadata = pageMetadata({
+  locale: "en",
+  koPath: "/compare",
+  title: "Compare policies",
+  description: "Compare how major services handle account deletion, memorial accounts, and data download.",
+});
 
 function getStatusText(value: string) {
   switch (value) {
