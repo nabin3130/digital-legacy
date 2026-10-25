@@ -116,9 +116,9 @@ export const companies: CompanyPolicy[] = [
     dataDownload: "yes",
     familyAccess: "no",
     courtOrder: "unknown",
-    requiredDocs: ["추가 확인 중"],
+    requiredDocs: ["사망 사실을 확인할 수 있는 자료"],
     available: ["기념 계정 전환"],
-    unavailable: ["추가 확인 중"],
+    unavailable: ["추모 계정으로 로그인"],
     limitations: ["Facebook 정책과 동일하다고 가정하면 안 됩니다."],
     officialLinks: [
       { label: "인스타그램 데이터 다운로드", url: "https://help.instagram.com/181231772500920?locale=ko_KR" },

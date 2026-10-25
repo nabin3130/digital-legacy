@@ -864,6 +864,32 @@
     background: #eee6f5;
     color: var(--accent);
   }
+
+  .status-unknown {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 58px;
+    min-height: 26px;
+    color: #7d8b84;
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  .compare-note {
+    max-width: 720px;
+    margin: 14px 0 0;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.65;
+  }
+
+  .legend-dash {
+    color: #7d8b84;
+    font-style: normal;
+    font-weight: 650;
+    line-height: 1;
+  }
   
   .compare-legend {
     margin-top: 18px;

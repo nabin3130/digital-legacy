@@ -3,6 +3,9 @@
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
+import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+import LocalFloristOutlinedIcon from "@mui/icons-material/LocalFloristOutlined";
 import styles from "@/app/Home.module.css";
 import {
   goalsByAudience,
@@ -105,19 +108,19 @@ const goals = [
     id: "download" as const,
     title: "Download photos, posts, and data",
     description: "Find out what you can download or request from each platform.",
-    icon: "↓",
+    icon: DownloadOutlinedIcon,
   },
   {
     id: "delete" as const,
     title: "Delete an account",
     description: "Review what to save, then follow the steps to permanently delete the account.",
-    icon: "×",
+    icon: DeleteOutlinedIcon,
   },
   {
     id: "memorial" as const,
     title: "Memorialize an account",
     description: "Keep the person’s profile available as a memorial, where supported.",
-    icon: "○",
+    icon: LocalFloristOutlinedIcon,
   },
 ];
 
@@ -291,9 +294,9 @@ export default function EnglishHomePage() {
         <div className={`container ${styles.heroGrid}`}>
           <div className={styles.heroContent}>
             <p className={styles.kicker}>DIGITAL LEGACY GUIDE</p>
-            <h1>
-              Make sense of the digital<br />
-              records left behind.
+            <h1 className={styles.heroTitle}>
+              <span className={styles.heroLine}>Make sense of the digital</span>
+              <span className={styles.heroLine}>records left behind.</span>
             </h1>
             <p>
               Find official guidance for downloading data, deleting accounts,<br />
@@ -415,7 +418,9 @@ export default function EnglishHomePage() {
                     className={goal === o.id ? styles.selected : ""}
                     aria-pressed={goal === o.id}
                   >
-                    <span className={styles.goalIcon}>{o.icon}</span>
+                    <span className={styles.goalIcon} aria-hidden="true">
+                      <o.icon fontSize="inherit" />
+                    </span>
                     <span>
                       <strong>{o.title}</strong>
                       <small>{o.description}</small>
@@ -468,7 +473,7 @@ export default function EnglishHomePage() {
 
           <div className={styles.serviceList}>
             {ordered.map((s) => {
-              const status = goal ? (s.support[goal] as Support) : "확인 필요";
+              const status = goal ? (s.support[goal] as Support) : null;
               const context = new URLSearchParams();
               if (audience) context.set("audience", audience);
               if (goal) context.set("goal", goal);
@@ -481,7 +486,13 @@ export default function EnglishHomePage() {
                   <img src={s.logo} alt="" />
                   <span>
                     <strong>{s.name}</strong>
-                    <small>{goal === "download" ? s.records : goals.find((x) => x.id === goal)?.title}</small>
+                    <small>
+                      {status === "확인 필요"
+                        ? "The official guide explains what this company allows."
+                        : goal === "download"
+                          ? s.records
+                          : goals.find((x) => x.id === goal)?.title}
+                    </small>
                   </span>
                   <span className={`${styles.status} ${styles[statusClass(status)]}`}>
                     {statusLabel(status)}
@@ -534,24 +545,26 @@ function rank(status: Support) {
   return { 지원: 0, "조건부 지원": 1, "확인 필요": 2, "지원하지 않음": 3 }[status];
 }
 
-function statusClass(status: Support) {
+function statusClass(status: Support | null) {
   return status === "지원"
     ? "supported"
     : status === "조건부 지원"
       ? "conditional"
       : status === "지원하지 않음"
         ? "unsupported"
-        : "checking";
+        : "guide";
 }
 
-function statusLabel(status: Support) {
+function statusLabel(status: Support | null) {
   return status === "지원"
     ? "Available"
     : status === "조건부 지원"
       ? "Partial records only"
       : status === "지원하지 않음"
         ? "Not supported"
-        : "Company verification required";
+        : status === "확인 필요"
+          ? "See official guide"
+          : "View guide";
 }
 
 function SafeGuide({ onStart, onBack }: { onStart: () => void; onBack: () => void }) {

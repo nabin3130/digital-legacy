@@ -25,7 +25,7 @@ function getStatusText(value: string) {
       return "불가";
 
     default:
-      return "확인 중";
+      return null;
   }
 }
 
@@ -41,8 +41,21 @@ function getStatusClass(value: string) {
       return "status-no";
 
     default:
-      return "status-checking";
+      return "";
   }
+}
+
+function PolicyMark({ value }: { value: string }) {
+  const text = getStatusText(value);
+  if (!text) {
+    return (
+      <span className="status-unknown" aria-label="공개된 안내 없음">
+        —
+      </span>
+    );
+  }
+
+  return <span className={`status ${getStatusClass(value)}`}>{text}</span>;
 }
 
 export default function Compare() {
@@ -77,63 +90,27 @@ export default function Compare() {
                   </th>
 
                   <td>
-                    <span
-                      className={`status ${getStatusClass(
-                        company.preDeathPlanning,
-                      )}`}
-                    >
-                      {getStatusText(company.preDeathPlanning)}
-                    </span>
+                    <PolicyMark value={company.preDeathPlanning} />
                   </td>
 
                   <td>
-                    <span
-                      className={`status ${getStatusClass(
-                        company.accountDeletion,
-                      )}`}
-                    >
-                      {getStatusText(company.accountDeletion)}
-                    </span>
+                    <PolicyMark value={company.accountDeletion} />
                   </td>
 
                   <td>
-                    <span
-                      className={`status ${getStatusClass(
-                        company.memorialAccount,
-                      )}`}
-                    >
-                      {getStatusText(company.memorialAccount)}
-                    </span>
+                    <PolicyMark value={company.memorialAccount} />
                   </td>
 
                   <td>
-                    <span
-                      className={`status ${getStatusClass(
-                        company.familyAccess,
-                      )}`}
-                    >
-                      {getStatusText(company.familyAccess)}
-                    </span>
+                    <PolicyMark value={company.familyAccess} />
                   </td>
 
                   <td>
-                    <span
-                      className={`status ${getStatusClass(
-                        company.dataDownload,
-                      )}`}
-                    >
-                      {getStatusText(company.dataDownload)}
-                    </span>
+                    <PolicyMark value={company.dataDownload} />
                   </td>
 
                   <td>
-                    <span
-                      className={`status ${getStatusClass(
-                        company.courtOrder,
-                      )}`}
-                    >
-                      {getStatusText(company.courtOrder)}
-                    </span>
+                    <PolicyMark value={company.courtOrder} />
                   </td>
 
                   <td className="compare-feature">{company.philosophy}</td>
@@ -157,10 +134,13 @@ export default function Compare() {
             불가
           </span>
           <span>
-            <i className="legend-dot legend-checking" />
-            확인 중
+            <i className="legend-dash" aria-hidden="true">—</i>
+            공개된 안내 없음
           </span>
         </div>
+        <p className="compare-note">
+          대시(—)는 공개된 공식 안내에서 기준을 확인하지 못한 항목입니다. 지원 여부를 단정하지 않습니다.
+        </p>
       </div>
     </main>
   );

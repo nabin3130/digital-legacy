@@ -16,7 +16,7 @@ function getStatusText(value: string) {
     case "no":
       return "Not supported";
     default:
-      return "Not confirmed";
+      return null;
   }
 }
 
@@ -29,8 +29,21 @@ function getStatusClass(value: string) {
     case "no":
       return "status-no";
     default:
-      return "status-checking";
+      return "";
   }
+}
+
+function PolicyMark({ value }: { value: string }) {
+  const text = getStatusText(value);
+  if (!text) {
+    return (
+      <span className="status-unknown" aria-label="Not stated in published guidance">
+        —
+      </span>
+    );
+  }
+
+  return <span className={`status ${getStatusClass(value)}`}>{text}</span>;
 }
 
 const philosophyEn: Record<string, string> = {
@@ -75,39 +88,27 @@ export default function EnglishComparePage() {
                   <th scope="row">{company.company}</th>
 
                   <td>
-                    <span className={`status ${getStatusClass(company.preDeathPlanning)}`}>
-                      {getStatusText(company.preDeathPlanning)}
-                    </span>
+                    <PolicyMark value={company.preDeathPlanning} />
                   </td>
 
                   <td>
-                    <span className={`status ${getStatusClass(company.accountDeletion)}`}>
-                      {getStatusText(company.accountDeletion)}
-                    </span>
+                    <PolicyMark value={company.accountDeletion} />
                   </td>
 
                   <td>
-                    <span className={`status ${getStatusClass(company.memorialAccount)}`}>
-                      {getStatusText(company.memorialAccount)}
-                    </span>
+                    <PolicyMark value={company.memorialAccount} />
                   </td>
 
                   <td>
-                    <span className={`status ${getStatusClass(company.familyAccess)}`}>
-                      {getStatusText(company.familyAccess)}
-                    </span>
+                    <PolicyMark value={company.familyAccess} />
                   </td>
 
                   <td>
-                    <span className={`status ${getStatusClass(company.dataDownload)}`}>
-                      {getStatusText(company.dataDownload)}
-                    </span>
+                    <PolicyMark value={company.dataDownload} />
                   </td>
 
                   <td>
-                    <span className={`status ${getStatusClass(company.courtOrder)}`}>
-                      {getStatusText(company.courtOrder)}
-                    </span>
+                    <PolicyMark value={company.courtOrder} />
                   </td>
 
                   <td className="compare-feature">
@@ -133,10 +134,13 @@ export default function EnglishComparePage() {
             Not supported
           </span>
           <span>
-            <i className="legend-dot legend-checking" />
-            Not confirmed
+            <i className="legend-dash" aria-hidden="true">—</i>
+            Not stated
           </span>
         </div>
+        <p className="compare-note">
+          A dash means published guidance does not state this option, so this guide does not mark it as supported or unsupported.
+        </p>
       </div>
     </main>
   );

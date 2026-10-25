@@ -87,3 +87,13 @@
 .progressSummary{padding:64px 0;background:#eaf2ee;border-top:1px solid #d1dbd5;border-bottom:1px solid #d1dbd5}.progressSummaryHead{display:flex;justify-content:space-between;align-items:center;gap:20px}.progressSummaryHead h2{margin:0;font-size:clamp(25px,3vw,34px);letter-spacing:-.04em}.progressSummaryHead span{color:#1f5a49;font-size:13px;font-weight:800;white-space:nowrap}.progressEntries{margin-top:26px;border-top:1px solid #becdc5}.progressEntries a{min-height:66px;padding:12px 6px;border-bottom:1px solid #cfdbd4;display:grid;grid-template-columns:26px 120px 1fr;align-items:center;gap:12px;color:#18211d;text-decoration:none}.progressEntries a>span{color:#1f5a49;font-weight:900}.progressEntries small{color:#65716b}.progressSummary .narrow>p:last-child{margin:14px 0 0;color:#74817b;font-size:12px}@media(max-width:640px){.progressEntries a{grid-template-columns:24px 1fr}.progressEntries small{grid-column:2}.progressSummaryHead{align-items:flex-start}.progressSummary{padding:48px 0}}
 @media(max-width:640px){.serviceRow{grid-template-columns:44px minmax(0,1fr);gap:12px}.serviceRow .status{grid-column:2;justify-self:start;margin-top:2px}.serviceRow small{line-height:1.45}.status{white-space:normal}.choiceList button,.goalList button,.serviceRow{min-height:72px}}
 @media(max-width:640px){.flowSection{padding:34px 0 58px}.flowSection .progress{padding-bottom:14px}.flowSection .back{margin:18px 0 26px}.flowSection .kicker{margin-bottom:10px}.flowSection h2{font-size:32px;line-height:1.25}.goalList{margin-top:24px}.goalList button{min-height:94px;padding:20px 8px;grid-template-columns:38px minmax(0,1fr);gap:14px}.goalList strong{font-size:16px}.goalList small{font-size:13px}.savedBar{padding:11px 14px}}
+
+/* Keep each designed headline line intact, including the final syllable and period. */
+.hero h1.heroTitle{font-size:clamp(32px,4.2vw,54px);letter-spacing:-.045em;word-break:keep-all;line-break:strict;text-wrap:pretty}
+.heroLine{display:block}
+.keepTogether{white-space:nowrap}
+.hero .heroContent>p:not(.kicker){word-break:keep-all;line-break:strict}
+@media(min-width:901px){.heroGrid{grid-template-columns:minmax(0,1.22fr) minmax(320px,.78fr);gap:56px}}
+.goalIcon{color:#1f5a49;font-size:20px}
+.goalIcon svg{display:block}
+.guide{background:#fff;color:#1f5a49;box-shadow:inset 0 0 0 1px #b7d0c6}
