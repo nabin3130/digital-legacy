@@ -5,7 +5,7 @@ import { SITE_DESCRIPTION_EN, SITE_TITLE_EN } from "@/lib/site";
 const shareImage = ogImage("en");
 
 export const metadata: Metadata = {
-  title: { default: SITE_TITLE_EN, template: "%s | LOGOUT" },
+  title: { absolute: SITE_TITLE_EN, template: "%s | LOGOUT" },
   description: SITE_DESCRIPTION_EN,
   keywords: ["digital legacy", "account deletion", "data download", "memorial account", "legacy contact"],
   alternates: {

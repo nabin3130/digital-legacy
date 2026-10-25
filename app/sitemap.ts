@@ -30,16 +30,20 @@ const STATIC_ROUTES: PublicRoute[] = [
   { path: "/privacy", changeFrequency: "yearly", priority: 0.3, lastModified: "2026-08-22" },
 ];
 
+function absolutePageUrl(path: string) {
+  return path === "/" ? SITE_URL : `${SITE_URL}${path}`;
+}
+
 function localizedEntries(koPath: string, changeFrequency: ChangeFrequency, priority: number, lastModified: string): MetadataRoute.Sitemap {
   const enPath = englishPath(koPath);
   const languages = {
-    "ko-KR": `${SITE_URL}${koPath}`,
-    en: `${SITE_URL}${enPath}`,
-    "x-default": `${SITE_URL}${koPath}`,
+    "ko-KR": absolutePageUrl(koPath),
+    en: absolutePageUrl(enPath),
+    "x-default": absolutePageUrl(koPath),
   };
 
   return [koPath, enPath].map((path) => ({
-    url: `${SITE_URL}${path}`,
+    url: absolutePageUrl(path),
     lastModified,
     changeFrequency,
     priority,

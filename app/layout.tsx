@@ -5,7 +5,6 @@ import "./redesign.css";
 import "./design-system.css";
 import Script from "next/script";
 import type { Metadata } from "next";
-import { headers } from "next/headers";
 import { ogImage } from "@/lib/seo";
 import { CONTACT_EMAIL, SITE_DESCRIPTION, SITE_KEYWORDS, SITE_TITLE_EN, SITE_TITLE_KO, SITE_URL } from "@/lib/site";
 import SiteHeader from "@/components/SiteHeader";
@@ -84,17 +83,19 @@ const structuredData = {
   ],
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const headerList = await headers();
-  const lang = headerList.get("x-locale") === "en" ? "en" : "ko";
-
   return (
-    <html lang={lang}>
+    <html lang="ko" suppressHydrationWarning>
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: 'document.documentElement.lang=location.pathname==="/en"||location.pathname.indexOf("/en/")===0?"en":"ko"',
+          }}
+        />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css" />
       </head>
       <body>
