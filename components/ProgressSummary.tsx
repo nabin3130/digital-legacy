@@ -23,21 +23,9 @@ export default function ProgressSummary({ locale = "ko" }: { locale?: "ko" | "en
           <h2 id="progress-summary-title">
             {isEnglish ? "Continue where you left off" : "확인한 안내를 이어서 볼 수 있어요"}
           </h2>
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <div className={styles.progressActions}>
             <span>{entries.length}{isEnglish ? " completed" : "개 완료"}</span>
-            <button
-              type="button"
-              onClick={clearAllProgress}
-              style={{
-                background: "none",
-                border: "1px solid rgba(255,255,255,0.2)",
-                borderRadius: "4px",
-                color: "var(--color-muted, #94a3b8)",
-                fontSize: "12px",
-                padding: "3px 8px",
-                cursor: "pointer",
-              }}
-            >
+            <button type="button" className={styles.clearProgress} onClick={clearAllProgress}>
               {isEnglish ? "Clear records" : "기록 삭제"}
             </button>
           </div>
