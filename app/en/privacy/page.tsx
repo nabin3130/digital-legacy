@@ -19,7 +19,7 @@ export default function EnglishPrivacyPage() {
           </p>
           <div className={styles.meta}>
             <span>Effective Date: 2026.08.22</span>
-            <span>Last Updated: 2026.08.22</span>
+            <span>Last Updated: 2026.10.25</span>
           </div>
         </header>
 
@@ -58,7 +58,7 @@ export default function EnglishPrivacyPage() {
             <h2>2. Retention and Deletion of Personal Information</h2>
             <ul>
               <li>
-                Inquiry emails and messages: Deleted within 30 days after answering and concluding follow-up. However, records may be retained if required by applicable laws or dispute resolution.
+                Inquiry emails and messages: Deleted within 30 days after answering and concluding follow-up. Inquiries stored in Supabase are deleted by the operator on the same schedule. Records may be retained longer if required by applicable laws or dispute resolution.
               </li>
               <li>
                 Browser storage data: Deleted when the user clears browser data or uses the ‘Clear progress’ feature in Logout.
@@ -71,9 +71,19 @@ export default function EnglishPrivacyPage() {
 
           <section>
             <h2>3. Third-Party Services</h2>
+            <h3>Supabase</h3>
+            <p>
+              When Supabase is configured, the email address and message from the contact form are stored in a Supabase database. Those records are not public and can be read only by the operator. Guide progress, checklists, passwords, account data, and identity documents are not stored in Supabase.
+            </p>
+            <p>
+              <a href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer">
+                Supabase Privacy Policy ↗
+              </a>
+            </p>
+
             <h3>FormSubmit</h3>
             <p>
-              Email addresses and inquiries entered in the contact form are delivered to the operator's email via FormSubmit. FormSubmit processes information necessary for security and email delivery. Please do not submit sensitive personal information, passwords, or official identification documents through the form.
+              The same inquiry is also delivered to the operator by email through FormSubmit. If Supabase is not configured, email delivery is the only path. FormSubmit processes information necessary for security and email delivery. Please do not submit sensitive personal information, passwords, or official identification documents through the form.
             </p>
             <p>
               <a href="https://formsubmit.co/privacy.pdf" target="_blank" rel="noopener noreferrer">
