@@ -39,10 +39,10 @@ const philosophyEn: Record<string, string> = {
   meta: "Memorialized accounts or complete profile deletion upon request.",
   facebook: "Memorialized accounts or complete profile deletion upon request.",
   x: "Account deactivation upon verified immediate family request.",
-  instagram: "Memorialized profile status or account removal upon family request.",
-  samsung: "Samsung Account deletion and device data wipe.",
+  instagram: "Legacy contact or delete-after-death, then memorialization or family removal.",
+  samsung: "Legacy Manager access code, with a request window of one year after death.",
   naver: "Public blog post backup and verified account withdrawal.",
-  kakao: "Memorial profile transition or permanent account closure.",
+  kakao: "Optional memorial-profile agent, or closure by immediate family. Chats are not shared.",
 };
 
 export default function EnglishComparePage() {
