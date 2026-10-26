@@ -1,3 +1,19 @@
+export type PolicyUpdate = {
+  date: string;
+  category: {
+    ko: string;
+    en: string;
+  };
+  title: {
+    ko: string;
+    en: string;
+  };
+  summary: {
+    ko: string;
+    en: string;
+  };
+};
+
 export const policyUpdates: PolicyUpdate[] = [
   {
     date: "2026-10-25",
@@ -60,4 +76,3 @@ export const policyUpdates: PolicyUpdate[] = [
     },
   },
 ];
-
