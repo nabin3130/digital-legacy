@@ -25,6 +25,10 @@ export const policyUpdates: PolicyUpdate[] = [
     summary: {
       ko: "Supabase가 설정된 경우 문의 이메일과 내용을 운영자만 볼 수 있는 테이블에 저장합니다. 안내 진행 기록은 계속 기기에만 남고, 계정 정보와 증빙서류는 수집하지 않습니다. Supabase가 없으면 기존처럼 이메일로 전달됩니다.",
       en: "When Supabase is configured, contact emails and messages are stored in a table only the operator can read. Guide progress stays on the device, and account data or identity documents are not collected. Without Supabase, inquiries are still delivered by email.",
+    },
+  },
+  {
+    date: "2026-10-25",
     category: { ko: "운영 정책", en: "Policy" },
     title: {
       ko: "공식 정책 링크 재확인",
@@ -72,4 +76,3 @@ export const policyUpdates: PolicyUpdate[] = [
     },
   },
 ];
-
