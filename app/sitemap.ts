@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { companies } from "@/lib/data";
 import { englishPath } from "@/lib/seo";
 import { SITE_URL } from "@/lib/site";
+import { getPublishedGuides, getGuideIndexUpdated } from "@/lib/guides";
 
 type ChangeFrequency = NonNullable<MetadataRoute.Sitemap[number]["changeFrequency"]>;
 
@@ -60,5 +61,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     localizedEntries(`/company/${company.slug}`, "monthly", 0.7, company.lastUpdated || "2026-08-22"),
   );
 
-  return [...staticEntries, ...companyEntries];
+  const guides = getPublishedGuides();
+  const guideEntries: MetadataRoute.Sitemap = [
+    { url: `${SITE_URL}/guides`, lastModified: getGuideIndexUpdated(guides), changeFrequency: "weekly", priority: 0.8 },
+    ...guides.map((guide) => ({ url: `${SITE_URL}/guides/${guide.slug}`, lastModified: guide.updated ?? guide.date, changeFrequency: "monthly" as const, priority: 0.7 })),
+  ];
+  return [...staticEntries, ...companyEntries, ...guideEntries];
 }

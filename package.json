@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test:guides": "node --experimental-strip-types --test tests/guides.test.mjs"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -15,9 +16,12 @@
     "@mui/material": "^9.2.0",
     "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.110.2",
+    "gray-matter": "^4.0.3",
     "next": "^15.2.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-markdown": "^10.1.0",
+    "remark": "^15.0.1"
   },
   "devDependencies": {
     "@types/node": "^22.13.0",

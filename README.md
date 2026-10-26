@@ -63,6 +63,37 @@ Connecting a custom domain is separate from this setup. When a domain is live, c
 
 The share image is `public/og/logout-share.png` (1200×630). Regenerate it with `python3 scripts/generate-og-image.py` after installing Pillow and the fonts noted in that script. Open Graph and Twitter image tags use an absolute URL on the site origin.
 
+## Repository guides (한국어)
+
+`/guides` lists published guides. `/guides/[slug]` renders Markdown and FAQ as static server HTML, with a table of contents, related guides and a `/#start` CTA. No CMS or external blog connection is used.
+
+### Add or update a guide
+
+1. Copy `docs/guide-template.md` to `content/guides/your-lowercase-slug.md`.
+2. Fill in YAML frontmatter: `title`, `description`, `date` (quoted `YYYY-MM-DD`); optional `updated`, `tags` (string array), `draft` (boolean), `faq` (array of `{ question, answer }`). Dates must be real calendar dates; `updated` cannot precede `date`.
+3. Start the body with a direct-answer paragraph of 2–4 sentences. Use `##` / `###` headings; the page supplies the only H1. Use standard Markdown links and lists, with a sources section and explicit conditions. Raw HTML and executable MDX are not supported.
+4. FAQ frontmatter renders the visible FAQ and the matching FAQPage data automatically. Do not duplicate that FAQ in the body. Long posts (at least three H2/H3 headings) get a table of contents.
+5. Keep `draft: true` while writing. Drafts are excluded in **all environments**, including direct detail URLs (404), related guides, sitemap, llms.txt and JSON-LD. There is no public draft preview. Set `draft: false` or omit it to publish; commit and rebuild.
+6. Run `npm ci`, `npm run test:guides`, `npx tsc --noEmit`, and `NEXT_PUBLIC_SITE_URL=https://logout.nabin.cc npm run build`. Local test runner requires Node 22.18+ or 24+; the Next.js app keeps its existing runtime requirements.
+
+For production HTML verification, run `NEXT_PUBLIC_SITE_URL=https://logout.nabin.cc npm run start -- --port 3091`, then `NEXT_PUBLIC_SITE_URL=https://logout.nabin.cc node scripts/check-guides.mjs http://localhost:3091`. The checks cover metadata, visible summary/FAQ, JSON-LD, sitemap, llms.txt, robots and unknown/draft 404s. A temporary `qa-draft.md` copied from the template was included during the verified build and removed afterward.
+
+The canonical production origin is `NEXT_PUBLIC_SITE_URL=https://logout.nabin.cc` (already configured on Vercel). Set it locally for build/start checks too. Existing `lib/site.ts` origin resolution remains unchanged; guides reuse `lib/seo.ts`, and `app/robots.ts` already allows crawling and points to the shared sitemap.
+
+`lib/guide-seo.ts` emits one page-level JSON-LD graph: WebPage/FAQPage, BlogPosting and BreadcrumbList (CollectionPage and ItemList on the index). It references the existing Organization/WebSite graph in the root layout; it adds no SearchAction or speculative HowTo schema. Structured FAQ content is the same text shown to readers. Search-engine display, citation, and rich results are not guaranteed.
+
+`app/llms.txt/route.ts` serves `/llms.txt`, using SITE_URL and only published guide URLs. `app/sitemap.ts` adds the index and published details with `updated ?? date` lastmod. Publishing dates describe the article, not a re-verification of every company policy.
+
+Sample slugs:
+
+- `before-managing-a-deceased-account`
+- `download-delete-memorial-differences`
+- `how-to-read-official-account-guidance`
+
+TODO: translate guides and add `/en/guides` parity. Until then, English navigation labels these links as Korean; switching language from a guide goes to `/en` rather than a missing translation. No fictitious English hreflang URLs are emitted.
+
+This feature adds no AdSense scripts, ad slots or ads.txt. The pre-existing global advertising script in `app/layout.tsx` is outside this change.
+
 ## Roadmap
 
 - [x] Supabase clients and contact inquiry storage
