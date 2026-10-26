@@ -18,6 +18,7 @@ export default function SiteFooter() {
             : "정책은 변경될 수 있습니다. 신청 전 공식 플랫폼 페이지를 반드시 확인하세요."}
         </p>
         <nav className="footer-links" aria-label={isEnglish ? "Policies" : "정책 메뉴"}>
+          <Link href="/guides">{isEnglish ? "Guides (한국어)" : "가이드"}</Link>
           <Link href={isEnglish ? "/en/about" : "/about"}>{isEnglish ? "About" : "이야기"}</Link>
           <Link href={isEnglish ? "/en/contact" : "/contact"}>{isEnglish ? "Contact" : "문의"}</Link>
           <Link href={isEnglish ? "/en/privacy" : "/privacy"}>

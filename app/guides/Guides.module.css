@@ -1,0 +1,44 @@
+.page { padding: 48px 24px 88px; color: #213c31; }
+.column { max-width: 760px; margin: 0 auto; min-width: 0; }
+.breadcrumb { display: flex; flex-wrap: wrap; gap: 8px; color: #52655c; font-size: 13px; line-height: 1.7; margin-bottom: 32px; }
+.breadcrumb a { display: inline-flex; min-height: 28px; align-items: center; }
+.header { padding-bottom: 24px; border-bottom: 1px solid #cdd8d1; }
+.eyebrow { color: #386650; font-size: 13px; font-weight: 700; }
+.header h1 { font-size: clamp(30px, 5vw, 44px); line-height: 1.4; letter-spacing: -.04em; margin: 12px 0 20px; word-break: keep-all; overflow-wrap: anywhere; }
+.header > p:last-child { line-height: 1.85; color: #485e52; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px 20px; color: #52655c; font-size: 13px; }
+.list { padding: 0; margin: 0; list-style: none; }
+.card { padding: 32px 0; border-bottom: 1px solid #cdd8d1; }
+.card h2 { font-size: 24px; line-height: 1.5; margin: 12px 0; word-break: keep-all; }
+.card p, .related p { color: #485e52; line-height: 1.8; }
+.tags { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; list-style: none; }
+.tags li { padding: 4px 10px; border-radius: 6px; background: #e7eee9; color: #386650; font-size: 12px; }
+.toc { margin: 28px 0; padding: 20px 24px; background: #edf2ee; border-radius: 12px; }
+.toc h2 { font-size: 17px; margin: 0 0 12px; }
+.toc ol { margin: 0; padding-left: 22px; }
+.toc li { padding: 5px 0; line-height: 1.7; }
+.subheading { margin-left: 16px; }
+.prose, .faq { line-height: 1.95; font-size: 17px; overflow-wrap: anywhere; word-break: keep-all; }
+.lead { font-size: 19px; color: #213c31; margin: 28px 0 36px; line-height: 1.95; word-break: keep-all; overflow-wrap: anywhere; }
+.prose h2, .faq h2, .related h2 { font-size: 25px; line-height: 1.5; margin: 40px 0 16px; }
+.prose h3, .faq h3 { font-size: 20px; line-height: 1.65; margin: 24px 0 8px; }
+.prose p, .faq p { color: #354f41; margin: 12px 0; }
+.prose ul, .prose ol { padding-left: 24px; }
+.prose li { margin: 10px 0; }
+.prose img { max-width: 100%; height: auto; }
+.prose pre { overflow-x: auto; padding: 16px; background: #edf2ee; border-radius: 8px; }
+.prose blockquote { border-left: 3px solid #749a83; margin: 24px 0; padding-left: 20px; }
+.prose h2, .prose h3, .faq, .related { scroll-margin-top: 100px; }
+.page a { color: #1f5a49; text-underline-offset: 4px; }
+.page a:hover { text-decoration: underline; }
+.prose a, .breadcrumb a, .toc a, .related a { text-decoration: underline; }
+.page a:focus-visible { outline: 3px solid #1f5a49; outline-offset: 4px; border-radius: 2px; }
+.notice { padding: 20px 0; border-top: 1px solid #cdd8d1; color: #52655c; font-size: 14px; line-height: 1.8; margin-top: 36px; }
+.cta { padding: 28px; margin: 40px 0; border: 1px solid #cdd8d1; border-radius: 12px; background: #edf2ee; }
+.cta h2 { font-size: 22px; line-height: 1.55; margin: 0 0 12px; }
+.cta p { line-height: 1.8; color: #485e52; }
+.cta a { display: inline-flex; align-items: center; min-height: 44px; padding: 10px 18px; color: #fff; background: #1f5a49; border-radius: 8px; text-decoration: none; }
+.related ul { padding-left: 22px; }
+.related li { margin: 20px 0; line-height: 1.7; }
+.related p { margin: 8px 0; font-size: 15px; }
+@media (max-width: 640px) { .page { padding: 28px 20px 60px; } .prose, .faq { font-size: 16px; } .lead { font-size: 18px; } .toc, .cta { padding: 20px; } .breadcrumb { margin-bottom: 24px; } }

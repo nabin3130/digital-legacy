@@ -5,6 +5,8 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 function localizedPath(pathname: string, locale: "ko" | "en") {
+  // No English guide routes exist yet. Avoid linking to a missing translation.
+  if (locale === "en" && (pathname === "/guides" || pathname.startsWith("/guides/"))) return "/en";
   const base = pathname.replace(/^\/en(?=\/|$)/, "") || "/";
   return locale === "en" ? (base === "/" ? "/en" : `/en${base}`) : base;
 }
@@ -70,6 +72,9 @@ export default function SiteHeader() {
           </Link>
           <Link href={preparePath} onClick={close} aria-current={pathname === preparePath || pathname.startsWith(`${preparePath}/`) ? "page" : undefined}>
             {isEnglish ? "Documents" : "준비서류"}
+          </Link>
+          <Link href="/guides" onClick={close} aria-current={pathname === "/guides" || pathname.startsWith("/guides/") ? "page" : undefined}>
+            {isEnglish ? "Guides (한국어)" : "가이드"}
           </Link>
           <div className="language-menu" ref={languageRef}>
             <button
