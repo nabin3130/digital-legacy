@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import styles from "@/app/PolicyPages.module.css";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy",
-  description: "Learn about Logout’s privacy practices, data protection principles, and user rights.",
-  alternates: { canonical: "/en/privacy" },
-};
+export const metadata: Metadata = pageMetadata({
+  locale: "en",
+  koPath: "/privacy",
+  title: "Privacy policy",
+  description: "How Logout handles personal information, how long inquiry records are kept, and how to request access or deletion.",
+});
 
 export default function EnglishPrivacyPage() {
   return (

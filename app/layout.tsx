@@ -3,32 +3,48 @@ import "./brand.css";
 import "./navigation.css";
 import "./redesign.css";
 import "./design-system.css";
+import "./a11y.css";
 import Script from "next/script"; // 👈 추가된 부분
 import type { Metadata } from "next";
-import { SITE_DESCRIPTION, SITE_KEYWORDS, SITE_URL } from "@/lib/site";
+import { ogImage } from "@/lib/seo";
+import { CONTACT_EMAIL, SITE_DESCRIPTION, SITE_KEYWORDS, SITE_TITLE_EN, SITE_TITLE_KO, SITE_URL } from "@/lib/site";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import DocumentLanguage from "@/components/DocumentLanguage";
+
+const shareImage = ogImage("ko");
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "로그아웃 – 디지털 유산 안내",
+    default: SITE_TITLE_KO,
     template: "%s | 로그아웃",
   },
   description: SITE_DESCRIPTION,
   keywords: [...SITE_KEYWORDS],
+  alternates: {
+    canonical: "/",
+    languages: {
+      "ko-KR": "/",
+      en: "/en",
+      "x-default": "/",
+    },
+  },
   openGraph: {
     type: "website",
     locale: "ko_KR",
+    alternateLocale: ["en_US"],
     url: "/",
     siteName: "로그아웃",
-    title: "로그아웃 – 디지털 유산 안내",
+    title: SITE_TITLE_KO,
     description: SITE_DESCRIPTION,
+    images: [shareImage],
   },
   twitter: {
-    card: "summary",
-    title: "로그아웃 – 디지털 유산 안내",
+    card: "summary_large_image",
+    title: SITE_TITLE_KO,
     description: SITE_DESCRIPTION,
+    images: [shareImage.url],
   },
   robots: {
     index: true,
@@ -50,16 +66,20 @@ const structuredData = {
       "@type": "Organization",
       "@id": `${SITE_URL}/#organization`,
       name: "로그아웃",
+      alternateName: "LOGOUT",
       url: SITE_URL,
-      email: "kimnabin01@gmail.com",
+      email: CONTACT_EMAIL,
+      description: SITE_DESCRIPTION,
+      image: shareImage.url,
     },
     {
       "@type": "WebSite",
       "@id": `${SITE_URL}/#website`,
       url: SITE_URL,
       name: "로그아웃",
+      alternateName: ["LOGOUT", SITE_TITLE_EN],
       description: SITE_DESCRIPTION,
-      inLanguage: "ko-KR",
+      inLanguage: ["ko-KR", "en"],
       publisher: { "@id": `${SITE_URL}/#organization` },
     },
   ],
@@ -71,11 +91,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ko">
+    <html lang="ko" suppressHydrationWarning>
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: 'document.documentElement.lang=location.pathname==="/en"||location.pathname.indexOf("/en/")===0?"en":"ko"',
+          }}
+        />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css" />
       </head>
       <body>
+        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.lang=location.pathname===\"/en\"||location.pathname.indexOf(\"/en/\")===0?\"en\":\"ko\";" }} />
+        <DocumentLanguage />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
         {/* 구글 애드센스 자동 광고/인증 스크립트 */}
         <Script
@@ -87,7 +114,9 @@ export default function RootLayout({
 
         <SiteHeader />
 
-        {children}
+        <div id="main-content" tabIndex={-1}>
+          {children}
+        </div>
 
         <SiteFooter />
       </body>

@@ -211,7 +211,7 @@ export const companyEnglish: Record<string, EnglishCompany> = {
         linkLabel: "Open Inactive Account Manager",
         sections: [
           ["What you can configure", [
-            "Inactivity waiting period (e.g., 3, 6, 12, or 18 months of no Google activity).",
+            "How long the account must stay inactive before the plan runs. You choose that period on the Inactive Account Manager page.",
             "Alert phone number and email addresses before the timeout triggers.",
             "Up to 10 trusted contacts who will be notified and given download access.",
             "Specific Google services and data categories shared with each contact.",
@@ -389,8 +389,8 @@ export const companyEnglish: Record<string, EnglishCompany> = {
         title: "Memorialize the account",
         description: "Ask Facebook to secure the profile as a memorial space for friends and family.",
         guidance: "Submit the official memorialization form with a link to an obituary, memorial card, news article, or death certificate.",
-        link: "https://www.facebook.com/help/contact/234739086860192?locale=en_US",
-        linkLabel: "Request memorialization form",
+        link: "https://www.facebook.com/help/requestmemorialization?locale=en_US",
+        linkLabel: "Open Facebook’s memorialization request guide",
         sections: [
           ["What happens to a memorialized account?", [
             "The word 'Remembering' is displayed next to the person's name.",
@@ -432,9 +432,9 @@ export const companyEnglish: Record<string, EnglishCompany> = {
     name: "Instagram",
     policyTitle: "Memorialized Account",
     policySubtitle: "Account Protection & Removal",
-    description: "Instagram protects the account of a deceased person in a memorialized state upon valid report. Verified immediate family can also request permanent deletion.",
+    description: "Instagram memorializes a profile after a valid request. You can name a legacy contact in advance, or choose Delete After Death. Verified immediate family can also request permanent removal. The official help articles below are available in English.",
     button: "View Instagram’s official policy",
-    policyLink: "https://www.facebook.com/help/instagram/264154560391256",
+    policyLink: "https://www.facebook.com/help/instagram/264154560391256?locale=en_US",
     services: ["Instagram Profile", "Posts & Reels", "Stories & Highlights", "Direct Messages"],
     mine: [
       {
@@ -444,6 +444,22 @@ export const companyEnglish: Record<string, EnglishCompany> = {
         guidance: "In Accounts Center, select 'Your information and permissions' > 'Download your information' and pick your Instagram profile.",
         link: "https://help.instagram.com/181231772500920?locale=en_US",
         linkLabel: "Instagram download guide"
+      },
+      {
+        id: "legacy",
+        title: "Choose a legacy contact or delete after death",
+        description: "Decide whether a memorialized profile should be managed or removed.",
+        guidance: "In Accounts Center, open Memorialization for your profile. Add a legacy contact, or choose Delete After Death. Menus may appear under Accounts Center or Meta Account settings.",
+        link: "https://www.facebook.com/help/instagram/1401340471077706?locale=en_US",
+        linkLabel: "Add an Instagram legacy contact",
+        sections: [
+          ["How to set it up", [
+            "Click More at the bottom left, then Settings, then Accounts Center.",
+            "Open Personal details > Account ownership and control > Memorialization.",
+            "Select the profile and follow the on-screen steps.",
+            "Choose Delete After Death if you do not want the profile kept online. Removing that choice requires selecting a legacy contact."
+          ]]
+        ]
       },
       {
         id: "delete",
@@ -460,8 +476,8 @@ export const companyEnglish: Record<string, EnglishCompany> = {
         title: "Memorialize the Instagram account",
         description: "Secure the account as a memorial space. The word 'Remembering' will be added to the profile.",
         guidance: "Submit Instagram’s memorialization report with proof of death (obituary link, news article, or death certificate).",
-        link: "https://help.instagram.com/contact/452224988254888",
-        linkLabel: "Instagram memorialization form",
+        link: "https://www.facebook.com/help/instagram/264154560391256?locale=en_US",
+        linkLabel: "Report a deceased person’s Instagram profile",
         sections: [
           ["Key facts", [
             "No one can log into a memorialized Instagram account.",
@@ -474,13 +490,14 @@ export const companyEnglish: Record<string, EnglishCompany> = {
         id: "remove",
         title: "Request account removal",
         description: "Immediate family members or authorized estate representatives can request permanent deletion.",
-        guidance: "Submit Instagram’s deceased user removal form with birth/marriage certificates and official death certificate.",
-        link: "https://help.instagram.com/contact/147960058699269",
-        linkLabel: "Instagram removal request form",
+        guidance: "Verified immediate family can request removal from the same deceased-profile article. Instagram asks for the deceased person’s birth certificate, death certificate, or proof that you are the lawful representative of the person or the estate.",
+        link: "https://www.facebook.com/help/instagram/264154560391256?locale=en_US",
+        linkLabel: "Instagram removal request guide",
         sections: [
           ["Required verification", [
-            "Deceased person's full name, username, and proof of death.",
-            "Proof of your authority: birth certificate, marriage certificate, or legal estate appointment."
+            "The deceased person’s birth certificate.",
+            "The deceased person’s death certificate.",
+            "Or proof of authority under local law that you represent the deceased person or the estate."
           ]]
         ]
       }
@@ -490,7 +507,7 @@ export const companyEnglish: Record<string, EnglishCompany> = {
     name: "Samsung",
     policyTitle: "Digital Legacy",
     policySubtitle: "Legacy Manager",
-    description: "Samsung enables users to designate a Legacy Manager and issue an access code in advance. Approved managers gain access to selected data for up to 1 year after approval.",
+    description: "Samsung lets you designate a Legacy Manager and share an access code, or choose later deletion. A request needs that code and must be made within one year of the death. Eligible Samsung Cloud data can be downloaded for up to one year from the request date.",
     button: "View Samsung’s official policy",
     policyLink: "https://digital-legacy.samsung.com/",
     services: ["Samsung Account", "Samsung Cloud", "Contacts", "Samsung Notes", "Calendar", "Voice Recorder", "Reminders"],
@@ -499,18 +516,21 @@ export const companyEnglish: Record<string, EnglishCompany> = {
         id: "manager",
         title: "Designate a Legacy Manager",
         description: "Choose a manager and securely share the generated access code.",
-        guidance: "Visit Samsung Digital Legacy settings, select a contact, choose which data categories to share, and securely save the access code.",
+        guidance: "On a Galaxy phone with One UI 7.0 or later, open Settings > Samsung Account > Security and privacy > Digital Legacy. Share the access code with the manager.",
         link: "https://digital-legacy.samsung.com/",
         linkLabel: "Open Samsung Digital Legacy",
         sections: [
           ["How to set up", [
-            "Go to digital-legacy.samsung.com and sign in with your Samsung Account.",
-            "Designate a Legacy Manager and select accessible data types (Contacts, Notes, Calendar, Voice Recordings).",
-            "Download and safely deliver the generated Access Code to your manager."
+            "Use a Galaxy phone with One UI 7.0 or later and a Samsung Account.",
+            "Go to Settings > Samsung Account > Security and privacy > Digital Legacy.",
+            "Add a Legacy Manager and share the access code."
           ]],
-          ["Important notes", [
-            "Gallery photos and third-party app data are currently not transferable.",
-            "The Legacy Manager will need both the Access Code and official death verification."
+          ["What a manager can receive", [
+            "Contacts, call history, voice recordings, Samsung Notes, calendar events, and reminders stored in Samsung Cloud."
+          ]],
+          ["What is not included", [
+            "Photos and videos stored only on the phone, not in Samsung Cloud.",
+            "Samsung Wallet and Samsung Health, even when stored in Samsung Cloud."
           ]]
         ]
       },
@@ -536,24 +556,25 @@ export const companyEnglish: Record<string, EnglishCompany> = {
         id: "code",
         title: "I have the Samsung access code",
         description: "Use the access code and death certificate to request eligible legacy data.",
-        guidance: "Visit Samsung Digital Legacy, enter the code, upload the required documentation, and download the data once approved.",
+        guidance: "On digital-legacy.samsung.com, enter the access code and upload a death certificate, postmortem examination certificate, or basic certificate issued in Korea.",
         link: "https://digital-legacy.samsung.com/",
         linkLabel: "Start Samsung Legacy Request",
         sections: [
           ["How it works", [
-            "Enter the Access Code on digital-legacy.samsung.com.",
-            "Upload government-issued death certificate and identification.",
-            "Once approved, you will have 1 year of access to view and download eligible data."
+            "The request must be made within one year of the death, and the applicant must be at least 14.",
+            "Enter the access code and upload a death certificate, postmortem examination certificate, or basic certificate issued in Korea.",
+            "Downloading the data requires a Galaxy phone with One UI 7.0 or later.",
+            "Eligible data can be downloaded for up to one year from the request date. The legacy account is deleted one year after it is created."
           ]]
         ]
       },
       {
         id: "no-code",
         title: "I do not have an access code",
-        description: "Check alternative support options for family members without a code.",
-        guidance: "Contact Samsung Support with legal inheritance documents to inquire about regional account closure options.",
-        link: "https://www.samsung.com/us/support/contact/",
-        linkLabel: "Contact Samsung Support"
+        description: "Samsung does not approve a Digital Legacy request without the access code.",
+        guidance: "The Digital Legacy site says a request cannot be approved without the access code. A separate family account-closure path without a code was not found there.",
+        link: "https://digital-legacy.samsung.com/",
+        linkLabel: "Read Samsung Digital Legacy requirements"
       }
     ]
   },
@@ -561,7 +582,7 @@ export const companyEnglish: Record<string, EnglishCompany> = {
     name: "Naver",
     policyTitle: "Digital Legacy Policy",
     policySubtitle: "Public Content Backup & Withdrawal",
-    description: "Naver strictly protects user privacy and does not transfer private data or login credentials to family members. Requests for public post backups or account withdrawal follow a dedicated legal review.",
+    description: "Naver does not give family members the ID, password, or private data. If the family knows the ID, Naver can review withdrawal, a check of inheritable Naver Pay points and money, and a backup of content that is public without login. The help article is published in Korean.",
     button: "View Naver Help",
     policyLink: "https://help.naver.com/service/5640/contents/17441?lang=en",
     services: ["Naver Blog", "Naver Cafe", "BAND", "MYBOX", "Naver Mail", "Naver Pay"],
@@ -571,8 +592,8 @@ export const companyEnglish: Record<string, EnglishCompany> = {
         title: "Organize or download my Naver data",
         description: "Review backup and export options within each individual Naver service.",
         guidance: "Back up public blog posts, save MYBOX files, and export important emails before closing your account.",
-        link: "https://help.naver.com/?lang=en",
-        linkLabel: "Open Naver Help"
+        link: "https://help.naver.com/service/30016/contents/25017?lang=ko",
+        linkLabel: "Naver data management guide (Korean)"
       },
       {
         id: "delete",
@@ -633,18 +654,36 @@ export const companyEnglish: Record<string, EnglishCompany> = {
     name: "Kakao",
     policyTitle: "Digital Legacy Policy",
     policySubtitle: "Memorial Profile & Paid Balance Refunds",
-    description: "Kakao protects communication privacy and does not provide chat logs. It offers Memorial Profiles for KakaoTalk, public post backups, and refunds for eligible unused paid balances.",
-    button: "Visit Kakao Help",
-    policyLink: "https://cs.kakao.com/?locale=en",
+    description: "Kakao does not give heirs login access. Immediate family can request account closure, and public-post backup may be offered within limits Kakao sets. KakaoTalk memorial profiles last 5 years, or up to 10 years if extended. These official articles are published in Korean.",
+    button: "View Kakao’s official policy",
+    policyLink: "https://cs.kakao.com/helps_html/1073206088?locale=ko",
     services: ["KakaoTalk", "Kakao Account", "KakaoStory", "Daum", "Brunch Story", "Kakao Pay"],
     mine: [
+      {
+        id: "memorial-setting",
+        title: "Choose what happens to KakaoTalk",
+        description: "Decide in advance whether your profile can become a memorial profile.",
+        guidance: "In KakaoTalk, open More > Settings > Privacy and security > Memorial profile settings. You can keep a memorial profile and name one friend as the agent, or block conversion. The setting is kept for 10 years.",
+        link: "https://cs.kakao.com/helps_html/1073209599?locale=ko",
+        linkLabel: "KakaoTalk memorial profile settings (Korean)",
+        sections: [
+          ["If you keep a memorial profile", [
+            "Name one friend as the agent. After your death, that person can request conversion with proof of death only.",
+            "The agent can edit the profile photo, background, and status message for 49 days, and can read a last letter if you write one.",
+            "An agent cannot refund balances or close the Kakao Account."
+          ]],
+          ["If you block it", [
+            "Family cannot convert the profile later. Kakao tells them about the choice you recorded."
+          ]]
+        ]
+      },
       {
         id: "download",
         title: "Organize or download my Kakao data",
         description: "Export eligible content from Daum, Brunch Story, and KakaoTalk before withdrawal.",
         guidance: "Back up important writings, photos, and chat media through each service's built-in export features.",
-        link: "https://cs.kakao.com/?locale=en",
-        linkLabel: "Kakao Help Center"
+        link: "https://privacy.kakao.com/main?lang=ko",
+        linkLabel: "Open Kakao Privacy (Korean)"
       },
       {
         id: "delete",
@@ -660,36 +699,36 @@ export const companyEnglish: Record<string, EnglishCompany> = {
         id: "memorial",
         title: "Convert to KakaoTalk Memorial Profile",
         description: "Convert the deceased person's KakaoTalk profile into a memorial space for friends.",
-        guidance: "Family members can submit a request with a death certificate to convert the profile. The profile will display a memorial badge, and direct chats cannot be sent.",
-        link: "https://cs.kakao.com/?locale=en",
-        linkLabel: "Kakao Memorial Profile Guide",
+        guidance: "If a memorial-profile agent was named in advance, that person submits proof of death in KakaoTalk under More > Settings > Friends > Manage remembered friends. Immediate family without an agent use the deceased-account closure request and can choose memorial-profile conversion there.",
+        link: "https://cs.kakao.com/helps_html/1073209596?locale=ko",
+        linkLabel: "How to request a KakaoTalk memorial profile (Korean)",
         sections: [
-          ["Memorial Profile features", [
-            "The profile displays '(Remembering)' next to the name.",
-            "Prevents unauthorized phone number reassignment or account hijacking.",
-            "Chat history and private messages are strictly protected and never disclosed."
+          ["What changes", [
+            "Nobody can sign in, send or receive messages, or use KakaoTalk on PC or tablet.",
+            "Friends see a chrysanthemum icon and the label for a remembered friend. One-to-one chats can be used to leave a message only the sender can read.",
+            "A memorial profile lasts 5 years by default and up to 10 years if an extension is requested, then the account is withdrawn."
           ]],
-          ["Required documents", [
-            "Official death certificate.",
-            "Family relation certificate showing relationship."
+          ["Who can apply", [
+            "A pre-designated agent needs proof of death only. That path does not refund balances or close the Kakao Account.",
+            "Immediate family submit the closure request form, carrier proof, a family relation certificate showing the death, and a masked copy of the applicant’s ID. They can also ask about refundable balances."
           ]]
         ]
       },
       {
         id: "delete",
         title: "Request account deletion",
-        description: "Request termination and deletion of the deceased user's Kakao Account.",
-        guidance: "Submit death and family relation verification documents to Kakao Customer Support.",
-        link: "https://cs.kakao.com/?locale=en",
-        linkLabel: "Kakao Account Deletion Request"
+        description: "Request closure when the family knows the deceased person’s Kakao Account details.",
+        guidance: "Kakao does not provide the account or its data to the family. Closure is available when the family knows the account and submits the documents listed in the help article.",
+        link: "https://cs.kakao.com/helps_html/1073209974?locale=ko",
+        linkLabel: "Kakao deceased-account closure guide (Korean)"
       },
       {
         id: "balance",
-        title: "Inquire about paid balances and unused mobile gifts",
-        description: "Request refunds for eligible paid prepaid balances or unused mobile coupons.",
-        guidance: "Contact Kakao Customer Service with inheritance documents to check eligibility for financial refunds.",
-        link: "https://cs.kakao.com/?locale=en",
-        linkLabel: "Kakao Support Channel"
+        title: "Inquire about refundable balances",
+        description: "Ask about balances with economic value when requesting account closure.",
+        guidance: "Kakao’s digital-legacy policy allows information with economic value to be provided under the relevant terms and law. The closure form includes an optional refund request. An agent-only memorial conversion does not include a refund.",
+        link: "https://cs.kakao.com/helps_html/1073206088?locale=ko",
+        linkLabel: "Kakao digital legacy policy (Korean)"
       }
     ]
   },

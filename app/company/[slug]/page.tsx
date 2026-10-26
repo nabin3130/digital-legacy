@@ -9,6 +9,7 @@ import CompanyAccountFlow from "@/components/CompanyAccountFlow";
 import { companies } from "@/lib/data";
 import { xApplicationSteps } from "@/lib/x-guidance";
 import { getCompanySteps } from "@/lib/company-guidance";
+import { companyMetadata } from "@/lib/seo";
 
 type CompanyPageProps = {
   params: Promise<{
@@ -21,22 +22,9 @@ export async function generateMetadata({ params }: CompanyPageProps): Promise<Me
   const canonicalSlug = slug === "facebook" ? "meta" : slug;
   const company = companies.find((item) => item.slug === canonicalSlug);
 
-  if (!company) return {};
+  if (!company) return { robots: { index: false, follow: false } };
 
-  const title = `${company.company} 디지털 유산 정책`;
-  const description = company.policyDescription || company.summary;
-
-  return {
-    title,
-    description,
-    alternates: { canonical: `/company/${canonicalSlug}` },
-    openGraph: {
-      type: "article",
-      url: `/company/${canonicalSlug}`,
-      title,
-      description,
-    },
-  };
+  return companyMetadata("ko", canonicalSlug, company.policyDescription || company.summary);
 }
 
 export default async function CompanyPage({

@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import styles from "../PolicyPages.module.css";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  locale: "ko",
+  koPath: "/privacy",
   title: "개인정보처리방침",
-  description: "로그아웃 서비스의 개인정보 처리 기준과 이용자 권리를 안내합니다.",
-  alternates: { canonical: "/privacy" },
-};
+  description: "로그아웃이 처리하는 개인정보, 보관 기간, 그리고 열람·삭제 요청 방법을 안내합니다.",
+});
 
 export default function PrivacyPage() {
   return <main className={styles.page}><div className="container">

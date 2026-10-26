@@ -1,8 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import styles from "@/app/about/About.module.css";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "About", description: "The story and purpose behind the Logout digital legacy project.", alternates: { canonical: "/en/about" } };
+export const metadata: Metadata = pageMetadata({
+  locale: "en",
+  koPath: "/about",
+  title: "About",
+  description: "The story behind Logout, a project that gathers scattered digital legacy policies so the next step is easier to find.",
+});
 
 export default function EnglishAboutPage() {
   return <main className={styles.page}><article className={styles.article}>

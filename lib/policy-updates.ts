@@ -25,6 +25,14 @@ export const policyUpdates: PolicyUpdate[] = [
     summary: {
       ko: "Supabase가 설정된 경우 문의 이메일과 내용을 운영자만 볼 수 있는 테이블에 저장합니다. 안내 진행 기록은 계속 기기에만 남고, 계정 정보와 증빙서류는 수집하지 않습니다. Supabase가 없으면 기존처럼 이메일로 전달됩니다.",
       en: "When Supabase is configured, contact emails and messages are stored in a table only the operator can read. Guide progress stays on the device, and account data or identity documents are not collected. Without Supabase, inquiries are still delivered by email.",
+    category: { ko: "운영 정책", en: "Policy" },
+    title: {
+      ko: "공식 정책 링크 재확인",
+      en: "Official policy links reviewed",
+    },
+    summary: {
+      ko: "카카오 추모 프로필·디지털 유산 도움말, 삼성 디지털 유산의 신청 기한과 접근 코드 요건, 인스타그램 기념 계정 관리자 안내를 현재 공식 페이지에 맞췄습니다. 애플, 구글, 페이스북, 네이버의 기존 핵심 링크는 열리며 내용이 맞는지 확인했습니다. X 도움말은 자동 조회가 거절되어 주소를 바꾸지 않았습니다.",
+      en: "Updated Kakao memorial-profile and digital-legacy articles, Samsung’s one-year request window and access-code requirement, and Instagram legacy-contact guidance to the current official pages. Core Apple, Google, Facebook, and Naver links still open and match those pages. X Help rejected automated checks, so those URLs were left unchanged.",
     },
   },
   {

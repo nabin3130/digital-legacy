@@ -75,7 +75,7 @@ export const companies: CompanyPolicy[] = [
     policyTitle: "추모 계정",
     policySubtitle: "Memorialized Account",
     policyDescription: "Facebook은 사망한 사용자의 프로필을 추모 계정으로 전환하며, 생전에 지정한 유산 관리자가 제한된 범위에서 프로필을 관리할 수 있습니다.",
-    policyLink: "https://www.facebook.com/help/103897939701143/",
+    policyLink: "https://www.facebook.com/help/103897939701143/?locale=ko_KR",
     policyButton: "Facebook 공식 정책 보기",
     philosophy: "계정을 삭제하지 않고 고인의 온라인 흔적을 보존하는 선택지를 제공합니다.",
     preDeathPlanning: "yes",
@@ -94,7 +94,7 @@ export const companies: CompanyPolicy[] = [
       { label: "사망자 계정 삭제 요청", url: "https://www.facebook.com/help/1518259735093203/?locale=ko_KR" },
       { label: "추모 계정 전환 요청", url: "https://www.facebook.com/help/requestmemorialization?locale=ko_KR" }
     ],
-    lastUpdated: "2026-08-22"
+    lastUpdated: "2026-10-25"
   },
   {
     id: "instagram",
@@ -102,30 +102,32 @@ export const companies: CompanyPolicy[] = [
     company: "Instagram",
     platform: "Instagram",
     category: "소셜미디어",
-    summary: "기념 계정을 지원하지만 Facebook과 정책 범위가 다릅니다.",
+    summary: "생전에 기념 계정 관리자 또는 사후 삭제를 고를 수 있고, 사망 후에는 기념 계정 전환이나 직계가족의 삭제 요청이 가능합니다.",
     services: ["Instagram", "Instagram Direct"],
     policyTitle: "추모 계정",
     policySubtitle: "Memorialized Account",
-    policyDescription: "Instagram은 유효한 사망 신고를 받으면 계정을 추모 상태로 보호하며, 직계가족은 증빙서류를 제출해 계정 삭제를 요청할 수 있습니다.",
-    policyLink: "https://www.facebook.com/help/instagram/264154560391256",
+    policyDescription: "Instagram은 유효한 요청을 받으면 프로필을 기념 계정으로 전환합니다. 이용자는 생전에 기념 계정 관리자를 지정하거나 사후 계정 삭제를 선택할 수 있고, 직계가족은 증빙을 제출해 삭제를 요청할 수 있습니다.",
+    policyLink: "https://www.facebook.com/help/instagram/264154560391256?locale=ko_KR",
     policyButton: "Instagram 공식 정책 보기",
     philosophy: "계정 보존과 오용 방지에 초점을 둡니다.",
-    preDeathPlanning: "unknown",
+    preDeathPlanning: "yes",
     accountDeletion: "yes",
     memorialAccount: "yes",
     dataDownload: "yes",
     familyAccess: "no",
     courtOrder: "unknown",
-    requiredDocs: ["추가 확인 중"],
-    available: ["기념 계정 전환"],
-    unavailable: ["추가 확인 중"],
-    limitations: ["Facebook 정책과 동일하다고 가정하면 안 됩니다."],
+    requiredDocs: ["기념 계정 요청: 부고나 기사 등 사망 증빙", "삭제 요청: 출생증명서, 사망증명서 또는 법적 권한 증빙"],
+    available: ["기념 계정 전환", "생전 기념 계정 관리자 지정", "사후 계정 삭제 선택"],
+    unavailable: ["로그인 정보", "기념 계정 관리자가 없는 프로필의 사진·댓글·공개 범위 변경"],
+    limitations: ["Facebook과 같은 절차라고 보면 안 됩니다.", "기념 계정에는 로그인할 수 없습니다.", "메뉴 위치는 계정 센터 또는 Meta 계정 설정으로 바뀔 수 있습니다."],
     officialLinks: [
       { label: "인스타그램 데이터 다운로드", url: "https://help.instagram.com/181231772500920?locale=ko_KR" },
       { label: "인스타그램 계정 삭제", url: "https://help.instagram.com/139886812848894?locale=ko_KR" },
-      { label: "사망자·추모 계정 안내", url: "https://www.facebook.com/help/264154560391256/?locale=ko_KR" }
+      { label: "사망자 프로필 신고", url: "https://www.facebook.com/help/instagram/264154560391256?locale=ko_KR" },
+      { label: "기념 계정 안내", url: "https://help.instagram.com/231764660354188?locale=ko_KR" },
+      { label: "기념 계정 관리자 지정", url: "https://www.facebook.com/help/instagram/1401340471077706?locale=ko_KR" }
     ],
-    lastUpdated: "2026-08-22"
+    lastUpdated: "2026-10-25"
   },
   {
     id: "samsung",
@@ -133,11 +135,11 @@ export const companies: CompanyPolicy[] = [
     company: "Samsung",
     platform: "Samsung Account / Cloud",
     category: "디바이스·클라우드",
-    summary: "Legacy Manager 지정 후 승인되면 제한된 데이터에 1년간 접근할 수 있습니다.",
+    summary: "접근 코드가 있는 유산 관리자가 사망일로부터 1년 이내에 요청하면, 신청일부터 최대 1년간 제한된 삼성 클라우드 데이터를 내려받을 수 있습니다.",
     services: ["Samsung Account", "Samsung Cloud", "연락처", "Samsung Notes", "캘린더", "리마인더", "음성 녹음"],
     policyTitle: "디지털 유산",
     policySubtitle: "Digital Legacy",
-    policyDescription: "Samsung은 사용자가 생전에 유산 관리자를 지정하거나 사후 데이터 삭제를 선택하고, 지정된 관리자가 접근 코드로 유산 데이터를 요청하도록 합니다.",
+    policyDescription: "Samsung은 생전에 유산 관리자를 지정하거나 사후 데이터 삭제를 선택하게 합니다. 접근 코드가 없으면 디지털 유산 요청은 승인되지 않으며, 요청은 사망일로부터 1년 이내, 신청자는 만 14세 이상이어야 합니다.",
     policyLink: "https://digital-legacy.samsung.com/",
     policyButton: "Samsung 공식 정책 보기",
     philosophy: "사전 지정과 제한된 범위의 데이터 이전을 결합한 구조입니다.",
@@ -147,16 +149,16 @@ export const companies: CompanyPolicy[] = [
     dataDownload: "yes",
     familyAccess: "partial",
     courtOrder: "unknown",
-    requiredDocs: ["사망 관련 서류", "Legacy Manager 코드"],
-    available: ["연락처", "통화 기록", "음성 녹음", "노트", "캘린더", "리마인더"],
-    unavailable: ["갤러리", "Samsung Account 자체", "제3자 서비스 데이터"],
-    limitations: ["승인 후 접근 기간은 1년입니다."],
+    requiredDocs: ["접근 코드", "대한민국에서 발급한 사망진단서, 시체검안서 또는 기본증명서"],
+    available: ["연락처", "통화 기록", "음성 녹음", "노트", "캘린더 일정", "리마인더"],
+    unavailable: ["삼성 클라우드에 없는 휴대전화 사진·동영상", "삼성 월렛", "삼성 헬스"],
+    limitations: ["접근 코드가 없으면 요청을 승인하지 않습니다.", "사망일로부터 1년 이내에 요청해야 합니다.", "디지털 유산 데이터는 신청일부터 최대 1년까지 내려받을 수 있고, 계정은 생성 1년 뒤 삭제됩니다.", "요청과 다운로드에는 One UI 7.0 이상 갤럭시 휴대전화가 필요합니다.", "접근 코드 없이 가족을 위한 별도 계정 폐쇄 절차는 디지털 유산 사이트에서 확인되지 않았습니다."],
     officialLinks: [
       { label: "삼성 디지털 유산", url: "https://digital-legacy.samsung.com/" },
       { label: "삼성 계정 관리", url: "https://account.samsung.com/" },
       { label: "삼성 고객지원", url: "https://www.samsung.com/sec/support/" }
     ],
-    lastUpdated: "2026-08-22"
+    lastUpdated: "2026-10-25"
   },
   {
     id: "naver",
@@ -180,13 +182,13 @@ export const companies: CompanyPolicy[] = [
     requiredDocs: ["가족관계 증명", "동의 또는 요청 서류"],
     available: ["공개 게시물 백업 요청"],
     unavailable: ["아이디·비밀번호", "메일 등 비공개 이용 정보"],
-    limitations: ["신청 UI와 절차 안내가 명확하지 않습니다."],
+    limitations: ["가족이 고인의 아이디를 알고 있는 경우에만 탈퇴, 공개 자료 백업, 상속 가능한 Npay 잔액 조회를 도와줍니다.", "주민등록번호 뒤 7자리를 가리지 않은 서류는 파기되고 다시 접수해야 합니다.", "영문 도움말 주소로 열어도 현재 본문은 한국어입니다."],
     officialLinks: [
       { label: "네이버 회원 탈퇴 안내", url: "https://help.naver.com/service/5640/contents/9545?osType=COMMONOS" },
       { label: "사망자 아이디 탈퇴 요청", url: "https://help.naver.com/service/5640/contents/17441?lang=ko&osType=COMMONOS" },
       { label: "네이버페이 고객센터", url: "https://help.pay.naver.com/" }
     ],
-    lastUpdated: "2026-08-22"
+    lastUpdated: "2026-10-25"
   },
   {
     id: "kakao",
@@ -194,30 +196,31 @@ export const companies: CompanyPolicy[] = [
     company: "Kakao",
     platform: "Kakao Account / KakaoTalk",
     category: "메신저·포털",
-    summary: "비공개 정보는 제공하지 않으며 공개 게시물 백업과 일부 유상 잔액 환불을 지원할 수 있습니다.",
+    summary: "계정 접속권은 넘기지 않습니다. 카카오톡 추모 프로필은 생전 대리인 지정 또는 직계가족 신청으로 전환할 수 있습니다.",
     services: ["카카오계정", "카카오톡", "카카오스토리", "다음", "브런치스토리"],
     policyTitle: "디지털 유산 정책",
-    policyDescription: "카카오는 고인의 사생활과 통신 비밀을 보호하면서 추모 프로필, 계정 처리와 일부 재산적 가치에 관한 요청을 서비스별로 검토합니다.",
-    policyLink: "https://cs.kakao.com/",
-    policyButton: "카카오 고객센터 보기",
-    philosophy: "사생활 보호와 재산적 가치의 구분이 뚜렷합니다.",
-    preDeathPlanning: "no",
+    policyDescription: "카카오는 상속인에게 계정 접속권을 제공하지 않습니다. 상속인은 계정 폐쇄를 요청할 수 있고, 공개된 게시물 백업은 서비스가 정한 범위에서 제공될 수 있습니다. 카카오톡은 추모 프로필을 기본 5년, 연장 시 최대 10년 유지합니다.",
+    policyLink: "https://cs.kakao.com/helps_html/1073206088?locale=ko",
+    policyButton: "카카오 공식 정책 보기",
+    philosophy: "생전 추모 프로필 설정과 사후 계정 폐쇄를 구분하고, 대화 내용은 제공하지 않습니다.",
+    preDeathPlanning: "yes",
     accountDeletion: "yes",
     memorialAccount: "yes",
     dataDownload: "partial",
     familyAccess: "no",
     courtOrder: "unknown",
-    requiredDocs: ["사망 및 가족 관계를 확인할 수 있는 서류"],
-    available: ["공개 게시물 백업", "미사용 모바일 교환권 및 유상 선불 잔액 환불", "카카오톡 추모 프로필"],
-    unavailable: ["계정 정보", "카카오톡 대화", "친구 목록"],
-    limitations: ["서비스 환경에 따라 백업 제공이 제한될 수 있습니다."],
+    requiredDocs: ["대리인 신청: 사망 증빙", "직계가족 신청: 고인 계정 탈퇴 처리 요청서, 통신사 증빙, 사망이 적힌 가족관계증명서, 신청인 신분증"],
+    available: ["카카오톡 추모 프로필", "약관과 법령에 따른 금전 채권 환불", "서비스가 정한 범위의 공개 게시물 백업"],
+    unavailable: ["계정 접속권", "카카오톡 대화 내용"],
+    limitations: ["대리인 전환만으로는 금전 채권 환불과 카카오계정 탈퇴가 되지 않습니다.", "이미 탈퇴해 (알 수 없음)인 계정은 추모 프로필로 바꿀 수 없습니다.", "생전에 추모 프로필 전환을 제한해 두면 사후 신청으로도 전환되지 않습니다.", "추모 프로필 공식 도움말의 영문 페이지는 확인되지 않았고, 본문은 한국어입니다."],
     officialLinks: [
-      { label: "카카오계정 관리", url: "https://accounts.kakao.com/weblogin/account/info" },
-      { label: "카카오 개인정보 안내", url: "https://privacy.kakao.com/main?lang=ko" },
-      { label: "카카오톡 추모 프로필 안내", url: "https://cs.kakao.com/helps?service=8&category=565&locale=ko" },
-      { label: "카카오 고객센터", url: "https://cs.kakao.com/" }
+      { label: "카카오 디지털 유산 정책", url: "https://cs.kakao.com/helps_html/1073206088?locale=ko" },
+      { label: "추모 프로필 안내", url: "https://cs.kakao.com/helps_html/1073209595?locale=ko" },
+      { label: "추모 프로필 신청", url: "https://cs.kakao.com/helps_html/1073209596?locale=ko" },
+      { label: "생전 추모 프로필 설정", url: "https://cs.kakao.com/helps_html/1073209599?locale=ko" },
+      { label: "사망자 카카오계정 탈퇴", url: "https://cs.kakao.com/helps_html/1073209974?locale=ko" }
     ],
-    lastUpdated: "2026-08-22"
+    lastUpdated: "2026-10-25"
   },
   {
     id: "x",
