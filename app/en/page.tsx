@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useMemo } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import styles from "@/app/Home.module.css";
@@ -16,6 +16,7 @@ import ProgressSummary from "@/components/ProgressSummary";
 import { clearAllProgress } from "@/components/GuideCompletion";
 import GuideProgress from "@/components/GuideProgress";
 import { ChevronIcon, GoalIcon, SearchIcon } from "@/components/GuideIcons";
+import { useCompositionSearch } from "@/components/useCompositionSearch";
 import HomeWizardStage from "@/components/HomeWizardStage";
 import { useHomeJourney } from "@/components/useHomeJourney";
 import { companyJourneyHref } from "@/lib/home-journey";
@@ -147,8 +148,11 @@ const unsureResults = [
 export default function EnglishHomePage() {
   const router = useRouter();
   const { audience, goal, showSafeGuide, step, chooseAudience: selectAudience, chooseGoal: selectGoal, openSafeGuide, goBack, resetJourney } = useHomeJourney(true);
-  const [quickQuery, setQuickQuery] = useState("");
-  const [serviceQuery, setServiceQuery] = useState("");
+  const quickSearch = useCompositionSearch();
+  const serviceSearch = useCompositionSearch();
+  const quickQuery = quickSearch.query;
+  const serviceQuery = serviceSearch.query;
+  const setServiceQuery = serviceSearch.reset;
   function chooseAudience(next: Audience) { setServiceQuery(""); selectAudience(next); }
   function chooseGoal(next: Goal) { setServiceQuery(""); selectGoal(next); }
 
@@ -173,6 +177,7 @@ export default function EnglishHomePage() {
 
   function submit(e: FormEvent) {
     e.preventDefault();
+    if (quickSearch.isComposing()) return;
     const q = quickQuery.trim().toLowerCase();
     if (!q) {
       router.push("/en/services");
@@ -233,8 +238,7 @@ export default function EnglishHomePage() {
                 <span className={styles.searchIcon} aria-hidden="true"><SearchIcon /></span>
                 <input
                   id="quick-company"
-                  value={quickQuery}
-                  onChange={(e) => setQuickQuery(e.target.value)}
+                  {...quickSearch.inputProps}
                   placeholder="e.g. Google, Apple"
                 />
                 <button type="submit">Search</button>
@@ -367,8 +371,7 @@ export default function EnglishHomePage() {
               <span className={styles.searchIcon} aria-hidden="true"><SearchIcon /></span>
               <span className="visually-hidden">Search companies and services</span>
               <input
-                value={serviceQuery}
-                onChange={(e) => setServiceQuery(e.target.value)}
+                {...serviceSearch.inputProps}
                 placeholder="Search companies and services"
                 aria-describedby="service-search-status"
               />

@@ -7,14 +7,18 @@ import styles from "./HomeWizardStage.module.css";
 const order: HomeStep[] = ["audience", "goal", "safe", "services"];
 
 export default function HomeWizardStage({ step, children }: { step: HomeStep; children: ReactNode }) {
-  const [rendered, setRendered] = useState({ step, children });
+  const [renderedStep, setRenderedStep] = useState(step);
+  const latestChildren = useRef(children);
+  const outgoingChildren = useRef(children);
+  latestChildren.current = children;
+  if (step === renderedStep) outgoingChildren.current = children;
   const [phase, setPhase] = useState("");
   const currentStep = useRef(step);
   const root = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (step === currentStep.current) {
-      setRendered(previous => previous.children === children ? previous : { step, children });
+      setPhase("");
       return;
     }
     const forward = order.indexOf(step) > order.indexOf(currentStep.current);
@@ -30,7 +34,7 @@ export default function HomeWizardStage({ step, children }: { step: HomeStep; ch
     };
     if (reduce) {
       currentStep.current = step;
-      setRendered({ step, children });
+      setRenderedStep(step);
       setPhase("");
       const frame = requestAnimationFrame(focus);
       return () => cancelAnimationFrame(frame);
@@ -38,7 +42,8 @@ export default function HomeWizardStage({ step, children }: { step: HomeStep; ch
     setPhase(forward ? "exitForward" : "exitBack");
     const exitTimer = setTimeout(() => {
       currentStep.current = step;
-      setRendered({ step, children });
+      outgoingChildren.current = latestChildren.current;
+      setRenderedStep(step);
       setPhase(forward ? "enterForward" : "enterBack");
       // One screen at a time: old content is removed before the next screen enters.
       root.current?.scrollIntoView({ behavior: "instant", block: "start" });
@@ -49,9 +54,12 @@ export default function HomeWizardStage({ step, children }: { step: HomeStep; ch
       }, 125);
     }, 125);
     return () => { clearTimeout(exitTimer); clearTimeout(enterTimer); if (focusFrame !== undefined) cancelAnimationFrame(focusFrame); };
-  }, [step, children]);
+  }, [step]);
 
-  return <div id="start" ref={root} className={styles.stage} data-wizard-step={rendered.step}>
-    <div className={phase ? styles[phase] : undefined} inert={phase ? true : undefined} aria-busy={phase ? true : undefined}>{rendered.children}</div>
+  return <div id="start" ref={root} className={styles.stage} data-wizard-step={renderedStep}>
+    <div className={phase ? styles[phase] : undefined} inert={phase ? true : undefined} aria-busy={phase ? true : undefined}>
+      {/* Same-step input updates must reach React's DOM commit synchronously, not through an effect snapshot. */}
+      {step === renderedStep ? children : outgoingChildren.current}
+    </div>
   </div>;
 }

@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Suspense, useMemo, useState } from "react";
+import { Suspense, useMemo } from "react";
+import { useCompositionSearch } from "@/components/useCompositionSearch";
 import styles from "@/app/services/Services.module.css";
 
 const services = [
@@ -66,7 +67,9 @@ const services = [
 
 function EnglishServicesDirectory() {
   const initial = useSearchParams().get("q") || "";
-  const [query, setQuery] = useState(initial);
+  const search = useCompositionSearch(initial);
+  const query = search.query;
+  const setQuery = search.reset;
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return services.filter(
@@ -89,8 +92,7 @@ function EnglishServicesDirectory() {
           <label>
             <span>Search services</span>
             <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
+              {...search.inputProps}
               placeholder="e.g. Google, Apple"
             />
           </label>
