@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { commonDocuments, commonProcedures } from "@/lib/common-guidance";
+import { pageMetadata } from "@/lib/seo";
 import styles from "@/app/prepare/Prepare.module.css";
 
-export const metadata: Metadata = {
-  title: "Prepare",
-  description: "Review documents commonly requested when managing a digital account after someone dies.",
-  alternates: { canonical: "/en/prepare" },
-};
+export const metadata: Metadata = pageMetadata({
+  locale: "en",
+  koPath: "/prepare",
+  title: "Documents",
+  description: "Documents and the usual order of steps before you request account deletion, a data download, or a memorial account.",
+});
 
 const safeInheritance = commonProcedures.find((item) => item.id === "safe-inheritance");
 

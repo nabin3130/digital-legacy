@@ -1,3 +1,12 @@
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = pageMetadata({
+  locale: "ko",
+  koPath: "/guide",
+  title: "용어 가이드",
+  description: "디지털 유산, 추모 계정, 휴면 계정처럼 계정 정리에 쓰이는 말을 짧게 풀어 설명합니다.",
+});
 import Link from "next/link";
 import styles from "./Guide.module.css";
 

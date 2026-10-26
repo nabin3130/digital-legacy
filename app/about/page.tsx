@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import styles from "./About.module.css";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  locale: "ko",
+  koPath: "/about",
   title: "이야기",
-  description: "흩어진 디지털 유산 정책을 누구나 쉽게 이해할 수 있도록 모으는 로그아웃 프로젝트의 시작과 방향을 소개합니다.",
-  alternates: { canonical: "/about" },
-};
+  description: "흩어진 디지털 유산 정책을 한곳에 모아, 계정 정리 절차를 쉽게 찾을 수 있도록 돕는 로그아웃 프로젝트의 이야기입니다.",
+});
 
 export default function AboutPage() {
   return (

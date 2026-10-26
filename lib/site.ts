@@ -1,20 +1,43 @@
-export const SITE_URL = "https://digital-legacy-five.vercel.app";
+const DEFAULT_SITE_URL = "https://digital-legacy-five.vercel.app";
 
-export const SITE_DESCRIPTION = "구글, 애플, 네이버, 카카오, 삼성, 메타, 인스타그램과 X의 디지털 유산 정책과 사망 후 계정 정리 절차를 쉽게 안내합니다.";
+function readSiteUrl() {
+  const raw = process.env.NEXT_PUBLIC_SITE_URL?.trim() || process.env.SITE_URL?.trim();
+  if (!raw) return DEFAULT_SITE_URL;
+
+  const withProtocol = /^https?:\/\//i.test(raw) ? raw : `https://${raw}`;
+
+  try {
+    const url = new URL(withProtocol);
+    if (url.protocol !== "http:" && url.protocol !== "https:") return DEFAULT_SITE_URL;
+    return url.origin;
+  } catch {
+    return DEFAULT_SITE_URL;
+  }
+}
+
+/** Public origin used for metadataBase, canonical URLs, Open Graph, sitemap, and robots. */
+export const SITE_URL = readSiteUrl();
+
+export const SITE_NAME_KO = "로그아웃";
+export const SITE_NAME_EN = "LOGOUT";
+
+export const SITE_DESCRIPTION =
+  "디지털 유산을 차분하게 정리할 수 있도록, 주요 서비스의 계정 삭제, 데이터 다운로드, 추모 계정 절차를 공식 정책 기준으로 안내합니다.";
+
+export const SITE_DESCRIPTION_EN =
+  "A calm guide to digital legacy. Official steps for account deletion, data download, and memorial accounts on major services.";
+
+export const SITE_TITLE_KO = "로그아웃 – 디지털 유산 안내";
+export const SITE_TITLE_EN = "LOGOUT – Digital Legacy Guide";
 
 export const SITE_KEYWORDS = [
   "디지털 유산",
-  "디지털 레거시",
-  "사망자 계정",
-  "고인 계정",
-  "온라인 유산",
-  "계정 정리",
-  "사후 계정 관리",
-  "유산 관리자",
+  "계정 삭제",
+  "데이터 다운로드",
   "추모 계정",
   "휴면 계정 관리자",
-  "사망자 계정 삭제",
-  "디지털 상속",
+  "유산 관리자",
+  "고인 계정",
   "구글 디지털 유산",
   "애플 유산 관리자",
   "네이버 사망자 계정",
@@ -22,15 +45,7 @@ export const SITE_KEYWORDS = [
   "삼성 디지털 유산",
   "페이스북 추모 계정",
   "인스타그램 추모 계정",
-  "X 사망자 계정",
-  "구글 계정 사후 정리",
-  "애플 계정 사후 정리",
-  "네이버 계정 탈퇴",
-  "고인 데이터",
-  "사망진단서",
-  "가족관계증명서",
-  "기본증명서",
-  "안심상속 원스톱 서비스",
-  "디지털 유산 준비",
   "로그아웃",
 ] as const;
+
+export const CONTACT_EMAIL = "kimnabin01@gmail.com";
