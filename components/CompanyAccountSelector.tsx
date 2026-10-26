@@ -1,5 +1,6 @@
 import Link from "next/link";
 import styles from "./CompanyAccountSelector.module.css";
+import { AccountGlyph } from "@/components/GuideIcons";
 
 type AccountOption = {
   title: string;
@@ -32,12 +33,12 @@ export default function CompanyAccountSelector({
 
       <div className={styles.options}>
         <button type="button" className={styles.option} onClick={mine.onSelect}>
-          <span className={styles.icon} aria-hidden="true">●</span>
+          <span className={styles.icon} aria-hidden="true"><AccountGlyph variant="mine" /></span>
           <strong>{mine.title}</strong>
           <small>{mine.description}</small>
         </button>
         <button type="button" className={`${styles.option} ${styles.deceased}`} onClick={deceased.onSelect}>
-          <span className={styles.icon} aria-hidden="true">●●</span>
+          <span className={styles.icon} aria-hidden="true"><AccountGlyph variant="deceased" /></span>
           <strong>{deceased.title}</strong>
           <small>{deceased.description}</small>
         </button>

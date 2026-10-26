@@ -86,4 +86,144 @@
 @media(max-width:980px){.serviceLayout{grid-template-columns:1fr}.services aside{overflow:visible;border-right:0;border-bottom:1px solid #d2d8d4}.services aside h2{max-width:680px}.serviceList{padding:32px 24px 72px}}
 .progressSummary{padding:64px 0;background:#eaf2ee;border-top:1px solid #d1dbd5;border-bottom:1px solid #d1dbd5}.progressSummaryHead{display:flex;justify-content:space-between;align-items:center;gap:20px}.progressSummaryHead h2{margin:0;font-size:clamp(25px,3vw,34px);letter-spacing:-.04em}.progressSummaryHead span{color:#1f5a49;font-size:13px;font-weight:800;white-space:nowrap}.progressEntries{margin-top:26px;border-top:1px solid #becdc5}.progressEntries a{min-height:66px;padding:12px 6px;border-bottom:1px solid #cfdbd4;display:grid;grid-template-columns:26px 120px 1fr;align-items:center;gap:12px;color:#18211d;text-decoration:none}.progressEntries a>span{color:#1f5a49;font-weight:900}.progressEntries small{color:#65716b}.progressSummary .narrow>p:last-child{margin:14px 0 0;color:#74817b;font-size:12px}@media(max-width:640px){.progressEntries a{grid-template-columns:24px 1fr}.progressEntries small{grid-column:2}.progressSummaryHead{align-items:flex-start}.progressSummary{padding:48px 0}}
 @media(max-width:640px){.serviceRow{grid-template-columns:44px minmax(0,1fr);gap:12px}.serviceRow .status{grid-column:2;justify-self:start;margin-top:2px}.serviceRow small{line-height:1.45}.status{white-space:normal}.choiceList button,.goalList button,.serviceRow{min-height:72px}}
-@media(max-width:640px){.flowSection{padding:34px 0 58px}.flowSection .progress{padding-bottom:14px}.flowSection .back{margin:18px 0 26px}.flowSection .kicker{margin-bottom:10px}.flowSection h2{font-size:32px;line-height:1.25}.goalList{margin-top:24px}.goalList button{min-height:94px;padding:20px 8px;grid-template-columns:38px minmax(0,1fr);gap:14px}.goalList strong{font-size:16px}.goalList small{font-size:13px}.savedBar{padding:11px 14px}}
+@media(max-width:640px){.flowSection{padding:34px 0 58px}.flowSection .progress{padding-bottom:14px}.flowSection .back{margin:18px 0 26px}.flowSection .kicker{margin-bottom:10px}.flowSection h2{font-size:32px;line-height:1.25}.goalList{margin-top:24px}.goalList button{min-height:94px;padding:20px 8px;grid-template-columns:38px minmax(0,1fr) 20px;gap:14px}.goalList strong{font-size:16px}.goalList small{font-size:13px}.savedBar{padding:11px 14px}}
+
+/* Accessibility, mobile journey, and quieter visual polish */
+.kicker,
+.resultNumber { color: #3d6a58; }
+.privacyNote,
+.searchFeedback,
+.progressSummary .narrow > p:last-child { color: #4e5a54; }
+.hero h1 { max-width: 14em; text-wrap: balance; overflow-wrap: break-word; }
+.heroLine { display: block; text-wrap: balance; }
+.heroTitle { max-width: 10em; font-size: clamp(36px, 4.4vw, 58px); }
+.heroSoft { display: none; }
+.heroAction { min-height: 44px; align-items: center; padding: 12px 18px; }
+.hero .heroContent > p:not(.kicker) { max-width: 38rem; text-wrap: pretty; }
+.home:has(.savedBar) { padding-bottom: 88px; }
+.back { min-height: 44px; padding: 8px 2px; display: inline-flex; align-items: center; }
+.quickSearch > div { min-height: 44px; }
+.quickSearch button,
+.savedBar button {
+  min-height: 44px;
+  padding: 0 4px;
+  border: 0;
+  background: transparent;
+  color: #1f5a49;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.searchIcon,
+.nextCue,
+.goalIcon { color: #1f5a49; }
+.searchIcon,
+.nextCue { display: inline-flex; flex: none; }
+.goalIcon svg,
+.searchIcon svg,
+.nextCue svg { width: 18px; height: 18px; display: block; }
+.services aside { overflow: visible; }
+.serviceRow { grid-template-columns: 44px minmax(0, 1fr) auto; }
+.rowMeta { display: flex; align-items: center; justify-content: flex-end; gap: 14px; }
+.rowAction { color: #1f5a49; font-size: 13px; font-weight: 800; white-space: nowrap; }
+.serviceRow:hover .rowAction,
+.serviceRow:focus-visible .rowAction { text-decoration: underline; text-underline-offset: 3px; }
+.empty { padding: 48px 20px; }
+.empty button {
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 8px;
+  background: #1f5a49;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  cursor: pointer;
+}
+.progress {
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 8px 0;
+  margin: 0;
+  padding: 0 0 16px;
+  list-style: none;
+  color: #4e5a54;
+  font-size: 13px;
+}
+.progress li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+  font-weight: 650;
+}
+.progress li:not(:last-child)::after {
+  content: "";
+  width: 16px;
+  height: 1px;
+  margin: 0 8px;
+  background: #c5cec8;
+}
+.progress li span {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #e4ebe7;
+  color: #3d4a44;
+  font-size: 12px;
+  font-weight: 800;
+}
+.progress .current { color: #1f5a49; font-weight: 800; }
+.progress .current span { background: #1f5a49; color: #fff; }
+.progress .done span { background: #dcede5; color: #1f5a49; }
+.mobileLabel { display: none; }
+.progressSummaryHead { flex-wrap: wrap; align-items: flex-end; }
+.progressSummaryHead h2 { min-width: 0; overflow-wrap: break-word; }
+.progressActions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.clearProgress {
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid #1f5a49;
+  border-radius: 8px;
+  background: #fff;
+  color: #1f5a49;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.progressEntries a { min-width: 0; }
+.progressEntries strong,
+.progressEntries small { min-width: 0; overflow-wrap: break-word; }
+@media (min-width: 900px) {
+  .sectionHead h2,
+  .flowSection h2,
+  .helper,
+  .services aside > p { white-space: normal; }
+}
+@media (max-width: 760px) {
+  .mobileLabel {
+    display: block;
+    margin-bottom: 2px;
+    color: #4e5a54;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .resultComparison strong { display: grid; }
+}
+@media (max-width: 640px) {
+  .heroSoft { display: inline; }
+  .hero h1 { font-size: clamp(28px, 7.6vw, 34px); max-width: none; line-height: 1.32; letter-spacing: -0.045em; }
+  .serviceRow { grid-template-columns: 44px minmax(0, 1fr); }
+  .serviceRow .rowMeta {
+    grid-column: 2;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+  }
+  .rowAction { min-height: 44px; display: inline-flex; align-items: center; }
+  .goalList button { grid-template-columns: 38px minmax(0, 1fr) 18px; }
+  .choiceList button { grid-template-columns: 26px minmax(0, 1fr) 18px; }
+  .savedBar { align-items: center; }
+  .progress li { font-size: 12px; }
+}

@@ -41,10 +41,10 @@ const philosophyEn: Record<string, string> = {
   meta: "Memorialized accounts or complete profile deletion upon request.",
   facebook: "Memorialized accounts or complete profile deletion upon request.",
   x: "Account deactivation upon verified immediate family request.",
-  instagram: "Memorialized profile status or account removal upon family request.",
-  samsung: "Samsung Account deletion and device data wipe.",
+  instagram: "Legacy contact or delete-after-death, then memorialization or family removal.",
+  samsung: "Legacy Manager access code, with a request window of one year after death.",
   naver: "Public blog post backup and verified account withdrawal.",
-  kakao: "Memorial profile transition or permanent account closure.",
+  kakao: "Optional memorial-profile agent, or closure by immediate family. Chats are not shared.",
 };
 
 export default function EnglishComparePage() {
@@ -56,7 +56,8 @@ export default function EnglishComparePage() {
           <p>See which digital legacy options each platform supports.</p>
         </div>
 
-        <div className="tablewrap">
+        <p className="compare-scroll-hint">On a small screen, scroll the table sideways to see every column.</p>
+        <div className="tablewrap" tabIndex={0} role="region" aria-label="Policy comparison table. Scroll sideways to see every column.">
           <table className="compare-table">
             <thead>
               <tr>
@@ -123,19 +124,19 @@ export default function EnglishComparePage() {
 
         <div className="compare-legend">
           <span>
-            <i className="legend-dot legend-yes" />
+            <i className="legend-dot legend-yes" aria-hidden="true" />
             Supported
           </span>
           <span>
-            <i className="legend-dot legend-partial" />
+            <i className="legend-dot legend-partial" aria-hidden="true" />
             Limited
           </span>
           <span>
-            <i className="legend-dot legend-no" />
+            <i className="legend-dot legend-no" aria-hidden="true" />
             Not supported
           </span>
           <span>
-            <i className="legend-dot legend-checking" />
+            <i className="legend-dot legend-checking" aria-hidden="true" />
             Not confirmed
           </span>
         </div>

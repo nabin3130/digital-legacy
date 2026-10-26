@@ -254,7 +254,7 @@ function Detail({ route }: { route: Exclude<RouteId, "receive-data"> }) {
           [
             "What you can configure",
             [
-              "Inactivity waiting period (e.g. 3, 6, 12, or 18 months of no Google activity).",
+              "How long the account must stay inactive before the plan runs. You choose that period on the Inactive Account Manager page.",
               "Alert phone number and email addresses before the timeout triggers.",
               "Up to 10 trusted contacts who will be notified and given download access.",
               "Specific Google services and data categories shared with each contact.",

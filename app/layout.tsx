@@ -3,12 +3,14 @@ import "./brand.css";
 import "./navigation.css";
 import "./redesign.css";
 import "./design-system.css";
-import Script from "next/script";
+import "./a11y.css";
+import Script from "next/script"; // 👈 추가된 부분
 import type { Metadata } from "next";
 import { ogImage } from "@/lib/seo";
 import { CONTACT_EMAIL, SITE_DESCRIPTION, SITE_KEYWORDS, SITE_TITLE_EN, SITE_TITLE_KO, SITE_URL } from "@/lib/site";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import DocumentLanguage from "@/components/DocumentLanguage";
 
 const shareImage = ogImage("ko");
 
@@ -99,6 +101,8 @@ export default function RootLayout({
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css" />
       </head>
       <body>
+        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.lang=location.pathname===\"/en\"||location.pathname.indexOf(\"/en/\")===0?\"en\":\"ko\";" }} />
+        <DocumentLanguage />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
         {/* 구글 애드센스 자동 광고/인증 스크립트 */}
         <Script
@@ -110,7 +114,9 @@ export default function RootLayout({
 
         <SiteHeader />
 
-        {children}
+        <div id="main-content" tabIndex={-1}>
+          {children}
+        </div>
 
         <SiteFooter />
       </body>

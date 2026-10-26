@@ -1,0 +1,104 @@
+.page {
+  padding: 72px 0 112px;
+}
+
+.kicker {
+  margin: 0 0 12px;
+  color: #3d6a58;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.page h1 {
+  margin: 0;
+  max-width: 16em;
+  color: #1f5a49;
+  font-size: clamp(34px, 5vw, 52px);
+  line-height: 1.2;
+  letter-spacing: -0.045em;
+  text-wrap: pretty;
+  word-break: keep-all;
+}
+
+.lead {
+  max-width: 40rem;
+  margin: 16px 0 0;
+  color: #3d4a44;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.grid {
+  margin-top: 36px;
+  display: grid;
+  gap: 14px;
+}
+
+.grid section,
+.next {
+  padding: 22px 24px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 10px 28px rgba(24, 55, 43, 0.05);
+}
+
+.grid h2,
+.next h2 {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.35;
+  letter-spacing: -0.03em;
+}
+
+.grid p,
+.next li {
+  color: #3d4a44;
+  line-height: 1.65;
+}
+
+.grid p {
+  margin: 8px 0 0;
+}
+
+.next {
+  margin-top: 18px;
+}
+
+.next ul {
+  margin: 14px 0 0;
+  padding-left: 18px;
+}
+
+.next li + li {
+  margin-top: 8px;
+}
+
+.next a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: 8px;
+  color: #1f5a49;
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+@media (min-width: 800px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding: 48px 0 80px;
+  }
+
+  .grid section,
+  .next {
+    padding: 18px;
+  }
+}

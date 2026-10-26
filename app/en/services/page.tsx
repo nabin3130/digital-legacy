@@ -111,7 +111,7 @@ function EnglishServicesDirectory() {
             <div className={styles.empty}>
               <strong>No services found</strong>
               <p>Try a different search or view all services.</p>
-              <button onClick={() => setQuery("")}>View all services</button>
+              <button type="button" onClick={() => setQuery("")}>View all services</button>
             </div>
           )}
         </div>
