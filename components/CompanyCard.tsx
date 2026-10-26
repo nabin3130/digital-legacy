@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { CompanyPolicy } from "@/lib/types";
 
-const label = (v: CompanyPolicy["preDeathPlanning"]) => v === "yes" ? "지원" : v === "partial" ? "일부" : v === "no" ? "미지원" : "확인 중";
+const label = (v: CompanyPolicy["preDeathPlanning"]) => v === "yes" ? "지원" : v === "partial" ? "일부" : v === "no" ? "미지원" : "확인 필요";
 
 export function CompanyCard({ company }: { company: CompanyPolicy }) {
   return <Link href={`/company/${company.slug}`} className="card">

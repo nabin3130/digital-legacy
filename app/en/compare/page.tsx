@@ -54,7 +54,8 @@ export default function EnglishComparePage() {
           <p>See which digital legacy options each platform supports.</p>
         </div>
 
-        <div className="tablewrap">
+        <p className="compare-scroll-hint">On a small screen, scroll the table sideways to see every column.</p>
+        <div className="tablewrap" tabIndex={0} role="region" aria-label="Policy comparison table. Scroll sideways to see every column.">
           <table className="compare-table">
             <thead>
               <tr>
@@ -121,19 +122,19 @@ export default function EnglishComparePage() {
 
         <div className="compare-legend">
           <span>
-            <i className="legend-dot legend-yes" />
+            <i className="legend-dot legend-yes" aria-hidden="true" />
             Supported
           </span>
           <span>
-            <i className="legend-dot legend-partial" />
+            <i className="legend-dot legend-partial" aria-hidden="true" />
             Limited
           </span>
           <span>
-            <i className="legend-dot legend-no" />
+            <i className="legend-dot legend-no" aria-hidden="true" />
             Not supported
           </span>
           <span>
-            <i className="legend-dot legend-checking" />
+            <i className="legend-dot legend-checking" aria-hidden="true" />
             Not confirmed
           </span>
         </div>

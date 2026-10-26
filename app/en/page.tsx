@@ -14,6 +14,9 @@ import {
 } from "@/lib/scenario-rules";
 import ProgressSummary from "@/components/ProgressSummary";
 import { clearAllProgress } from "@/components/GuideCompletion";
+import GuideProgress from "@/components/GuideProgress";
+import { ChevronIcon, GoalIcon, SearchIcon } from "@/components/GuideIcons";
+import { revealStep, scrollToId } from "@/lib/reveal-step";
 
 const services = [
   {
@@ -105,19 +108,16 @@ const goals = [
     id: "download" as const,
     title: "Download photos, posts, and data",
     description: "Find out what you can download or request from each platform.",
-    icon: "↓",
   },
   {
     id: "delete" as const,
     title: "Delete an account",
     description: "Review what to save, then follow the steps to permanently delete the account.",
-    icon: "×",
   },
   {
     id: "memorial" as const,
     title: "Memorialize an account",
     description: "Keep the person’s profile available as a memorial, where supported.",
-    icon: "○",
   },
 ];
 
@@ -236,11 +236,7 @@ export default function EnglishHomePage() {
     setGoal(null);
     setShowSafeGuide(false);
     setServiceQuery("");
-    setTimeout(() => {
-      goalRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-      goalRef.current?.setAttribute("tabindex", "-1");
-      goalRef.current?.focus({ preventScroll: true });
-    }, 80);
+    setTimeout(() => revealStep(goalRef.current), 80);
   }
 
   function chooseGoal(next: Goal) {
@@ -248,11 +244,23 @@ export default function EnglishHomePage() {
     setGoal(next);
     setShowSafeGuide(false);
     setServiceQuery("");
-    setTimeout(() => {
-      serviceRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-      serviceRef.current?.setAttribute("tabindex", "-1");
-      serviceRef.current?.focus({ preventScroll: true });
-    }, 80);
+    setTimeout(() => revealStep(serviceRef.current), 80);
+  }
+
+  function goBack() {
+    if (window.history.state?.logoutGuide) {
+      window.history.back();
+      return;
+    }
+    if (showSafeGuide) {
+      setShowSafeGuide(false);
+      return;
+    }
+    if (goal) {
+      setGoal(null);
+      return;
+    }
+    setAudience(null);
   }
 
   function openSafeGuide() {
@@ -264,14 +272,14 @@ export default function EnglishHomePage() {
     e.preventDefault();
     const q = quickQuery.trim().toLowerCase();
     if (!q) {
-      router.push("/en/#services");
+      router.push("/en/services");
       return;
     }
     const match = services.find(
       (s) => s.keywords.some((k) => k.toLowerCase().includes(q)) || s.name.toLowerCase().includes(q),
     );
     if (match) router.push(`/en/company/${match.slug}`);
-    else router.push(`/en/#services`);
+    else router.push(`/en/services?q=${encodeURIComponent(quickQuery)}`);
   }
 
   function reset() {
@@ -280,7 +288,7 @@ export default function EnglishHomePage() {
     setShowSafeGuide(false);
     clearAllProgress();
     localStorage.removeItem("logout-guide-state-en");
-    document.getElementById("start")?.scrollIntoView({ behavior: "smooth" });
+    scrollToId("start");
   }
 
 
@@ -291,13 +299,13 @@ export default function EnglishHomePage() {
         <div className={`container ${styles.heroGrid}`}>
           <div className={styles.heroContent}>
             <p className={styles.kicker}>DIGITAL LEGACY GUIDE</p>
-            <h1>
-              Make sense of the digital<br />
-              records left behind.
+            <h1 className={styles.heroTitle}>
+              <span className={styles.heroLine}>Make sense of</span>
+              <span className={styles.heroLine}>the digital records</span>
+              <span className={styles.heroLine}>left behind.</span>
             </h1>
             <p>
-              Find official guidance for downloading data, deleting accounts,<br />
-              and preserving profiles as memorials.
+              Find official guidance for downloading data, deleting accounts, and preserving profiles as memorials.
             </p>
             <a href="#start" className={styles.heroAction}>
               Get started
@@ -324,19 +332,21 @@ export default function EnglishHomePage() {
             <form className={styles.quickSearch} onSubmit={submit}>
               <label htmlFor="quick-company">Find a company</label>
               <div>
-                <span>⌕</span>
+                <span className={styles.searchIcon} aria-hidden="true"><SearchIcon /></span>
                 <input
                   id="quick-company"
                   value={quickQuery}
                   onChange={(e) => setQuickQuery(e.target.value)}
                   placeholder="e.g. Google, Apple"
                 />
+                <button type="submit">Search</button>
               </div>
             </form>
           </div>
           <div className={styles.choiceList}>
             {audiences.map((o) => (
               <button
+                type="button"
                 key={o.id}
                 className={audience === o.id ? styles.selected : ""}
                 onClick={() => chooseAudience(o.id)}
@@ -347,11 +357,21 @@ export default function EnglishHomePage() {
                   <strong>{o.title}</strong>
                   <small>{o.description}</small>
                 </span>
+                <span className={styles.nextCue} aria-hidden="true"><ChevronIcon /></span>
               </button>
             ))}
           </div>
           <p className={styles.privacyNote}>
             Your progress is saved only on this device. No personal data or documents are collected.
+          </p>
+          <p className="visually-hidden" aria-live="polite">
+            {goal
+              ? "Step 3. Choose a service to open its official instructions."
+              : showSafeGuide
+                ? "A safer review order is open. You can start with photos and records."
+                : audience
+                  ? "Step 2. Choose the kind of help you need."
+                  : ""}
           </p>
         </div>
       </section>
@@ -362,11 +382,12 @@ export default function EnglishHomePage() {
         className={`${styles.flowSection} ${!audience ? styles.locked : ""}`}
         ref={goalRef}
         aria-hidden={!audience}
+        inert={!audience || undefined}
       >
         <div className={styles.narrow}>
-          <Progress step={2} />
-          <button className={styles.back} onClick={() => window.history.back()}>
-            ← Previous step
+          <GuideProgress step={2} locale="en" />
+          <button type="button" className={styles.back} onClick={goBack}>
+            Previous step
           </button>
           <p className={styles.kicker}>
             {audience === "mine"
@@ -384,47 +405,52 @@ export default function EnglishHomePage() {
               {!showSafeGuide ? (
                 <div className={styles.goalList}>
                   {unsureResults.map((o) => (
-                    <button key={o.id} onClick={() => chooseGoal(o.id)}>
-                      <span className={styles.resultNumber}>{o.number}</span>
-                      <span>
-                        <strong>{o.title}</strong>
-                        <small>{o.description}</small>
-                      </span>
-                    </button>
-                  ))}
-                  <button onClick={openSafeGuide}>
-                    <span className={styles.resultNumber}>04</span>
-                    <span>
-                      <strong>I’m still not sure</strong>
-                      <small>We’ll walk through the safest order.</small>
-                    </span>
-                  </button>
-                </div>
-              ) : (
-                <SafeGuide onStart={() => chooseGoal("download")} onBack={() => window.history.back()} />
-              )}
-            </>
-          ) : (
-            <>
-              <h2>What would you like to do?</h2>
-              <div className={styles.goalList}>
-                {availableGoals.map((o) => (
-                  <button
-                    key={o.id}
-                    onClick={() => chooseGoal(o.id)}
-                    className={goal === o.id ? styles.selected : ""}
-                    aria-pressed={goal === o.id}
-                  >
-                    <span className={styles.goalIcon}>{o.icon}</span>
+                  <button type="button" key={o.id} onClick={() => chooseGoal(o.id)}>
+                    <span className={styles.resultNumber}>{o.number}</span>
                     <span>
                       <strong>{o.title}</strong>
                       <small>{o.description}</small>
                     </span>
+                    <span className={styles.nextCue} aria-hidden="true"><ChevronIcon /></span>
                   </button>
                 ))}
+                <button type="button" onClick={openSafeGuide}>
+                  <span className={styles.resultNumber}>04</span>
+                  <span>
+                    <strong>I’m still not sure</strong>
+                    <small>We’ll walk through the safest order.</small>
+                  </span>
+                  <span className={styles.nextCue} aria-hidden="true"><ChevronIcon /></span>
+                </button>
               </div>
-            </>
-          )}
+            ) : (
+              <SafeGuide onStart={() => chooseGoal("download")} onBack={goBack} />
+            )}
+          </>
+        ) : (
+          <>
+            <h2>What would you like to do?</h2>
+            <p className={styles.helper}>Your choice opens the services that match.</p>
+            <div className={styles.goalList}>
+              {availableGoals.map((o) => (
+                <button
+                  type="button"
+                  key={o.id}
+                  onClick={() => chooseGoal(o.id)}
+                  className={goal === o.id ? styles.selected : ""}
+                  aria-pressed={goal === o.id}
+                >
+                  <span className={styles.goalIcon} aria-hidden="true"><GoalIcon id={o.id} /></span>
+                  <span>
+                    <strong>{o.title}</strong>
+                    <small>{o.description}</small>
+                  </span>
+                  <span className={styles.nextCue} aria-hidden="true"><ChevronIcon /></span>
+                </button>
+              ))}
+            </div>
+          </>
+        )}
         </div>
       </section>
 
@@ -433,12 +459,13 @@ export default function EnglishHomePage() {
         id="services"
         ref={serviceRef}
         aria-hidden={!goal}
+        inert={!goal || undefined}
       >
         <div className={styles.serviceLayout}>
           <aside>
-            <Progress step={3} />
-            <button className={styles.back} onClick={() => window.history.back()}>
-              ← Change selection
+            <GuideProgress step={3} locale="en" />
+            <button type="button" className={styles.back} onClick={goBack}>
+              Change selection
             </button>
             <p className={styles.kicker}>{goals.find((x) => x.id === goal)?.title}</p>
             <h2>
@@ -452,14 +479,16 @@ export default function EnglishHomePage() {
                   : "Services that support your selection appear first."}
             </p>
             <label className={styles.serviceSearch}>
-              <span>⌕</span>
+              <span className={styles.searchIcon} aria-hidden="true"><SearchIcon /></span>
+              <span className="visually-hidden">Search companies and services</span>
               <input
                 value={serviceQuery}
                 onChange={(e) => setServiceQuery(e.target.value)}
                 placeholder="Search companies and services"
+                aria-describedby="service-search-status"
               />
             </label>
-            <small className={styles.searchFeedback} aria-live="polite">
+            <small id="service-search-status" className={styles.searchFeedback} aria-live="polite">
               {serviceQuery.trim()
                 ? `${ordered.length} services found.`
                 : "Type a company or service name."}
@@ -483,8 +512,11 @@ export default function EnglishHomePage() {
                     <strong>{s.name}</strong>
                     <small>{goal === "download" ? s.records : goals.find((x) => x.id === goal)?.title}</small>
                   </span>
-                  <span className={`${styles.status} ${styles[statusClass(status)]}`}>
-                    {statusLabel(status)}
+                  <span className={styles.rowMeta}>
+                    <span className={`${styles.status} ${styles[statusClass(status)]}`}>
+                      {statusLabel(status)}
+                    </span>
+                    <span className={styles.rowAction}>View steps</span>
                   </span>
                 </Link>
               );
@@ -501,7 +533,7 @@ export default function EnglishHomePage() {
                     ? "Try another company or go back and choose a different option."
                     : "Try a different search or view all services."}
                 </p>
-                <button onClick={() => setServiceQuery("")}>View all services</button>
+                <button type="button" onClick={() => setServiceQuery("")}>View all services</button>
               </div>
             )}
           </div>
@@ -511,22 +543,10 @@ export default function EnglishHomePage() {
       {(audience || goal) && (
         <div className={styles.savedBar}>
           <span>Your progress is saved on this device.</span>
-          <button onClick={reset}>Clear progress</button>
+          <button type="button" onClick={reset}>Clear progress</button>
         </div>
       )}
     </main>
-  );
-}
-
-function Progress({ step }: { step: number }) {
-  return (
-    <div className={styles.progress} aria-label={`Step ${step} of 4`}>
-      <span>
-        <b>1 Situation</b> — <b className={step >= 2 ? styles.current : ""}>2 Goal</b> —{" "}
-        <b className={step >= 3 ? styles.current : ""}>3 Service</b> — 4 Procedure
-      </span>
-      <em>{step} / 4</em>
-    </div>
   );
 }
 
@@ -587,27 +607,27 @@ function SafeGuide({ onStart, onBack }: { onStart: () => void; onBack: () => voi
           <span>Can it be undone?</span>
         </div>
         <div>
-          <span>I want to preserve records</span>
-          <strong>Data Download</strong>
-          <span>The account stays active</span>
+          <span><small className={styles.mobileLabel}>Your goal</small>I want to preserve records</span>
+          <strong><small className={styles.mobileLabel}>Best option</small>Data Download</strong>
+          <span><small className={styles.mobileLabel}>Can it be undone?</small>The account stays active</span>
         </div>
         <div>
-          <span>I want to remove the account</span>
-          <strong>Account Deletion</strong>
-          <span>Usually can’t be undone</span>
+          <span><small className={styles.mobileLabel}>Your goal</small>I want to remove the account</span>
+          <strong><small className={styles.mobileLabel}>Best option</small>Account Deletion</strong>
+          <span><small className={styles.mobileLabel}>Can it be undone?</small>Usually can’t be undone</span>
         </div>
         <div>
-          <span>I want to leave an online memorial</span>
-          <strong>Memorialization</strong>
-          <span>Depends on the platform</span>
+          <span><small className={styles.mobileLabel}>Your goal</small>I want to leave an online memorial</span>
+          <strong><small className={styles.mobileLabel}>Best option</small>Memorialization</strong>
+          <span><small className={styles.mobileLabel}>Can it be undone?</small>Depends on the platform</span>
         </div>
       </div>
 
       <div className={styles.safeActions}>
-        <button className={styles.secondaryAction} onClick={onBack}>
+        <button type="button" className={styles.secondaryAction} onClick={onBack}>
           Choose another outcome
         </button>
-        <button className={styles.primaryAction} onClick={onStart}>
+        <button type="button" className={styles.primaryAction} onClick={onStart}>
           Review photos and records first
         </button>
       </div>

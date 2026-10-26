@@ -25,7 +25,7 @@ function getStatusText(value: string) {
       return "불가";
 
     default:
-      return "확인 중";
+      return "확인 필요";
   }
 }
 
@@ -54,7 +54,8 @@ export default function Compare() {
           <p>서비스별 디지털 유산 정책과 지원 범위를 비교합니다.</p>
         </div>
 
-        <div className="tablewrap">
+        <p className="compare-scroll-hint">좁은 화면에서는 표를 가로로 밀어 나머지 항목을 볼 수 있어요.</p>
+        <div className="tablewrap" tabIndex={0} role="region" aria-label="정책 비교표. 가로로 스크롤할 수 있습니다.">
           <table className="compare-table">
             <thead>
               <tr>
@@ -145,20 +146,20 @@ export default function Compare() {
 
         <div className="compare-legend">
           <span>
-            <i className="legend-dot legend-yes" />
+            <i className="legend-dot legend-yes" aria-hidden="true" />
             가능
           </span>
           <span>
-            <i className="legend-dot legend-partial" />
+            <i className="legend-dot legend-partial" aria-hidden="true" />
             일부 지원
           </span>
           <span>
-            <i className="legend-dot legend-no" />
+            <i className="legend-dot legend-no" aria-hidden="true" />
             불가
           </span>
           <span>
-            <i className="legend-dot legend-checking" />
-            확인 중
+            <i className="legend-dot legend-checking" aria-hidden="true" />
+            확인 필요
           </span>
         </div>
       </div>
