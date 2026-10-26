@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import GuideCompletion from "@/components/GuideCompletion";
+import CompanyGuideShell, { selectedGuideRoute } from "./CompanyGuideShell";
 import CompanyAccountSelector from "@/components/CompanyAccountSelector";
 import type { CompanyPolicy } from "@/lib/types";
 import { companyEnglish, type EnglishAction } from "@/lib/company-en";
@@ -33,31 +35,40 @@ export default function EnglishCompanyAccountFlow({
   const displayName = english?.name ?? company.company;
 
   const activeActions = audience ? (english?.[audience] ?? []) : [];
-  const selectedAction = activeActions.find((item) => item.id === actionId) ?? null;
+  const selectedAction = selectedGuideRoute(activeActions, actionId) ?? null;
 
   useEffect(() => {
     function restore(event?: PopStateEvent) {
-      const saved = event?.state?.englishCompanyAccountFlow?.audience as Audience | undefined;
+      const saved = event?.state?.englishCompanyAccountFlow;
       if (saved) {
-        setAudience(saved);
+        setAudience(saved.audience ?? null);
         setActionId(event?.state?.englishCompanyAccountFlow?.actionId ?? null);
         return;
       }
       const params = new URLSearchParams(window.location.hash.slice(1));
-      setAudience((params.get("account") as Audience | null) ?? initialAudience);
-      setActionId(params.get("route") ?? null);
+
+      const query = new URLSearchParams(window.location.search);
+      const account = params.get("account") ?? query.get("audience") ?? initialAudience;
+      setAudience(account === "mine" || account === "deceased" ? account : null);
+      const goal = query.get("goal");
+      const preferredIds = goal === "download" ? ["download", "archive", "media"] : goal === "delete" ? (account === "mine" ? ["delete"] : ["delete", "remove", "deactivate"]) : goal === "memorial" ? ["memorial", "memorialize"] : [];
+      const actions = account === "mine" ? english?.mine : account === "deceased" ? english?.deceased : [];
+      const goalAction = preferredIds.map(id => actions?.find(action => action.id === id)).find(Boolean);
+      setActionId(params.get("route") ?? goalAction?.id ?? null);
     }
 
     restore();
     window.addEventListener("popstate", restore);
-    return () => window.removeEventListener("popstate", restore);
-  }, [initialAudience]);
+    const restoreHash = () => restore(new PopStateEvent("popstate", { state: window.history.state }));
+    window.addEventListener("hashchange", restoreHash);
+    return () => { window.removeEventListener("popstate", restore); window.removeEventListener("hashchange", restoreHash); };
+  }, [initialAudience, english]);
 
   function navigate(nextAudience: Audience | null, nextActionId: string | null = null) {
     const params = new URLSearchParams();
     if (nextAudience) params.set("account", nextAudience);
     if (nextActionId) params.set("route", nextActionId);
-    const hash = params.toString() ? `#${params.toString()}` : `${window.location.pathname}${window.location.search}`;
+    const hash = params.toString() ? `#${params.toString()}` : window.location.pathname;
     window.history.pushState(
       { englishCompanyAccountFlow: { audience: nextAudience, actionId: nextActionId } },
       "",
@@ -69,79 +80,6 @@ export default function EnglishCompanyAccountFlow({
 
   return (
     <div className={styles.page}>
-      {audience && (
-        <header className={styles.header}>
-          <button
-            type="button"
-            className={styles.brand}
-            onClick={() => navigate(null)}
-            aria-label={`${displayName} Guide Home`}
-          >
-            {logos[company.slug] && (
-              <img src={logos[company.slug]} alt="" width="48" height="48" />
-            )}
-            <span>
-              <small>Company guide</small>
-              {displayName}
-            </span>
-          </button>
-          {(audience || actionId) && (
-            <button type="button" className={styles.back} onClick={() => window.history.back()}>
-              ← Back
-            </button>
-          )}
-        </header>
-      )}
-
-      {audience && (
-        <nav className={styles.contextNavigation} aria-label={`${displayName} navigation`}>
-          <ol className={styles.breadcrumb}>
-            <li><Link href="/en/services">Company guides</Link></li>
-            <li><button type="button" onClick={() => navigate(null)}>{displayName}</button></li>
-            <li>
-              <button type="button" onClick={() => navigate(audience)}>
-                {audience === "mine" ? `My ${displayName} account` : `${displayName} account for someone who died`}
-              </button>
-            </li>
-          </ol>
-
-          {selectedAction && (
-            <div className={styles.quickNavigation}>
-              <div className={styles.accountTabs} aria-label="Choose account type">
-                <button
-                  type="button"
-                  className={audience === "mine" ? styles.activeTab : ""}
-                  onClick={() => navigate("mine")}
-                >
-                  My {displayName} account
-                </button>
-                <button
-                  type="button"
-                  className={audience === "deceased" ? styles.activeTab : ""}
-                  onClick={() => navigate("deceased")}
-                >
-                  Account for someone who died
-                </button>
-              </div>
-              <label className={styles.routeSelect}>
-                <span>Choose another option</span>
-                <select
-                  value={selectedAction.id}
-                  onChange={(event) => navigate(audience, event.target.value)}
-                  aria-label="Choose another option"
-                >
-                  {activeActions.map((item) => (
-                    <option value={item.id} key={item.id}>
-                      {item.title}
-                    </option>
-                  ))}
-                </select>
-              </label>
-            </div>
-          )}
-        </nav>
-      )}
-
       {!audience && (
         <CompanyAccountSelector
           locale="en"
@@ -158,54 +96,22 @@ export default function EnglishCompanyAccountFlow({
         />
       )}
 
-
-      {audience && !selectedAction && (
-        <main className={`${styles.shell} ${styles.compact}`}>
-          <p className={styles.eyebrow}>
-            {audience === "mine" ? `My ${displayName} account` : `${displayName} account for someone who died`}
-          </p>
-          <h1>What would you like to do?</h1>
-          <p className={styles.lead}>Choose the option that best fits your situation.</p>
-          <div className={styles.choices}>
-            {activeActions.map((item) => (
-              <Choice
-                key={item.id}
-                title={item.title}
-                description={item.description}
-                onClick={() => navigate(audience, item.id)}
-              />
-            ))}
-          </div>
-        </main>
-      )}
-
-      {audience && selectedAction && (
+      {audience && selectedAction && <CompanyGuideShell
+        companyName={displayName}
+        logo={logos[company.slug]}
+        locale="en"
+        audience={audience}
+        routes={{ mine: english?.mine ?? [], deceased: english?.deceased ?? [] }}
+        selectedRouteId={selectedAction.id}
+        onReset={() => navigate(null)}
+        onSelectAudience={next => navigate(next, next === audience ? selectedAction.id : null)}
+        onSelectRoute={(next, id) => navigate(next, String(id))}
+      >
         <StandardStepDetail companyName={displayName} audience={audience} action={selectedAction} />
-      )}
+      </CompanyGuideShell>}
     </div>
   );
 }
-
-function Choice({
-  title,
-  description,
-  onClick,
-}: {
-  title: string;
-  description: string;
-  onClick: () => void;
-}) {
-  return (
-    <button type="button" className={styles.choice} onClick={onClick}>
-      <span>
-        <strong>{title}</strong>
-        <small>{description}</small>
-      </span>
-    </button>
-  );
-}
-
-import GuideCompletion from "@/components/GuideCompletion";
 
 function StandardStepDetail({
   companyName,
