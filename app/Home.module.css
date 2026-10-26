@@ -89,6 +89,14 @@
 @media(max-width:640px){.flowSection{padding:34px 0 58px}.flowSection .progress{padding-bottom:14px}.flowSection .back{margin:18px 0 26px}.flowSection .kicker{margin-bottom:10px}.flowSection h2{font-size:32px;line-height:1.25}.goalList{margin-top:24px}.goalList button{min-height:94px;padding:20px 8px;grid-template-columns:38px minmax(0,1fr) 20px;gap:14px}.goalList strong{font-size:16px}.goalList small{font-size:13px}.savedBar{padding:11px 14px}}
 
 /* Accessibility, mobile journey, and quieter visual polish */
+/* Only the current wizard screen is mounted. Keep its spacing compact. */
+.start { padding: 40px 0 48px; }
+.flowSection { padding: 32px 0 48px; }
+.flowSection .back { margin: 14px 0 22px; }
+.serviceLayout { min-height: 0; }
+.services aside { padding-top: 32px; padding-bottom: 32px; }
+.services aside .back { margin: 14px 0 22px; }
+.serviceList { padding-top: 32px; padding-bottom: 40px; }
 .kicker,
 .resultNumber { color: #3d6a58; }
 .privacyNote,

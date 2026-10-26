@@ -24,8 +24,8 @@ const routes: Array<{ id: RouteId; title: string; description: string }> = [
   { id: "npay", title: "네이버페이에 남은 금액을 확인하고 싶어요", description: "상속받을 수 있는 포인트나 머니가 남아 있는지 확인해요." },
 ];
 
-export default function NaverAccountFlow() {
-  const [audience, setAudience] = useState<Audience | null>(null);
+export default function NaverAccountFlow({ initialAudience = null }: { initialAudience?: Audience | null }) {
+  const [audience, setAudience] = useState<Audience | null>(initialAudience);
   const [knowsId, setKnowsId] = useState<KnowsId | null>(null);
   const [route, setRoute] = useState<RouteId | null>(null);
   const [contextGoal, setContextGoal] = useState<"download" | "delete" | null>(null);
@@ -53,7 +53,7 @@ export default function NaverAccountFlow() {
     restoreFromHistory();
     window.addEventListener("popstate", restoreFromHistory);
     return () => window.removeEventListener("popstate", restoreFromHistory);
-  }, []);
+  }, [initialAudience]);
 
   function navigate(next: { audience: Audience | null; knowsId?: KnowsId | null; route?: RouteId | null }) {
     const nextKnowsId = next.knowsId ?? null;

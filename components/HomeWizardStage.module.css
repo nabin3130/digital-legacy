@@ -1,0 +1,19 @@
+.stage { scroll-margin-top: 88px; overflow: clip; }
+.exitForward, .exitBack, .enterForward, .enterBack { animation-duration: 125ms; animation-timing-function: ease-out; animation-fill-mode: both; }
+.exitForward { animation-name: exitForward; }
+.exitBack { animation-name: exitBack; }
+.enterForward { animation-name: enterForward; }
+.enterBack { animation-name: enterBack; }
+@keyframes exitForward { to { opacity: 0; transform: translateX(-24px); } }
+@keyframes enterForward { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes exitBack { to { opacity: 0; transform: translateX(24px); } }
+@keyframes enterBack { from { opacity: 0; transform: translateX(-24px); } to { opacity: 1; transform: translateX(0); } }
+@media (max-width: 640px) {
+  @keyframes exitForward { to { opacity: 0; transform: translateY(-16px); } }
+  @keyframes enterForward { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes exitBack { to { opacity: 0; transform: translateY(16px); } }
+  @keyframes enterBack { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+}
+@media (prefers-reduced-motion: reduce) {
+  .exitForward, .exitBack, .enterForward, .enterBack { animation: none; transform: none; }
+}

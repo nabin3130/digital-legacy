@@ -23,8 +23,8 @@ const routes: Record<Audience, Array<{ id: RouteId; title: string; description: 
   ],
 };
 
-export default function AppleAccountFlow() {
-  const [audience, setAudience] = useState<Audience | null>(null);
+export default function AppleAccountFlow({ initialAudience = null }: { initialAudience?: Audience | null }) {
+  const [audience, setAudience] = useState<Audience | null>(initialAudience);
   const [route, setRoute] = useState<RouteId | null>(null);
   const [contextGoal, setContextGoal] = useState<"download" | "delete" | null>(null);
 
@@ -45,7 +45,7 @@ export default function AppleAccountFlow() {
     restore();
     window.addEventListener("popstate", restore);
     return () => window.removeEventListener("popstate", restore);
-  }, []);
+  }, [initialAudience]);
 
   function navigate(next: { audience: Audience | null; route?: RouteId | null }) {
     const nextRoute = next.route ?? null;

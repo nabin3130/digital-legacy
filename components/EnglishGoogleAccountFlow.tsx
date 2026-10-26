@@ -28,8 +28,8 @@ const routes: Record<Audience, Array<{ id: RouteId; title: string; description: 
   ],
 };
 
-export default function EnglishGoogleAccountFlow() {
-  const [audience, setAudience] = useState<Audience | null>(null);
+export default function EnglishGoogleAccountFlow({ initialAudience = null }: { initialAudience?: Audience | null }) {
+  const [audience, setAudience] = useState<Audience | null>(initialAudience);
   const [route, setRoute] = useState<RouteId | null>(null);
   const [receiverStatus, setReceiverStatus] = useState<ReceiverStatus | null>(null);
 
@@ -45,15 +45,20 @@ export default function EnglishGoogleAccountFlow() {
       }
 
       const params = new URLSearchParams(window.location.hash.slice(1));
-      setAudience((params.get("account") as Audience | null) ?? null);
-      setRoute((params.get("route") as RouteId | null) ?? null);
+      const query = new URLSearchParams(window.location.search);
+      const requestedAudience = query.get("audience");
+      const requestedGoal = query.get("goal");
+      const contextualAudience = requestedAudience === "mine" || requestedAudience === "deceased" ? requestedAudience : null;
+      const contextualRoute: RouteId | null = contextualAudience === "mine" ? (requestedGoal === "download" ? "download" : requestedGoal === "delete" ? "delete-mine" : null) : contextualAudience === "deceased" ? (requestedGoal === "delete" ? "close-deceased" : requestedGoal === "download" ? "receive-data" : null) : null;
+      setAudience((params.get("account") as Audience | null) ?? contextualAudience ?? initialAudience);
+      setRoute((params.get("route") as RouteId | null) ?? contextualRoute);
       setReceiverStatus((params.get("receiver") as ReceiverStatus | null) ?? null);
     }
 
     restoreFromHistory();
     window.addEventListener("popstate", restoreFromHistory);
     return () => window.removeEventListener("popstate", restoreFromHistory);
-  }, []);
+  }, [initialAudience]);
 
   function navigate(next: {
     audience: Audience | null;

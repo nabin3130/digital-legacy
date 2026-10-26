@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import { FormEvent, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import styles from "@/app/Home.module.css";
@@ -16,7 +16,9 @@ import ProgressSummary from "@/components/ProgressSummary";
 import { clearAllProgress } from "@/components/GuideCompletion";
 import GuideProgress from "@/components/GuideProgress";
 import { ChevronIcon, GoalIcon, SearchIcon } from "@/components/GuideIcons";
-import { revealStep, scrollToId } from "@/lib/reveal-step";
+import HomeWizardStage from "@/components/HomeWizardStage";
+import { useHomeJourney } from "@/components/useHomeJourney";
+import { companyJourneyHref } from "@/lib/home-journey";
 
 const services = [
   {
@@ -144,63 +146,11 @@ const unsureResults = [
 
 export default function EnglishHomePage() {
   const router = useRouter();
-  const goalRef = useRef<HTMLElement>(null);
-  const serviceRef = useRef<HTMLElement>(null);
-  const [audience, setAudience] = useState<Audience | null>(null);
-  const [goal, setGoal] = useState<Goal | null>(null);
-  const [showSafeGuide, setShowSafeGuide] = useState(false);
+  const { audience, goal, showSafeGuide, step, chooseAudience: selectAudience, chooseGoal: selectGoal, openSafeGuide, goBack, resetJourney } = useHomeJourney(true);
   const [quickQuery, setQuickQuery] = useState("");
   const [serviceQuery, setServiceQuery] = useState("");
-
-  useEffect(() => {
-    function restore(event?: PopStateEvent) {
-      const params = new URLSearchParams(window.location.hash.slice(1));
-      const hashAudience = params.get("audience");
-      const hashGoal = params.get("goal");
-      if (hashAudience) {
-        setAudience(["mine", "deceased", "unsure"].includes(hashAudience) ? (hashAudience as Audience) : null);
-        setGoal(["delete", "download", "memorial"].includes(hashGoal ?? "") ? (hashGoal as Goal) : null);
-        setShowSafeGuide(params.get("guide") === "safe");
-        return;
-      }
-      if (event) {
-        setAudience(null);
-        setGoal(null);
-        setShowSafeGuide(false);
-        return;
-      }
-      const saved = localStorage.getItem("logout-guide-state-en");
-      if (!saved) {
-        setAudience(null);
-        setGoal(null);
-        setShowSafeGuide(false);
-        return;
-      }
-      try {
-        const state = JSON.parse(saved);
-        setAudience(["mine", "deceased", "unsure"].includes(state.audience) ? state.audience : null);
-        setGoal(["delete", "download", "memorial"].includes(state.goal) ? state.goal : null);
-        setShowSafeGuide(false);
-      } catch {
-        setAudience(null);
-        setGoal(null);
-        setShowSafeGuide(false);
-      }
-    }
-    restore();
-    window.addEventListener("popstate", restore);
-    return () => window.removeEventListener("popstate", restore);
-  }, []);
-
-  useEffect(() => {
-    if (audience || goal) {
-      localStorage.setItem("logout-guide-state-en", JSON.stringify({ audience, goal }));
-    }
-  }, [audience, goal]);
-
-  useEffect(() => {
-    if (!isGoalAvailable(audience, goal)) setGoal(null);
-  }, [audience, goal]);
+  function chooseAudience(next: Audience) { setServiceQuery(""); selectAudience(next); }
+  function chooseGoal(next: Goal) { setServiceQuery(""); selectGoal(next); }
 
   const filtered = useMemo(() => {
     const q = serviceQuery.trim().toLowerCase();
@@ -221,53 +171,6 @@ export default function EnglishHomePage() {
       : available;
   }, [filtered, goal]);
 
-  function pushHomeState(nextAudience: Audience | null, nextGoal: Goal | null, safe = false) {
-    const params = new URLSearchParams();
-    if (nextAudience) params.set("audience", nextAudience);
-    if (nextGoal) params.set("goal", nextGoal);
-    if (safe) params.set("guide", "safe");
-    const nextUrl = params.toString() ? `#${params.toString()}` : window.location.pathname;
-    window.history.pushState({ logoutGuide: { audience: nextAudience, goal: nextGoal, safe } }, "", nextUrl);
-  }
-
-  function chooseAudience(next: Audience) {
-    pushHomeState(next, null);
-    setAudience(next);
-    setGoal(null);
-    setShowSafeGuide(false);
-    setServiceQuery("");
-    setTimeout(() => revealStep(goalRef.current), 80);
-  }
-
-  function chooseGoal(next: Goal) {
-    pushHomeState(audience, next);
-    setGoal(next);
-    setShowSafeGuide(false);
-    setServiceQuery("");
-    setTimeout(() => revealStep(serviceRef.current), 80);
-  }
-
-  function goBack() {
-    if (window.history.state?.logoutGuide) {
-      window.history.back();
-      return;
-    }
-    if (showSafeGuide) {
-      setShowSafeGuide(false);
-      return;
-    }
-    if (goal) {
-      setGoal(null);
-      return;
-    }
-    setAudience(null);
-  }
-
-  function openSafeGuide() {
-    pushHomeState("unsure", null, true);
-    setShowSafeGuide(true);
-  }
-
   function submit(e: FormEvent) {
     e.preventDefault();
     const q = quickQuery.trim().toLowerCase();
@@ -278,18 +181,11 @@ export default function EnglishHomePage() {
     const match = services.find(
       (s) => s.keywords.some((k) => k.toLowerCase().includes(q)) || s.name.toLowerCase().includes(q),
     );
-    if (match) router.push(`/en/company/${match.slug}`);
+    if (match) router.push(companyJourneyHref(match.slug, audience, goal, true));
     else router.push(`/en/services?q=${encodeURIComponent(quickQuery)}`);
   }
 
-  function reset() {
-    setAudience(null);
-    setGoal(null);
-    setShowSafeGuide(false);
-    clearAllProgress();
-    localStorage.removeItem("logout-guide-state-en");
-    scrollToId("start");
-  }
+  function reset() { resetJourney(); clearAllProgress(); }
 
 
   return (
@@ -321,8 +217,10 @@ export default function EnglishHomePage() {
         </div>
       </section>
 
-      <section className={styles.start} id="start">
+      <HomeWizardStage step={step}>
+      {step === "audience" && <section className={styles.start}>
         <div className={styles.narrow}>
+          <GuideProgress step={1} locale="en" />
           <div className={styles.sectionHead}>
             <div>
               <p className={styles.kicker}>GET STARTED</p>
@@ -374,20 +272,13 @@ export default function EnglishHomePage() {
                   : ""}
           </p>
         </div>
-      </section>
+      </section>}
 
-      <ProgressSummary locale="en" />
-
-      <section
-        className={`${styles.flowSection} ${!audience ? styles.locked : ""}`}
-        ref={goalRef}
-        aria-hidden={!audience}
-        inert={!audience || undefined}
-      >
+      {(step === "goal" || step === "safe") && <section className={styles.flowSection}>
         <div className={styles.narrow}>
           <GuideProgress step={2} locale="en" />
           <button type="button" className={styles.back} onClick={goBack}>
-            Previous step
+            Back
           </button>
           <p className={styles.kicker}>
             {audience === "mine"
@@ -452,20 +343,14 @@ export default function EnglishHomePage() {
           </>
         )}
         </div>
-      </section>
+      </section>}
 
-      <section
-        className={`${styles.services} ${!goal ? styles.locked : ""}`}
-        id="services"
-        ref={serviceRef}
-        aria-hidden={!goal}
-        inert={!goal || undefined}
-      >
+      {step === "services" && <section className={styles.services} id="services">
         <div className={styles.serviceLayout}>
           <aside>
             <GuideProgress step={3} locale="en" />
             <button type="button" className={styles.back} onClick={goBack}>
-              Change selection
+              Back
             </button>
             <p className={styles.kicker}>{goals.find((x) => x.id === goal)?.title}</p>
             <h2>
@@ -538,7 +423,9 @@ export default function EnglishHomePage() {
             )}
           </div>
         </div>
-      </section>
+      </section>}
+      </HomeWizardStage>
+      {step === "audience" && <ProgressSummary locale="en" />}
 
       {(audience || goal) && (
         <div className={styles.savedBar}>

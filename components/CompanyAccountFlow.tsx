@@ -28,14 +28,16 @@ const displayNames: Record<string, string> = {
 
 export default function CompanyAccountFlow({
   company,
+  initialAudience = null,
   preDeathSteps,
   postDeathSteps,
 }: {
   company: CompanyPolicy;
+  initialAudience?: Audience | null;
   preDeathSteps: ApplicationStep[];
   postDeathSteps: ApplicationStep[];
 }) {
-  const [audience, setAudience] = useState<Audience | null>(null);
+  const [audience, setAudience] = useState<Audience | null>(initialAudience);
   const [routeId, setRouteId] = useState<number | null>(null);
   const displayName = displayNames[company.slug] ?? company.company;
   const activeSteps = audience === "mine" ? preDeathSteps : postDeathSteps;
@@ -63,7 +65,7 @@ export default function CompanyAccountFlow({
     restore();
     window.addEventListener("popstate", restore);
     return () => window.removeEventListener("popstate", restore);
-  }, []);
+  }, [initialAudience]);
 
   function navigate(nextAudience: Audience | null, nextRouteId: number | null = null) {
     const params = new URLSearchParams();
