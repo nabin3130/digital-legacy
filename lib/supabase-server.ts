@@ -1,12 +1,32 @@
-import { createClient } from "@supabase/supabase-js";
+import { createServerClient, type CookieOptions } from "@supabase/ssr";
+import { cookies } from "next/headers";
+import { assertSupabaseEnv } from "./supabase-env";
 
-export function createServerSupabaseClient() {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+type CookieToSet = {
+  name: string;
+  value: string;
+  options: CookieOptions;
+};
 
-  if (!supabaseUrl || !supabaseKey) {
-    throw new Error("Supabase 환경변수가 설정되지 않았습니다.");
-  }
+export async function createServerSupabaseClient() {
+  const { url, key } = assertSupabaseEnv();
+  const cookieStore = await cookies();
 
-  return createClient(supabaseUrl, supabaseKey);
+  return createServerClient(url, key, {
+    cookies: {
+      getAll() {
+        return cookieStore.getAll();
+      },
+      setAll(cookiesToSet: CookieToSet[]) {
+        try {
+          cookiesToSet.forEach(({ name, value, options }) => {
+            cookieStore.set(name, value, options);
+          });
+        } catch {
+          // Server Components cannot write cookies. This product has no signed-in session,
+          // so a missing write here does not drop user state.
+        }
+      },
+    },
+  });
 }
