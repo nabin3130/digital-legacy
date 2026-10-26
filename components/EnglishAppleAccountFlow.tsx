@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import CompanyGuideShell, { selectedGuideRoute } from "./CompanyGuideShell";
 import CompanyAccountSelector from "@/components/CompanyAccountSelector";
 import styles from "./GoogleAccountFlow.module.css";
 
@@ -35,7 +36,9 @@ const DIGITAL_LEGACY = "https://digital-legacy.apple.com/";
 
 export default function EnglishAppleAccountFlow({ initialAudience = null }: { initialAudience?: Audience | null }) {
   const [audience, setAudience] = useState<Audience | null>(initialAudience);
-  const [route, setRoute] = useState<RouteId | null>(null);
+  const [requestedRoute, setRoute] = useState<RouteId | null>(null);
+
+  const route = audience ? selectedGuideRoute(routes[audience], requestedRoute)?.id ?? null : null;
 
   useEffect(() => {
     function restore(event?: PopStateEvent) {
@@ -56,7 +59,9 @@ export default function EnglishAppleAccountFlow({ initialAudience = null }: { in
     }
     restore();
     window.addEventListener("popstate", restore);
-    return () => window.removeEventListener("popstate", restore);
+    const restoreHash = () => restore(new PopStateEvent("popstate", { state: window.history.state }));
+    window.addEventListener("hashchange", restoreHash);
+    return () => { window.removeEventListener("popstate", restore); window.removeEventListener("hashchange", restoreHash); };
   }, [initialAudience]);
 
   function navigate(next: { audience: Audience | null; route?: RouteId | null }) {
@@ -74,54 +79,6 @@ export default function EnglishAppleAccountFlow({ initialAudience = null }: { in
 
   return (
     <div className={styles.page}>
-      {audience && (
-        <header className={styles.header}>
-          <button type="button" className={styles.brand} onClick={reset} aria-label="Apple Guide Home">
-            <img src="/logos/apple.svg" alt="" width="48" height="48" />
-            <span><small>Official Guide</small>Apple</span>
-          </button>
-          {(audience || route) && <button type="button" className={styles.back} onClick={() => window.history.back()}>← Back</button>}
-        </header>
-      )}
-
-      {audience && (
-        <nav className={styles.contextNavigation} aria-label="Apple help navigation">
-          <ol className={styles.breadcrumb}>
-            <li><Link href="/en/#services">Services</Link></li>
-            <li><button type="button" onClick={reset}>Apple</button></li>
-            <li><button type="button" onClick={() => navigate({ audience })}>{audience === "mine" ? "My Apple account" : "Deceased person’s Apple account"}</button></li>
-          </ol>
-          {route && (
-            <div className={styles.quickNavigation}>
-              <div className={styles.accountTabs} aria-label="Choose account type">
-                <button
-                  type="button"
-                  className={audience === "mine" ? styles.activeTab : ""}
-                  onClick={() => navigate({ audience: "mine" })}
-                >
-                  My Apple account
-                </button>
-                <button
-                  type="button"
-                  className={audience === "deceased" ? styles.activeTab : ""}
-                  onClick={() => navigate({ audience: "deceased" })}
-                >
-                  Deceased person’s account
-                </button>
-              </div>
-              <label className={styles.routeSelect}>
-                <span>View other options</span>
-                <select value={route} onChange={(e) => navigate({ audience, route: e.target.value as RouteId })}>
-                  {routes[audience].map((item) => (
-                    <option key={item.id} value={item.id}>{item.title}</option>
-                  ))}
-                </select>
-              </label>
-            </div>
-          )}
-        </nav>
-      )}
-
       {!audience && (
         <CompanyAccountSelector
           locale="en"
@@ -138,53 +95,20 @@ export default function EnglishAppleAccountFlow({ initialAudience = null }: { in
         />
       )}
 
-
-      {audience && !route && (
-        <StepShell
-          eyebrow={audience === "mine" ? "My Apple account" : "Deceased person’s Apple account"}
-          title="What would you like to do?"
-          description="Choose the option that best matches your situation."
-        >
-          {routes[audience].map((item) => (
-            <Choice key={item.id} title={item.title} description={item.description} onClick={() => navigate({ audience, route: item.id })} />
-          ))}
-        </StepShell>
-      )}
-
+      {audience && <CompanyGuideShell
+        companyName="Apple"
+        logo="/logos/apple.svg"
+        locale="en"
+        audience={audience}
+        routes={routes}
+        selectedRouteId={route ?? undefined}
+        onReset={reset}
+        onSelectAudience={next => navigate({ audience: next, route: next === audience ? route : null })}
+        onSelectRoute={(next, id) => navigate({ audience: next, route: id as RouteId })}
+      >
       {route && <Detail route={route} />}
+    </CompanyGuideShell>}
     </div>
-  );
-}
-
-function StepShell({
-  eyebrow,
-  title,
-  description,
-  children,
-}: {
-  eyebrow: string;
-  title: string;
-  description: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <main className={`${styles.shell} ${styles.compact}`}>
-      <p className={styles.eyebrow}>{eyebrow}</p>
-      <h1>{title}</h1>
-      <p className={styles.lead}>{description}</p>
-      <div className={styles.choices}>{children}</div>
-    </main>
-  );
-}
-
-function Choice({ title, description, onClick }: { title: string; description: string; onClick: () => void }) {
-  return (
-    <button type="button" className={styles.choice} onClick={onClick}>
-      <span>
-        <strong>{title}</strong>
-        <small>{description}</small>
-      </span>
-    </button>
   );
 }
 

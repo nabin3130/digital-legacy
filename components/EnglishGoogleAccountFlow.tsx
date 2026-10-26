@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import CompanyGuideShell, { selectedGuideRoute } from "./CompanyGuideShell";
 import CompanyAccountSelector from "@/components/CompanyAccountSelector";
 import styles from "./GoogleAccountFlow.module.css";
 
@@ -30,8 +31,10 @@ const routes: Record<Audience, Array<{ id: RouteId; title: string; description: 
 
 export default function EnglishGoogleAccountFlow({ initialAudience = null }: { initialAudience?: Audience | null }) {
   const [audience, setAudience] = useState<Audience | null>(initialAudience);
-  const [route, setRoute] = useState<RouteId | null>(null);
+  const [requestedRoute, setRoute] = useState<RouteId | null>(null);
   const [receiverStatus, setReceiverStatus] = useState<ReceiverStatus | null>(null);
+
+  const route = audience ? selectedGuideRoute(routes[audience], requestedRoute)?.id ?? null : null;
 
   useEffect(() => {
     function restoreFromHistory(event?: PopStateEvent) {
@@ -57,7 +60,9 @@ export default function EnglishGoogleAccountFlow({ initialAudience = null }: { i
 
     restoreFromHistory();
     window.addEventListener("popstate", restoreFromHistory);
-    return () => window.removeEventListener("popstate", restoreFromHistory);
+    const restoreHash = () => restoreFromHistory(new PopStateEvent("popstate", { state: window.history.state }));
+    window.addEventListener("hashchange", restoreHash);
+    return () => { window.removeEventListener("popstate", restoreFromHistory); window.removeEventListener("hashchange", restoreHash); };
   }, [initialAudience]);
 
   function navigate(next: {
@@ -88,66 +93,8 @@ export default function EnglishGoogleAccountFlow({ initialAudience = null }: { i
     navigate({ audience: null });
   }
 
-  function goBack() {
-    window.history.back();
-  }
-
   return (
     <div className={styles.page}>
-      {audience && (
-        <header className={styles.header}>
-          <button type="button" className={styles.brand} onClick={reset} aria-label="Google Guide Home">
-            <img src="/logos/google.svg" alt="" width="48" height="48" />
-            <span><small>Official Guide</small>Google</span>
-          </button>
-          {(audience || route) && <button type="button" className={styles.back} onClick={goBack}>← Back</button>}
-        </header>
-      )}
-
-      {audience && (
-        <nav className={styles.contextNavigation} aria-label="Google help navigation">
-          <ol className={styles.breadcrumb}>
-            <li><Link href="/en/#services">Services</Link></li>
-            <li><button type="button" onClick={reset}>Google</button></li>
-            <li><button type="button" onClick={() => navigate({ audience })}>{audience === "mine" ? "My Google account" : "Deceased person’s Google account"}</button></li>
-          </ol>
-
-          {route && (
-            <div className={styles.quickNavigation}>
-              <div className={styles.accountTabs} aria-label="Choose account type">
-                <button
-                  type="button"
-                  className={audience === "mine" ? styles.activeTab : ""}
-                  onClick={() => navigate({ audience: "mine" })}
-                >
-                  My Google account
-                </button>
-                <button
-                  type="button"
-                  className={audience === "deceased" ? styles.activeTab : ""}
-                  onClick={() => navigate({ audience: "deceased" })}
-                >
-                  Deceased person’s account
-                </button>
-              </div>
-
-              <label className={styles.routeSelect}>
-                <span>View other options</span>
-                <select
-                  value={route}
-                  onChange={(event) => navigate({ audience, route: event.target.value as RouteId })}
-                  aria-label="View other options"
-                >
-                  {routes[audience].map((item) => (
-                    <option value={item.id} key={item.id}>{item.title}</option>
-                  ))}
-                </select>
-              </label>
-            </div>
-          )}
-        </nav>
-      )}
-
       {!audience && (
         <CompanyAccountSelector
           locale="en"
@@ -164,25 +111,17 @@ export default function EnglishGoogleAccountFlow({ initialAudience = null }: { i
         />
       )}
 
-
-      {audience && !route && (
-        <StepShell
-          compact
-          eyebrow={audience === "mine" ? "My Google account" : "Deceased person’s Google account"}
-          title="What would you like to do?"
-          description="Choose the option that best matches your situation."
-        >
-          {routes[audience].map((item) => (
-            <Choice
-              key={item.id}
-              title={item.title}
-              description={item.description}
-              onClick={() => navigate({ audience, route: item.id })}
-            />
-          ))}
-        </StepShell>
-      )}
-
+      {audience && <CompanyGuideShell
+        companyName="Google"
+        logo="/logos/google.svg"
+        locale="en"
+        audience={audience}
+        routes={routes}
+        selectedRouteId={route ?? undefined}
+        onReset={reset}
+        onSelectAudience={next => navigate({ audience: next, route: next === audience ? route : null, receiverStatus: next === audience ? receiverStatus : null })}
+        onSelectRoute={(next, id) => navigate({ audience: next, route: id as RouteId })}
+      >
       {route === "receive-data" && !receiverStatus && (
         <StepShell
           compact
@@ -210,6 +149,7 @@ export default function EnglishGoogleAccountFlow({ initialAudience = null }: { i
 
       {route && route !== "receive-data" && <Detail route={route} />}
       {route === "receive-data" && receiverStatus && <DataRequestDetail status={receiverStatus} />}
+    </CompanyGuideShell>}
     </div>
   );
 }

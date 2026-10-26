@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import CompanyGuideShell, { selectedGuideRoute } from "./CompanyGuideShell";
 import CompanyAccountSelector from "@/components/CompanyAccountSelector";
 import styles from "./GoogleAccountFlow.module.css";
 
 type KnowsId = "yes" | "no";
 type Audience = "mine" | "deceased";
-type RouteId = "backup" | "delete" | "npay";
+type RouteId = "backup" | "delete" | "npay" | "download" | "delete-mine";
 
 const officialHelpUrl = "https://help.naver.com/service/5640/contents/17441?lang=en";
 const governmentCertificateUrl = "https://efamily.scourt.go.kr/";
@@ -55,7 +56,13 @@ const routes: Array<{ id: RouteId; title: string; description: string }> = [
 export default function EnglishNaverAccountFlow({ initialAudience = null }: { initialAudience?: Audience | null }) {
   const [audience, setAudience] = useState<Audience | null>(initialAudience);
   const [knowsId, setKnowsId] = useState<KnowsId | null>(null);
-  const [route, setRoute] = useState<RouteId | null>(null);
+  const [requestedRoute, setRoute] = useState<RouteId | null>(null);
+
+  const helpRoutes = { mine: [
+    { id: "download" as const, title: "Save my data", description: "Review data to keep in each service." },
+    { id: "delete-mine" as const, title: "Delete my Naver account", description: "Review data and connected services before leaving." },
+  ], deceased: routes };
+  const route = audience ? selectedGuideRoute(helpRoutes[audience], requestedRoute)?.id ?? null : null;
 
   useEffect(() => {
     function restoreFromHistory(event?: PopStateEvent) {
@@ -68,13 +75,18 @@ export default function EnglishNaverAccountFlow({ initialAudience = null }: { in
       }
       const params = new URLSearchParams(window.location.hash.slice(1));
       const savedAudience = params.get("account") as Audience | null;
-      setAudience(savedAudience ?? (params.has("knows-id") ? "deceased" : initialAudience));
+      setAudience(savedAudience ?? (params.has("knows-id") ? "deceased" : ((new URLSearchParams(window.location.search).get("audience") as Audience | null) ?? initialAudience)));
       setKnowsId((params.get("knows-id") as KnowsId | null) ?? null);
-      setRoute((params.get("route") as RouteId | null) ?? null);
+      const queryGoal = new URLSearchParams(window.location.search).get("goal");
+      const account = params.get("account") ?? new URLSearchParams(window.location.search).get("audience") ?? initialAudience;
+      const goalRoute = account === "mine" ? (queryGoal === "delete" ? "delete-mine" : "download") : (queryGoal === "delete" ? "delete" : queryGoal === "download" ? "backup" : null);
+      setRoute((params.get("route") as RouteId | null) ?? goalRoute);
     }
     restoreFromHistory();
     window.addEventListener("popstate", restoreFromHistory);
-    return () => window.removeEventListener("popstate", restoreFromHistory);
+    const restoreHash = () => restoreFromHistory(new PopStateEvent("popstate", { state: window.history.state }));
+    window.addEventListener("hashchange", restoreHash);
+    return () => { window.removeEventListener("popstate", restoreFromHistory); window.removeEventListener("hashchange", restoreHash); };
   }, [initialAudience]);
 
   function navigate(next: { audience: Audience | null; knowsId?: KnowsId | null; route?: RouteId | null }) {
@@ -101,26 +113,6 @@ export default function EnglishNaverAccountFlow({ initialAudience = null }: { in
 
   return (
     <div className={styles.page}>
-      {audience && (
-        <header className={styles.header}>
-          <button type="button" className={styles.brand} onClick={reset} aria-label="Naver Guide Home">
-            <img src="/logos/naver.svg" alt="" width="48" height="48" />
-            <span><small>Official Guide</small>Naver</span>
-          </button>
-          {audience && <button type="button" className={styles.back} onClick={() => window.history.back()}>← Back</button>}
-        </header>
-      )}
-
-      {audience && (
-        <nav className={styles.contextNavigation} aria-label="Naver help navigation">
-          <ol className={styles.breadcrumb}>
-            <li><Link href="/en/#services">Services</Link></li>
-            <li><button type="button" onClick={reset}>Naver</button></li>
-            <li><button type="button" onClick={() => navigate({ audience })}>{audience === "mine" ? "My Naver account" : "Deceased person’s Naver account"}</button></li>
-          </ol>
-        </nav>
-      )}
-
       {!audience && (
         <CompanyAccountSelector
           locale="en"
@@ -137,9 +129,18 @@ export default function EnglishNaverAccountFlow({ initialAudience = null }: { in
         />
       )}
 
-
-      {audience === "mine" && <MineDetail />}
-
+      {audience && <CompanyGuideShell
+        companyName="Naver"
+        logo="/logos/naver.svg"
+        locale="en"
+        audience={audience}
+        routes={helpRoutes}
+        selectedRouteId={route ?? undefined}
+        onReset={reset}
+        onSelectAudience={next => navigate({ audience: next, route: next === audience ? route : null, knowsId: next === audience ? knowsId : null })}
+        onSelectRoute={(next, id) => navigate({ audience: next, route: id as RouteId, knowsId: next === audience ? knowsId : null })}
+      >
+        {audience === "mine" && <MineDetail goal={route === "delete-mine" ? "delete" : "download"} />}
       {audience === "deceased" && !knowsId && (
         <StepShell
           eyebrow="Deceased person’s Naver account"
@@ -149,37 +150,21 @@ export default function EnglishNaverAccountFlow({ initialAudience = null }: { in
           <Choice
             title="Yes, I know the Naver ID"
             description="Proceed to select the required procedure and review document requirements."
-            onClick={() => navigate({ audience: "deceased", knowsId: "yes" })}
+            onClick={() => navigate({ audience: "deceased", knowsId: "yes", route })}
           />
           <Choice
             title="No, I do not know the ID"
             description="Review Naver’s identity policies and how to locate the account ID."
-            onClick={() => navigate({ audience: "deceased", knowsId: "no" })}
+            onClick={() => navigate({ audience: "deceased", knowsId: "no", route })}
           />
         </StepShell>
       )}
 
-      {audience === "deceased" && knowsId === "yes" && !route && (
-        <StepShell
-          eyebrow="Deceased person’s Naver account"
-          title="What assistance do you need?"
-          description="Choose the option that best matches your objective."
-        >
-          {routes.map((item) => (
-            <Choice
-              key={item.id}
-              title={item.title}
-              description={item.description}
-              onClick={() => navigate({ audience: "deceased", knowsId: "yes", route: item.id })}
-            />
-          ))}
-        </StepShell>
-      )}
-
       {audience === "deceased" && knowsId === "no" && <UnknownId onReset={reset} />}
-      {audience === "deceased" && route === "backup" && <BackupDetail />}
-      {audience === "deceased" && route === "delete" && <DeleteDetail />}
-      {audience === "deceased" && route === "npay" && <NpayDetail />}
+      {audience === "deceased" && knowsId === "yes" && route === "backup" && <BackupDetail />}
+      {audience === "deceased" && knowsId === "yes" && route === "delete" && <DeleteDetail />}
+      {audience === "deceased" && knowsId === "yes" && route === "npay" && <NpayDetail />}
+      </CompanyGuideShell>}
     </div>
   );
 }
@@ -228,11 +213,11 @@ function UnknownId({ onReset }: { onReset: () => void }) {
   );
 }
 
-function MineDetail() {
+function MineDetail({ goal }: { goal: "download" | "delete" }) {
   return (
     <DetailPage
       eyebrow="My Naver account"
-      title="Organize your Naver account step by step"
+      title={goal === "delete" ? "Delete my Naver account" : "Save my Naver data"}
       intro="Review your stored emails, posts, cloud files, and connected services before deciding to close your account."
       sections={[
         [
@@ -422,7 +407,6 @@ function DetailPage({
     </main>
   );
 }
-
 
 function DocumentGuide({ documents }: { documents: DocumentItem[] }) {
   return (

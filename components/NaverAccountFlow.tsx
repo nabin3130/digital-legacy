@@ -2,13 +2,14 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import CompanyGuideShell, { selectedGuideRoute } from "./CompanyGuideShell";
 import CompanyAccountSelector from "@/components/CompanyAccountSelector";
 import styles from "./GoogleAccountFlow.module.css";
 import GuideCompletion from "@/components/GuideCompletion";
 
 type KnowsId = "yes" | "no";
 type Audience = "mine" | "deceased";
-type RouteId = "backup" | "delete" | "npay";
+type RouteId = "backup" | "delete" | "npay" | "download" | "delete-mine";
 
 const officialHelpUrl = "https://help.naver.com/service/5640/contents/17441?lang=ko";
 const withdrawalHelpUrl = "https://help.naver.com/service/5640/contents/9545?osType=COMMONOS";
@@ -27,8 +28,13 @@ const routes: Array<{ id: RouteId; title: string; description: string }> = [
 export default function NaverAccountFlow({ initialAudience = null }: { initialAudience?: Audience | null }) {
   const [audience, setAudience] = useState<Audience | null>(initialAudience);
   const [knowsId, setKnowsId] = useState<KnowsId | null>(null);
-  const [route, setRoute] = useState<RouteId | null>(null);
-  const [contextGoal, setContextGoal] = useState<"download" | "delete" | null>(null);
+  const [requestedRoute, setRoute] = useState<RouteId | null>(null);
+
+  const helpRoutes = { mine: [
+    { id: "download" as const, title: "내 데이터를 보관하고 싶어요", description: "서비스별로 남겨둘 자료를 확인해요." },
+    { id: "delete-mine" as const, title: "내 네이버 계정을 탈퇴하고 싶어요", description: "탈퇴 전에 자료와 연결된 서비스를 확인해요." },
+  ], deceased: routes };
+  const route = audience ? selectedGuideRoute(helpRoutes[audience], requestedRoute)?.id ?? null : null;
 
   useEffect(() => {
     function restoreFromHistory(event?: PopStateEvent) {
@@ -43,16 +49,20 @@ export default function NaverAccountFlow({ initialAudience = null }: { initialAu
       const query = new URLSearchParams(window.location.search);
       const requestedAudience = query.get("audience");
       const requestedGoal = query.get("goal");
-      setContextGoal(requestedGoal === "download" || requestedGoal === "delete" ? requestedGoal : null);
       const contextualAudience = requestedAudience === "mine" || requestedAudience === "deceased" ? requestedAudience : null;
       const savedAudience = params.get("account") as Audience | null;
       setAudience(savedAudience ?? (params.has("knows-id") ? "deceased" : contextualAudience));
       setKnowsId((params.get("knows-id") as KnowsId | null) ?? null);
-      setRoute((params.get("route") as RouteId | null) ?? null);
+      const queryGoal = new URLSearchParams(window.location.search).get("goal");
+      const account = params.get("account") ?? new URLSearchParams(window.location.search).get("audience") ?? initialAudience;
+      const goalRoute = account === "mine" ? (queryGoal === "delete" ? "delete-mine" : "download") : (queryGoal === "delete" ? "delete" : queryGoal === "download" ? "backup" : null);
+      setRoute((params.get("route") as RouteId | null) ?? goalRoute);
     }
     restoreFromHistory();
     window.addEventListener("popstate", restoreFromHistory);
-    return () => window.removeEventListener("popstate", restoreFromHistory);
+    const restoreHash = () => restoreFromHistory(new PopStateEvent("popstate", { state: window.history.state }));
+    window.addEventListener("hashchange", restoreHash);
+    return () => { window.removeEventListener("popstate", restoreFromHistory); window.removeEventListener("hashchange", restoreHash); };
   }, [initialAudience]);
 
   function navigate(next: { audience: Audience | null; knowsId?: KnowsId | null; route?: RouteId | null }) {
@@ -62,7 +72,7 @@ export default function NaverAccountFlow({ initialAudience = null }: { initialAu
     if (next.audience) params.set("account", next.audience);
     if (nextKnowsId) params.set("knows-id", nextKnowsId);
     if (nextRoute) params.set("route", nextRoute);
-    const hash = params.toString() ? `#${params.toString()}` : `${window.location.pathname}${window.location.search}`;
+    const hash = params.toString() ? `#${params.toString()}` : window.location.pathname;
     window.history.pushState({ naverAccountFlow: { audience: next.audience, knowsId: nextKnowsId, route: nextRoute } }, "", hash);
     setAudience(next.audience);
     setKnowsId(nextKnowsId);
@@ -73,34 +83,33 @@ export default function NaverAccountFlow({ initialAudience = null }: { initialAu
 
   return (
     <div className={styles.page}>
-      {audience && <header className={styles.header}>
-        <button type="button" className={styles.brand} onClick={reset} aria-label="네이버 안내 처음으로">
-          <img src="/logos/naver.svg" alt="" width="48" height="48" />
-          <span><small>공식 절차 안내</small>네이버</span>
-        </button>
-        {audience && <button type="button" className={styles.back} onClick={() => window.history.back()}>← 이전 단계</button>}
-      </header>}
-
       {!audience && <CompanyAccountSelector
         mine={{ title: "내 네이버 계정", description: "내 데이터와 게시물을 정리하거나 계정을 탈퇴하고 싶어요.", onSelect: () => navigate({ audience: "mine" }) }}
         deceased={{ title: "고인의 네이버 계정", description: "고인의 공개 게시물, 계정 또는 네이버페이 잔액을 정리하고 싶어요.", onSelect: () => navigate({ audience: "deceased" }) }}
       />}
 
-      {audience === "mine" && <MineDetail goal={contextGoal} />}
-
+      {audience && <CompanyGuideShell
+        companyName="네이버"
+        logo="/logos/naver.svg"
+        locale="ko"
+        audience={audience}
+        routes={helpRoutes}
+        selectedRouteId={route ?? undefined}
+        onReset={reset}
+        onSelectAudience={next => navigate({ audience: next, route: next === audience ? route : null, knowsId: next === audience ? knowsId : null })}
+        onSelectRoute={(next, id) => navigate({ audience: next, route: id as RouteId, knowsId: next === audience ? knowsId : null })}
+      >
+        {audience === "mine" && <MineDetail goal={route === "delete-mine" ? "delete" : "download"} />}
       {audience === "deceased" && !knowsId && <StepShell eyebrow="고인의 네이버 계정" title="고인의 네이버 아이디를 알고 있나요?" description="네이버에 도움을 요청하려면 고인이 사용하던 네이버 아이디를 알고 있어야 해요.">
-        <Choice title="네, 알고 있어요" description="필요한 도움을 선택하고 준비할 서류를 확인할게요." onClick={() => navigate({ audience: "deceased", knowsId: "yes" })} />
-        <Choice title="아니요, 모르겠어요" description="아이디를 모를 때 알아두어야 할 내용을 알려드릴게요." onClick={() => navigate({ audience: "deceased", knowsId: "no" })} />
-      </StepShell>}
-
-      {audience === "deceased" && knowsId === "yes" && !route && <StepShell eyebrow="고인의 네이버 계정" title="어떤 도움이 필요한가요?" description="지금 하려는 일과 가장 가까운 항목을 선택해 주세요.">
-        {routes.map((item) => <Choice key={item.id} title={item.title} description={item.description} onClick={() => navigate({ audience: "deceased", knowsId: "yes", route: item.id })} />)}
+        <Choice title="네, 알고 있어요" description="필요한 도움을 선택하고 준비할 서류를 확인할게요." onClick={() => navigate({ audience: "deceased", knowsId: "yes", route })} />
+        <Choice title="아니요, 모르겠어요" description="아이디를 모를 때 알아두어야 할 내용을 알려드릴게요." onClick={() => navigate({ audience: "deceased", knowsId: "no", route })} />
       </StepShell>}
 
       {audience === "deceased" && knowsId === "no" && <UnknownId onReset={reset} />}
-      {audience === "deceased" && route === "backup" && <BackupDetail />}
-      {audience === "deceased" && route === "delete" && <DeleteDetail />}
-      {audience === "deceased" && route === "npay" && <NpayDetail />}
+      {audience === "deceased" && knowsId === "yes" && route === "backup" && <BackupDetail />}
+      {audience === "deceased" && knowsId === "yes" && route === "delete" && <DeleteDetail />}
+      {audience === "deceased" && knowsId === "yes" && route === "npay" && <NpayDetail />}
+      </CompanyGuideShell>}
     </div>
   );
 }

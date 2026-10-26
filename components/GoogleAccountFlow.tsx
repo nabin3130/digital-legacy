@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import CompanyGuideShell, { selectedGuideRoute } from "./CompanyGuideShell";
 import CompanyAccountSelector from "@/components/CompanyAccountSelector";
 import styles from "./GoogleAccountFlow.module.css";
 import GuideCompletion from "@/components/GuideCompletion";
@@ -31,8 +32,10 @@ const routes: Record<Audience, Array<{ id: RouteId; title: string; description: 
 
 export default function GoogleAccountFlow({ initialAudience = null }: { initialAudience?: Audience | null }) {
   const [audience, setAudience] = useState<Audience | null>(initialAudience);
-  const [route, setRoute] = useState<RouteId | null>(null);
+  const [requestedRoute, setRoute] = useState<RouteId | null>(null);
   const [receiverStatus, setReceiverStatus] = useState<ReceiverStatus | null>(null);
+
+  const route = audience ? selectedGuideRoute(routes[audience], requestedRoute)?.id ?? null : null;
 
   useEffect(() => {
     function restoreFromHistory(event?: PopStateEvent) {
@@ -58,7 +61,9 @@ export default function GoogleAccountFlow({ initialAudience = null }: { initialA
 
     restoreFromHistory();
     window.addEventListener("popstate", restoreFromHistory);
-    return () => window.removeEventListener("popstate", restoreFromHistory);
+    const restoreHash = () => restoreFromHistory(new PopStateEvent("popstate", { state: window.history.state }));
+    window.addEventListener("hashchange", restoreHash);
+    return () => { window.removeEventListener("popstate", restoreFromHistory); window.removeEventListener("hashchange", restoreHash); };
   }, [initialAudience]);
 
   function navigate(next: {
@@ -74,7 +79,7 @@ export default function GoogleAccountFlow({ initialAudience = null }: { initialA
     if (nextRoute) params.set("route", nextRoute);
     if (nextReceiverStatus) params.set("receiver", nextReceiverStatus);
 
-    const hash = params.toString() ? `#${params.toString()}` : `${window.location.pathname}${window.location.search}`;
+    const hash = params.toString() ? `#${params.toString()}` : window.location.pathname;
     window.history.pushState(
       { googleAccountFlow: { audience: next.audience, route: nextRoute, receiverStatus: nextReceiverStatus } },
       "",
@@ -89,64 +94,8 @@ export default function GoogleAccountFlow({ initialAudience = null }: { initialA
     navigate({ audience: null });
   }
 
-  function goBack() {
-    window.history.back();
-  }
-
   return (
     <div className={styles.page}>
-      {audience && <header className={styles.header}>
-        <button type="button" className={styles.brand} onClick={reset} aria-label="구글 안내 처음으로">
-          <img src="/logos/google.svg" alt="" width="48" height="48" />
-          <span><small>공식 절차 안내</small>구글</span>
-        </button>
-        {(audience || route) && <button type="button" className={styles.back} onClick={goBack}>← 이전 단계</button>}
-      </header>}
-
-      {audience && (
-        <nav className={styles.contextNavigation} aria-label="구글 도움말 내 이동">
-          <ol className={styles.breadcrumb}>
-            <li><Link href="/services">서비스</Link></li>
-            <li><button type="button" onClick={reset}>구글</button></li>
-            <li><button type="button" onClick={() => navigate({ audience })}>{audience === "mine" ? "내 구글 계정" : "고인의 구글 계정"}</button></li>
-          </ol>
-
-          {route && (
-            <div className={styles.quickNavigation}>
-              <div className={styles.accountTabs} aria-label="계정 유형 선택">
-                <button
-                  type="button"
-                  className={audience === "mine" ? styles.activeTab : ""}
-                  onClick={() => navigate({ audience: "mine" })}
-                >
-                  내 구글 계정
-                </button>
-                <button
-                  type="button"
-                  className={audience === "deceased" ? styles.activeTab : ""}
-                  onClick={() => navigate({ audience: "deceased" })}
-                >
-                  고인의 구글 계정
-                </button>
-              </div>
-
-              <label className={styles.routeSelect}>
-                <span>다른 도움 보기</span>
-                <select
-                  value={route}
-                  onChange={(event) => navigate({ audience, route: event.target.value as RouteId })}
-                  aria-label="다른 도움 보기"
-                >
-                  {routes[audience].map((item) => (
-                    <option value={item.id} key={item.id}>{item.title}</option>
-                  ))}
-                </select>
-              </label>
-            </div>
-          )}
-        </nav>
-      )}
-
       {!audience && (
         <CompanyAccountSelector
           mine={{ title: "내 구글 계정", description: "사후 계획을 설정하거나 내 데이터를 정리하고 싶어요.", onSelect: () => navigate({ audience: "mine" }) }}
@@ -154,12 +103,17 @@ export default function GoogleAccountFlow({ initialAudience = null }: { initialA
         />
       )}
 
-      {audience && !route && (
-        <StepShell compact eyebrow={audience === "mine" ? "내 구글 계정" : "고인의 구글 계정"} title="무엇을 하고 싶은가요?" description="가장 가까운 항목을 선택해 주세요.">
-          {routes[audience].map((item) => <Choice key={item.id} title={item.title} description={item.description} onClick={() => navigate({ audience, route: item.id })} />)}
-        </StepShell>
-      )}
-
+      {audience && <CompanyGuideShell
+        companyName="구글"
+        logo="/logos/google.svg"
+        locale="ko"
+        audience={audience}
+        routes={routes}
+        selectedRouteId={route ?? undefined}
+        onReset={reset}
+        onSelectAudience={next => navigate({ audience: next, route: next === audience ? route : null, receiverStatus: next === audience ? receiverStatus : null })}
+        onSelectRoute={(next, id) => navigate({ audience: next, route: id as RouteId })}
+      >
       {route === "receive-data" && !receiverStatus && (
         <StepShell compact eyebrow="고인의 데이터 받기" title="고인이 생전에 나를 데이터 수신자로 지정했나요?" description="지정 여부는 신청 자격이 아니라 데이터를 받는 경로를 나누는 기준이에요.">
           <Choice title="지정했어요" description="구글에서 받은 안내 이메일을 통해 공유된 데이터를 내려받아요." onClick={() => navigate({ audience: "deceased", route, receiverStatus: "designated" })} />
@@ -170,6 +124,7 @@ export default function GoogleAccountFlow({ initialAudience = null }: { initialA
 
       {route && route !== "receive-data" && <Detail route={route} />}
       {route === "receive-data" && receiverStatus && <DataRequestDetail status={receiverStatus} />}
+    </CompanyGuideShell>}
     </div>
   );
 }

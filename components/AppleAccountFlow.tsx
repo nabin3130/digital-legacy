@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import CompanyGuideShell, { selectedGuideRoute } from "./CompanyGuideShell";
 import CompanyAccountSelector from "@/components/CompanyAccountSelector";
 import styles from "./GoogleAccountFlow.module.css";
 import GuideCompletion from "@/components/GuideCompletion";
@@ -25,8 +26,9 @@ const routes: Record<Audience, Array<{ id: RouteId; title: string; description: 
 
 export default function AppleAccountFlow({ initialAudience = null }: { initialAudience?: Audience | null }) {
   const [audience, setAudience] = useState<Audience | null>(initialAudience);
-  const [route, setRoute] = useState<RouteId | null>(null);
-  const [contextGoal, setContextGoal] = useState<"download" | "delete" | null>(null);
+  const [requestedRoute, setRoute] = useState<RouteId | null>(null);
+
+  const route = audience ? selectedGuideRoute(routes[audience], requestedRoute)?.id ?? null : null;
 
   useEffect(() => {
     function restore(event?: PopStateEvent) {
@@ -36,7 +38,6 @@ export default function AppleAccountFlow({ initialAudience = null }: { initialAu
       const query = new URLSearchParams(window.location.search);
       const requestedAudience = query.get("audience");
       const requestedGoal = query.get("goal");
-      setContextGoal(requestedGoal === "download" || requestedGoal === "delete" ? requestedGoal : null);
       const contextualAudience = requestedAudience === "mine" || requestedAudience === "deceased" ? requestedAudience : null;
       const contextualRoute: RouteId | null = contextualAudience === "mine" ? (requestedGoal === "download" ? "download" : requestedGoal === "delete" ? "delete-mine" : null) : contextualAudience === "deceased" && requestedGoal === "delete" ? "delete-account" : null;
       setAudience((params.get("account") as Audience | null) ?? contextualAudience);
@@ -44,7 +45,9 @@ export default function AppleAccountFlow({ initialAudience = null }: { initialAu
     }
     restore();
     window.addEventListener("popstate", restore);
-    return () => window.removeEventListener("popstate", restore);
+    const restoreHash = () => restore(new PopStateEvent("popstate", { state: window.history.state }));
+    window.addEventListener("hashchange", restoreHash);
+    return () => { window.removeEventListener("popstate", restore); window.removeEventListener("hashchange", restoreHash); };
   }, [initialAudience]);
 
   function navigate(next: { audience: Audience | null; route?: RouteId | null }) {
@@ -52,52 +55,32 @@ export default function AppleAccountFlow({ initialAudience = null }: { initialAu
     const params = new URLSearchParams();
     if (next.audience) params.set("account", next.audience);
     if (nextRoute) params.set("route", nextRoute);
-    const hash = params.toString() ? `#${params.toString()}` : `${window.location.pathname}${window.location.search}`;
+    const hash = params.toString() ? `#${params.toString()}` : window.location.pathname;
     window.history.pushState({ appleAccountFlow: { audience: next.audience, route: nextRoute } }, "", hash);
     setAudience(next.audience); setRoute(nextRoute);
   }
 
   const reset = () => navigate({ audience: null });
-  const visibleRoutes = audience === "deceased" && contextGoal === "download" ? routes.deceased.filter((item) => item.id === "request-access" || item.id === "no-key") : audience ? routes[audience] : [];
 
   return <div className={styles.page}>
-    {audience && <header className={styles.header}>
-      <button type="button" className={styles.brand} onClick={reset} aria-label="애플 안내 처음으로">
-        <img src="/logos/apple.svg" alt="" width="48" height="48" />
-        <span><small>공식 절차 안내</small>애플</span>
-      </button>
-      {(audience || route) && <button type="button" className={styles.back} onClick={() => window.history.back()}>← 이전 단계</button>}
-    </header>}
-
-    {audience && <nav className={styles.contextNavigation} aria-label="애플 도움말 내 이동">
-      <ol className={styles.breadcrumb}>
-        <li><Link href="/services">서비스</Link></li>
-        <li><button type="button" onClick={reset}>애플</button></li>
-        <li><button type="button" onClick={() => navigate({ audience })}>{audience === "mine" ? "내 애플 계정" : "고인의 애플 계정"}</button></li>
-      </ol>
-      {route && <div className={styles.quickNavigation}>
-        <div className={styles.accountTabs} aria-label="계정 유형 선택">
-          <button type="button" className={audience === "mine" ? styles.activeTab : ""} onClick={() => navigate({ audience: "mine" })}>내 애플 계정</button>
-          <button type="button" className={audience === "deceased" ? styles.activeTab : ""} onClick={() => navigate({ audience: "deceased" })}>고인의 애플 계정</button>
-        </div>
-        <label className={styles.routeSelect}><span>다른 도움 보기</span><select value={route} onChange={(e) => navigate({ audience, route: e.target.value as RouteId })}>{visibleRoutes.map(item => <option key={item.id} value={item.id}>{item.title}</option>)}</select></label>
-      </div>}
-    </nav>}
-
-    {!audience && <CompanyAccountSelector
+      {!audience && <CompanyAccountSelector
       mine={{ title: "내 애플 계정", description: "유산 관리자를 지정하고 접근 키를 준비하고 싶어요.", onSelect: () => navigate({ audience: "mine" }) }}
       deceased={{ title: "고인의 애플 계정", description: "고인의 데이터에 접근하거나 계정을 정리하고 싶어요.", onSelect: () => navigate({ audience: "deceased" }) }}
     />}
-    {audience && !route && <StepShell eyebrow={audience === "mine" ? "내 애플 계정" : "고인의 애플 계정"} title={audience === "deceased" && contextGoal === "download" ? "유산 관리자 접근 키가 있나요?" : "무엇을 하고 싶은가요?"} description={audience === "deceased" && contextGoal === "download" ? "접근 키 보유 여부에 따라 필요한 절차가 달라져요." : "가장 가까운 항목을 선택해 주세요."}>{visibleRoutes.map(item => <Choice key={item.id} title={item.title} description={item.description} onClick={() => navigate({ audience, route: item.id })} />)}</StepShell>}
-    {route && <Detail route={route} />}
+    {audience && <CompanyGuideShell
+        companyName="애플"
+        logo="/logos/apple.svg"
+        locale="ko"
+        audience={audience}
+        routes={routes}
+        selectedRouteId={route ?? undefined}
+        onReset={reset}
+        onSelectAudience={next => navigate({ audience: next, route: next === audience ? route : null })}
+        onSelectRoute={(next, id) => navigate({ audience: next, route: id as RouteId })}
+      >
+      {route && <Detail route={route} />}
+    </CompanyGuideShell>}
   </div>;
-}
-
-function StepShell({ eyebrow, title, description, children }: { eyebrow: string; title: string; description: string; children: React.ReactNode }) {
-  return <main className={`${styles.shell} ${styles.compact}`}><p className={styles.eyebrow}>{eyebrow}</p><h1>{title}</h1><p className={styles.lead}>{description}</p><div className={styles.choices}>{children}</div></main>;
-}
-function Choice({ title, description, onClick }: { title: string; description: string; onClick: () => void }) {
-  return <button type="button" className={styles.choice} onClick={onClick}><span><strong>{title}</strong><small>{description}</small></span></button>;
 }
 
 const GUIDE = "https://support.apple.com/ko-kr/102631";
