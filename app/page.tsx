@@ -1,6 +1,7 @@
 "use client";
 import {FormEvent,useMemo} from "react";
 import Link from "next/link";
+import { matchesServiceQuery } from "@/lib/hangul-search";
 import {useRouter} from "next/navigation";
 import styles from "./Home.module.css";
 import {goalsByAudience,isGoalAvailable,shouldShowService,type Audience,type Goal,type Support} from "@/lib/scenario-rules";
@@ -33,10 +34,10 @@ const {audience,goal,showSafeGuide,step,chooseAudience:selectAudience,chooseGoal
 const quickSearch=useCompositionSearch();const serviceSearch=useCompositionSearch();const quickQuery=quickSearch.query;const serviceQuery=serviceSearch.query;const setServiceQuery=serviceSearch.reset;
 function chooseAudience(next:Audience){setServiceQuery("");selectAudience(next)}
 function chooseGoal(next:Goal){setServiceQuery("");selectGoal(next)}
-const filtered=useMemo(()=>{const q=serviceQuery.trim().toLowerCase();return services.filter(s=>!q||s.keywords.some(k=>k.toLowerCase().includes(q)))},[serviceQuery]);
+const filtered=useMemo(()=>{const q=serviceQuery.trim().toLowerCase();return services.filter(s=>matchesServiceQuery(q,s.keywords))},[serviceQuery]);
 const availableGoals=useMemo(()=>audience?goals.filter(item=>goalsByAudience[audience].includes(item.id)):goals,[audience]);
 const ordered=useMemo(()=>{const available=goal?filtered.filter(service=>shouldShowService(goal,service.support[goal] as Support)):filtered;return goal?[...available].sort((a,b)=>rank(a.support[goal] as Support)-rank(b.support[goal] as Support)):available},[filtered,goal]);
-function submit(e:FormEvent){e.preventDefault();if(quickSearch.isComposing())return;const q=quickQuery.trim().toLowerCase();if(!q){router.push("/services");return}const match=services.find(s=>s.keywords.some(k=>k.toLowerCase().includes(q)));if(match)router.push(companyJourneyHref(match.slug,audience,goal));else router.push(`/services?q=${encodeURIComponent(quickQuery)}`)}
+function submit(e:FormEvent){e.preventDefault();if(quickSearch.isComposing())return;const q=quickQuery.trim().toLowerCase();if(!q){router.push("/services");return}const match=services.find(s=>matchesServiceQuery(q,s.keywords));if(match)router.push(companyJourneyHref(match.slug,audience,goal));else router.push(`/services?q=${encodeURIComponent(quickQuery)}`)}
 function reset(){resetJourney();clearAllProgress()}
 
 return <main className={styles.home}>
