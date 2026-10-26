@@ -12,6 +12,7 @@ import { getCompanySteps } from "@/lib/company-guidance";
 import { companyMetadata } from "@/lib/seo";
 
 type CompanyPageProps = {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
   params: Promise<{
     slug: string;
   }>;
@@ -29,8 +30,11 @@ export async function generateMetadata({ params }: CompanyPageProps): Promise<Me
 
 export default async function CompanyPage({
   params,
+  searchParams,
 }: CompanyPageProps) {
   const { slug } = await params;
+  const requestedAudience = (await searchParams).audience;
+  const initialAudience = requestedAudience === "mine" || requestedAudience === "deceased" ? requestedAudience : null;
   if (slug === "facebook") redirect("/company/meta");
   const companyPolicy = companies.find((company) => company.slug === slug);
 
@@ -41,7 +45,7 @@ export default async function CompanyPage({
       <main className="section">
         <div className="container">
           <CompanyPolicyOverview company={companyPolicy} />
-          <GoogleAccountFlow />
+          <GoogleAccountFlow initialAudience={initialAudience} />
         </div>
       </main>
     );
@@ -52,7 +56,7 @@ export default async function CompanyPage({
       <main className="section">
         <div className="container">
           <CompanyPolicyOverview company={companyPolicy} />
-          <AppleAccountFlow />
+          <AppleAccountFlow initialAudience={initialAudience} />
         </div>
       </main>
     );
@@ -63,7 +67,7 @@ export default async function CompanyPage({
       <main className="section">
         <div className="container">
           <CompanyPolicyOverview company={companyPolicy} />
-          <NaverAccountFlow />
+          <NaverAccountFlow initialAudience={initialAudience} />
         </div>
       </main>
     );
@@ -84,6 +88,7 @@ export default async function CompanyPage({
       <div className="container">
         <CompanyPolicyOverview company={companyPolicy} />
         <CompanyAccountFlow
+          initialAudience={initialAudience}
           company={companyPolicy}
           preDeathSteps={preDeathSteps}
           postDeathSteps={postDeathSteps}

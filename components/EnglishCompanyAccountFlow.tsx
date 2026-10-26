@@ -22,10 +22,12 @@ const logos: Record<string, string> = {
 
 export default function EnglishCompanyAccountFlow({
   company,
+  initialAudience = null,
 }: {
   company: CompanyPolicy;
+  initialAudience?: Audience | null;
 }) {
-  const [audience, setAudience] = useState<Audience | null>(null);
+  const [audience, setAudience] = useState<Audience | null>(initialAudience);
   const [actionId, setActionId] = useState<string | null>(null);
   const english = companyEnglish[company.slug];
   const displayName = english?.name ?? company.company;
@@ -42,20 +44,20 @@ export default function EnglishCompanyAccountFlow({
         return;
       }
       const params = new URLSearchParams(window.location.hash.slice(1));
-      setAudience(params.get("account") as Audience | null);
+      setAudience((params.get("account") as Audience | null) ?? initialAudience);
       setActionId(params.get("route") ?? null);
     }
 
     restore();
     window.addEventListener("popstate", restore);
     return () => window.removeEventListener("popstate", restore);
-  }, []);
+  }, [initialAudience]);
 
   function navigate(nextAudience: Audience | null, nextActionId: string | null = null) {
     const params = new URLSearchParams();
     if (nextAudience) params.set("account", nextAudience);
     if (nextActionId) params.set("route", nextActionId);
-    const hash = params.toString() ? `#${params.toString()}` : window.location.pathname;
+    const hash = params.toString() ? `#${params.toString()}` : `${window.location.pathname}${window.location.search}`;
     window.history.pushState(
       { englishCompanyAccountFlow: { audience: nextAudience, actionId: nextActionId } },
       "",

@@ -9,7 +9,7 @@ import { companies } from "@/lib/data";
 import { companyEnglish } from "@/lib/company-en";
 import { companyMetadata } from "@/lib/seo";
 
-type Props = { params: Promise<{ slug: string }> };
+type Props = { params: Promise<{ slug: string }>; searchParams: Promise<Record<string, string | string[] | undefined>> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
@@ -21,8 +21,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return companyMetadata("en", canonicalSlug, description);
 }
 
-export default async function EnglishCompanyPage({ params }: Props) {
+export default async function EnglishCompanyPage({ params, searchParams }: Props) {
   const { slug } = await params;
+  const requestedAudience = (await searchParams).audience;
+  const initialAudience = requestedAudience === "mine" || requestedAudience === "deceased" ? requestedAudience : null;
   if (slug === "facebook") redirect("/en/company/meta");
   const company = companies.find((item) => item.slug === slug);
   if (!company) notFound();
@@ -32,7 +34,7 @@ export default async function EnglishCompanyPage({ params }: Props) {
       <main className="section">
         <div className="container">
           <CompanyPolicyOverview company={company} locale="en" />
-          <EnglishGoogleAccountFlow />
+          <EnglishGoogleAccountFlow initialAudience={initialAudience} />
         </div>
       </main>
     );
@@ -43,7 +45,7 @@ export default async function EnglishCompanyPage({ params }: Props) {
       <main className="section">
         <div className="container">
           <CompanyPolicyOverview company={company} locale="en" />
-          <EnglishAppleAccountFlow />
+          <EnglishAppleAccountFlow initialAudience={initialAudience} />
         </div>
       </main>
     );
@@ -54,7 +56,7 @@ export default async function EnglishCompanyPage({ params }: Props) {
       <main className="section">
         <div className="container">
           <CompanyPolicyOverview company={company} locale="en" />
-          <EnglishNaverAccountFlow />
+          <EnglishNaverAccountFlow initialAudience={initialAudience} />
         </div>
       </main>
     );
@@ -64,7 +66,7 @@ export default async function EnglishCompanyPage({ params }: Props) {
     <main className="section">
       <div className="container">
         <CompanyPolicyOverview company={company} locale="en" />
-        <EnglishCompanyAccountFlow company={company} />
+        <EnglishCompanyAccountFlow initialAudience={initialAudience} company={company} />
       </div>
     </main>
   );

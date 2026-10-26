@@ -33,8 +33,8 @@ const GUIDE = "https://support.apple.com/en-us/102631";
 const ACCESS_KEY = "https://support.apple.com/en-us/102678";
 const DIGITAL_LEGACY = "https://digital-legacy.apple.com/";
 
-export default function EnglishAppleAccountFlow() {
-  const [audience, setAudience] = useState<Audience | null>(null);
+export default function EnglishAppleAccountFlow({ initialAudience = null }: { initialAudience?: Audience | null }) {
+  const [audience, setAudience] = useState<Audience | null>(initialAudience);
   const [route, setRoute] = useState<RouteId | null>(null);
 
   useEffect(() => {
@@ -46,13 +46,18 @@ export default function EnglishAppleAccountFlow() {
         return;
       }
       const params = new URLSearchParams(window.location.hash.slice(1));
-      setAudience((params.get("account") as Audience | null) ?? null);
-      setRoute((params.get("route") as RouteId | null) ?? null);
+      const query = new URLSearchParams(window.location.search);
+      const requestedAudience = query.get("audience");
+      const requestedGoal = query.get("goal");
+      const contextualAudience = requestedAudience === "mine" || requestedAudience === "deceased" ? requestedAudience : null;
+      const contextualRoute: RouteId | null = contextualAudience === "mine" ? (requestedGoal === "download" ? "download" : requestedGoal === "delete" ? "delete-mine" : null) : contextualAudience === "deceased" && requestedGoal === "delete" ? "delete-account" : null;
+      setAudience((params.get("account") as Audience | null) ?? contextualAudience ?? initialAudience);
+      setRoute((params.get("route") as RouteId | null) ?? contextualRoute);
     }
     restore();
     window.addEventListener("popstate", restore);
     return () => window.removeEventListener("popstate", restore);
-  }, []);
+  }, [initialAudience]);
 
   function navigate(next: { audience: Audience | null; route?: RouteId | null }) {
     const nextRoute = next.route ?? null;

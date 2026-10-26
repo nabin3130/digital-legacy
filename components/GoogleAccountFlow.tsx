@@ -29,8 +29,8 @@ const routes: Record<Audience, Array<{ id: RouteId; title: string; description: 
   ],
 };
 
-export default function GoogleAccountFlow() {
-  const [audience, setAudience] = useState<Audience | null>(null);
+export default function GoogleAccountFlow({ initialAudience = null }: { initialAudience?: Audience | null }) {
+  const [audience, setAudience] = useState<Audience | null>(initialAudience);
   const [route, setRoute] = useState<RouteId | null>(null);
   const [receiverStatus, setReceiverStatus] = useState<ReceiverStatus | null>(null);
 
@@ -59,7 +59,7 @@ export default function GoogleAccountFlow() {
     restoreFromHistory();
     window.addEventListener("popstate", restoreFromHistory);
     return () => window.removeEventListener("popstate", restoreFromHistory);
-  }, []);
+  }, [initialAudience]);
 
   function navigate(next: {
     audience: Audience | null;

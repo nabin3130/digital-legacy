@@ -52,8 +52,8 @@ const routes: Array<{ id: RouteId; title: string; description: string }> = [
   },
 ];
 
-export default function EnglishNaverAccountFlow() {
-  const [audience, setAudience] = useState<Audience | null>(null);
+export default function EnglishNaverAccountFlow({ initialAudience = null }: { initialAudience?: Audience | null }) {
+  const [audience, setAudience] = useState<Audience | null>(initialAudience);
   const [knowsId, setKnowsId] = useState<KnowsId | null>(null);
   const [route, setRoute] = useState<RouteId | null>(null);
 
@@ -68,14 +68,14 @@ export default function EnglishNaverAccountFlow() {
       }
       const params = new URLSearchParams(window.location.hash.slice(1));
       const savedAudience = params.get("account") as Audience | null;
-      setAudience(savedAudience ?? (params.has("knows-id") ? "deceased" : null));
+      setAudience(savedAudience ?? (params.has("knows-id") ? "deceased" : initialAudience));
       setKnowsId((params.get("knows-id") as KnowsId | null) ?? null);
       setRoute((params.get("route") as RouteId | null) ?? null);
     }
     restoreFromHistory();
     window.addEventListener("popstate", restoreFromHistory);
     return () => window.removeEventListener("popstate", restoreFromHistory);
-  }, []);
+  }, [initialAudience]);
 
   function navigate(next: { audience: Audience | null; knowsId?: KnowsId | null; route?: RouteId | null }) {
     const nextKnowsId = next.knowsId ?? null;
