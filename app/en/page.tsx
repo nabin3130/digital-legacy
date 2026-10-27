@@ -147,7 +147,7 @@ const unsureResults = [
 
 export default function EnglishHomePage() {
   const router = useRouter();
-  const { audience, goal, showSafeGuide, step, chooseAudience: selectAudience, chooseGoal: selectGoal, openSafeGuide, goBack, resetJourney } = useHomeJourney(true);
+  const { audience, goal, showSafeGuide, step, scrollOnChange, chooseAudience: selectAudience, chooseGoal: selectGoal, openSafeGuide, goBack, resetJourney } = useHomeJourney(true);
   const quickSearch = useCompositionSearch();
   const serviceSearch = useCompositionSearch();
   const quickQuery = quickSearch.query;
@@ -222,7 +222,7 @@ export default function EnglishHomePage() {
         </div>
       </section>
 
-      <HomeWizardStage step={step}>
+      <HomeWizardStage step={step} scrollOnChange={scrollOnChange}>
       {step === "audience" && <section className={styles.start}>
         <div className={styles.narrow}>
           <GuideProgress step={1} locale="en" />
