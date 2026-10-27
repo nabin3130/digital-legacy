@@ -34,6 +34,12 @@ test('SafeGuide survives reload, then services goes back to safe, goals and audi
   assert.deepEqual(previousJourney(goals), emptyJourney);
 });
 
+test('empty journey has no hash, while legacy #start still parses as empty', () => {
+  assert.equal(journeyHash(emptyJourney), '');
+  assert.deepEqual(journeyFromHash(''), emptyJourney);
+  assert.deepEqual(journeyFromHash('#start'), emptyJourney);
+});
+
 test('old localStorage shape and hash links remain compatible; invalid state is normalized', () => {
   assert.equal(homeStep(normalizeJourney({ audience: 'mine', goal: 'download' })), 'services');
   assert.deepEqual(journeyFromHash('#start'), emptyJourney);

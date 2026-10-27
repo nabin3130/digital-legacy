@@ -28,7 +28,7 @@ export function journeyHash(state: HomeJourney): string {
   if (state.goal) params.set("goal", state.goal);
   if (state.safe) params.set("guide", "safe");
   if (state.viaSafe && state.goal) params.set("via", "safe");
-  return params.size ? `#${params}` : "#start";
+  return params.size ? `#${params}` : "";
 }
 
 export function journeyFromHash(hash: string): HomeJourney {

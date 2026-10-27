@@ -6,7 +6,7 @@ import styles from "./HomeWizardStage.module.css";
 
 const order: HomeStep[] = ["audience", "goal", "safe", "services"];
 
-export default function HomeWizardStage({ step, children }: { step: HomeStep; children: ReactNode }) {
+export default function HomeWizardStage({ step, scrollOnChange = true, children }: { step: HomeStep; scrollOnChange?: boolean; children: ReactNode }) {
   const [renderedStep, setRenderedStep] = useState(step);
   const latestChildren = useRef(children);
   const outgoingChildren = useRef(children);
@@ -18,6 +18,13 @@ export default function HomeWizardStage({ step, children }: { step: HomeStep; ch
 
   useEffect(() => {
     if (step === currentStep.current) {
+      setPhase("");
+      return;
+    }
+    // Hydration and reset swap content without animation, scrolling or stealing focus.
+    if (!scrollOnChange) {
+      currentStep.current = step;
+      setRenderedStep(step);
       setPhase("");
       return;
     }
@@ -54,7 +61,7 @@ export default function HomeWizardStage({ step, children }: { step: HomeStep; ch
       }, 125);
     }, 125);
     return () => { clearTimeout(exitTimer); clearTimeout(enterTimer); if (focusFrame !== undefined) cancelAnimationFrame(focusFrame); };
-  }, [step]);
+  }, [step, scrollOnChange]);
 
   return <div id="start" ref={root} className={styles.stage} data-wizard-step={renderedStep}>
     <div className={phase ? styles[phase] : undefined} inert={phase ? true : undefined} aria-busy={phase ? true : undefined}>
