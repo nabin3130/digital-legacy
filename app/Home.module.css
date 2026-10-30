@@ -1,3 +1,6 @@
+Warning: truncated output (original token count: 6112)
+Total output lines: 257
+
 .home{background:#fbfcfa;color:#18211d}.hero{position:relative;min-height:610px;display:flex;align-items:center;overflow:hidden}.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.heroOverlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(12,44,34,.82),rgba(12,44,34,.6) 48%,rgba(12,44,34,.18))}.heroContent{position:relative;z-index:1;color:#fff}.kicker{margin:0 0 14px;color:#5d8777;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.1em}.hero .kicker{color:#a9d0bf}.hero h1{margin:0;font-family:var(--sans);font-size:clamp(42px,5vw,66px);font-weight:650;line-height:1.16;letter-spacing:-.055em}.heroContent>p:not(.kicker){margin:24px 0 0;color:rgba(255,255,255,.84);font-size:17px;line-height:1.75}.heroAction{display:inline-flex;margin-top:30px;padding:14px 18px;border-radius:8px;background:#fff;color:#12372b;font-size:14px;font-weight:700}.sound{position:absolute;right:0;bottom:-84px;border:0;background:transparent;color:rgba(255,255,255,.78);font-size:12px;cursor:pointer}.narrow{width:min(calc(100% - 40px),920px);margin:auto}.start{padding:92px 0 104px}.sectionHead{display:grid;grid-template-columns:1fr 260px;gap:60px;align-items:end}.sectionHead h2,.flowSection h2,.services h2{margin:0;font-size:clamp(29px,3.3vw,42px);line-height:1.25;letter-spacing:-.045em}.sectionHead>div>p:last-child,.flowSection>.narrow>p:not(.kicker),.services aside>p{color:#65716b;line-height:1.7}.quickSearch label{display:block;margin-bottom:8px;color:#65716b;font-size:12px}.quickSearch>div,.serviceSearch{display:flex;align-items:center;gap:8px;border-bottom:1px solid #9aa69f}.quickSearch input,.serviceSearch input{width:100%;padding:10px 2px;border:0;outline:0;background:transparent;color:#18211d}.choiceList{margin-top:38px;border-top:1px solid #c5cec8}.choiceList button,.goalList button{width:100%;border:0;border-bottom:1px solid #e0e5e1;background:transparent;color:#18211d;text-align:left;cursor:pointer}.choiceList button{min-height:92px;padding:17px 8px;display:grid;grid-template-columns:26px 1fr auto;align-items:center;gap:16px}.choiceList button:hover,.choiceList button.selected,.goalList button:hover,.goalList button.selected{background:#dcede5}.radio{width:20px;height:20px;border:1.5px solid #74817a;border-radius:50%;display:grid;place-items:center}.selected .radio:after{content:"";width:9px;height:9px;border-radius:50%;background:#1f5a49}.choiceList strong,.goalList strong{display:block;font-size:17px}.choiceList small,.goalList small{display:block;margin-top:6px;color:#65716b;font-size:14px;line-height:1.5}.rowState{color:#1f5a49;font-size:12px;font-weight:700}.privacyNote{margin:16px 0 0;color:#79847e;font-size:12px}.flowSection{padding:82px 0 110px;background:#f0f3f0;scroll-margin-top:70px}.locked{display:none}.progress{display:flex;justify-content:space-between;padding-bottom:20px;border-bottom:1px solid #c5cec8;color:#84908a;font-size:12px}.progress b{font-weight:500}.progress .current{color:#1f5a49;font-weight:800}.progress em{font-style:normal}.back{margin:30px 0 45px;padding:0;border:0;background:transparent;color:#65716b;font-size:13px;cursor:pointer}.helper{max-width:680px}.goalList{margin-top:34px;border-top:1px solid #b9c3bd;display:grid;grid-template-columns:1fr 1fr}.goalList button{min-height:150px;padding:25px 20px;display:grid;grid-template-columns:38px 1fr auto;gap:15px}.goalList button:nth-child(odd){border-right:1px solid #e0e5e1}.goalIcon{width:30px;height:30px;border:1px solid #8e9993;border-radius:50%;display:grid;place-items:center}.services{background:#fbfcfa;scroll-margin-top:70px}.serviceLayout{min-height:650px;display:grid;grid-template-columns:minmax(280px,.7fr) minmax(420px,1.3fr)}.services aside{padding:64px max(30px,calc((100vw - 1200px)/2));padding-right:48px;background:#f0f3f0;border-right:1px solid #d2d8d4}.services aside .back{margin:25px 0 50px}.serviceSearch{margin-top:30px}.serviceList{padding:64px max(30px,calc((100vw - 1200px)/2));padding-left:48px}.serviceRow{min-height:78px;padding:14px 8px;border-bottom:1px solid #e0e5e1;display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:16px;transition:background .16s,padding .16s}.serviceRow:hover{padding-left:16px;background:#f0f3f0}.serviceRow img{width:38px;height:38px;object-fit:contain}.serviceRow strong{font-size:16px}.serviceRow small{display:block;margin-top:4px;color:#65716b;font-size:12px}.status{padding:5px 8px;border-radius:99px;font-size:11px;font-weight:700}.supported{background:#dcede5;color:#1e6749}.conditional{background:#f4e6d2;color:#79561e}.unsupported,.checking{background:#e9ecea;color:#626a66}.empty{padding:70px;text-align:center}.empty button{display:block;margin:14px auto;border:0;background:transparent;color:#1f5a49;text-decoration:underline}.savedBar{position:fixed;right:20px;bottom:20px;z-index:30;padding:13px 16px;border:1px solid #c5cec8;border-radius:8px;background:#fff;box-shadow:0 12px 32px rgba(18,55,43,.12);display:flex;gap:16px;align-items:center;font-size:12px}.savedBar button{border:0;background:transparent;color:#1f5a49;text-decoration:underline;cursor:pointer}
 @media(max-width:760px){.hero{min-height:560px}.heroContent{padding:80px 0}.hero h1{font-size:39px}.sound{right:20px}.start{padding:68px 0 78px}.sectionHead{grid-template-columns:1fr;gap:30px}.choiceList button{min-height:104px}.goalList{grid-template-columns:1fr}.goalList button:nth-child(odd){border-right:0}.serviceLayout{grid-template-columns:1fr}.services aside{padding:52px 20px 38px;border-right:0;border-bottom:1px solid #d2d8d4}.serviceList{padding:28px 20px 70px}.savedBar{left:12px;right:12px;bottom:12px;justify-content:space-between}.progress span{font-size:10px}}
 .goalList{grid-template-columns:1fr}.goalList button{min-height:112px}.goalList button:nth-child(odd){border-right:0}.services h2{font-size:clamp(27px,2.6vw,34px)}.searchFeedback{display:block;margin-top:12px;color:#74817b;font-size:12px}@media(min-width:900px){.sectionHead h2,.flowSection h2,.services h2,.helper,.services aside>p{white-space:nowrap}.sectionHead h2{font-size:38px}.flowSection h2{font-size:40px}}
@@ -15,188 +18,174 @@
 .hero .heroAction:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(31,90,73,.2)}
 .recordScene{position:relative;width:min(100%,520px);aspect-ratio:1.08;margin:auto;isolation:isolate}
 .lightHalo{position:absolute;inset:8% 2% 0 12%;border-radius:48% 52% 45% 55%;background:radial-gradient(circle at 52% 45%,rgba(255,255,255,.92),rgba(219,237,228,.62) 48%,rgba(203,223,213,0) 72%);filter:blur(2px)}
-.orbitLine{position:absolute;inset:15% 8% 12% 8%;z-index:-1;border:1px solid rgba(45,102,83,.16);border-radius:50%;transform:rotate(-13deg)}
-.recordCard{position:absolute;width:158px;height:112px;padding:20px;border:1px solid rgba(57,103,88,.18);border-radius:16px;background:rgba(255,255,255,.68);box-shadow:0 22px 48px rgba(43,83,69,.1);backdrop-filter:blur(12px);animation:recordSettle 900ms cubic-bezier(.22,1,.36,1) both}
-.recordCard i{display:block;height:6px;margin-top:10px;border-radius:10px;background:rgba(56,102,87,.18)}
-.recordCard i:last-child{width:62%}
-.photoCard{left:2%;top:18%;transform:rotate(-7deg);animation-delay:80ms}
-.miniSun{display:block;width:38px;height:38px;border-radius:50%;background:linear-gradient(145deg,#e9c9a3,#dbe9d9)}
-.messageCard{right:0;top:11%;transform:rotate(8deg);animation-delay:180ms}
-.messageCard i:first-child{width:76%;margin-top:16px;background:rgba(50,118,95,.28)}
-.documentCard{left:4%;bottom:2%;height:142px;transform:rotate(4deg);animation-delay:280ms}
-.documentCard span{display:block;width:34px;height:8px;border-radius:8px;background:#83ac9c}
-.archive{position:absolute;right:15%;bottom:8%;width:210px;height:250px;padding:32px 28px;border:1px solid rgba(45,91,76,.2);border-radius:22px;background:linear-gradient(145deg,rgba(253,252,247,.95),rgba(224,238,230,.88));box-shadow:0 30px 70px rgba(38,75,63,.16);animation:archiveEnter 950ms 220ms cubic-bezier(.22,1,.36,1) both}
-.archive::before{content:"";position:absolute;top:-1px;left:28px;width:72px;height:13px;border-radius:0 0 9px 9px;background:#75a390}
-.archiveMark{display:grid;width:58px;height:58px;border:1px solid rgba(31,90,73,.22);border-radius:50%;place-items:center;color:#2c6856;font-size:12px;font-weight:800;letter-spacing:.08em}
-.archive div{height:7px;margin-top:30px;border-radius:10px;background:rgba(43,92,76,.2)}
-.archive div:last-child{width:68%;margin-top:13px}
-.recordScene::after{content:"";position:absolute;right:6%;bottom:1%;width:52%;height:12%;z-index:-2;border-radius:50%;background:rgba(55,91,78,.16);filter:blur(22px)}
-@keyframes heroEnter{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-@keyframes recordSettle{from{opacity:0;translate:0 26px;scale:.96}to{opacity:1;translate:0 0;scale:1}}
-@keyframes archiveEnter{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
-@keyframes auroraDrift{to{transform:translate(-28px,24px) scale(1.05)}}
-@media(max-width:900px){.hero{min-height:auto;padding:88px 0 54px}.heroGrid{grid-template-columns:1fr;gap:36px}.hero .heroContent{padding:0}.recordScene{width:min(92%,440px)}.aurora{right:-360px}}
-@media(prefers-reduced-motion:reduce){.hero .heroAction{transition:none}.hero .heroContent,.recordCard,.archive,.aurora{animation:none}}
+.orbitLine{position:absolute;inset:15% 8% 12% 8%;z-index:-1;border:1px solid rgba(45,102,83,.16);border-radius:50%;transfâ€¦2112 tokens truncatedâ€¦ite-space:nowrap}.progressEntries{margin-top:26px;border-top:1px solid #becdc5}.progressEntries a{min-height:66px;padding:12px 6px;border-bottom:1px solid #cfdbd4;display:grid;grid-template-columns:26px 120px 1fr;align-items:center;gap:12px;color:#18211d;text-decoration:none}.progressEntries a>span{color:#1f5a49;font-weight:900}.progressEntries small{color:#65716b}.progressSummary .narrow>p:last-child{margin:14px 0 0;color:#74817b;font-size:12px}@media(max-width:640px){.progressEntries a{grid-template-columns:24px 1fr}.progressEntries small{grid-column:2}.progressSummaryHead{align-items:flex-start}.progressSummary{padding:48px 0}}
+@media(max-width:640px){.serviceRow{grid-template-columns:44px minmax(0,1fr);gap:12px}.serviceRow .status{grid-column:2;justify-self:start;margin-top:2px}.serviceRow small{line-height:1.45}.status{white-space:normal}.choiceList button,.goalList button,.serviceRow{min-height:72px}}
+@media(max-width:640px){.flowSection{padding:34px 0 58px}.flowSection .progress{padding-bottom:14px}.flowSection .back{margin:18px 0 26px}.flowSection .kicker{margin-bottom:10px}.flowSection h2{font-size:32px;line-height:1.25}.goalList{margin-top:24px}.goalList button{min-height:94px;padding:20px 8px;grid-template-columns:38px minmax(0,1fr) 20px;gap:14px}.goalList strong{font-size:16px}.goalList small{font-size:13px}.savedBar{padding:11px 14px}}
 
-/* Hero alternative 4: diffused light gradient */
-.lightCanvas{position:relative;width:min(100%,520px);aspect-ratio:1.08;margin:auto;overflow:hidden;border:1px solid rgba(50,96,81,.11);border-radius:46% 54% 48% 52%/48% 44% 56% 52%;background:linear-gradient(145deg,rgba(255,253,247,.96),rgba(232,241,235,.82));box-shadow:0 32px 80px rgba(53,91,78,.11);isolation:isolate;animation:canvasEnter 900ms cubic-bezier(.22,1,.36,1) both;transition:transform 700ms cubic-bezier(.22,1,.36,1)}
-.heroGrid:has(.heroAction:hover) .lightCanvas{transform:translateX(-5px) scale(1.012)}
-.lightCanvas span{position:absolute;display:block;border:1px solid rgba(255,255,255,.32);border-radius:48% 52% 44% 56%/53% 43% 57% 47%;filter:blur(18px);mix-blend-mode:multiply;will-change:transform}
-.lightMint{width:72%;height:66%;left:-4%;top:2%;background:linear-gradient(145deg,rgba(87,171,139,.53),rgba(180,222,204,.26));animation:lightMintSettle 16s cubic-bezier(.22,1,.36,1) infinite}
-.lightBlue{width:66%;height:64%;right:-5%;top:14%;background:linear-gradient(210deg,rgba(126,190,209,.48),rgba(203,226,233,.22));animation:lightBlueSettle 16s cubic-bezier(.22,1,.36,1) infinite}
-.lightCream{width:68%;height:57%;left:17%;bottom:-5%;background:linear-gradient(25deg,rgba(229,190,130,.43),rgba(246,228,194,.22));animation:lightCreamSettle 16s cubic-bezier(.22,1,.36,1) infinite}
-.lightCore{width:32%;height:32%;left:35%;top:31%;border:0!important;background:rgba(255,255,248,.9);filter:blur(18px)!important;mix-blend-mode:screen!important;animation:lightRest 16s ease-in-out infinite}
-.lightRing{position:absolute;inset:15%;border:1px solid rgba(255,255,255,.58);border-radius:50%;transform:rotate(-18deg);box-shadow:inset 0 0 36px rgba(255,255,255,.18)}
-.lightCanvas::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 28%,rgba(255,255,255,.2) 48%,transparent 68%);transform:translateX(-78%);animation:lightSweep 16s ease-in-out infinite}
-@keyframes canvasEnter{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:none}}
-@keyframes lightMintSettle{0%{transform:translate(-24%,-18%) scale(.9);opacity:0}18%{opacity:1}34%,78%{transform:translate(8%,7%) scale(1)}100%{transform:translate(10%,8%) scale(1.018)}}
-@keyframes lightBlueSettle{0%{transform:translate(28%,-12%) scale(.9);opacity:0}20%{opacity:1}36%,78%{transform:translate(-9%,5%) scale(1)}100%{transform:translate(-10%,6%) scale(1.015)}}
-@keyframes lightCreamSettle{0%{transform:translate(0,32%) scale(.9);opacity:0}22%{opacity:1}38%,78%{transform:translate(0,-8%) scale(1)}100%{transform:translate(1%,-9%) scale(1.014)}}
-@keyframes lightRest{0%,38%{transform:scale(.86);opacity:0}50%,78%{transform:scale(1);opacity:.95}100%{transform:scale(1.04);opacity:.84}}
-@keyframes lightSweep{0%,36%{transform:translateX(-80%);opacity:0}46%{opacity:1}68%,100%{transform:translateX(85%);opacity:0}}
-@media(max-width:900px){.lightCanvas{width:min(88%,420px)}}
-@media(prefers-reduced-motion:reduce){.lightCanvas,.lightCanvas span,.lightCanvas::after{animation:none}}
+/* Accessibility, mobile journey, and quieter visual polish */
+/* Only the current wizard screen is mounted. Keep its spacing compact. */
+.start { padding: 40px 0 48px; }
+.flowSection { padding: 32px 0 48px; }
+.flowSection .back { margin: 14px 0 22px; }
+.serviceLayout { min-height: 0; }
+.services aside { padding-top: 32px; padding-bottom: 32px; }
+.services aside .back { margin: 14px 0 22px; }
+.serviceList { padding-top: 32px; padding-bottom: 40px; }
+.kicker,
+.resultNumber { color: #3d6a58; }
+.privacyNote,
+.searchFeedback,
+.progressSummary .narrow > p:last-child { color: #4e5a54; }
+.hero h1 { max-width: 14em; text-wrap: balance; overflow-wrap: break-word; }
+.heroLine { display: block; text-wrap: balance; }
+.heroTitle { max-width: 10em; font-size: clamp(36px, 4.4vw, 58px); }
+.heroSoft { display: none; }
+.heroAction { min-height: 44px; align-items: center; padding: 12px 18px; }
+.hero .heroContent > p:not(.kicker) { max-width: 38rem; text-wrap: pretty; }
+.home:has(.savedBar) { padding-bottom: 88px; }
+.back { min-height: 44px; padding: 8px 2px; display: inline-flex; align-items: center; }
+.quickSearch > div { min-height: 44px; }
+.quickSearch button,
+.savedBar button {
+  min-height: 44px;
+  padding: 0 4px;
+  border: 0;
+  background: transparent;
+  color: #1f5a49;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.searchIcon,
+.nextCue,
+.goalIcon { color: #1f5a49; }
+.searchIcon,
+.nextCue { display: inline-flex; flex: none; }
+.goalIcon svg,
+.searchIcon svg,
+.nextCue svg { width: 18px; height: 18px; display: block; }
+.services aside { overflow: visible; }
+.serviceRow { grid-template-columns: 44px minmax(0, 1fr) auto; }
+.rowMeta { display: flex; align-items: center; justify-content: flex-end; gap: 14px; }
+.rowAction { color: #1f5a49; font-size: 13px; font-weight: 800; white-space: nowrap; }
+.serviceRow:hover .rowAction,
+.serviceRow:focus-visible .rowAction { text-decoration: underline; text-underline-offset: 3px; }
+.empty { padding: 48px 20px; }
+.empty button {
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 8px;
+  background: #1f5a49;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  cursor: pointer;
+}
+.progress {
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 8px 0;
+  margin: 0;
+  padding: 0 0 16px;
+  list-style: none;
+  color: #4e5a54;
+  font-size: 13px;
+}
+.progress li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+  font-weight: 650;
+}
+.progress li:not(:last-child)::after {
+  content: "";
+  width: 16px;
+  height: 1px;
+  margin: 0 8px;
+  background: #c5cec8;
+}
+.progress li span {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #e4ebe7;
+  color: #3d4a44;
+  font-size: 12px;
+  font-weight: 800;
+}
+.progress .current { color: #1f5a49; font-weight: 800; }
+.progress .current span { background: #1f5a49; color: #fff; }
+.progress .done span { background: #dcede5; color: #1f5a49; }
+.mobileLabel { display: none; }
+.progressSummaryHead { flex-wrap: wrap; align-items: flex-end; }
+.progressSummaryHead h2 { min-width: 0; overflow-wrap: break-word; }
+.progressActions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.clearProgress {
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid #1f5a49;
+  border-radius: 8px;
+  background: #fff;
+  color: #1f5a49;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.progressEntries a { min-width: 0; }
+.progressEntries strong,
+.progressEntries small { min-width: 0; overflow-wrap: break-word; }
+@media (min-width: 900px) {
+  .sectionHead h2,
+  .flowSection h2,
+  .helper,
+  .services aside > p { white-space: normal; }
+}
 
-/* Decision support for people who are not sure where to begin */
-.resultNumber{padding-top:3px;color:#5d8777;font-family:var(--mono);font-size:12px;font-weight:700}
-.safeGuide{margin-top:36px}
-.safeOrder{padding:30px 34px;border:1px solid #c5cec8;border-radius:14px;background:#fbfcfa}
-.safeOrder h3{margin:0;font-size:24px;letter-spacing:-.035em}
-.safeOrder ol{margin:26px 0 0;padding:0;list-style:none}
-.safeOrder li{display:grid;grid-template-columns:32px 1fr;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid #e0e5e1}
-.safeOrder li:last-child{border-bottom:0}
-.safeOrder li b{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:#dcede5;color:#1f5a49;font-family:var(--mono);font-size:12px}
-.safeOrder li span{font-size:15px}
-.resultComparison{margin-top:26px;border-top:1px solid #b9c3bd}
-.resultComparison>div{min-height:62px;padding:13px 8px;display:grid;grid-template-columns:1.25fr 1fr 1fr;align-items:center;gap:20px;border-bottom:1px solid #d8dfda;fon}ßÍm¢G§²ÚîÆ­yÛH‹ˆÙÛÎˆ‹ÛÙÛÜËÚ[œÝYÜ˜[KÙXœ‹ˆÙ^]ÛÜ™ÎˆÈš[œÝYÜ˜[H‹™XYÈ‹š[œÝH—Kˆ™XÛÜ™Îˆ”ÝÜËšY[ÜËÛÛ[Y[Ë›Ùš[H‹ˆÝ\ÜˆÈ[]Nˆ»)à;&ä‹ÝÛ›ØYˆ»(l:¬m:í ;)à;&ä‹Y[[ÜšX[ˆ»)à;&äˆKˆKˆÂˆ˜[YNˆ–‹ˆÛYÎˆž‹ˆÙÛÎˆ‹ÛÙÛÜËÞœÝ™È‹ˆÙ^]ÛÜ™ÎˆÈž‹Ú]\ˆ—Kˆ™XÛÜ™Îˆ”ÜÝËYYXKXØÛÝ[]H‹ˆÝ\ÜˆÈ[]Nˆ»)à;&ä‹ÝÛ›ØYˆ»)à;&ä‹Y[[ÜšX[ˆ»)à;&ä;ef;)à;%b»'cˆKˆK—H\ÈÛÛœÝÂ‚˜ÛÛœÝ]YY[˜Ù\ÈHÂˆÂˆYˆ›Z[™Hˆ\ÈÛÛœÝˆ]Nˆ’x &[H[›š[™ÈZXY›Üˆ^HXØÛÝ[È‹ˆ\ØÜš\[ÛŽˆ’HØ[ÈXÚYHÚ]\[œÈÈ^HYÚ][™XÛÜ™Ëˆ‹ˆKˆÂˆYˆ™XÙX\ÙYˆ\ÈÛÛœÝˆ]Nˆ’x &[HX[˜YÚ[™ÈXØÛÝ[È›ÜˆÛÛY[Û™HÚÈYY‹ˆ\ØÜš\[ÛŽˆ’H™YY[Ú]Z\ˆXØÛÝ[ËÝÜË[™Ý\ˆ™XÛÜ™Ëˆ‹ˆKˆÂˆYˆ[œÝ\™Hˆ\ÈÛÛœÝˆ]Nˆ’HÛ¸ &]Û›ÝÈÚ\™HÈÝ\‹ˆ\ØÜš\[ÛŽˆ•Ùx &[^Z[ˆHÜ[ÛœÈ[™ÝZYH[ÝHÛ™HÝ\]H[YKˆ‹ˆK—NÂ‚˜ÛÛœÝÛØ[ÈHÂˆÂˆYˆ™ÝÛ›ØYˆ\ÈÛÛœÝˆ]Nˆ‘ÝÛ›ØYÝÜËÜÝË[™]H‹ˆ\ØÜš\[ÛŽˆ‘š[™Ý]Ú][ÝHØ[ˆÝÛ›ØYÜˆ™\]Y\Ýœ›ÛHXXÚ]›Ü›Kˆ‹ˆKˆÂˆYˆ™[]Hˆ\ÈÛÛœÝˆ]Nˆ‘[]H[ˆXØÛÝ[‹ˆ\ØÜš\[ÛŽˆ”™]šY]ÈÚ]ÈØ]™K[ˆ›ÛÝÈHÝ\ÈÈ\›X[™[H[]HHXØÛÝ[ˆ‹ˆKˆÂˆYˆ›Y[[ÜšX[ˆ\ÈÛÛœÝˆ]Nˆ“Y[[ÜšX[^™H[ˆXØÛÝ[‹ˆ\ØÜš\[ÛŽˆ’ÙY\H\œÛÛ¸ &\È›Ùš[H]˜Z[X›H\ÈHY[[ÜšX[Ú\™HÝ\ÜYˆ‹ˆK—NÂ‚˜ÛÛœÝ[œÝ\™T™\Ý[ÈHÂˆÂˆYˆ™ÝÛ›ØYˆ\ÈÛÛœÝˆ[X™\ŽˆŒH‹ˆ]Nˆ’HØ[ÈØ]™HÝÜÈ[™™XÛÜ™Èš\œÝ‹ˆ\ØÜš\[ÛŽˆ”™]šY]ÈÝÛ›ØYX›H]H™Y›Ü™H[][™È[ž][™Ëˆ‹ˆKˆÂˆYˆ™[]Hˆ\ÈÛÛœÝˆ[X™\ŽˆŒˆ‹ˆ]Nˆ’HØ[È™[[Ý™HXØÛÝ[È[™™XÛÜ™È‹ˆ\ØÜš\[ÛŽˆ”Ø]™H[ž][™È[\Ü[[ˆ™]šY]ÈÝÈÈ[]HHXØÛÝ[ˆ‹ˆKˆÂˆYˆ›Y[[ÜšX[ˆ\ÈÛÛœÝˆ[X™\ŽˆŒÈ‹ˆ]Nˆ’HØ[È™\Ù\™HZ\ˆÛ›[™H™\Ù[˜ÙH‹ˆ\ØÜš\[ÛŽˆ”ÙYHÚXÚ]›Ü›\ÈÝ\ÜY[[ÜšX[^™YXØÛÝ[Ëˆ‹ˆK—NÂ‚™^ÜY˜][[˜Ý[Ûˆ[™Û\ÚÛYTYÙJ
-HÂˆÛÛœÝ›Ý]\ˆH\ÙT›Ý]\Š
-NÂˆÛÛœÝÈ]YY[˜ÙKÛØ[ÚÝÔØY™QÝZYKÝ\ØÜ›ÛÛÚ[™ÙKÚÛÜÙP]YY[˜ÙNˆÙ[XÝ]YY[˜ÙKÚÛÜÙQÛØ[ˆÙ[XÝÛØ[Ü[”ØY™QÝZYKÛÐ˜XÚË™\Ù]›Ý\›™^HHH\ÙRÛYR›Ý\›™^JYJNÂˆÛÛœÝ]ZXÚÔÙX\˜ÚH\ÙPÛÛ\ÜÚ][Û”ÙX\˜Ú
-
-NÂˆÛÛœÝÙ\šXÙTÙX\˜ÚH\ÙPÛÛ\ÜÚ][Û”ÙX\˜Ú
-
-NÂˆÛÛœÝ]ZXÚÔ]Y\žHH]ZXÚÔÙX\˜Úœ]Y\žNÂˆÛÛœÝÙ\šXÙT]Y\žHHÙ\šXÙTÙX\˜Úœ]Y\žNÂˆÛÛœÝÙ]Ù\šXÙT]Y\žHHÙ\šXÙTÙX\˜Úœ™\Ù]Âˆ[˜Ý[ÛˆÚÛÜÙP]YY[˜ÙJ™^ˆ]YY[˜ÙJHÈÙ]Ù\šXÙT]Y\žJˆŠNÈÙ[XÝ]YY[˜ÙJ™^
-NÈBˆ[˜Ý[ÛˆÚÛÜÙQÛØ[
-™^ˆÛØ[
-HÈÙ]Ù\šXÙT]Y\žJˆŠNÈÙ[XÝÛØ[
-™^
-NÈB‚ˆÛÛœÝš[\™YH\ÙSY[[Ê
-
-HOˆÂˆÛÛœÝHHÙ\šXÙT]Y\žKš[J
-KÓÝÙ\Ø\ÙJ
-NÂˆ™]\›ˆÙ\šXÙ\Ë™š[\Š
-ÊHOˆ\HËšÙ^]ÛÜ™ËœÛÛYJ
-ÊHOˆËÓÝÙ\Ø\ÙJ
-Kš[˜ÛY\ÊJJHË›˜[YKÓÝÙ\Ø\ÙJ
-Kš[˜ÛY\ÊJJNÂˆKÜÙ\šXÙT]Y\žWJNÂ‚ˆÛÛœÝ]˜Z[X›QÛØ[ÈH\ÙSY[[Êˆ
-
-HOˆ
-]YY[˜ÙHÈÛØ[Ë™š[\Š
-][JHOˆÛØ[ÐžP]YY[˜ÙVØ]YY[˜ÙWKš[˜ÛY\Ê][KšY
-JHˆÛØ[ÊKˆØ]YY[˜ÙWKˆ
-NÂ‚ˆÛÛœÝÜ™\™YH\ÙSY[[Ê
-
-HOˆÂˆÛÛœÝ]˜Z[X›HHÛØ[ˆÈš[\™Y™š[\Š
-Ù\šXÙJHOˆÚÝ[ÚÝÔÙ\šXÙJÛØ[Ù\šXÙKœÝ\ÜÙÛØ[H\ÈÝ\Ü
-JBˆˆš[\™YÂˆ™]\›ˆÛØ[ˆÈË‹‹˜]˜Z[X›WKœÛÜ
-
-KŠHOˆ˜[šÊKœÝ\ÜÙÛØ[H\ÈÝ\Ü
-HH˜[šÊ‹œÝ\ÜÙÛØ[H\ÈÝ\Ü
-JBˆˆ]˜Z[X›NÂˆKÙš[\™YÛØ[JNÂ‚ˆ[˜Ý[ÛˆÝX›Z]
-Nˆ›Ü›Q]™[
-HÂˆKœ™]™[Y˜][
-
-NÂˆYˆ
-]ZXÚÔÙX\˜Úš\ÐÛÛ\ÜÚ[™Ê
-JH™]\›ŽÂˆÛÛœÝHH]ZXÚÔ]Y\žKš[J
-KÓÝÙ\Ø\ÙJ
-NÂˆYˆ
-\JHÂˆ›Ý]\‹œ\Ú
-‹Ù[‹ÜÙ\šXÙ\ÈŠNÂˆ™]\›ŽÂˆBˆÛÛœÝX]ÚHÙ\šXÙ\Ë™š[™
-ˆ
-ÊHOˆËšÙ^]ÛÜ™ËœÛÛYJ
-ÊHOˆËÓÝÙ\Ø\ÙJ
-Kš[˜ÛY\ÊJJHË›˜[YKÓÝÙ\Ø\ÙJ
-Kš[˜ÛY\ÊJKˆ
-NÂˆYˆ
-X]Ú
-H›Ý]\‹œ\Ú
-ÛÛ\[žR›Ý\›™^R™YŠX]ÚœÛYË]YY[˜ÙKÛØ[YJJNÂˆ[ÙH›Ý]\‹œ\Ú
-Ù[‹ÜÙ\šXÙ\ÏÜOIÙ[˜ÛÙUT’PÛÛ\Û™[
-]ZXÚÔ]Y\žJ_X
-NÂˆB‚ˆ[˜Ý[Ûˆ™\Ù]
-
-HÈ™\Ù]›Ý\›™^J
-NÈÛX\[›ÙÜ™\ÜÊ
-NÈB‚‚ˆ™]\›ˆ
-ˆXZ[ˆÛ\ÜÓ˜[YO^ÜÝ[\ËšÛY_O‚ˆÙXÝ[ÛˆÛ\ÜÓ˜[YO^ÜÝ[\Ëš\›ßO‚ˆ]ˆÛ\ÜÓ˜[YO^ÜÝ[\Ë˜]\›Ü˜_H\šXKZY[HYHˆÏ‚ˆ]ˆÛ\ÜÓ˜[YO^ØÛÛZ[™\ˆ	ÜÝ[\Ëš\›ÑÜšYXO‚ˆ]ˆÛ\ÜÓ˜[YO^ÜÝ[\Ëš\›ÐÛÛ[O‚ˆÛ\ÜÓ˜[YO^ÜÝ[\ËšÚXÚÙ\ŸO‘QÒUSQÐPÖHÕRQSÑOÜ‚ˆHÛ\ÜÓ˜[YO^ÜÝ[\Ëš\›Õ]_O‚ˆÜ[ˆÛ\ÜÓ˜[YO^ÜÝ[\Ëš\›Ó[™_O‘š[™[Ý\ˆ™^Ý\ÜÜ[‚ˆÜ[ˆÛ\ÜÓ˜[YO^ÜÝ[\Ëš\›Ó[™_O˜[[Û™ÈØØ]\™Y™XÛÜ™ËÜÜ[‚ˆÚO‚ˆ‚ˆ™\\™HZXYÜˆš[™ÝZY[˜ÙH›Üˆ[™[™ÈHÝ™YÛ™x &\ÈXØÛÝ[Ë‚ˆÜ‚ˆ]ˆÛ\ÜÓ˜[YO^ÜÝ[\Ëš\›Ô]ßO‚ˆ[šÈ™YH‹Ù[‹Ü™\\™HÜ[ŒOÜÜ[Ý›Û™Ï”[ˆZXYÜÝ›Û™ÏÛX[“XZÙHHÛX\ˆ\ÝÙˆXØÛÝ[È[™™XÛÜ™ÏÜÛX[ˆ\šXKZY[HYH¸¡¤ØÓ[šÏ‚ˆ[šÈ™YH‹Ù[‹ØY\ˆÜ[ŒÜÜ[Ý›Û™ÏY\ˆHX]ÜÝ›Û™ÏÛX[”™]šY]ÈXØÛÝ[È[™™XÛÜ™È][Ý\ˆÝÛˆXÙOÜÛX[ˆ\šXKZY[HYH¸¡¤ØÓ[šÏ‚ˆÙ]‚ˆ[šÈ™YHˆÜÝ\ˆÛ\ÜÓ˜[YO^ÜÝ[\Ëš\›Ô]ZY]O’x &[H›ÝÝ\™HÚ\™HÈ™YÚ[Ó[šÏ‚ˆÙ]‚ˆ]ˆÛ\ÜÓ˜[YO^ÜÝ[\Ë›YÚØ[˜\ßH\šXKZY[HYH‚ˆÜ[ˆÛ\ÜÓ˜[YO^ÜÝ[\Ë›YÚZ[HÏ‚ˆÜ[ˆÛ\ÜÓ˜[YO^ÜÝ[\Ë›YÚ›Y_HÏ‚ˆÜ[ˆÛ\ÜÓ˜[YO^ÜÝ[\Ë›YÚÜ™X[_HÏ‚ˆÜ[ˆÛ\ÜÓ˜[YO^ÜÝ[\Ë›YÚÛÜ™_HÏ‚ˆHÛ\ÜÓ˜[YO^ÜÝ[\Ë›YÚš[™ßHÏ‚ˆÙ]‚ˆÙ]‚ˆÜÙXÝ[Û‚‚ˆÛYUÚ^˜\™ÝYÙHÝ\^ÜÝ\HØÜ›ÛÛÚ[™ÙO^ÜØÜ›ÛÛÚ[™Ù_O‚ˆÜÝ\OOH˜]YY[˜ÙHˆ	‰ˆÙXÝ[ÛˆÛ\ÜÓ˜[YO^ÜÝ[\ËœÝ\O‚ˆ]ˆÛ\ÜÓ˜[YO^ÜÝ[\Ë›˜\œ›ÝßO‚ˆÝZYT›ÙÜ™\ÜÈÝ\^Ì_HØØ[OH™[ˆˆÏ‚ˆ]ˆÛ\ÜÓ˜[YO^ÜÝ[\ËœÙXÝ[Û’XYO‚ˆ]‚ˆÛ\ÜÓ˜[YO^ÜÝ[\ËšÚXÚÙ\ŸO‘ÑUÕT•QÜ‚ˆ•ÚÜÙHXØÛÝ[È\™H[ÝHX[˜YÚ[™ÏÏÚ‚ˆÚÛÜÙH[Ý\ˆÚ]X][ÛˆÈÙYHH[ÜÝ™[]˜[ÝZY[˜ÙKÜ‚ˆÙ]‚ˆ›Ü›HÛ\ÜÓ˜[YO^ÜÝ[\Ëœ]ZXÚÔÙX\˜ÚHÛ”ÝX›Z]^ÜÝX›Z]O‚ˆX™[[›ÜHœ]ZXÚËXÛÛ\[žH‘š[™HÛÛ\[žOÛX™[‚ˆ]‚ˆÜ[ˆÛ\ÜÓ˜[YO^ÜÝ[\ËœÙX\˜ÚXÛÛŸH\šXKZY[HYHÙX\˜ÚXÛÛˆÏÜÜ[‚ˆ[œ]ˆYHœ]ZXÚËXÛÛ\[žH‚ˆË‹‹œ]ZXÚÔÙX\˜Úš[œ]›ÜßBˆXÙZÛ\H™K™ËˆÛÛÙÛK\H‚ˆÏ‚ˆ]Ûˆ\OHœÝX›Z]”ÙX\˜ÚØ]Û‚ˆÙ]‚ˆÙ›Ü›O‚ˆÙ]‚ˆ]ˆÛ\ÜÓ˜[YO^ÜÝ[\Ë˜ÚÚXÙS\ÝO‚ˆØ]YY[˜Ù\Ë›X\
-
-ÊHOˆ
-ˆ]Û‚ˆ\OH˜]Ûˆ‚ˆÙ^O^ÛËšYBˆÛ\ÜÓ˜[YO^Ø]YY[˜ÙHOOHËšYÈÝ[\ËœÙ[XÝYˆˆŸBˆÛÛXÚÏ^Ê
-HOˆÚÛÜÙP]YY[˜ÙJËšY
-_Bˆ\šXK\™\ÜÙY^Ø]YY[˜ÙHOOHËšYBˆ‚ˆÜ[ˆÛ\ÜÓ˜[YO^ÜÝ[\Ëœ˜Y[ßHÏ‚ˆÜ[‚ˆÝ›Û™ÏžÛË]_OÜÝ›Û™Ï‚ˆÛX[žÛË™\ØÜš\[ÛŸOÜÛX[‚ˆÜÜ[‚ˆÜ[ˆÛ\ÜÓ˜[YO^ÜÝ[\Ë›™^ÝY_H\šXKZY[HYHÚ]œ›Û’XÛÛˆÏÜÜ[‚ˆØ]Û‚ˆ
-J_BˆÙ]‚ˆÛ\ÜÓ˜[YO^ÜÝ[\Ëœš]˜XÞS›Ý_O‚ˆ[Ý\ˆ›ÙÜ™\ÜÈ\ÈØ]™YÛ›HÛˆ\È]šXÙKˆ›È\œÛÛ˜[]HÜˆØÝ[Y[È\™HÛÛXÝY‚ˆÜ‚ˆÛ\ÜÓ˜[YOHš\ÝX[KZY[ˆˆ\šXK[]™OHœÛ]H‚ˆÙÛØ[ˆÈ”Ý\ËˆÚÛÜÙHHÙ\šXÙHÈÜ[ˆ]ÈÙ™šXÚX[[œÝXÝ[ÛœËˆ‚ˆˆÚÝÔØY™QÝZYBˆÈHØY™\ˆ™]šY]ÈÜ™\ˆ\ÈÜ[‹ˆ[ÝHØ[ˆÝ\Ú]ÝÜÈ[™™XÛÜ™Ëˆ‚ˆˆ]YY[˜ÙBˆÈ”Ý\‹ˆÚÛÜÙHHÚ[™Ùˆ[[ÝH™YYˆ‚ˆˆˆŸBˆÜ‚ˆÙ]‚ˆÜÙXÝ[ÛŸB‚ˆÊÝ\OOH™ÛØ[ˆÝ\OOHœØY™HŠH	‰ˆÙXÝ[ÛˆÛ\ÜÓ˜[YO^ÜÝ[\Ë™›ÝÔÙXÝ[ÛŸO‚ˆ]ˆÛ\ÜÓ˜[YO^ÜÝ[\Ë›˜\œ›ÝßO‚ˆÝZYT›ÙÜ™\ÜÈÝ\^ÌŸHØØ[OH™[ˆˆÏ‚ˆ]Ûˆ\OH˜]ÛˆˆÛ\ÜÓ˜[YO^ÜÝ[\Ë˜˜XÚßHÛÛXÚÏ^ÙÛÐ˜XÚßO‚ˆ˜XÚÂˆØ]Û‚ˆÛ\ÜÓ˜[YO^ÜÝ[\ËšÚXÚÙ\ŸO‚ˆØ]YY[˜ÙHOOH›Z[™H‚ˆÈ”™\\š[™È^HXØÛÝ[È‚ˆˆ]YY[˜ÙHOOH™XÙX\ÙY‚ˆÈ“X[˜YÚ[™ÈXÙX\ÙY\œÛÛ¸ &\ÈXØÛÝ[È‚ˆˆ‘š[™[™È™YYY[ŸBˆÜ‚ˆØ]YY[˜ÙHOOH[œÝ\™HˆÈ
-ˆ‚ˆ•Ú]ÛÝ[[ÝHZÙHÈÈš\œÝÏÚ‚ˆÛ\ÜÓ˜[YO^ÜÝ[\Ëš[\ŸO‚ˆ[ÝHÛ¸ &]™YYÈXÚYH]™\ž][™È›ÝËˆÚÛÜÙHHÝ]ÛÛYH]™Y[ÈÛÜÙ\Ý‚ˆÜ‚ˆÈ\ÚÝÔØY™QÝZYHÈ
-ˆ]ˆÛ\ÜÓ˜[YO^ÜÝ[\Ë™ÛØ[\ÝO‚ˆÝ[œÝ\™T™\Ý[Ë›X\
-
-ÊHOˆ
-ˆ]Ûˆ\OH˜]ÛˆˆÙ^O^ÛËšYHÛÛXÚÏ^Ê
-HOˆÚÛÜÙQÛØ[
-ËšY
-_O‚ˆÜ[ˆÛ\ÜÓ˜[YO^ÜÝ[\Ëœ™\Ý[[X™\ŸOžÛË›[X™\ŸOÜÜ[‚ˆÜ[‚ˆÝ›Û™ÏžÛË]_OÜÝ›Û™Ï‚ˆÛX[žÛË™\ØÜš\[ÛŸOÜÛX[‚ˆÜÜ[‚ˆÜ[ˆÛ\ÜÓ˜[YO^ÜÝ[\Ë›™^ÝY_H\šXKZY[HYHÚ]œ›Û’XÛÛˆÏÜÜ[‚ˆØ]Û‚ˆ
-J_Bˆ]Ûˆ\OH˜]ÛˆˆÛÛXÚÏ^ÛÜ[”ØY™QÝZY_O‚ˆÜ[ˆÛ\ÜÓ˜[YO^ÜÝ[\Ëœ™\Ý[[X™\ŸOŒÜÜ[‚ˆÜ[‚ˆÝ›Û™Ï’x &[HÝ[›ÝÝ\™OÜÝ›Û™Ï‚ˆÛX[•Ùx &[Ø[È›ÝYÚHØY™\ÝÜ™\‹ÜÛX[‚ˆÜÜ[‚ˆÜ[ˆÛ\ÜÓ˜[YO^ÜÝ[\Ë›™^ÝY_H\šXKZY[HYHÚ]œ›Û’XÛÛˆÏÜÜ[‚ˆØ]Û‚ˆÙ]‚ˆ
-Hˆ
-ˆØY™QÝZYHÛ”Ý\^Ê
-HOˆÚÛÜÙQÛØ[
-™ÝÛ›ØYŠ_HÛ˜XÚÏ^ÙÛÐ˜XÚßHÏ‚ˆ
-_BˆÏ‚ˆ
-Hˆ
-ˆ‚ˆ•Ú]ÛÝ[[ÝHZÙHÈÏÏÚ‚ˆÛ\ÜÓ˜[YO^ÜÝ[\Ëš[\ŸO–[Ý\ˆÚÚXÙHÜ[œÈHÙ\šXÙ\È]X]ÚÜ‚ˆ]ˆÛ\ÜÓ˜[YO^ÜÝ[\Ë™ÛØ[\ÝO‚ˆØ]˜Z[X›QÛØ[Ë›X\
-
-ÊHOˆ
-ˆ]Û‚ˆ\OH˜]Ûˆ‚ˆÙ^O^ÛËšYBˆÛÛXÚÏ^Ê
-HOˆÚÛÜÙQÛØ[
-ËšY
-_BˆÛ\ÜÓ˜[YO^ÙÛØ[OOHËšYÈÝ[\ËœÙ[XÝYˆˆŸBˆ\šXK\™\ÜÙY^ÙÛØ[OOHËšYBˆ‚ˆÜ[ˆÛ\ÜÓ˜[YO^ÜÝ[\Ë™ÛØ[XÛÛŸH\šXKZY[HYHÛØ[XÛÛˆY^ÛËšYHÏÜÜ[‚ˆÜ[‚ˆÝ›Û™ÏžÛË]_OÜÝ›Û™Ï‚ˆÛX[žÛË™\ØÜš\[ÛŸOÜÛX[‚ˆÜÜ[‚ˆÜ[ˆÛ\ÜÓ˜[YO^ÜÝ[\Ë›™^ÝY_H\šXKZY[HYHÚ]œ›Û’XÛÛˆÏÜÜ[‚ˆØ]Û‚ˆ
-J_BˆÙ]‚ˆÏ‚ˆ
-_BˆÙ]‚ˆÜÙXÝ[ÛŸB‚ˆÜÝ\OOHœÙ\šXÙ\Èˆ	‰ˆÙXÝ[ÛˆÛ\ÜÓ˜[YO^ÜÝ[\ËœÙ\šXÙ\ßHYHœÙ\šXÙ\È‚ˆ]ˆÛ\ÜÓ˜[YO^ÜÝ[\ËœÙ\šXÙS^[Ý]O‚ˆ\ÚYO‚ˆÝZYT›ÙÜ™\ÜÈÝ\^ÌßHØØ[OH™[ˆˆÏ‚ˆ]Ûˆ\OH˜]ÛˆˆÛ\ÜÓ˜[YO^ÜÝ[\Ë˜˜XÚßHÛÛXÚÏ^ÙÛÐ˜XÚßO‚ˆ˜XÚÂˆØ]Û‚ˆÛ\ÜÓ˜[YO^ÜÝ[\ËšÚXÚÙ\ŸOžÙÛØ[Ë™š[™
-
-
-HOˆšYOOHÛØ[
-OË]_OÜ‚ˆ‚ˆÙÛØ[OOH™ÝÛ›ØYˆÈÚÛÜÙHÚ\™H[Ý\ˆÝÜÈ[™™XÛÜ™È\™HÝÜ™YˆˆÚÛÜÙHHÙ\šXÙHŸBˆÚ‚ˆ‚ˆÙÛØ[OOH›Y[[ÜšX[‚ˆÈ“Û›HÙ\šXÙ\È]Ý\ÜY[[ÜšX[^™YXØÛÝ[È\™HÚÝÛ‹ˆ‚ˆˆÛØ[OOH™ÝÛ›ØY‚ˆÈ’Yˆ[ÝH\ÙHÙ]™\˜[Ù\šXÙ\ËÝ\Ú]HÛ™H]ÛÈ[Ý\ˆ[ÜÝ[\Ü[™XÛÜ™Ëˆ‚ˆˆ”Ù\šXÙ\È]Ý\Ü[Ý\ˆÙ[XÝ[Ûˆ\X\ˆš\œÝˆŸBˆÜ‚ˆX™[Û\ÜÓ˜[YO^ÜÝ[\ËœÙ\šXÙTÙX\˜ÚO‚ˆÜ[ˆÛ\ÜÓ˜[YO^ÜÝ[\ËœÙX\˜ÚXÛÛŸH\šXKZY[HYHÙX\˜ÚXÛÛˆÏÜÜ[‚ˆÜ[ˆÛ\ÜÓ˜[YOHš\ÝX[KZY[ˆ”ÙX\˜ÚÛÛ\[šY\È[™Ù\šXÙ\ÏÜÜ[‚ˆ[œ]ˆË‹‹œÙ\šXÙTÙX\˜Úš[œ]›ÜßBˆXÙZÛ\H”ÙX\˜ÚÛÛ\[šY\È[™Ù\šXÙ\È‚ˆ\šXKY\ØÜšX™YžOHœÙ\šXÙK\ÙX\˜Ú\Ý]\È‚ˆÏ‚ˆÛX™[‚ˆÛX[YHœÙ\šXÙK\ÙX\˜Ú\Ý]\ÈˆÛ\ÜÓ˜[YO^ÜÝ[\ËœÙX\˜Ú™YY˜XÚßH\šXK[]™OHœÛ]H‚ˆÜÙ\šXÙT]Y\žKš[J
-BˆÈ	ÛÜ™\™Y›[™ÝHÙ\šXÙ\È›Ý[™˜ˆˆ•\HHÛÛ\[žHÜˆÙ\šXÙH˜[YKˆŸBˆÜÛX[‚ˆØ\ÚYO‚‚ˆ]ˆÛ\ÜÓ˜[YO^ÜÝ[\ËœÙ\šXÙS\ÝO‚ˆÛÜ™\™Y›X\
-
-ÊHOˆÂˆÛÛœÝÝ]\ÈHÛØ[È
-ËœÝ\ÜÙÛØ[H\ÈÝ\Ü
-Hˆ»fe{'n;ea;&¥ŽÂˆÛÛœÝÛÛ^H™]ÈT“ÙX\˜Ú\˜[\Ê
-NÂˆYˆ
-]YY[˜ÙJHÛÛ^œÙ]
-˜]YY[˜ÙH‹]YY[˜ÙJNÂˆYˆ
-ÛØ[
-HÛÛ^œÙ]
-™ÛØ[‹ÛØ[
-NÂˆ™]\›ˆ
-ˆ[šÂˆ™Y^ØÙ[‹ØÛÛ\[žKÉÜËœÛYßOÉØÛÛ^ÔÝš[™Ê
-_XBˆÙ^O^ÜËœÛYßBˆÛ\ÜÓ˜[YO^ÜÝ[\ËœÙ\šXÙT›ÝßBˆ‚ˆ[YÈÜ˜Ï^ÜË›ÙÛßH[HˆˆÏ‚ˆÜ[‚ˆÝ›Û™ÏžÜË›˜[Y_OÜÝ›Û™Ï‚ˆÛX[žÙÛØ[OOH™ÝÛ›ØYˆÈËœ™XÛÜ™ÈˆÛØ[Ë™š[™
-
-
-HOˆšYOOHÛØ[
-OË]_OÜÛX[‚ˆÜÜ[‚ˆÜ[ˆÛ\ÜÓ˜[YO^ÜÝ[\Ëœ›ÝÓY]_O‚ˆÜ[ˆÛ\ÜÓ˜[YO^Ø	ÜÝ[\ËœÝ]\ßH	ÜÝ[\ÖÜÝ]\ÐÛ\ÜÊÝ]\ÊW_XO‚ˆÜÝ]\ÓX™[
-Ý]\Ê_BˆÜÜ[‚ˆÜ[ˆÛ\ÜÓ˜[YO^ÜÝ[\Ëœ›ÝÐXÝ[ÛŸO•šY]ÈÝ\ÏÜÜ[‚ˆÜÜ[‚ˆÓ[šÏ‚ˆ
-NÂˆJ_BˆÈ[Ü™\™Y›[™Ý	‰ˆ
-ˆ]ˆÛ\ÜÓ˜[YO^ÜÝ[\Ë™[\_H\šXK[]™OHœÛ]H‚ˆÝ›Û™Ï‚ˆÙÛØ[OOH›Y[[ÜšX[‚ˆÈ“Y[[ÜšX[^™YXØÛÝ[È\™[¸ &]]˜Z[X›H›Üˆ\ÈÙ\šXÙKˆ‚ˆˆ“›ÈÙ\šXÙ\È›Ý[™ˆŸBˆÜÝ›Û™Ï‚ˆ‚ˆÙÛØ[OOH›Y[[ÜšX[‚ˆÈ•žH[›Ý\ˆÛÛ\[žHÜˆÛÈ˜XÚÈ[™ÚÛÜÙHHY™™\™[Ü[Û‹ˆ‚ˆˆ•žHHY™™\™[ÙX\˜ÚÜˆšY]È[Ù\šXÙ\ËˆŸBˆÜ‚ˆ]Ûˆ\OH˜]ÛˆˆÛÛXÚÏ^Ê
-HOˆÙ]Ù\šXÙT]Y\žJˆŠ_O•šY]È[Ù\šXÙ\ÏØ]Û‚ˆÙ]‚ˆ
-_BˆÙ]‚ˆÙ]‚ˆÜÙXÝ[ÛŸBˆÒÛYUÚ^˜\™ÝYÙO‚ˆÜÝ\OOH˜]YY[˜ÙHˆ	‰ˆ›ÙÜ™\ÜÔÝ[[X\žHØØ[OH™[ˆˆÏŸB‚ˆÊ]YY[˜ÙHÛØ[
-H	‰ˆ
-ˆ]ˆÛ\ÜÓ˜[YO^ÜÝ[\ËœØ]™Y˜\ŸO‚ˆÜ[–[Ý\ˆ›ÙÜ™\ÜÈ\ÈØ]™YÛˆ\È]šXÙKÜÜ[‚ˆ]Ûˆ\OH˜]ÛˆˆÛÛXÚÏ^Ü™\Ù]OÛX\ˆ›ÙÜ™\ÜÏØ]Û‚ˆÙ]‚ˆ
-_BˆÛXZ[‚ˆ
-NÂŸB‚™[˜Ý[Ûˆ˜[šÊÝ]\ÎˆÝ\Ü
-HÂˆ™]\›ˆÈ;)à;&äˆ»(l:¬m:í ;)à;&äŽˆK»fe{'n;ea;&¥Žˆ‹»)à;&ä;ef;)à;%b»'cŽˆÈVÜÝ]\×NÂŸB‚™[˜Ý[ÛˆÝ]\ÐÛ\ÜÊÝ]\ÎˆÝ\Ü
-HÂˆ™]\›ˆÝ]\ÈOOH»)à;&ä‚ˆÈœÝ\ÜY‚ˆˆÝ]\ÈOOH»(l:¬m:í ;)à;&ä‚ˆÈ˜ÛÛ™][Û˜[‚ˆˆÝ]\ÈOOH»)à;&ä;ef;)à;%b»'c‚ˆÈ[œÝ\ÜY‚ˆˆ˜ÚXÚÚ[™ÈŽÂŸB‚™[˜Ý[ÛˆÝ]\ÓX™[
-Ý]\ÎˆÝ\Ü
-HÂˆ™]\›ˆÝ]\ÈOOH»)à;&ä‚ˆÈ]˜Z[X›H‚ˆˆÝ]\ÈOOH»(l:¬m:í ;)à;&ä‚ˆÈ”\X[™XÛÜ™ÈÛ›H‚ˆˆÝ]\ÈOOH»)à;&ä;ef;)à;%b»'c‚ˆÈ“›ÝÝ\ÜY‚ˆˆÛÛ\[žH™\šYšXØ][Ûˆ™\]Z\™YŽÂŸB‚™[˜Ý[ÛˆØY™QÝZYJÈÛ”Ý\Û˜XÚÈNˆÈÛ”Ý\ˆ
-
-HOˆ›ÚYÈÛ˜XÚÎˆ
-
-HOˆ›ÚYJHÂˆ™]\›ˆ
-ˆ]ˆÛ\ÜÓ˜[YO^ÜÝ[\ËœØY™QÝZY_O‚ˆ]ˆÛ\ÜÓ˜[YO^ÜÝ[\ËœØY™SÜ™\ŸO‚ˆÛ\ÜÓ˜[YO^ÜÝ[\ËšÚXÚÙ\ŸO”‘PÓÓSQS‘Q‘U’QUÈÔ‘TÜ‚ˆÏ”Ý\Ú]HÝ\È]\™H\™\ÝÈ[™ÏÚÏ‚ˆÛ‚ˆO‚ˆŒOØ‚ˆÜ[ÚXÚÈYˆ\™H\™H[\Ü[ÝÜÈ[™™XÛÜ™ËÜÜ[‚ˆÛO‚ˆO‚ˆŒØ‚ˆÜ[‘ÝÛ›ØY[™Ø]™H[žH]˜Z[X›H]Hš\œÝÜÜ[‚ˆÛO‚ˆO‚ˆŒÏØ‚ˆÜ[‘XÚYHÚ]\ˆÈ[]HHXØÛÝ[Üˆ™\Ù\™H]\ÈHY[[ÜšX[ÜÜ[‚ˆÛO‚ˆO‚ˆØ‚ˆÜ[ÚÛÜÙHHÛÛ\[žH[™™]šY]È]ÈÙ™šXÚX[[œÝXÝ[ÛœËÜÜ[‚ˆÛO‚ˆÛÛ‚ˆÙ]‚‚ˆ]ˆÛ\ÜÓ˜[YO^ÜÝ[\Ëœ™\Ý[ÛÛ\\š\ÛÛŸH\šXK[X™[H“Y]ÙÛÛ\\š\ÛÛˆžH\Ú\™YÝ]ÛÛYH‚ˆ]ˆÛ\ÜÓ˜[YO^ÜÝ[\Ë˜ÛÛ\\š\ÛÛ’XYO‚ˆÜ[–[Ý\ˆÛØ[ÜÜ[‚ˆÜ[™\ÝÜ[ÛÜÜ[‚ˆÜ[Ø[ˆ]™H[™Û™OÏÜÜ[‚ˆÙ]‚ˆ]‚ˆÜ[ÛX[Û\ÜÓ˜[YO^ÜÝ[\Ë›[Øš[SX™[O–[Ý\ˆÛØ[ÜÛX[’HØ[È™\Ù\™H™XÛÜ™ÏÜÜ[‚ˆÝ›Û™ÏÛX[Û\ÜÓ˜[YO^ÜÝ[\Ë›[Øš[SX™[O™\ÝÜ[ÛÜÛX[‘]HÝÛ›ØYÜÝ›Û™Ï‚ˆÜ[ÛX[Û\ÜÓ˜[YO^ÜÝ[\Ë›[Øš[SX™[OØ[ˆ]™H[™Û™OÏÜÛX[•HXØÛÝ[Ý^\ÈXÝ]™OÜÜ[‚ˆÙ]‚ˆ]‚ˆÜ[ÛX[Û\ÜÓ˜[YO^ÜÝ[\Ë›[Øš[SX™[O–[Ý\ˆÛØ[ÜÛX[’HØ[È™[[Ý™HHXØÛÝ[ÜÜ[‚ˆÝ›Û™ÏÛX[Û\ÜÓ˜[YO^ÜÝ[\Ë›[Øš[SX™[O™\ÝÜ[ÛÜÛX[XØÛÝ[[][ÛÜÝ›Û™Ï‚ˆÜ[ÛX[Û\ÜÓ˜[YO^ÜÝ[\Ë›[Øš[SX™[OØ[ˆ]™H[™Û™OÏÜÛX[•\ÝX[HØ[¸ &]™H[™Û™OÜÜ[‚ˆÙ]‚ˆ]‚ˆÜ[ÛX[Û\ÜÓ˜[YO^ÜÝ[\Ë›[Øš[SX™[O–[Ý\ˆÛØ[ÜÛX[’HØ[ÈX]™H[ˆÛ›[™HY[[ÜšX[ÜÜ[‚ˆÝ›Û™ÏÛX[Û\ÜÓ˜[YO^ÜÝ[\Ë›[Øš[SX™[O™\ÝÜ[ÛÜÛX[“Y[[ÜšX[^˜][ÛÜÝ›Û™Ï‚ˆÜ[ÛX[Û\ÜÓ˜[YO^ÜÝ[\Ë›[Øš[SX™[OØ[ˆ]™H[™Û™OÏÜÛX[‘\[™ÈÛˆH]›Ü›OÜÜ[‚ˆÙ]‚ˆÙ]‚‚ˆ]ˆÛ\ÜÓ˜[YO^ÜÝ[\ËœØY™PXÝ[ÛœßO‚ˆ]Ûˆ\OH˜]ÛˆˆÛ\ÜÓ˜[YO^ÜÝ[\ËœÙXÛÛ™\žPXÝ[ÛŸHÛÛXÚÏ^ÛÛ˜XÚßO‚ˆÚÛÜÙH[›Ý\ˆÝ]ÛÛYBˆØ]Û‚ˆ]Ûˆ\OH˜]ÛˆˆÛ\ÜÓ˜[YO^ÜÝ[\Ëœš[X\žPXÝ[ÛŸHÛÛXÚÏ^ÛÛ”Ý\O‚ˆ™]šY]ÈÝÜÈ[™™XÛÜ™Èš\œÝˆØ]Û‚ˆÙ]‚ˆÙ]‚ˆ
-NÂŸB‚
+/* The first screen points to the two situations readers most often face. */
+.hero { min-height: 570px; background: #eef1ef; }
+.hero .heroContent { color: #253c4a; }
+.hero .kicker { color: #718794; }
+.hero .heroContent > p:not(.kicker) { max-width: 39rem; color: #465b63; }
+.hero h1 { max-width: 15em; color: #253c4a; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: clamp(32px, 4.2vw, 54px); letter-spacing: -.055em; line-height: 1.25; }
+.hero .aurora { background: radial-gradient(circle at 40% 42%, rgba(187, 211, 221, .72), rgba(221, 233, 235, .42) 40%, rgba(238, 241, 239, 0) 72%); }
+.heroPaths { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 24px; }
+.heroPaths > a { position: relative; min-height: 112px; padding: 17px 38px 17px 18px; border: 1px solid #cdd5d5; border-radius: 14px; background: #f8f7f2; color: #253c4a; display: grid; align-content: start; gap: 5px; text-decoration: none; transition: border-color .15s ease, background .15s ease, transform .15s ease; }
+.heroPaths > a > span { color: #718794; font: 12px/1.4 ui-monospace, SFMono-Regular, Consolas, monospace; }
+.heroPaths strong { font-size: 17px; }
+.heroPaths small { color: #536a74; font-size: 12px; line-height: 1.45; }
+.heroPaths b { position: absolute; right: 15px; top: 50%; color: #253c4a; font: 20px/1 ui-monospace, SFMono-Regular, Consolas, monospace; transform: translateY(-50%); }
+.heroPaths > a:hover,.heroPaths > a:focus-visible { border-color: #718794; background: #fff; transform: translateY(-2px); outline: 0; }
+.heroQuiet { display: inline-flex; min-height: 44px; margin-top: 8px; align-items: center; color: #465b63; font-size: 13px; text-decoration: underline; text-underline-offset: 4px; }
+.heroQuiet:hover,.heroQuiet:focus-visible { color: #253c4a; }
+.hero .heroAction { background: #253c4a; color: #fff; }
+@media (max-width: 760px) { .hero { min-height: 0; padding: 66px 0 48px; } .heroPaths { grid-template-columns: 1fr; } .heroPaths > a { min-height: 96px; } }
+@media (prefers-reduced-motion: reduce) { .heroPaths > a { transition: none; } }
+@media (max-width: 760px) {
+  .mobileLabel {
+    display: block;
+    margin-bottom: 2px;
+    color: #4e5a54;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .resultComparison strong { display: grid; }
+}
+@media (max-width: 640px) {
+  .heroSoft { display: inline; }
+  .hero h1 { font-size: clamp(28px, 7.6vw, 34px); max-width: none; line-height: 1.32; letter-spacing: -0.045em; }
+  .serviceRow { grid-template-columns: 44px minmax(0, 1fr); }
+  .serviceRow .rowMeta {
+    grid-column: 2;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+  }
+  .rowAction { min-height: 44px; display: inline-flex; align-items: center; }
+  .goalList button { grid-template-columns: 38px minmax(0, 1fr) 18px; }
+  .choiceList button { grid-template-columns: 26px minmax(0, 1fr) 18px; }
+  .savedBar { align-items: center; }
+  .progress li { font-size: 12px; }
+}
