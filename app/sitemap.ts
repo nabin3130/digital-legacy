@@ -20,9 +20,12 @@ type PublicRoute = {
  * /company/facebook redirects to /company/meta.
  */
 const STATIC_ROUTES: PublicRoute[] = [
-  { path: "/", changeFrequency: "weekly", priority: 1, lastModified: "2026-08-23" },
-  { path: "/services", changeFrequency: "weekly", priority: 0.9, lastModified: "2026-08-23" },
-  { path: "/prepare", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-08-23" },
+  { path: "/", changeFrequency: "weekly", priority: 1, lastModified: "2026-10-30" },
+  { path: "/services", changeFrequency: "weekly", priority: 0.9, lastModified: "2026-10-30" },
+  { path: "/prepare", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-10-30" },
+  { path: "/after", changeFrequency: "monthly", priority: 0.9, lastModified: "2026-10-30" },
+  { path: "/templates", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-10-30" },
+  { path: "/crypto", changeFrequency: "monthly", priority: 0.6, lastModified: "2026-10-30" },
   { path: "/compare", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-08-23" },
   { path: "/guide", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-08-23" },
   { path: "/about", changeFrequency: "monthly", priority: 0.5, lastModified: "2026-08-23" },
@@ -62,9 +65,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
   );
 
   const guides = getPublishedGuides();
+  const guideIndexLanguages = {
+    "ko-KR": `${SITE_URL}/guides`, en: `${SITE_URL}/en/guides`, "x-default": `${SITE_URL}/guides`,
+  };
   const guideEntries: MetadataRoute.Sitemap = [
-    { url: `${SITE_URL}/guides`, lastModified: getGuideIndexUpdated(guides), changeFrequency: "weekly", priority: 0.8 },
-    ...guides.map((guide) => ({ url: `${SITE_URL}/guides/${guide.slug}`, lastModified: guide.updated ?? guide.date, changeFrequency: "monthly" as const, priority: 0.7 })),
+    { url: `${SITE_URL}/guides`, lastModified: getGuideIndexUpdated(guides), changeFrequency: "weekly", priority: 0.8, alternates: { languages: guideIndexLanguages } },
+    { url: `${SITE_URL}/en/guides`, lastModified: "2026-10-30", changeFrequency: "weekly", priority: 0.8, alternates: { languages: guideIndexLanguages } },
+    ...guides.flatMap((guide) => {
+      const ko = `${SITE_URL}/guides/${guide.slug}`;
+      const en = `${SITE_URL}/en/guides/${guide.slug}`;
+      const languages = { "ko-KR": ko, en, "x-default": ko };
+      return [
+        { url: ko, lastModified: guide.updated ?? guide.date, changeFrequency: "monthly" as const, priority: 0.7, alternates: { languages } },
+        { url: en, lastModified: "2026-10-30", changeFrequency: "monthly" as const, priority: 0.7, alternates: { languages } },
+      ];
+    }),
   ];
   return [...staticEntries, ...companyEntries, ...guideEntries];
 }

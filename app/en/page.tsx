@@ -199,18 +199,19 @@ export default function EnglishHomePage() {
         <div className={styles.aurora} aria-hidden="true" />
         <div className={`container ${styles.heroGrid}`}>
           <div className={styles.heroContent}>
-            <p className={styles.kicker}>DIGITAL LEGACY GUIDE</p>
+            <p className={styles.kicker}>DIGITAL LEGACY GUIDANCE</p>
             <h1 className={styles.heroTitle}>
-              <span className={styles.heroLine}>Make sense of</span>
-              <span className={styles.heroLine}>the digital records</span>
-              <span className={styles.heroLine}>left behind.</span>
+              <span className={styles.heroLine}>Find your next step</span>
+              <span className={styles.heroLine}>among scattered records.</span>
             </h1>
             <p>
-              Find official guidance for downloading data, deleting accounts, and preserving profiles as memorials.
+              Prepare ahead or find guidance for handling a loved one’s accounts.
             </p>
-            <a href="#start" className={styles.heroAction}>
-              Get started
-            </a>
+            <div className={styles.heroPaths}>
+              <Link href="/en/prepare"><span>01</span><strong>Plan ahead</strong><small>Make a clear list of accounts and records</small><b aria-hidden="true">→</b></Link>
+              <Link href="/en/after"><span>02</span><strong>After a death</strong><small>Review accounts and records at your own pace</small><b aria-hidden="true">→</b></Link>
+            </div>
+            <Link href="#start" className={styles.heroQuiet}>I’m not sure where to begin</Link>
           </div>
           <div className={styles.lightCanvas} aria-hidden="true">
             <span className={styles.lightMint} />
