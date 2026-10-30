@@ -68,7 +68,6 @@ export default function SiteHeader() {
           <Link href={servicesPath} onClick={close} aria-current={pathname === servicesPath || pathname.startsWith(`${prefix}/company`) ? "page" : undefined}>
             {isEnglish ? "Services" : "서비스"}
           </Link>
-          <Link href={`${prefix}/templates`} onClick={close} aria-current={pathname === `${prefix}/templates` ? "page" : undefined}>{isEnglish ? "Templates" : "템플릿"}</Link>
           <Link href={`${prefix}/guides`} onClick={close} aria-current={pathname === `${prefix}/guides` || pathname.startsWith(`${prefix}/guides/`) ? "page" : undefined}>
             {isEnglish ? "Guides" : "가이드"}
           </Link>

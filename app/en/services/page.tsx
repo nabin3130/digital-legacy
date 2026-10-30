@@ -117,7 +117,7 @@ function EnglishServicesDirectory() {
             </div>
           )}
         </div>
-        <p className={styles.sideLink}>For crypto exchange accounts and self-custody wallets, see <Link href="/en/crypto">Korea-focused crypto guidance</Link>.</p>
+        
       </div>
     </main>
   );

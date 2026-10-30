@@ -24,8 +24,6 @@ const STATIC_ROUTES: PublicRoute[] = [
   { path: "/services", changeFrequency: "weekly", priority: 0.9, lastModified: "2026-10-30" },
   { path: "/prepare", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-10-30" },
   { path: "/after", changeFrequency: "monthly", priority: 0.9, lastModified: "2026-10-30" },
-  { path: "/templates", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-10-30" },
-  { path: "/crypto", changeFrequency: "monthly", priority: 0.6, lastModified: "2026-10-30" },
   { path: "/compare", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-08-23" },
   { path: "/guide", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-08-23" },
   { path: "/about", changeFrequency: "monthly", priority: 0.5, lastModified: "2026-08-23" },

@@ -211,7 +211,6 @@ export default function EnglishHomePage() {
               <Link href="/en/prepare"><span>01</span><strong>Plan ahead</strong><small>Make a clear list of accounts and records</small><b aria-hidden="true">→</b></Link>
               <Link href="/en/after"><span>02</span><strong>After a death</strong><small>Review accounts and records at your own pace</small><b aria-hidden="true">→</b></Link>
             </div>
-            <Link href="#start" className={styles.heroQuiet}>I’m not sure where to begin</Link>
           </div>
           <div className={styles.lightCanvas} aria-hidden="true">
             <span className={styles.lightMint} />
@@ -223,7 +222,7 @@ export default function EnglishHomePage() {
         </div>
       </section>
 
-      <HomeWizardStage step={step} scrollOnChange={scrollOnChange}>
+      <HomeWizardStage step={step} scrollOnChange={scrollOnChange} summary="Find a company guide step by step">
       {step === "audience" && <section className={styles.start}>
         <div className={styles.narrow}>
           <GuideProgress step={1} locale="en" />

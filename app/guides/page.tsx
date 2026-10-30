@@ -17,7 +17,6 @@ export default function GuidesPage() {
       {guide.tags.length > 0 && <ul className={styles.tags} aria-label="주제">{guide.tags.map((tag) => <li key={tag}>{tag}</li>)}</ul>}
     </li>)}</ul>
     {!guides.length && <p>가이드를 준비하고 있습니다.</p>}
-    <p className={styles.notice}>가상자산 계정과 개인 지갑에 관한 한국 안내는 <Link href="/crypto">가상자산 안내</Link>에서 확인하세요.</p>
     <aside className={styles.cta}><h2>내 상황에 맞는 절차가 필요하신가요?</h2><p>누구의 계정인지, 어떤 도움이 필요한지 고르면 회사별 안내로 이어집니다.</p><Link href="/#start">안내 시작하기</Link></aside>
   </div></main>;
 }

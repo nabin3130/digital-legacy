@@ -6,7 +6,7 @@ import styles from "./HomeWizardStage.module.css";
 
 const order: HomeStep[] = ["audience", "goal", "safe", "services"];
 
-export default function HomeWizardStage({ step, scrollOnChange = true, children }: { step: HomeStep; scrollOnChange?: boolean; children: ReactNode }) {
+export default function HomeWizardStage({ step, scrollOnChange = true, children, summary }: { step: HomeStep; scrollOnChange?: boolean; children: ReactNode; summary: string }) {
   const [renderedStep, setRenderedStep] = useState(step);
   const latestChildren = useRef(children);
   const outgoingChildren = useRef(children);
@@ -14,7 +14,7 @@ export default function HomeWizardStage({ step, scrollOnChange = true, children 
   if (step === renderedStep) outgoingChildren.current = children;
   const [phase, setPhase] = useState("");
   const currentStep = useRef(step);
-  const root = useRef<HTMLDivElement>(null);
+  const root = useRef<HTMLDetailsElement>(null);
 
   useEffect(() => {
     if (step === currentStep.current) {
@@ -63,10 +63,11 @@ export default function HomeWizardStage({ step, scrollOnChange = true, children 
     return () => { clearTimeout(exitTimer); clearTimeout(enterTimer); if (focusFrame !== undefined) cancelAnimationFrame(focusFrame); };
   }, [step, scrollOnChange]);
 
-  return <div id="start" ref={root} className={styles.stage} data-wizard-step={renderedStep}>
+  return <details id="start" ref={root} className={styles.stage} data-wizard-step={renderedStep}>
+    <summary>{summary}</summary>
     <div className={phase ? styles[phase] : undefined} inert={phase ? true : undefined} aria-busy={phase ? true : undefined}>
       {/* Same-step input updates must reach React's DOM commit synchronously, not through an effect snapshot. */}
       {step === renderedStep ? children : outgoingChildren.current}
     </div>
-  </div>;
+  </details>;
 }

@@ -10,7 +10,6 @@ export type Guide = {
   description: string;
   date: string;
   updated?: string;
-  reviewed?: string;
   tags: string[];
   draft: boolean;
   faq: GuideFaq[];
@@ -49,15 +48,12 @@ export function parseGuide(source: string, slug: string): Guide {
   const published = date(data.date, "date");
   const updated = data.updated === undefined ? undefined : date(data.updated, "updated");
   if (updated && updated < published) throw new Error(`Guide ${slug}: updated cannot precede date`);
-  const reviewed = data.reviewed === undefined ? undefined : text(data.reviewed, "reviewed");
-  if (reviewed && !/^\d{4}-\d{2}$/.test(reviewed)) throw new Error(`Guide ${slug}: reviewed must use YYYY-MM format`);
   return {
     slug,
     title: text(data.title, "title"),
     description: text(data.description, "description"),
     date: published,
     updated,
-    reviewed,
     tags: (data.tags ?? []).map((tag: unknown) => text(tag, "tag")),
     draft: data.draft ?? false,
     faq: (data.faq ?? []).map((entry: unknown) => {

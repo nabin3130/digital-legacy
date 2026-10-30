@@ -25,7 +25,7 @@ export default async function GuidePage({ params }: Props) {
     <nav aria-label="현재 위치" className={styles.breadcrumb}><Link href="/">홈</Link><span aria-hidden="true">/</span><Link href="/guides">가이드</Link><span aria-hidden="true">/</span><span aria-current="page">{guide.title}</span></nav>
     <article>
       <header className={styles.header}><p className={styles.eyebrow}>디지털 유산 가이드</p><h1>{guide.title}</h1>
-        <div className={styles.meta}>{guide.reviewed && <span>최종 확인: <time dateTime={guide.reviewed}>{guide.reviewed}</time></span>}<span>게시 <time dateTime={guide.date}>{guide.date}</time></span>{guide.updated && <span>수정 <time dateTime={guide.updated}>{guide.updated}</time></span>}<span>글: 로그아웃</span></div>
+        <div className={styles.meta}><span>게시 <time dateTime={guide.date}>{guide.date}</time></span>{guide.updated && <span>수정 <time dateTime={guide.updated}>{guide.updated}</time></span>}<span>글: 로그아웃</span></div>
       </header>
       <p className={styles.lead}>{guide.lead}</p>
       {headings.length >= 3 && <nav className={styles.toc} aria-label="이 글의 목차"><h2>이 글에서 알아볼 내용</h2><ol>{headings.map((heading) => <li key={heading.id} className={heading.depth === 3 ? styles.subheading : undefined}><a href={`#${heading.id}`}>{heading.title}</a></li>)}{guide.faq.length > 0 && <li><a href="#guide-faq">자주 묻는 질문</a></li>}</ol></nav>}
