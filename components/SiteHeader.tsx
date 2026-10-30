@@ -38,7 +38,6 @@ export default function SiteHeader() {
   }, []);
 
   const close = () => setMenuOpen(false);
-  const homePath = prefix || "/";
   const servicesPath = `${prefix}/services`;
   const preparePath = `${prefix}/prepare`;
 
@@ -64,17 +63,13 @@ export default function SiteHeader() {
           {menuOpen ? (isEnglish ? "Close" : "닫기") : isEnglish ? "Menu" : "메뉴"}
         </button>
         <nav id="site-navigation" className={`navlinks ${menuOpen ? "open" : ""}`} aria-label={isEnglish ? "Main navigation" : "주요 메뉴"}>
-          <Link href={isEnglish ? "/en#start" : "/#start"} onClick={close} aria-current={pathname === homePath ? "page" : undefined}>
-            {isEnglish ? "Get started" : "안내 시작"}
-          </Link>
+          <Link href={preparePath} onClick={close} aria-current={pathname === preparePath ? "page" : undefined}>{isEnglish ? "Plan ahead" : "미리 준비"}</Link>
+          <Link href={`${prefix}/after`} onClick={close} aria-current={pathname === `${prefix}/after` ? "page" : undefined}>{isEnglish ? "After a death" : "돌아가신 뒤"}</Link>
           <Link href={servicesPath} onClick={close} aria-current={pathname === servicesPath || pathname.startsWith(`${prefix}/company`) ? "page" : undefined}>
-            {isEnglish ? "Company guides" : "회사별 안내"}
+            {isEnglish ? "Services" : "서비스"}
           </Link>
-          <Link href={preparePath} onClick={close} aria-current={pathname === preparePath || pathname.startsWith(`${preparePath}/`) ? "page" : undefined}>
-            {isEnglish ? "Documents" : "준비서류"}
-          </Link>
-          <Link href="/guides" onClick={close} aria-current={pathname === "/guides" || pathname.startsWith("/guides/") ? "page" : undefined}>
-            {isEnglish ? "Guides (한국어)" : "가이드"}
+          <Link href={`${prefix}/guides`} onClick={close} aria-current={pathname === `${prefix}/guides` || pathname.startsWith(`${prefix}/guides/`) ? "page" : undefined}>
+            {isEnglish ? "Guides" : "가이드"}
           </Link>
           <div className="language-menu" ref={languageRef}>
             <button

@@ -1,4 +1,4 @@
-import { pageMetadata, absoluteUrl, ogImage } from "@/lib/seo";
+import { pageMetadata, absoluteUrl, englishPath, ogImage } from "@/lib/seo";
 import { SITE_URL } from "@/lib/site";
 import type { Guide } from "@/lib/guides";
 
@@ -6,8 +6,7 @@ export function guideMetadata(path: string, title: string, description: string, 
   const metadata = pageMetadata({ locale: "ko", koPath: path, title, description, languages: false, ogType: guide ? "article" : "website" });
   return {
     ...metadata,
-    // No English counterpart exists yet; do not inherit the root /en alternate.
-    alternates: { canonical: path, languages: { "ko-KR": path } },
+    alternates: { canonical: path, languages: { "ko-KR": path, en: englishPath(path), "x-default": path } },
     openGraph: {
       ...metadata.openGraph,
       alternateLocale: [],

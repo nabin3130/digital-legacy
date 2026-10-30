@@ -1,37 +1,30 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { commonDocuments, commonProcedures } from "@/lib/common-guidance";
 import { pageMetadata } from "@/lib/seo";
+import ContentHub from "@/components/ContentHub";
+import { prepareGuides } from "@/lib/hubs";
 import styles from "./Prepare.module.css";
 
 export const metadata: Metadata = pageMetadata({
   locale: "ko",
   koPath: "/prepare",
-  title: "준비서류",
-  description: "계정 삭제, 데이터 다운로드, 추모 계정을 진행하기 전에 자주 필요한 서류와 순서를 확인합니다.",
+  title: "미리 준비",
+  description: "디지털 계정과 기록을 정리해 두는 방법, 가족에게 안내를 남기는 방법을 살펴봅니다.",
 });
 
 const safeInheritance = commonProcedures.find((item) => item.id === "safe-inheritance");
 
 export default function PreparePage() {
   return (
+    <>
+    <ContentHub asSection locale="ko" label="미리 준비" title="미리 준비" intro="오늘 계정 목록과 설정을 정리해 두면, 나중에 가족이 필요한 경로를 찾는 데 도움이 됩니다." guides={prepareGuides} note="이 양식에는 비밀번호, 복구 코드, 비밀 복구 문구를 적지 마세요. 접근 정보는 신뢰할 수 있는 별도 보관 방법을 사용하세요." />
     <main className={styles.page}>
       <div className="container">
         <header className={styles.heading}>
-          <p className="eyebrow">준비서류</p>
-          <h1>디지털 계정 정리를 준비해요</h1>
-          <p>회사별 절차를 시작하기 전에 자주 필요한 서류와 진행 순서를 확인하세요.</p>
+          <p className="eyebrow">필요한 서류</p>
+          <h2>신청 전에 필요한 서류 확인하기</h2>
+          <p>요구 서류는 회사와 요청 목적에 따라 다릅니다. 아래 내용은 용도 파악을 위한 참고로 확인하세요.</p>
         </header>
-
-        <section className={`${styles.section} ${styles.processSection}`} aria-labelledby="process-title">
-          <div className={styles.sectionHeading}><h2 id="process-title">진행 순서</h2></div>
-          <ol className={styles.flow}>
-            <li><strong>1</strong><span>필요한 서류를 준비해요.</span></li>
-            <li><strong>2</strong><span>회사를 선택해요.</span></li>
-            <li><strong>3</strong><span>회사별 안내를 따라가요.</span></li>
-          </ol>
-          <Link className={styles.companyLink} href="/services">회사 선택하기</Link>
-        </section>
 
         <section id="documents" className={styles.section} aria-labelledby="documents-title">
           <div className={styles.sectionHeading}>
@@ -73,5 +66,6 @@ export default function PreparePage() {
         )}
       </div>
     </main>
+    </>
   );
 }

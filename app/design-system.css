@@ -1,14 +1,14 @@
 :root {
-  --brand-primary: #1f5a49;
-  --brand-primary-hover: #16483a;
-  --brand-focus: rgba(31, 90, 73, 0.24);
-  --brand-soft: #e6f0eb;
-  --brand-surface: #fbfcfa;
-  --brand-text: #18211d;
-  --brand-muted: #65716b;
-  --brand-border: #c5cec8;
+  --brand-primary: #253c4a;
+  --brand-primary-hover: #385766;
+  --brand-focus: rgba(37, 60, 74, 0.24);
+  --brand-soft: #eaf2f6;
+  --brand-surface: #f8f7f2;
+  --brand-text: #172832;
+  --brand-muted: #718794;
+  --brand-border: #cdd5d5;
   --accent: var(--brand-primary);
-  --highlight: #276557;
+  --highlight: #756a8e;
   --text: var(--brand-text);
   --muted: var(--brand-muted);
   --border: var(--brand-border);

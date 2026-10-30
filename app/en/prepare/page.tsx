@@ -1,50 +1,30 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { commonDocuments, commonProcedures } from "@/lib/common-guidance";
 import { pageMetadata } from "@/lib/seo";
+import ContentHub from "@/components/ContentHub";
+import { prepareGuidesEn } from "@/lib/hubs";
 import styles from "@/app/prepare/Prepare.module.css";
 
 export const metadata: Metadata = pageMetadata({
   locale: "en",
   koPath: "/prepare",
-  title: "Documents",
-  description: "Documents and the usual order of steps before you request account deletion, a data download, or a memorial account.",
+  title: "Plan ahead",
+  description: "Prepare a digital account inventory, review account settings, and leave clear instructions for family.",
 });
 
 const safeInheritance = commonProcedures.find((item) => item.id === "safe-inheritance");
 
 export default function EnglishPreparePage() {
   return (
+    <>
+    <ContentHub asSection locale="en" label="PLAN AHEAD" title="Plan ahead" intro="A short account list and a few settings can help family find the right route later." guides={prepareGuidesEn} note="Do not write passwords, recovery codes, or wallet recovery phrases on these forms. Store access information separately using a method you trust." />
     <main className={styles.page}>
       <div className="container">
         <header className={styles.heading}>
           <p className="eyebrow">DOCUMENTS</p>
-          <h1>Get your documents ready</h1>
-          <p>Review documents commonly requested before you start with a specific company.</p>
+          <h2>Documents for a company request</h2>
+          <p>Requirements vary by company and request. Use this section for orientation, then follow the company’s official instructions.</p>
         </header>
-
-        <section className={`${styles.section} ${styles.processSection}`} aria-labelledby="process-title">
-          <div className={styles.sectionHeading}>
-            <h2 id="process-title">How it works</h2>
-          </div>
-          <ol className={styles.flow}>
-            <li>
-              <strong>1</strong>
-              <span>Gather the required documents.</span>
-            </li>
-            <li>
-              <strong>2</strong>
-              <span>Choose a company.</span>
-            </li>
-            <li>
-              <strong>3</strong>
-              <span>Follow the company’s official instructions.</span>
-            </li>
-          </ol>
-          <Link className={styles.companyLink} href="/en/services">
-            Choose a company
-          </Link>
-        </section>
 
         <section id="documents" className={styles.section} aria-labelledby="documents-title">
           <div className={styles.sectionHeading}>
@@ -111,5 +91,6 @@ export default function EnglishPreparePage() {
         )}
       </div>
     </main>
+    </>
   );
 }

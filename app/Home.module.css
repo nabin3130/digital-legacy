@@ -209,6 +209,26 @@
   .helper,
   .services aside > p { white-space: normal; }
 }
+
+/* The first screen points to the two situations readers most often face. */
+.hero { min-height: 570px; background: #eef1ef; }
+.hero .heroContent { color: #253c4a; }
+.hero .kicker { color: #718794; }
+.hero .heroContent > p:not(.kicker) { max-width: 39rem; color: #465b63; }
+.hero h1 { max-width: 15em; color: #253c4a; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: clamp(32px, 4.2vw, 54px); letter-spacing: -.055em; line-height: 1.25; }
+.hero .aurora { background: radial-gradient(circle at 40% 42%, rgba(187, 211, 221, .72), rgba(221, 233, 235, .42) 40%, rgba(238, 241, 239, 0) 72%); }
+.heroPaths { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 24px; }
+.heroPaths > a { position: relative; min-height: 112px; padding: 17px 38px 17px 18px; border: 1px solid #cdd5d5; border-radius: 14px; background: #f8f7f2; color: #253c4a; display: grid; align-content: start; gap: 5px; text-decoration: none; transition: border-color .15s ease, background .15s ease, transform .15s ease; }
+.heroPaths > a > span { color: #718794; font: 12px/1.4 ui-monospace, SFMono-Regular, Consolas, monospace; }
+.heroPaths strong { font-size: 17px; }
+.heroPaths small { color: #536a74; font-size: 12px; line-height: 1.45; }
+.heroPaths b { position: absolute; right: 15px; top: 50%; color: #253c4a; font: 20px/1 ui-monospace, SFMono-Regular, Consolas, monospace; transform: translateY(-50%); }
+.heroPaths > a:hover,.heroPaths > a:focus-visible { border-color: #718794; background: #fff; transform: translateY(-2px); outline: 0; }
+.heroQuiet { display: inline-flex; min-height: 44px; margin-top: 8px; align-items: center; color: #465b63; font-size: 13px; text-decoration: underline; text-underline-offset: 4px; }
+.heroQuiet:hover,.heroQuiet:focus-visible { color: #253c4a; }
+.hero .heroAction { background: #253c4a; color: #fff; }
+@media (max-width: 760px) { .hero { min-height: 0; padding: 66px 0 48px; } .heroPaths { grid-template-columns: 1fr; } .heroPaths > a { min-height: 96px; } }
+@media (prefers-reduced-motion: reduce) { .heroPaths > a { transition: none; } }
 @media (max-width: 760px) {
   .mobileLabel {
     display: block;
